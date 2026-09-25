@@ -30,9 +30,10 @@ const sample = [
     phone: '+65 8123 4567', property_types: 'HDB,Condo', styles: 'Minimalist,Scandinavian',
     service_areas: 'Islandwide', featured: 1,
     bio: 'We specialize in clean, functional renovations for HDB and condo homeowners who want a calm, clutter-free space.',
+    logoUrl: '/images/northgate1.jpg',
     projects: [
-      { title: '4-Room HDB, Punggol', property_type: 'HDB', style: 'Minimalist', description: 'Full renovation with open-concept kitchen.' },
-      { title: 'Condo Reno, Bishan', property_type: 'Condo', style: 'Scandinavian', description: 'Light wood tones and built-in storage throughout.' },
+      { title: '4-Room HDB, Punggol', property_type: 'HDB', style: 'Minimalist', description: 'Full renovation with open-concept kitchen.', cover_image: '/images/northgate1.jpg' },
+      { title: 'Condo Reno, Bishan', property_type: 'Condo', style: 'Scandinavian', description: 'Light wood tones and built-in storage throughout.', cover_image: '/images/northgate2.jpg' },
     ],
   },
   {
@@ -40,9 +41,10 @@ const sample = [
     phone: '+65 8234 5678', property_types: 'Condo,Landed,Commercial', styles: 'Industrial,Modern',
     service_areas: 'Islandwide', featured: 1,
     bio: 'Bold, material-driven interiors for condos, landed homes and commercial fit-outs.',
+    logoUrl: '/images/ironline1.jpg',
     projects: [
-      { title: 'Landed Home, Bukit Timah', property_type: 'Landed', style: 'Industrial', description: 'Exposed brick and black steel accents.' },
-      { title: 'Cafe Fit-out, Tiong Bahru', property_type: 'Commercial', style: 'Industrial', description: 'Warm industrial cafe interior.' },
+      { title: 'Landed Home, Bukit Timah', property_type: 'Landed', style: 'Industrial', description: 'Exposed brick and black steel accents.', cover_image: '/images/ironline1.jpg' },
+      { title: 'Cafe Fit-out, Tiong Bahru', property_type: 'Commercial', style: 'Industrial', description: 'Warm industrial cafe interior.', cover_image: '/images/ironline2.jpg' },
     ],
   },
   {
@@ -50,8 +52,9 @@ const sample = [
     phone: '+65 8345 6789', property_types: 'HDB,Condo,Landed', styles: 'Contemporary,Classic',
     service_areas: 'Islandwide',
     bio: 'Timeless, comfortable interiors that age well — a mix of contemporary and classic details.',
+    logoUrl: '/images/warmhaus1.jpg',
     projects: [
-      { title: '5-Room HDB, Tampines', property_type: 'HDB', style: 'Contemporary', description: 'Family-friendly layout with a reading nook.' },
+      { title: '5-Room HDB, Tampines', property_type: 'HDB', style: 'Contemporary', description: 'Family-friendly layout with a reading nook.', cover_image: '/images/warmhaus1.jpg' },
     ],
   },
   {
@@ -59,8 +62,9 @@ const sample = [
     phone: '+65 8456 7890', property_types: 'Condo', styles: 'Modern,Minimalist',
     service_areas: 'East & Central',
     bio: 'Modern condo interiors with a focus on natural light and smart storage.',
+    logoUrl: '/images/studioaster1.jpg',
     projects: [
-      { title: 'Condo, Marine Parade', property_type: 'Condo', style: 'Modern', description: 'Floor-to-ceiling windows, minimal palette.' },
+      { title: 'Condo, Marine Parade', property_type: 'Condo', style: 'Modern', description: 'Floor-to-ceiling windows, minimal palette.', cover_image: '/images/studioaster1.jpg' },
     ],
   },
 ];

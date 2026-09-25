@@ -60,7 +60,8 @@ async function router(req, res) {
     url.pathname === '/favicon.svg' ||
     url.pathname === '/logo-mark.svg' ||
     url.pathname.startsWith('/uploads/') ||
-    url.pathname.startsWith('/illustrations/')
+    url.pathname.startsWith('/illustrations/') ||
+    url.pathname.startsWith('/images/')
   )) {
     if (serveStatic(req, res, url)) return;
   }

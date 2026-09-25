@@ -89,7 +89,7 @@ export async function homeRoute(req, res, ctx) {
           <div class="stat"><b>${counts.leads}</b><span>Homeowners matched</span></div>
         </div>
       </div>
-      <div class="hero-art"><img src="/illustrations/hero.svg" alt="Illustration of a styled living room" loading="eager"></div>
+      <div class="hero-art"><img src="/images/hero.jpg" alt="A bright, styled living room" loading="eager"></div>
     </div>
   </section>
   <section class="wrap">
