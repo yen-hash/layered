@@ -1,0 +1,16 @@
+{
+  "name": "layered",
+  "version": "1.0.0",
+  "description": "Lead generation & business control panel platform for interior designers",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node scripts/seed.js"
+  },
+  "dependencies": {}
+}
