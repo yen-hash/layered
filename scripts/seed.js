@@ -16,7 +16,14 @@ const sample = [
     service_areas: 'Islandwide (East & West showrooms)', featured: 1,
     bio: 'Carpenters blends generations of carpentry knowledge with a contemporary design practice — we have renovated over 3,500 homes since the 1950s, working out of our own in-house carpentry facility. We take on HDB, condo, landed and commercial projects, with a focus on bespoke joinery, Japandi and minimalist-industrial interiors, and considered detailing from concept through completion.',
     passwordHash: 'e4e5b6b2019a5758bb26f98c05108672:8b27477472fba69749d96ef39f93ca4d91342dfeeeebde4fe41029adaf866f67843dc9f3382b3bde87a6e64344bdf2c187d4f32651abb24f22c72f4df9259297',
-    projects: [],
+    logoUrl: '/uploads/carpenters/logo.webp',
+    projects: [
+      { title: 'Tampines North Drive HDB', property_type: 'HDB', style: 'Contemporary', description: 'Full renovation with custom joinery and a warm, minimal palette.', cover_image: '/uploads/carpenters/project1.webp' },
+      { title: 'Plantation Crescent Condo', property_type: 'Condo', style: 'Minimalist', description: 'Open-plan living with bespoke storage and a soft, neutral finish.', cover_image: '/uploads/carpenters/project2.webp' },
+      { title: 'Tampines Street 64 HDB', property_type: 'HDB', style: 'Minimalist', description: 'Considered detailing throughout, from entryway to bedroom.', cover_image: '/uploads/carpenters/project3.webp' },
+      { title: 'Parc Clematis Condo', property_type: 'Condo', style: 'Contemporary', description: 'Bright, functional layout with custom cabinetry.', cover_image: '/uploads/carpenters/project4.jpg' },
+      { title: 'Burghley Drive Landed', property_type: 'Landed', style: 'Industrial', description: 'A landed-home renovation blending industrial accents with warm wood tones.', cover_image: '/uploads/carpenters/project5.jpg' },
+    ],
   },
   {
     company_name: 'Northgate Design Studio', email: 'hello@northgate.example', contact_name: 'Wei Ming',
@@ -58,19 +65,19 @@ const sample = [
   },
 ];
 
-const insertBusiness = db.prepare(`INSERT INTO businesses (slug, company_name, email, password_hash, phone, contact_name, property_types, styles, service_areas, bio, featured, notify_phone)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
-const insertProject = db.prepare(`INSERT INTO projects (business_id, title, property_type, style, description) VALUES (?, ?, ?, ?, ?)`);
+const insertBusiness = db.prepare(`INSERT INTO businesses (slug, company_name, email, password_hash, phone, contact_name, property_types, styles, service_areas, bio, logo_url, featured, notify_phone)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+const insertProject = db.prepare(`INSERT INTO projects (business_id, title, property_type, style, description, cover_image) VALUES (?, ?, ?, ?, ?, ?)`);
 
 for (const s of sample) {
   const slug = slugify(s.company_name);
   const passwordHash = s.passwordHash || hashPassword('password123');
   const info = insertBusiness.run(
     slug, s.company_name, s.email, passwordHash, s.phone, s.contact_name,
-    s.property_types, s.styles, s.service_areas, s.bio, s.featured ? 1 : 0, s.phone
+    s.property_types, s.styles, s.service_areas, s.bio, s.logoUrl || '', s.featured ? 1 : 0, s.phone
   );
   for (const p of s.projects) {
-    insertProject.run(info.lastInsertRowid, p.title, p.property_type, p.style, p.description);
+    insertProject.run(info.lastInsertRowid, p.title, p.property_type, p.style, p.description, p.cover_image || null);
   }
   console.log(`Seeded ${s.company_name} (login: ${s.email}${s.passwordHash ? '' : ' / password123'})`);
 }
