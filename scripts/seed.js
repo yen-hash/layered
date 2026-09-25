@@ -11,6 +11,14 @@ if (existing > 0) {
 
 const sample = [
   {
+    company_name: 'Carpenters 匠', email: 'yenlauzengbin@gmail.com', contact_name: 'Carpenters Team',
+    phone: '+65 8774 8495', property_types: 'HDB,Condo,Landed,Commercial', styles: 'Minimalist,Industrial,Contemporary',
+    service_areas: 'Islandwide (East & West showrooms)', featured: 1,
+    bio: 'Carpenters blends generations of carpentry knowledge with a contemporary design practice — we have renovated over 3,500 homes since the 1950s, working out of our own in-house carpentry facility. We take on HDB, condo, landed and commercial projects, with a focus on bespoke joinery, Japandi and minimalist-industrial interiors, and considered detailing from concept through completion.',
+    passwordHash: 'e4e5b6b2019a5758bb26f98c05108672:8b27477472fba69749d96ef39f93ca4d91342dfeeeebde4fe41029adaf866f67843dc9f3382b3bde87a6e64344bdf2c187d4f32651abb24f22c72f4df9259297',
+    projects: [],
+  },
+  {
     company_name: 'Northgate Design Studio', email: 'hello@northgate.example', contact_name: 'Wei Ming',
     phone: '+65 8123 4567', property_types: 'HDB,Condo', styles: 'Minimalist,Scandinavian',
     service_areas: 'Islandwide', featured: 1,
@@ -56,14 +64,15 @@ const insertProject = db.prepare(`INSERT INTO projects (business_id, title, prop
 
 for (const s of sample) {
   const slug = slugify(s.company_name);
+  const passwordHash = s.passwordHash || hashPassword('password123');
   const info = insertBusiness.run(
-    slug, s.company_name, s.email, hashPassword('password123'), s.phone, s.contact_name,
+    slug, s.company_name, s.email, passwordHash, s.phone, s.contact_name,
     s.property_types, s.styles, s.service_areas, s.bio, s.featured ? 1 : 0, s.phone
   );
   for (const p of s.projects) {
     insertProject.run(info.lastInsertRowid, p.title, p.property_type, p.style, p.description);
   }
-  console.log(`Seeded ${s.company_name} (login: ${s.email} / password123)`);
+  console.log(`Seeded ${s.company_name} (login: ${s.email}${s.passwordHash ? '' : ' / password123'})`);
 }
 
 console.log('Done.');
