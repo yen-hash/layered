@@ -23,6 +23,7 @@ measured numbers. Connect Ahrefs/Semrush/Search Console and replace them.
 | `/designers` | browse/compare interior designers Singapore | Filter combos are `noindex,follow`; a single known filter canonicalises to its landing page |
 | `/interior-designers/hdb` · `condo` · `landed` · `commercial` | HDB / condo / landed / commercial interior designer Singapore | Unique copy, cost snapshot, FAQ (FAQPage schema), live firm list (ItemList schema), pre-selected lead form |
 | `/interior-designers/style/{minimalist,scandinavian,industrial,modern,contemporary,classic}` | style + interior designer Singapore | Unique copy per style |
+| `/tools/renovation-cost-calculator` | renovation cost calculator singapore, hdb renovation cost calculator | Free interactive tool + all ranges as static tables, FAQ and WebApplication schema |
 | `/guides` + 5 guides | cost, permit/rules, MCST, choosing a designer, CaseTrust/HDB licence | Article + FAQ + Breadcrumb schema, "last reviewed" dates |
 | `/designers/{slug}` | `<firm> interior designer Singapore` | HomeAndConstructionBusiness + Breadcrumb schema, descriptive image alt text |
 | `/signup` | list interior design business Singapore | Supply-side landing page, indexable |
@@ -149,7 +150,7 @@ useful*, then close the trust gap with product, not copy.
 1. **Verified credentials:** an admin "verified on <date>" flag set after checking HDB/CaseTrust lookups, shown instead of "self-declared".
 2. **Verified reviews:** invite homeowners from the lead record after completion; only reviews tied to a real lead are shown; add `Review` schema only then.
 3. **Deposit protection:** partner for a guarantee, or badge firms with CaseTrust deposit protection as "Protected deposit".
-4. **Cost estimator** (interactive, uses the ranges in the guides): a strong link magnet and lead source.
+4. ~~**Cost estimator**~~ **Built:** `/tools/renovation-cost-calculator` (HDB, condo, kitchen and bathrooms, office). Pre-fills the lead form with property type and budget band. Ranges live in `content/estimator.js`, tests in `test/`. Next: measure how many calculator visits become leads, and consider an emailed estimate.
 5. **Shortlist and compare view:** side-by-side firms with credentials, styles, projects.
 6. **Firm-submitted articles** (review queue) for fresh content and backlinks.
 

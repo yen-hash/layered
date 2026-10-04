@@ -408,3 +408,26 @@ dialog.lightbox .lb-close { position: absolute; right: -6px; top: -46px; backgro
 }
 
 .page-head + section.wrap { padding-top: 24px; }
+
+/* ---------- Cost calculator ---------- */
+[hidden] { display: none !important; }
+.calc { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 28px; box-shadow: var(--shadow-sm); max-width: 980px; }
+.calc-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.calc-tabs label { cursor: pointer; }
+.calc-tabs input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.calc-tabs span { display: inline-block; padding: 9px 20px; border-radius: 999px; border: 1.5px solid var(--line-2); font-weight: 600; font-size: .92rem; color: var(--ink-2); background: #fff; transition: all .15s; }
+.calc-tabs input:checked + span { background: var(--ink); border-color: var(--ink); color: #fff; }
+.calc-tabs input:focus-visible + span { outline: 3px solid color-mix(in srgb, var(--brand) 55%, white); outline-offset: 2px; }
+.calc-body { display: grid; grid-template-columns: 1fr 1.05fr; gap: 32px; align-items: start; }
+@media (max-width: 800px) { .calc-body { grid-template-columns: 1fr; gap: 20px; } .calc { padding: 20px; } }
+.calc-result { background: var(--sand); border-radius: var(--radius); padding: 24px; min-height: 220px; }
+.calc-label { font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; color: var(--muted); margin: 0 0 4px; }
+.calc-big { font-family: var(--serif); font-size: clamp(1.7rem, 1.2rem + 2vw, 2.6rem); line-height: 1.1; margin: 0 0 18px; color: var(--ink); font-weight: 600; }
+.calc-sub { font-family: var(--serif); font-size: 1.35rem; margin: 0 0 14px; color: var(--brand-dark); font-weight: 600; }
+.calc-notes { margin: 0 0 16px; padding-left: 18px; color: var(--ink-2); font-size: .92rem; }
+.calc-notes li { margin: 4px 0; }
+.calc-actions { margin: 6px 0 14px; }
+.calc-error { color: var(--err); margin: 0; }
+.calc-banner { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 20px 26px; margin-top: 28px; background: linear-gradient(135deg, var(--brand-tint), var(--sand)); border-color: var(--sand-2); }
+.calc-banner strong { font-family: var(--serif); font-size: 1.2rem; }
+@media (max-width: 560px) { .calc-banner { flex-direction: column; align-items: flex-start; } }

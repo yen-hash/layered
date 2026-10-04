@@ -4,6 +4,7 @@ import { esc } from '../lib/render.js';
 import { GUIDES, REVIEWED } from '../content/guides.js';
 import { PROPERTY_PAGES, STYLE_PAGES } from '../content/landing.js';
 import { BLOG_CATEGORIES } from '../content/blog-meta.js';
+import { DATA_REVIEWED } from '../content/estimator.js';
 
 export function robotsRoute(req, res, ctx) {
   const lines = [
@@ -31,6 +32,7 @@ export function sitemapRoute(req, res, ctx) {
     ...Object.keys(STYLE_PAGES).map((k) => ({ loc: `/interior-designers/style/${k}`, changefreq: 'weekly', priority: '0.6' })),
     { loc: '/guides/renovation-checklist-singapore', changefreq: 'monthly', priority: '0.9', lastmod: REVIEWED },
     ...GUIDES.map((g) => ({ loc: `/guides/${g.slug}`, changefreq: 'monthly', priority: '0.8', lastmod: REVIEWED })),
+    { loc: '/tools/renovation-cost-calculator', changefreq: 'monthly', priority: '0.9', lastmod: DATA_REVIEWED },
     { loc: '/blog', changefreq: 'daily', priority: '0.8' },
     ...BLOG_CATEGORIES.map((c) => ({ loc: `/blog/category/${c.slug}`, changefreq: 'weekly', priority: '0.6' })),
     ...db.prepare("SELECT slug, COALESCE(updated_at, published_at) AS m FROM posts WHERE status = 'published' ORDER BY published_at DESC").all()

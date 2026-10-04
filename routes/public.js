@@ -80,7 +80,7 @@ export function leadFormHtml(prefill = {}) {
           <label for="lf-budget">Budget</label>
           <select id="lf-budget" name="budget_range">
             <option value="">Select a range</option>
-            ${BUDGET_RANGES.map((r) => `<option value="${esc(r)}">${esc(r)}</option>`).join('')}
+            ${BUDGET_RANGES.map((r) => `<option value="${esc(r)}"${sel(prefill.budget, r)}>${esc(r)}</option>`).join('')}
           </select>
         </div>
       </div>
@@ -104,6 +104,12 @@ export async function homeRoute(req, res, ctx) {
   const featured = db.prepare('SELECT * FROM businesses ORDER BY featured DESC, created_at DESC LIMIT 6').all();
   const counts = db.prepare('SELECT (SELECT COUNT(*) FROM businesses) AS businesses, (SELECT COUNT(*) FROM projects) AS projects, (SELECT COUNT(*) FROM leads) AS leads, (SELECT COUNT(*) FROM posts WHERE status = \'published\') AS posts').get();
   const site = ctx.site;
+  // The cost calculator links here with ?type=...&budget=... so the brief form starts filled in.
+  const q = new URL(req.url, 'http://x').searchParams;
+  const prefill = {
+    propertyType: PROPERTY_TYPES.includes(q.get('type')) ? q.get('type') : undefined,
+    budget: BUDGET_RANGES.includes(q.get('budget')) ? q.get('budget') : undefined,
+  };
 
   const body = `
   <section class="hero">
@@ -151,8 +157,9 @@ export async function homeRoute(req, res, ctx) {
       ${GUIDES.slice(0, 3).map((g) => `<a class="card guide-card" href="/guides/${g.slug}"><div class="body"><h3>${esc(g.title)}</h3><p>${esc(g.summary)}</p><span class="more">Read the guide →</span></div></a>`).join('')}
     </div>
     <p style="margin-top:20px"><a href="/guides">All renovation guides →</a></p>
+    <a class="card calc-banner" href="/tools/renovation-cost-calculator"><span><strong>Free renovation cost calculator</strong><br><span class="muted">Estimate an HDB, condo, kitchen and bathroom or office budget from 2026 price ranges.</span></span><span class="more">Try it →</span></a>
   </section>
-  <section class="wrap">${leadFormHtml()}</section>
+  <section class="wrap">${leadFormHtml(prefill)}</section>
   `;
   res.end(layout({
     fullTitle: 'Interior Designers & Renovation in Singapore | Layered',

@@ -47,6 +47,9 @@ no dependency updates to chase, and it runs anywhere with Node ≥ 22.5.
   `npm start` publishes six launch articles; after that the posts belong to the editor.
 - **Renovation checklist**: `/guides/renovation-checklist-singapore`, a tickable, printable homeowner guide
   whose progress is saved in the visitor's own browser.
+- **Cost calculator**: `/tools/renovation-cost-calculator` estimates HDB, condo, kitchen and bathroom
+  or office renovation budgets from the 2026 ranges in `content/estimator.js`, then hands the property
+  type and budget band to the brief form. `npm test` runs the unit tests (estimator maths, Markdown safety).
 - Ownership is enforced everywhere in the dashboard — a business can only see
   and edit its own leads and projects.
 

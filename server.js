@@ -15,6 +15,7 @@ import { robotsRoute, sitemapRoute } from './routes/seo.js';
 import { blogIndexRoute, blogCategoryRoute, blogPostRoute, rssRoute } from './routes/blog.js';
 import { blogAdminList, blogAdminEditor, blogAdminSave, blogAdminDelete } from './routes/blogAdmin.js';
 import { isAdmin } from './lib/admin.js';
+import { calculatorRoute } from './routes/tools.js';
 import { propertyLandingRoute, styleLandingRoute, guidesIndexRoute, guideRoute, checklistRoute } from './routes/content.js';
 import { signupPage, signupSubmit, loginPage, loginSubmit, logoutRoute } from './routes/auth.js';
 import {
@@ -155,6 +156,7 @@ async function router(req, res) {
       const slug = url.pathname.split('/')[2];
       return await designerProfileRoute(req, res, ctx, slug);
     }
+    if (req.method === 'GET' && url.pathname === '/tools/renovation-cost-calculator') return await calculatorRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname === '/blog') return await blogIndexRoute(req, res, ctx, url);
     if (req.method === 'GET' && url.pathname === '/blog/rss.xml') return await rssRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname.startsWith('/blog/category/')) return await blogCategoryRoute(req, res, ctx, url, url.pathname.split('/')[3]);
