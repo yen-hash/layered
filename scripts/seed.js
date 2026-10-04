@@ -3,6 +3,9 @@
 import { db, slugify } from '../db.js';
 import { hashPassword } from '../lib/auth.js';
 
+// The original Carpenters logo export was blank; point existing databases at the replacement.
+db.prepare("UPDATE businesses SET logo_url = '/uploads/carpenters/logo.png' WHERE logo_url = '/uploads/carpenters/logo.webp'").run();
+
 const existing = db.prepare('SELECT COUNT(*) c FROM businesses').get().c;
 if (existing > 0) {
   console.log(`Skipping seed — ${existing} business(es) already in the database.`);
@@ -16,7 +19,7 @@ const sample = [
     service_areas: 'Islandwide (East & West showrooms)', featured: 1,
     bio: 'Carpenters blends generations of carpentry knowledge with a contemporary design practice — we have renovated over 3,500 homes since the 1950s, working out of our own in-house carpentry facility. We take on HDB, condo, landed and commercial projects, with a focus on bespoke joinery, Japandi and minimalist-industrial interiors, and considered detailing from concept through completion.',
     passwordHash: 'e4e5b6b2019a5758bb26f98c05108672:8b27477472fba69749d96ef39f93ca4d91342dfeeeebde4fe41029adaf866f67843dc9f3382b3bde87a6e64344bdf2c187d4f32651abb24f22c72f4df9259297',
-    logoUrl: '/uploads/carpenters/logo.webp',
+    logoUrl: '/uploads/carpenters/logo.png',
     projects: [
       { title: 'Tampines North Drive HDB', property_type: 'HDB', style: 'Contemporary', description: 'Full renovation with custom joinery and a warm, minimal palette.', cover_image: '/uploads/carpenters/project1.webp' },
       { title: 'Plantation Crescent Condo', property_type: 'Condo', style: 'Minimalist', description: 'Open-plan living with bespoke storage and a soft, neutral finish.', cover_image: '/uploads/carpenters/project2.webp' },
