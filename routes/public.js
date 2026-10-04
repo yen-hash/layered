@@ -1,14 +1,32 @@
 import { db, PROPERTY_TYPES, STYLES, BUDGET_RANGES } from '../db.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
 import { dispatchLeadNotifications } from '../lib/notify.js';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const PUBLIC_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'public');
 
 function initials(name) {
   return name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
 }
 
+// A logo is usable if it's an external URL, or a local file that exists and isn't
+// suspiciously tiny (a blank/transparent export is only a couple of KB).
+const MIN_LOGO_BYTES = 2048;
+function usableLogo(url) {
+  if (!url) return '';
+  if (/^https?:\/\//i.test(url)) return url;
+  try {
+    const file = path.join(PUBLIC_DIR, decodeURIComponent(url.split('?')[0]));
+    if (!file.startsWith(PUBLIC_DIR)) return '';
+    return fs.statSync(file).size >= MIN_LOGO_BYTES ? url : '';
+  } catch { return ''; }
+}
+
 function designerCard(b) {
   const tags = [...(b.property_types || '').split(',').filter(Boolean), ...(b.styles || '').split(',').filter(Boolean)];
-  const thumbImage = b.logo_url || placeholderIllustration(b.id);
+  const thumbImage = usableLogo(b.logo_url) || placeholderIllustration(b.id);
   return `
   <a class="card designer-card" href="/designers/${esc(b.slug)}">
     <div class="thumb" style="background-image:url('${esc(thumbImage)}')"></div>
@@ -146,10 +164,11 @@ export async function designerProfileRoute(req, res, ctx, slug) {
   const projects = db.prepare('SELECT * FROM projects WHERE business_id = ? ORDER BY created_at DESC').all(b.id);
   const tags = [...(b.property_types || '').split(',').filter(Boolean), ...(b.styles || '').split(',').filter(Boolean)];
 
+  const logo = usableLogo(b.logo_url);
   const body = `
   <div class="profile-hero">
     <div class="wrap row">
-      <div class="logo-circle" style="${b.logo_url ? `background-image:url('${esc(b.logo_url)}')` : ''}">${b.logo_url ? '' : esc(initials(b.company_name))}</div>
+      <div class="logo-circle" style="${logo ? `background-image:url('${esc(logo)}')` : ''}">${logo ? '' : esc(initials(b.company_name))}</div>
       <div>
         <h1 style="margin:0 0 6px;">${esc(b.company_name)}${b.featured ? ' ⭐' : ''}</h1>
         <p class="muted" style="margin:0 0 8px;">${esc(b.service_areas || 'Singapore')}</p>
