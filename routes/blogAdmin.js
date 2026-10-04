@@ -155,7 +155,8 @@ const SEO_PANEL_JS = `
     $('slug-preview').textContent=f.slug.value.trim()?slugify(f.slug.value):slugify(title);
     var words=(body.replace(/[#>*|\\-\\[\\]()!]/g,' ').match(/\\S+/g)||[]).length;
     var plain=body.toLowerCase();
-    var kwWords=kw.split(/\\s+/).filter(function(w){return w.length>1});
+    var STOP={vs:1,'in':1,to:1,of:1,'for':1,the:1,and:1,'a':1,an:1,'on':1,'with':1};
+    var kwWords=kw.split(/\\s+/).filter(function(w){return w.length>1&&!STOP[w]});
     // A keyword "matches" a piece of text when every word of it appears (so "japandi interior design in singapore" matches "japandi interior design singapore").
     function has(text){text=text.toLowerCase();return kwWords.length>0&&kwWords.every(function(w){return text.indexOf(w)>-1})}
     var first=plain.split(/\\s+/).slice(0,120).join(' ');

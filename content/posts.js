@@ -100,7 +100,7 @@ Start planning before collection so you are not paying for an empty flat longer 
 - **Finalise the design:** floor plan, carpentry drawings, electrical points, lighting and finishes.
 - **Order long-lead items early:** appliances, sanitary fittings, lights, tiles and countertops can take weeks to arrive.
 
-## A typical ten-week site schedule
+## A typical BTO renovation timeline: ten weeks on site
 
 | Week | Typical works |
 |---|---|
@@ -117,11 +117,17 @@ Start planning before collection so you are not paying for an empty flat longer 
 
 Some firms run trades in parallel to finish faster, and a lighter scope (no hacking, less carpentry) can be shorter.
 
+## Plan backwards from your move-in date
+
+Work from the date you need the home and subtract the stages: about **ten weeks** on site, a few weeks for cleaning, defect fixes and the handover walk-through, **several working days** for the permit, and time to finalise the design and order long-lead items. For example, if you want to move in at the end of month six, plan to have your designer chosen and the contract signed by around month two, and the design locked and orders placed by month three. Start earlier if you plan to hack walls or change the layout.
+
 ## Permits and rules that shape the schedule
 
 Hacking and similar works need an HDB renovation permit, which your registered contractor applies for. Approval usually takes a few working days, so do not book hacking to start the day after you apply. Noisy works are limited to certain weekday hours and nothing happens on Sundays or public holidays, so a week on paper may contain fewer working days than you expect. Our [HDB renovation permit and rules guide](/guides/hdb-renovation-permit-and-rules) covers the basics.
 
 ## What commonly delays a BTO renovation
+
+These are the things that most often stretch a BTO renovation timeline:
 
 - **Late decisions** on tiles, laminates or lighting
 - **Back-ordered items** such as appliances and fittings
@@ -179,6 +185,21 @@ By flat type, mid-range renovations are commonly quoted at about S$8,000-S$15,00
 - **Backsplash:** S$500-S$2,000 if tiled.
 - **Appliances and sink:** extra, and very dependent on brand and model.
 
+## A worked example: 4-room mid-range kitchen
+
+Using the component ranges above for a kitchen with about 16 feet of cabinets and a matching countertop run:
+
+| Item | Low | High |
+|---|---|---|
+| Cabinets (16 ft at S$280-S$450) | S$4,480 | S$7,200 |
+| Quartz countertop (16 ft at S$70-S$120) | S$1,120 | S$1,920 |
+| Hacking and tiling | S$2,500 | S$6,000 |
+| Plumbing and electrical | S$1,000 | S$3,000 |
+| Backsplash | S$500 | S$2,000 |
+| **Total, before appliances and sink** | **S$9,600** | **S$20,120** |
+
+That fits the S$12,000 to S$22,000 range commonly quoted for a 4-room kitchen once appliances and the sink are added. Your own quote will differ with layout and finishes.
+
 ## What pushes the price up
 
 1. **Removing a wall** to open the kitchen to the living area, which needs a permit and only works for non-structural walls. See the [HDB renovation rules](/guides/hdb-renovation-permit-and-rules).
@@ -193,6 +214,29 @@ By flat type, mid-range renovations are commonly quoted at about S$8,000-S$15,00
 - Choose quartz over sintered stone unless you want the look.
 - Spend on hinges, drawer runners and waterproofing, and save on decorative finishes.
 - Ask for an itemised quote so you can see what each choice costs.
+
+## Ways to save without risking leaks
+
+- **Keep the layout.** Moving the toilet bowl, shower or floor trap adds plumbing and tiling work.
+- **Spend on what is hidden.** Waterproofing, pipes and drainage matter more than decorative tiles.
+- **Choose standard tile sizes** and fittings. Large-format tiles and designer fittings add cost.
+- **Refresh instead of rebuild** if the existing tiles and waterproofing are sound. Only an inspection can confirm this.
+- **Ask whether the works need an HDB permit.** Hacking generally does, and your registered contractor applies. See the [HDB renovation rules](/guides/hdb-renovation-permit-and-rules).
+
+## Common mistakes
+
+- **Tiling over old waterproofing** without testing it.
+- **Skipping the water-ponding test,** which checks that the waterproofing holds before tiles go down.
+- **Forgetting ventilation,** which leads to mould in a humid climate.
+- **Choosing slippery floor tiles** for a wet area, especially with children or elderly family.
+
+## Questions to ask before you sign
+
+- Is the cabinet price per foot run, and what hardware brand is included?
+- Which countertop material and thickness is quoted?
+- Are hacking, debris removal and waterproofing included?
+- Who supplies and installs the hob, hood and sink, and who is responsible if they do not fit?
+- Are plumbing and electrical points shown on the drawings before work starts?
 
 ## Frequently asked questions
 
@@ -245,6 +289,20 @@ Many guides put the typical full HDB bathroom renovation at around S$8,000 to S$
 
 Waterproofing is what stops leaks into the flat below, which is a costly dispute and a headache for neighbours. Make sure the quote states the waterproofing system, how many coats, and the height it covers on shower walls. Shower areas are commonly waterproofed to around 1.8 metres, but confirm the current requirement with your contractor. Ask whether the waterproofing carries a written warranty and how long it lasts.
 
+## A worked example: one HDB bathroom rebuild
+
+Adding the component ranges above for a standard rebuild:
+
+| Item | Low | High |
+|---|---|---|
+| Plumbing | S$800 | S$2,500 |
+| Fixtures and fittings | S$1,500 | S$8,000 |
+| Glass, vanity and carpentry | S$1,200 | S$4,000 |
+| Waterproofing | S$400 | S$1,500 |
+| **Total, before hacking and tiling labour** | **S$3,900** | **S$16,000** |
+
+The spread explains why a bathroom can cost S$5,000 or S$15,000: it is mostly the fixtures and glass you choose, and whether the layout moves.
+
 ## What changes the price
 
 1. **Hacking old tiles** versus tiling over, which is only an option in certain conditions.
@@ -252,6 +310,10 @@ Waterproofing is what stops leaks into the flat below, which is a costly dispute
 3. **Wall and floor tile choice,** including large-format tiles, which cost more to lay.
 4. **Shower enclosure:** a glass screen versus a curtain.
 5. **Resale condition:** older pipes and floor traps may need replacing. See [HDB renovation costs](/guides/hdb-renovation-cost-singapore) for the BTO and resale difference.
+
+## What a good bathroom quote lists
+
+A clear quote names the waterproofing system and the number of coats, the height it covers on shower walls, and whether a water-ponding test is included. It lists the tile size and finish, the fixture brands and models, the floor trap and drainage work, and what hacking and debris removal cost. It should also state the warranty period for the waterproofing and who to call if it fails. If a quote is a single line for "bathroom works", ask for it to be broken down.
 
 ## Questions to ask before you sign
 
@@ -283,7 +345,7 @@ Yes. Many homeowners refresh the master bathroom and leave the common bathroom f
     excerpt: 'Packages promise fixed prices and speed. Custom design promises a home made for you. Here is how to tell which fits your flat, budget and patience.',
     cover_image: '/images/cover-design.jpg',
     cover_alt: 'Living room with a tan leather sofa, plants and a fireplace',
-    body: `One of the first decisions when renovating in Singapore is whether to buy a **renovation package** or commission a **custom design**. Both are legitimate. The right choice depends on how standard your needs are, how much you care about the design and how much time you want to spend deciding.
+    body: `One of the first decisions when renovating in Singapore is **renovation package vs custom** design: buy a fixed-scope package, or commission a custom design. Both are legitimate. The right choice depends on how standard your needs are, how much you care about the design and how much time you want to spend deciding.
 
 ## What a renovation package usually includes
 
@@ -312,7 +374,7 @@ With a custom design, the designer builds the plan around you: how you cook, wor
 - Usually a higher price and a slightly longer timeline
 - More decisions and more project management for you
 
-## How to decide
+## Renovation package vs custom: how to decide
 
 | If you... | Lean towards |
 |---|---|
@@ -321,6 +383,13 @@ With a custom design, the designer builds the plan around you: how you cook, wor
 | Want built-ins designed around your family | Custom |
 | Are renovating an older resale flat with unknowns | Custom or a detailed package, with a buffer |
 | Are short on time to choose finishes | Package |
+
+## Common mistakes when comparing
+
+- **Comparing a package total with a custom total** without checking that the scope matches. Count what each includes, down to the number of wardrobes and the kitchen run length.
+- **Assuming the promotional price is the final price.** Ask for the contract price including all items you actually want.
+- **Choosing a custom design but not budgeting for the extra time** it takes to approve drawings and order carpentry.
+- **Skipping the exclusions list,** where appliances, loose furniture and specialist finishes often hide.
 
 ## How to check a package properly
 
@@ -379,7 +448,9 @@ Japandi blends Japanese minimalism with Scandinavian functionality and comfort. 
 
 Explore each on Layered: [Scandinavian](/interior-designers/style/scandinavian), [minimalist](/interior-designers/style/minimalist) and [industrial](/interior-designers/style/industrial) interior designers.
 
-## How to get the look in a Singapore home
+## How to get Japandi interior design in a Singapore home
+
+Japandi interior design in Singapore works best when the style is adapted to compact flats and a humid climate. Start with these steps.
 
 1. **Start with the walls and floor.** Warm off-white or soft beige walls and timber-look flooring set the tone.
 2. **Build in storage.** Flush, handleless carpentry keeps surfaces clear, which matters most in compact HDB and condo layouts.
@@ -387,6 +458,13 @@ Explore each on Layered: [Scandinavian](/interior-designers/style/scandinavian),
 4. **Layer texture, not colour.** Linen curtains, rattan, ceramics and a wool or jute rug add depth without clutter.
 5. **Keep lighting warm and soft.** Warm-white lighting and paper or fabric shades suit the style.
 6. **Edit ruthlessly.** Leave some blank wall and clear surfaces.
+
+## Common Japandi mistakes
+
+- **Going too beige.** Without texture and a few darker or green accents, the look turns flat.
+- **Copying a showroom.** The style relies on space, so it fails in a flat full of belongings. Edit first.
+- **Using the wrong wood for the climate.** Fine solid timber can warp in humidity, so confirm how finishes will age.
+- **Cold lighting.** Warm-white light is part of the mood.
 
 ## What to ask your designer
 
@@ -407,5 +485,525 @@ Yes. Its restraint, built-in storage and light, calm palette make compact spaces
 
 ### Does Japandi work in Singapore's humid climate?
 It does, with sensible material choices. Many designers use timber-look finishes for built-ins and keep natural wood for pieces that are easy to maintain.`,
+  },
+
+  // ---------- Batch 2 ----------
+  {
+    slug: '4-room-vs-5-room-hdb-renovation-cost',
+    title: '4-Room vs 5-Room HDB Renovation Cost in Singapore (2026)',
+    category: 'Costs & Budgeting',
+    focus_keyword: '4 room hdb renovation cost',
+    tags: '4-room, 5-room, hdb, bto, resale, cost',
+    meta_title: '4-Room vs 5-Room HDB Renovation Cost Singapore (2026)',
+    meta_description: '4-room vs 5-room HDB renovation cost in Singapore: 2026 ranges for BTO and resale, why a bigger flat is not proportionally dearer, and how to budget.',
+    excerpt: 'A 5-room flat is bigger, but its renovation does not cost proportionally more. Here are the 2026 ranges for BTO and resale, and what actually separates the two.',
+    cover_image: '/images/cover-4v5.jpg',
+    cover_alt: 'Pendant lights above a living room wall with a framed abstract artwork',
+    body: `Choosing between a 4-room and a 5-room flat changes your renovation budget, but less than most people expect. This guide compares the **4 room HDB renovation cost** with a 5-room flat, for both BTO and resale, using the ranges Singapore renovation guides quoted in 2026.
+
+*These are indicative ranges for a standard specification. Quotes vary by firm, scope and finishes.*
+
+## 4-room HDB renovation cost vs 5-room: the price ranges
+
+| Flat | BTO (new) | Resale |
+|---|---|---|
+| 4-room | S$40,000 - S$55,000 | S$55,000 - S$75,000 |
+| 5-room | S$45,000 - S$67,000 | S$58,000 - S$90,000 |
+
+A 4-room flat is roughly 90 square metres and a 5-room roughly 110, so the 5-room has around a fifth more floor area. Yet at the low end of the BTO range the gap is only about S$5,000, and at the high end about S$12,000.
+
+## Why a bigger flat is not proportionally more expensive
+
+Some of the biggest costs are **fixed per flat, not per square metre**:
+
+- Both usually have **one kitchen and two bathrooms** to rebuild, and these are the most technical, costly rooms.
+- Electrical distribution, plumbing connections and permits do not double with floor area.
+- The extra space in a 5-room is mostly **more flooring, painting and a larger living or bedroom area**, which cost less per square metre than kitchens and bathrooms.
+
+Where a 5-room does cost more is **carpentry** (more wardrobes, a larger TV feature and bigger kitchen runs), **tiling and painting area**, and extra lighting and electrical points.
+
+## How specification changes the number
+
+For a 4-room flat, guides commonly describe three tiers:
+
+| Specification | BTO | Resale |
+|---|---|---|
+| Basic | S$30,000 - S$40,000 | S$40,000 - S$55,000 |
+| Standard (most popular) | S$40,000 - S$55,000 | S$55,000 - S$75,000 |
+| Premium | S$55,000 - S$75,000+ | S$75,000 - S$100,000+ |
+
+Moving from standard to premium usually adds more than moving from a 4-room to a 5-room does. Your **choices** matter more than the flat type.
+
+## What drives your final quote
+
+1. **Custom carpentry:** wardrobes, shoe cabinets, feature walls and kitchen cabinets are usually the largest single item.
+2. **Hacking and layout changes:** removing a non-structural wall adds demolition, rebuilding and permit work. See the [HDB renovation rules](/guides/hdb-renovation-permit-and-rules).
+3. **Resale condition:** older flats often need rewiring, new pipes and re-waterproofing. Read [resale HDB renovation hidden costs](/blog/resale-hdb-renovation-hidden-costs).
+4. **Wet areas:** the kitchen and bathrooms. See the [HDB kitchen](/blog/hdb-kitchen-renovation-cost-singapore) and [bathroom](/blog/hdb-bathroom-renovation-cost-singapore) cost guides.
+5. **Finishes:** tile grade, countertop material, fittings and lighting.
+
+## How to budget for either
+
+- Decide your maximum budget, then ask designers what it realistically buys.
+- Keep a **10-15% buffer**, more for resale flats.
+- Get **three itemised quotes** for the same brief so you compare scope, not just totals.
+- If the budget is tight, spend on the kitchen, bathrooms and carpentry you will use daily, and defer decorative extras.
+
+See our [full HDB renovation cost guide](/guides/hdb-renovation-cost-singapore) and compare [HDB interior designers](/interior-designers/hdb) on Layered.
+
+## Frequently asked questions
+
+### How much more does a 5-room renovation cost than a 4-room?
+For a standard BTO, ranges quoted in 2026 suggest roughly S$5,000 to S$12,000 more. Kitchens, bathrooms and permits are similar, so the difference is mostly extra carpentry, tiling and painting.
+
+### Is a resale 4-room cheaper to renovate than a BTO 5-room?
+Not usually. A resale 4-room (about S$55,000 to S$75,000) often costs as much as or more than a BTO 5-room (about S$45,000 to S$67,000) because of hacking, rewiring and re-waterproofing.
+
+### What is a realistic budget for a 4-room BTO?
+Many homeowners spend between S$40,000 and S$55,000 for a standard specification, with a buffer on top.`,
+  },
+
+  {
+    slug: 'how-to-check-hdb-licensed-contractor',
+    title: 'How to Check an HDB Licensed Renovation Contractor',
+    category: 'Rules & Permits',
+    focus_keyword: 'hdb licensed contractor',
+    tags: 'hdb, licence, contractor, verification, permit',
+    meta_title: 'How to Check an HDB Licensed Renovation Contractor',
+    meta_description: 'How to check an HDB licensed contractor in Singapore: get the licence number, look it up on HDB, and confirm status, expiry and trade licences.',
+    excerpt: 'An HDB-registered contractor is the only kind that can apply for your renovation permit. Here is the five-minute check, and the two other licences people forget.',
+    cover_image: '/images/cover-licence.jpg',
+    cover_alt: 'Black steel roof beams against a brick wall in an industrial interior',
+    body: `If you are renovating an HDB flat, one check should come before design, price or style: is the firm an **HDB licensed contractor**? Only contractors registered with HDB can apply for the renovation permit, so this is both a legal requirement and a quick filter against unreliable operators. Here is how to check, in about five minutes.
+
+## Why the HDB licence matters
+
+HDB keeps a directory of registered renovation contractors. Works that need an HDB renovation permit, such as hacking walls, must be done by a registered contractor, who also files the application for you. If your firm is not registered, it cannot do those works lawfully, and you, as the owner, can face the consequences. Read more in our [HDB renovation permit and rules guide](/guides/hdb-renovation-permit-and-rules).
+
+## Step by step: how to verify an HDB licensed contractor
+
+1. **Ask for the exact registered company name and HDB licence number.** Ask in writing (a message is fine). A registered firm can give you both immediately.
+2. **Look the firm up on HDB.** Use [HDB's contractor lookup](https://services2.hdb.gov.sg/webapp/BN31AWERRCMobile/BN31PContractorDetail.jsp) and search for the company.
+3. **Match the details.** The company name and licence number must match what the firm gave you and what will appear on your contract.
+4. **Check the status and dates.** Look for an active registration and check the validity or expiry date. A suspended or expired entry is a red flag.
+5. **Check the company behind the quote.** The name on your quote, contract and invoices should be the registered company, not a trading name you cannot trace.
+
+## The two other licences people forget
+
+HDB registration is not the only licence that matters. Specific trades are regulated separately:
+
+- **Electrical works** must be carried out by an electrical worker licensed by the Energy Market Authority (EMA). A renovation contractor licence does not authorise electrical installation work.
+- **Plumbing and sanitary works** must be carried out by a licensed plumber with PUB, apart from some simple jobs.
+
+Ask your firm who their licensed electrical worker and plumber are, and ask to see the licences. A good firm will not mind.
+
+## HDB licence vs CaseTrust: two different things
+
+| | HDB registration | CaseTrust |
+|---|---|---|
+| What it tells you | The firm may do HDB renovation works and apply for permits | The firm meets a consumer-protection standard, such as a standard contract and deposit protection |
+| Who runs it | HDB | Consumers Association of Singapore (CASE) |
+| Where to check | HDB contractor lookup | CASE's CaseTrust website |
+
+You want both. Our guide to [CaseTrust and HDB licences](/guides/casetrust-and-hdb-licence-explained) explains the differences, including CaseTrust-RCMA and CaseTrust Gold.
+
+## Red flags
+
+- The firm cannot give a licence number, or gives one that does not match the lookup.
+- The registered name differs from the name on the quote or contract.
+- Pressure to start hacking before the permit is approved.
+- Reluctance to name the licensed electrician or plumber.
+
+## On Layered
+
+Firms on Layered can list their HDB licence number and CaseTrust accreditation, and you can [filter the directory by credentials](/designers). These are **self-declared and not verified by Layered**, so use them as a prompt, then check them yourself with the steps above. Our [renovation checklist](/guides/renovation-checklist-singapore) includes this check in the "Choose your designer" stage.
+
+## Frequently asked questions
+
+### Can I check an HDB renovation contractor's licence online?
+Yes. HDB provides a contractor lookup on its e-services site where you can search by company and confirm the licence details, including status and dates.
+
+### Is an HDB licensed contractor the same as a CaseTrust firm?
+No. HDB registration lets a firm do HDB renovation works and apply for permits. CaseTrust is a separate consumer-protection accreditation from CASE. Check both.
+
+### Does an HDB-registered contractor need a licensed electrician?
+Yes. Electrical installation must be done by an electrical worker licensed by the EMA, which is separate from the contractor's HDB registration.`,
+  },
+
+  {
+    slug: 'renovation-contract-singapore-what-to-check',
+    title: 'Renovation Contract in Singapore: 9 Clauses to Check Before You Sign',
+    category: 'Choosing a Designer',
+    focus_keyword: 'renovation contract singapore',
+    tags: 'contract, payment schedule, variation order, defects, retention',
+    meta_title: 'Renovation Contract Singapore: 9 Clauses to Check',
+    meta_description: 'What to check in a renovation contract in Singapore before you sign: payment schedule, variation orders, delay damages, defects liability, retention and more.',
+    excerpt: 'Most renovation disputes trace back to a vague contract. These nine clauses protect your money and your timeline, and what good looks like for each.',
+    cover_image: '/images/cover-contract.jpg',
+    cover_alt: 'Living room with white armchairs, a tan leather sofa and a coffee table',
+    body: `A good **renovation contract in Singapore** is the cheapest protection you will ever buy. Most disputes happen because something was promised verbally, or the contract was vague about scope, payment or delays. Read the whole document, ask for changes in writing and keep the signed copy. These are the nine clauses to check.
+
+*This is general guidance, not legal advice. For a large or unusual project, consider having a lawyer review the contract.*
+
+## 1. Scope of works and drawings
+
+The contract should list exactly what will be built, with drawings or schedules attached. Vague phrases such as "supply and install carpentry as discussed" cause arguments. Each item should name the location, size, material and finish.
+
+## 2. An itemised price
+
+A single lump sum makes it hard to compare quotes or price changes later. Insist on a breakdown by work type, with brands and model numbers for fittings, tiles and appliances where they matter.
+
+## 3. The payment schedule
+
+Payments should follow progress, not the calendar. Guides commonly describe a pattern like this:
+
+| Stage | Typical share |
+|---|---|
+| Deposit on signing | 10-20% |
+| Start of major works | 30-40% |
+| Carpentry installation complete | 30-40% |
+| Final balance after handover and defect check | about 10% |
+
+CaseTrust-accredited firms are reported to cap deposits (commonly cited at 20%), so check the current CaseTrust standard contract. Be cautious of anyone asking for a large upfront payment. Our guide to [CaseTrust and HDB licences](/guides/casetrust-and-hdb-licence-explained) explains deposit protection.
+
+## 4. Timeline and delay damages
+
+The contract should state a start date, a completion date and a week-by-week schedule. A **liquidated damages** clause sets a pre-agreed daily amount the contractor pays for unjustified delay, which gives the firm a reason to finish on time. See a typical [BTO renovation timeline](/blog/bto-renovation-timeline-singapore).
+
+## 5. Variation orders
+
+Any change to the original scope should be written down on a variation order with the change, its cost, its effect on the timeline and both signatures, **before** the work is done. Without this clause, extras can be added to the final bill.
+
+## 6. Permits and approvals
+
+Who applies for permits and approvals, and who pays? For HDB flats the registered contractor files the permit. For condos, agree who submits to the management corporation and who pays the deposit. See the [HDB renovation rules](/guides/hdb-renovation-permit-and-rules) and [condo renovation approval](/blog/condo-renovation-approval-singapore).
+
+## 7. Defects liability and retention
+
+Look for a defects liability period of **at least 12 months** and a **retention sum**, commonly 5-10% of the contract value, held until defects are fixed. Our article on the [defects liability period](/blog/defects-liability-period-singapore) explains how it works.
+
+## 8. Insurance
+
+Ask for evidence of work injury compensation insurance for workers and public liability insurance for the site. If a worker is hurt, or a neighbour's unit is damaged, you do not want to be the one exposed.
+
+## 9. Termination and disputes
+
+The contract should say what happens if the contractor stops work or fails to progress, including your right to appoint another contractor. A clause pointing to mediation, for example through the Consumers Association of Singapore (CASE), gives you a practical route if a dispute arises.
+
+## Renovation contract checklist for Singapore homeowners
+
+- [ ] Scope, drawings and brands attached
+- [ ] Itemised price
+- [ ] Payments tied to progress, small deposit
+- [ ] Start and end dates, delay damages
+- [ ] Variation order process
+- [ ] Permit responsibility clear
+- [ ] 12+ month defects period and retention
+- [ ] Insurance evidence
+- [ ] Termination and dispute clause
+
+Use our full [renovation checklist](/guides/renovation-checklist-singapore) alongside this list, and read [how to choose an interior designer](/guides/how-to-choose-an-interior-designer-singapore).
+
+## Frequently asked questions
+
+### How much deposit should I pay for a renovation?
+Keep the deposit small. Guides commonly describe 10-20% on signing, with further payments tied to milestones. CaseTrust-accredited firms are reported to cap deposits, so check the current standard contract.
+
+### What is a variation order?
+It is a written, signed record of a change to the original scope, showing the cost and any change to the timeline. Work on the change should not start until it is signed.
+
+### What is a retention sum in a renovation contract?
+It is a portion of the contract value, commonly 5-10%, held back until defects found after handover have been fixed, which gives the firm a reason to return and repair them.`,
+  },
+
+  {
+    slug: 'condo-renovation-approval-singapore',
+    title: 'Condo Renovation Approval in Singapore: Step by Step',
+    category: 'Rules & Permits',
+    focus_keyword: 'condo renovation approval',
+    tags: 'condo, mcst, approval, deposit, insurance',
+    meta_title: 'Condo Renovation Approval Singapore: Step by Step',
+    meta_description: 'How condo renovation approval works in Singapore: documents for the MCST application, timelines, renovation deposit, insurance and the post-works inspection.',
+    excerpt: 'No HDB permit, but a condo still needs sign-off before the first drill. Here is the usual MCST process, the documents to prepare and how long it takes.',
+    cover_image: '/images/cover-condo.jpg',
+    cover_alt: 'Timber blinds, a framed artwork and potted plants in a living room',
+    body: `Condo owners do not apply for an HDB permit, but they still need permission before renovating. **Condo renovation approval** comes from the development's management corporation (MCST) or management office, and each has its own forms, deposit and house rules. Here is the usual process so you can plan around it.
+
+*Every condo differs. Treat this as a typical sequence, and get your development's current renovation guidelines from the management office.*
+
+## Step 1: Get the renovation guidelines
+
+Before you finalise a schedule, ask the management office for the **renovation guidelines**, the application form, the deposit amount and the permitted working days and hours. These can be stricter than general rules, and they affect your timeline.
+
+## Step 2: Choose your contractor with the rules in mind
+
+Many developments set conditions for contractors, such as being licensed with the Building and Construction Authority (BCA) and holding public liability insurance. Confirm what yours requires before you sign with a firm. Ask whether your designer has worked in your development before, which usually makes the process smoother. Browse [condo interior designers](/interior-designers/condo) on Layered.
+
+## Step 3: Prepare the application
+
+You will typically need:
+
+- The renovation application form, signed by the registered owner
+- Layout or design drawings showing the proposed works
+- The contractor's company details and registration
+- A copy of the contractor's public liability insurance (a minimum of S$1 million is commonly asked for)
+- Proposed start and completion dates and working hours
+
+## Step 4: Pay the deposit and fees
+
+Most condos require a **refundable renovation deposit** to cover possible damage to common property, plus an administrative or permit fee. Deposits are commonly in the range of about a thousand dollars up to several thousand, and in some developments more. It is refunded if the inspection after works finds no damage.
+
+## Step 5: Wait for approval
+
+Routine applications are typically processed in around **7 to 14 working days**. Structural changes or large wet-area works may need a professional engineer's review or a council decision, and can take **several weeks**. Do not let any work start before written approval.
+
+## Step 6: Renovate within the rules
+
+During works, expect to:
+
+- Keep to the approved **working days and hours**
+- **Protect lifts, corridors and common areas**
+- Keep noisy works within allowed times
+- Display any approval or permit the condo requires
+
+## Step 7: Final inspection and deposit refund
+
+When works finish, the management may inspect common areas and check that the works match the approved drawings. If everything is in order, the deposit is refunded.
+
+## Condo renovation approval: costs and timelines to expect
+
+Condo renovations are usually priced per square foot, commonly quoted at about **S$50-S$120 per square foot** for a full renovation. See our [condo renovation cost and rules guide](/guides/condo-renovation-cost-and-rules) for ranges by unit size, and add the approval time to your schedule. Our [renovation checklist](/guides/renovation-checklist-singapore) includes the condo approval items.
+
+## Common reasons applications get delayed
+
+- The form is not signed by the registered owner.
+- The contractor's insurance certificate is missing, out of date or below the required cover.
+- Drawings are unclear about wet-area or structural works.
+- The deposit or fee has not been paid.
+- The proposed schedule falls outside the permitted working hours.
+
+Submitting a complete application the first time is the easiest way to keep to the 7 to 14 working days that routine approvals often take.
+
+## Frequently asked questions
+
+### How long does condo renovation approval take in Singapore?
+Routine applications often take about 7 to 14 working days. Structural changes or large wet-area works may take several weeks because they can need a professional review.
+
+### How much is a condo renovation deposit?
+It depends on the development and scope. Commonly it is from about a thousand dollars to several thousand dollars, and it is refundable if no damage to common property is found.
+
+### Do I need a licensed contractor to renovate a condo?
+Many condos require a licensed contractor with public liability insurance. Check your development's guidelines before you sign with a firm.`,
+  },
+
+  {
+    slug: 'resale-hdb-renovation-hidden-costs',
+    title: 'Resale HDB Renovation: 8 Hidden Costs to Check Before You Buy',
+    category: 'Costs & Budgeting',
+    focus_keyword: 'resale hdb renovation cost',
+    tags: 'resale, hdb, hidden costs, rewiring, waterproofing',
+    meta_title: 'Resale HDB Renovation Cost: 8 Hidden Costs to Check',
+    meta_description: 'Resale HDB renovation cost is often 20-40% above BTO. Eight hidden costs to inspect before you buy: wiring, pipes, waterproofing, floors, windows and more.',
+    excerpt: 'Resale flats often cost 20-40% more to renovate than a BTO. Most of the difference hides behind old finishes. Here is what to inspect before you commit.',
+    cover_image: '/images/cover-resale.jpg',
+    cover_alt: 'Bright open-plan kitchen with white cabinets and pendant lights',
+    body: `A resale flat gives you location and space, but it often comes with a renovation bill that is **20-40% higher than a comparable BTO**. Much of that difference hides behind old tiles, walls and ceilings. If you know what to inspect before buying, you can budget properly, or negotiate. This guide covers the main sources of **resale HDB renovation cost**.
+
+*Cost figures are ranges quoted by Singapore renovation guides in 2026 and vary by flat age and condition.*
+
+## Typical resale HDB renovation cost vs BTO
+
+A 4-room resale is commonly quoted at about S$55,000 to S$75,000 for a standard renovation, compared with S$40,000 to S$55,000 for a BTO. See the full comparison in our [4-room vs 5-room cost guide](/blog/4-room-vs-5-room-hdb-renovation-cost).
+
+## 8 hidden costs to check
+
+### 1. Rewiring and electrical load
+Older flats may have outdated wiring and distribution boards that cannot handle induction hobs and several air-conditioners. A full rewire for a 4-room flat is often quoted around S$4,000 to S$8,000. Electrical work must be done by a licensed electrical worker. See [how to check your contractor](/blog/how-to-check-hdb-licensed-contractor).
+
+### 2. Old pipes and concealed leaks
+Corroded older pipes can leak inside walls. Replacing the internal plumbing during a renovation costs less than repairing water damage later.
+
+### 3. Re-waterproofing the bathrooms
+When old tiles come off, new waterproofing is usually needed. It is not a place to cut corners. Read our [bathroom renovation cost guide](/blog/hdb-bathroom-renovation-cost-singapore).
+
+### 4. Floor traps and drainage
+Poor drainage and old floor traps cause slow leaks and smells. Check them early so they do not ruin new finishes.
+
+### 5. Hacking and debris removal
+A full resale hack produces a lot of rubble, and haulage fees can be missing from early quotes. Ask whether disposal is included.
+
+### 6. Windows and grilles
+Worn frames, jammed handles and broken catches often need replacing, for safety and for weather-tightness.
+
+### 7. Ceiling, walls and floor condition
+Look for seepage marks, bloated paint, mould, uneven floors from past patchwork, and hollow tiles. These point to repairs you need to price in.
+
+### 8. Pests in leftover carpentry
+If built-ins are left behind, check skirting, door frames and cabinets for termite or pest damage.
+
+## How to inspect before you commit
+
+1. **Visit with your designer or contractor** if the seller allows it, before you exercise the option.
+2. **Test the basics:** every tap, flush, switch, socket and window.
+3. **Check the ceilings and bathroom corners** for stains and damp.
+4. **Ask the seller** about past leaks, rewiring and renovations.
+5. **Get the floor plan** to see which walls are structural before you plan to hack. See the [HDB renovation rules](/guides/hdb-renovation-permit-and-rules).
+
+## How to budget for the unknown
+
+- Keep a **10-15% contingency**, and lean to the higher end for older flats.
+- Ask your designer to list **likely rework items** and price them as provisional sums.
+- Compare [itemised quotes from HDB designers](/interior-designers/hdb).
+
+Our [HDB renovation cost guide](/guides/hdb-renovation-cost-singapore) and [renovation checklist](/guides/renovation-checklist-singapore) will help you plan the rest.
+
+## Frequently asked questions
+
+### Why is renovating a resale HDB more expensive than a BTO?
+Resale flats often need hacking of old finishes, rewiring, new pipes and re-waterproofing before the new design can go in, which a new BTO does not.
+
+### How much contingency should I keep for a resale flat?
+Around 10% to 15% of the renovation budget is commonly recommended, toward the higher end for older flats.
+
+### Should I get the flat inspected before buying?
+It helps. Having your designer or contractor view the flat before you commit can reveal rewiring, plumbing and leak risks you can price in or negotiate.`,
+  },
+
+  {
+    slug: 'defects-liability-period-singapore',
+    title: 'Defects Liability Period in Singapore: What It Covers and How to Use It',
+    category: 'Rules & Permits',
+    focus_keyword: 'defects liability period singapore',
+    tags: 'defects, dlp, retention, handover, warranty',
+    meta_title: 'Defects Liability Period Singapore: Your 12-Month Guide',
+    meta_description: 'What the defects liability period means for a Singapore renovation: the typical 12 months, retention sums, what is covered and how to report defects.',
+    excerpt: 'Your renovation does not end at handover. The defects liability period is your window to get problems fixed at the firm’s cost. Here is how to use it well.',
+    cover_image: '/images/cover-dlp.jpg',
+    cover_alt: 'Velvet armchair, round tables and a sofa beside a brick wall',
+    body: `Handover is not the end of a renovation. For the next year or so, you have a safety net called the **defects liability period**. Used well, it gets problems fixed at the contractor's cost. Used badly, or ignored, it quietly runs out. This guide explains what it is and how to use it in Singapore.
+
+*General information, not legal advice. Your own contract sets the actual terms.*
+
+## What is a defects liability period in Singapore?
+
+The defects liability period (DLP) is the agreed time after completion during which the contractor must rectify **workmanship defects**. In Singapore it is commonly **12 months**, and some contracts allow longer. Check yours, because it should be stated clearly, along with when the clock starts.
+
+## What is a retention sum?
+
+Many contracts hold back a **retention sum**, commonly around 5-10% of the contract value, until defects are fixed or the DLP ends. This gives the firm a financial reason to come back and repair problems. See where it fits in our guide to [renovation contract clauses](/blog/renovation-contract-singapore-what-to-check).
+
+## What is usually covered, and what is not
+
+| Usually covered | Usually not covered |
+|---|---|
+| Peeling laminate and edge-banding | Normal wear and tear |
+| Misaligned doors, drawers and hinges | Damage from misuse or accidents |
+| Cracked or hollow tiles caused by workmanship | Items you installed yourself |
+| Leaks from workmanship in wet areas | Products with their own manufacturer warranty (claim with the maker) |
+| Paint defects and patching | Changes you requested after handover |
+
+Equipment and fittings often carry **separate manufacturer warranties**, so keep the paperwork.
+
+## How to use the DLP step by step
+
+1. **Do a thorough handover inspection first.** Defects found before you sign are the firm's job to fix. Use the handover section of our [renovation checklist](/guides/renovation-checklist-singapore).
+2. **Keep a defects log.** Date, location, photos and a short description.
+3. **Report in writing, promptly.** Email or message, quoting the contract clause. Do not rely on phone calls alone.
+4. **Agree a fix date** for each item, and note when it is done.
+5. **Do a seasonal check.** After heavy rain, look for seepage, damp patches and loose silicone around windows and wet areas.
+6. **Do a final inspection** a few weeks before the DLP ends and send a last list.
+7. **Release the retention** only when all items are rectified.
+
+## What if the contractor does not respond?
+
+- Send a **formal written reminder** with a deadline, quoting the contract.
+- If the firm is **CaseTrust-accredited**, you can raise the complaint with CASE, which offers mediation. See [CaseTrust and HDB licences](/guides/casetrust-and-hdb-licence-explained).
+- For unresolved consumer disputes, the **Small Claims Tribunals** hear certain claims up to a monetary limit. Check the current limits and rules before you file.
+- Keep everything: contract, variation orders, photos, messages and payments.
+
+## Why holding back payment matters
+
+Once you have paid everything, your leverage is gone. Staged payments and a retention sum keep it. Choose a firm with a good record by [comparing designers](/designers), and read [how to choose an interior designer](/guides/how-to-choose-an-interior-designer-singapore).
+
+## Frequently asked questions
+
+### How long is the defects liability period for a renovation in Singapore?
+It is commonly 12 months from completion, though some contracts offer longer. Your contract should state the length and the start date.
+
+### What is the difference between a warranty and a defects liability period?
+The DLP covers workmanship defects the contractor must fix. Warranties, for example on appliances or waterproofing, may be provided separately by the manufacturer or contractor, so keep both.
+
+### Should I withhold payment until defects are fixed?
+A retention sum held back until defects are rectified is a common arrangement. Agree it in the contract before you start, instead of withholding payment unilaterally later.`,
+  },
+
+  {
+    slug: 'scandinavian-vs-japandi-vs-minimalist-interior-design',
+    title: 'Scandinavian vs Japandi vs Minimalist: Which Style Suits Your Singapore Home?',
+    category: 'Design Ideas',
+    focus_keyword: 'scandinavian interior design hdb',
+    tags: 'scandinavian, japandi, minimalist, style, hdb, condo',
+    meta_title: 'Scandinavian Interior Design HDB: vs Japandi & Minimalist',
+    meta_description: 'Scandinavian interior design for an HDB, or Japandi, or minimalist? Compare palette, materials, mood and storage, and what suits Singapore’s humid climate.',
+    excerpt: 'Three calm, light styles that people often mix up. Here is how they differ, which suits a small Singapore home, and how to choose.',
+    cover_image: '/images/cover-styles.jpg',
+    cover_alt: 'Timber bench, stool and potted plant in a calm bedroom',
+    body: `Scandinavian, Japandi and minimalist interiors all look calm, light and uncluttered, which is why they get mixed up. They are not the same, and the right choice depends on the mood you want, your space and how much stuff you own. This guide compares them for a Singapore home, with notes on **Scandinavian interior design in an HDB flat**.
+
+## The three styles in one table
+
+| | Scandinavian | Japandi | Minimalist |
+|---|---|---|---|
+| **Mood** | Bright, cosy, welcoming | Calm, warm, crafted | Clean, restrained, quiet |
+| **Palette** | White, pale grey, light wood | Warm neutrals: beige, taupe, cream, muted green | Neutral, low-contrast, often white or grey |
+| **Materials** | Light timber, wool, linen | Natural wood, stone, ceramics, linen, woven fibres | Few materials, smooth surfaces |
+| **Decor** | Plants, soft textiles, a few accents | Carefully chosen handmade pieces | As little as possible |
+| **Furniture** | Functional, friendly shapes | Low, simple, high craftsmanship | Plain and minimal |
+| **Feels in a small flat** | Light and airy | Cosy but orderly | Spacious and stripped back |
+
+## Scandinavian interior design for HDB flats
+
+Scandinavian interior design for an HDB flat is about **light and comfort**. White or pale walls, light timber and soft textiles make a flat feel brighter and bigger, which is helpful in many HDB layouts. It tolerates a bit of clutter and personality, such as plants and books. See Scandinavian [interior designers on Layered](/interior-designers/style/scandinavian).
+
+**Best if:** you want a bright, friendly home and live with kids or lots of belongings.
+
+## Japandi
+
+Japandi blends Japanese minimalism with Scandinavian comfort, using warmer, earthier tones and natural materials with a focus on craft. It is calmer and more considered than Scandinavian. Read our full guide to [Japandi interior design in Singapore](/blog/japandi-interior-design-singapore).
+
+**Best if:** you want warmth and calm, and you are happy to edit your belongings.
+
+## Minimalist
+
+Minimalism takes things away: clean lines, flush joinery, hidden storage and very few objects. The look relies on **discipline**, as clutter shows immediately. See minimalist [interior designers](/interior-designers/style/minimalist).
+
+**Best if:** you like a quiet, pared-back home and own little, or have plenty of concealed storage.
+
+## What works in Singapore's climate
+
+- **Humidity:** solid timber needs care here. Many designers use quality timber-look laminates or veneers on built-ins and keep real wood for furniture you can maintain.
+- **Light:** if your flat is dim, Scandinavian's white and pale wood help. Japandi's warm tones suit flats with good natural light.
+- **Storage:** minimalist and Japandi both depend on built-in storage. Plan it with your designer from the start.
+- **Cleaning:** matte, simple surfaces are easier to maintain than lots of small decor.
+
+## How to choose
+
+1. **How much do you own?** A lot: Scandinavian. Little: minimalist. Edited and thoughtful: Japandi.
+2. **What mood do you want?** Bright and cheerful: Scandinavian. Calm and warm: Japandi. Quiet and clean: minimalist.
+3. **How much light does your flat get?** Low light: Scandinavian. Plenty: any.
+4. **Who lives there?** Young children and pets favour forgiving, hard-wearing finishes in any style.
+
+Ask your designer to show completed homes in your chosen style at a similar size, and explore [HDB interior designers](/interior-designers/hdb) and [condo interior designers](/interior-designers/condo) by style.
+
+## Frequently asked questions
+
+### What is the difference between Scandinavian and Japandi?
+Scandinavian is brighter, with white and pale wood and a cosy, welcoming feel. Japandi is warmer and earthier, with natural materials and a focus on craft and negative space.
+
+### Is Scandinavian style good for HDB flats?
+Yes. Light walls, pale wood and functional furniture help compact HDB flats feel brighter and more open.
+
+### Can I mix Scandinavian, Japandi and minimalist?
+Yes. The three share a calm, light base, so many Singapore homes blend them. Choose one as the lead and borrow carefully from the others.`,
   },
 ];

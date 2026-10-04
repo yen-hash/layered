@@ -154,18 +154,26 @@ useful*, then close the trust gap with product, not copy.
 6. **Firm-submitted articles** (review queue) for fresh content and backlinks.
 
 ### Keyword queue for the blog (verify volumes in an SEO tool before writing)
-| Priority | Working title | Focus keyword | Category |
+Published so far (13): the original six, plus batch 2 below. Remaining queue is open.
+
+| Status | Working title | Focus keyword | Category |
 |---|---|---|---|
-| High | 4-room vs 5-room HDB renovation cost | 4 room hdb renovation cost | Costs & Budgeting |
-| High | How to check an HDB licensed contractor | hdb licensed contractor | Rules & Permits |
-| High | Renovation contract clauses to look for | renovation contract singapore | Choosing a Designer |
-| High | Condo renovation approval step by step | condo renovation approval | Rules & Permits |
-| Medium | Resale HDB hidden costs | resale hdb renovation cost | Costs & Budgeting |
-| Medium | Scandinavian vs Japandi vs minimalist | scandinavian interior design hdb | Design Ideas |
-| Medium | Defects liability period explained | defects liability period singapore | Rules & Permits |
-| Medium | Small HDB storage ideas | small hdb storage ideas | Design Ideas |
-| Medium | Landed home A&A basics | landed house renovation singapore | Rules & Permits |
-| Low | Office fit-out cost Singapore | office renovation cost singapore | Costs & Budgeting |
+| Published | 4-room vs 5-room HDB renovation cost | 4 room hdb renovation cost | Costs & Budgeting |
+| Published | How to check an HDB licensed contractor | hdb licensed contractor | Rules & Permits |
+| Published | Renovation contract: 9 clauses to check | renovation contract singapore | Choosing a Designer |
+| Published | Condo renovation approval step by step | condo renovation approval | Rules & Permits |
+| Published | Resale HDB hidden costs | resale hdb renovation cost | Costs & Budgeting |
+| Published | Defects liability period explained | defects liability period singapore | Rules & Permits |
+| Published | Scandinavian vs Japandi vs minimalist | scandinavian interior design hdb | Design Ideas |
+| Next | Small HDB storage ideas | small hdb storage ideas | Design Ideas |
+| Next | Landed home A&A basics | landed house renovation singapore | Rules & Permits |
+| Next | Office fit-out cost Singapore | office renovation cost singapore | Costs & Budgeting |
+| Next | 3-room and executive flat renovation cost | 3 room hdb renovation cost | Costs & Budgeting |
+| Next | Renovation loan options in Singapore (verify rates) | renovation loan singapore | Costs & Budgeting |
+| Next | Qanvast alternative: how to choose a platform | qanvast alternative | Choosing a Designer |
+
+**Publishing standard:** every article should score 14/14 in the editor's SEO scorecard (all 13 launch articles do), carry at least two internal links, cite its figures as indicative ranges, and have a unique cover image
+with truthful alt text. Re-verify costs and rules each quarter and bump `updated_at` in the editor.
 
 ## Blog system
 
