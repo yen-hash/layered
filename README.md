@@ -154,3 +154,7 @@ data/app.db                       SQLite database (gitignored, auto-created)
 - Lead matching is a simple property-type overlap, not a scoring algorithm.
 - Photo uploads are stored on local disk, which won't survive on ephemeral/
   serverless filesystems — see the deploy notes above.
+
+## Verifying credentials
+
+Admins (`ADMIN_EMAILS`) open `/dashboard/verification`, check each firm's HDB licence / CaseTrust against the official lookups, and click Verify. The checked value and date are stored; changing the declared value, or 365 days passing, removes the tick automatically. Unchecked credentials stay labelled self-declared.

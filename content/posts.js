@@ -26,7 +26,7 @@ export const SEED_POSTS = [
 | **What it is** | Renovation matching platform | Interior designer review platform | Designer directory plus homeowner guides |
 | **How you use it** | Submit your requirements and receive a shortlist of up to five firms | Read reviews and get a personalised shortlist | Browse and filter firms, or submit a brief to be matched |
 | **Standout feature** | Vetted firms, verified reviews and a deposit guarantee (up to S$50,000 on qualifying projects, per Qanvast) | A large base of homeowner reviews | Firms can list their HDB licence and CaseTrust tier, with plain-English guides |
-| **Worth knowing** | Read the guarantee terms for what is covered | Reviews are the product, so check how recent they are | Newer, with fewer firms and no reviews yet. Credentials are self-declared and not verified by us |
+| **Worth knowing** | Read the guarantee terms for what is covered | Reviews are the product, so check how recent they are | Newer, with fewer firms and no reviews yet. Credentials are self-declared unless marked as checked by us |
 
 ## Qanvast: matching with vetting and a guarantee
 
@@ -44,7 +44,7 @@ Hometrust positions itself as a customer review platform for interior designers 
 
 Layered is a newer directory. Firms publish portfolios and can list their **HDB renovation contractor licence number** and their **CaseTrust** accreditation (CaseTrust, CaseTrust-RCMA or CaseTrust Gold), so you can filter for them and then check them yourself. Alongside it we publish plain-English guides on [HDB renovation costs](/guides/hdb-renovation-cost-singapore), [permits and rules](/guides/hdb-renovation-permit-and-rules) and a full [renovation checklist](/guides/renovation-checklist-singapore).
 
-**What we do not have yet:** a large firm base, homeowner reviews or a deposit guarantee. Credentials on Layered are self-declared by each firm and we say so on every profile.
+**What we do not have yet:** a large firm base, homeowner reviews or a deposit guarantee. Credentials on Layered are self-declared by each firm unless our team has checked them against the official lookups, in which case the badge shows a tick and the date. Every profile says which.
 
 **Best for:** homeowners who want to compare firms by HDB and CaseTrust credentials and learn the process before they talk to anyone.
 
@@ -70,7 +70,7 @@ According to Qanvast, its recommendation service is free for homeowners. Confirm
 Yes. Reviews are the core of Hometrust, which lists firms alongside homeowner-written reviews and ratings.
 
 ### Does Layered verify designers?
-No. Firms on Layered list their own HDB licence and CaseTrust accreditation, and we label them as self-declared. Always confirm them on HDB's and CaseTrust's own lookups.
+Not by default. Firms list their own HDB licence and CaseTrust accreditation, and we label them as self-declared. Where our team has checked a firm against HDB's and CaseTrust's own lookups, the badge shows a tick and the date. Always confirm on the official lookups too.
 
 ### Which platform is best for finding an HDB interior designer?
 Each helps in a different way. Use a matching service or directory to build a shortlist, a review site to check experiences, and the official HDB lookup to confirm the contractor is registered.`,
@@ -624,7 +624,7 @@ You want both. Our guide to [CaseTrust and HDB licences](/guides/casetrust-and-h
 
 ## On Layered
 
-Firms on Layered can list their HDB licence number and CaseTrust accreditation, and you can [filter the directory by credentials](/designers). These are **self-declared and not verified by Layered**, so use them as a prompt, then check them yourself with the steps above. Our [renovation checklist](/guides/renovation-checklist-singapore) includes this check in the "Choose your designer" stage.
+Firms on Layered can list their HDB licence number and CaseTrust accreditation, and you can [filter the directory by credentials](/designers). These are **self-declared unless marked as checked by Layered** (a tick and a date), so use them as a prompt, then check them yourself with the steps above. Our [renovation checklist](/guides/renovation-checklist-singapore) includes this check in the "Choose your designer" stage.
 
 ## Frequently asked questions
 

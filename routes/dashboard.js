@@ -9,7 +9,7 @@ export function dashLayout(active, inner, ctx) {
     ['/dashboard/leads', 'Leads'],
     ['/dashboard/projects', 'Projects'],
     ['/dashboard/profile', 'Business Profile'],
-    ...(isAdmin(ctx.business) ? [['/dashboard/blog', 'Blog (admin)']] : []),
+    ...(isAdmin(ctx.business) ? [['/dashboard/blog', 'Blog (admin)'], ['/dashboard/verification', 'Verify credentials']] : []),
   ];
   const nav = links.map(([href, label]) => `<a href="${href}" class="${active === href ? 'active' : ''}">${esc(label)}</a>`).join('');
   const body = `
@@ -85,7 +85,7 @@ export async function profilePage(req, res, ctx) {
       <div class="field"><label>Property types you take on</label>${chipGroup('property_types', PROPERTY_TYPES, propertyTypes)}</div>
       <div class="field"><label>Styles you specialize in</label>${chipGroup('styles', STYLES, styles)}</div>
       <h3>Credentials</h3>
-      <p class="muted small" style="margin-top:-6px;">Shown as badges on your public profile. These are self-declared and clearly labelled as such to homeowners, so only list what you currently hold.</p>
+      <p class="muted small" style="margin-top:-6px;">Shown as badges on your public profile. They are labelled self-declared until Layered has checked them against the official HDB and CaseTrust lookups, so only list what you currently hold. If you change a number or tier that was verified, the verified mark is removed until it is checked again.</p>
       <div class="two-col">
         <div class="field"><label>HDB renovation contractor licence no.</label><input type="text" name="hdb_licence_no" value="${esc(b.hdb_licence_no || '')}" maxlength="30" placeholder="As shown in HDB's Directory of Renovation Contractors"></div>
         <div class="field"><label>CaseTrust accreditation</label>

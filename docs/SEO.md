@@ -147,7 +147,7 @@ useful*, then close the trust gap with product, not copy.
 5. **Speed and cleanliness.** Server-rendered pages, gzip, system fonts, no third-party scripts.
 
 ### Product roadmap to close the trust gap (in priority order)
-1. **Verified credentials:** an admin "verified on <date>" flag set after checking HDB/CaseTrust lookups, shown instead of "self-declared".
+1. ~~Verified credentials~~ **Built.** Admins check HDB/CaseTrust lookups at `/dashboard/verification`; a tick and date appear on the profile and a "Checked by Layered" directory filter. Editing the number voids the mark; marks expire after 365 days.
 2. **Verified reviews:** invite homeowners from the lead record after completion; only reviews tied to a real lead are shown; add `Review` schema only then.
 3. **Deposit protection:** partner for a guarantee, or badge firms with CaseTrust deposit protection as "Protected deposit".
 4. ~~**Cost estimator**~~ **Built:** `/tools/renovation-cost-calculator` (HDB, condo, kitchen and bathrooms, office). Pre-fills the lead form with property type and budget band. Ranges live in `content/estimator.js`, tests in `test/`. Next: measure how many calculator visits become leads, and consider an emailed estimate.

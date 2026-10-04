@@ -16,6 +16,7 @@ import { blogIndexRoute, blogCategoryRoute, blogPostRoute, rssRoute } from './ro
 import { blogAdminList, blogAdminEditor, blogAdminSave, blogAdminDelete } from './routes/blogAdmin.js';
 import { isAdmin } from './lib/admin.js';
 import { calculatorRoute } from './routes/tools.js';
+import { verificationList, verificationAction } from './routes/verification.js';
 import { propertyLandingRoute, styleLandingRoute, guidesIndexRoute, guideRoute, checklistRoute } from './routes/content.js';
 import { signupPage, signupSubmit, loginPage, loginSubmit, logoutRoute } from './routes/auth.js';
 import {
@@ -204,6 +205,11 @@ async function router(req, res) {
         const { fields, files } = await parseForm(req);
         return await projectCreate(req, res, ctx, fields, files);
       }
+      // ----- Credential verification (admin) -----
+      if (req.method === 'GET' && url.pathname === '/dashboard/verification') return await verificationList(req, res, ctx);
+      const verMatch = url.pathname.match(/^\/dashboard\/verification\/(\d+)\/(hdb|casetrust)\/(verify|clear)$/);
+      if (req.method === 'POST' && verMatch) return await verificationAction(req, res, ctx, Number(verMatch[1]), verMatch[2], verMatch[3]);
+
       // ----- Blog admin -----
       if (req.method === 'GET' && url.pathname === '/dashboard/blog') return await blogAdminList(req, res, ctx);
       if (req.method === 'GET' && url.pathname === '/dashboard/blog/new') return await blogAdminEditor(req, res, ctx, 0);

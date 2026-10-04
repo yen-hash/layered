@@ -96,6 +96,10 @@ db.exec(`
 const businessCols = db.prepare('PRAGMA table_info(businesses)').all().map((c) => c.name);
 if (!businessCols.includes('hdb_licence_no')) db.exec("ALTER TABLE businesses ADD COLUMN hdb_licence_no TEXT DEFAULT ''");
 if (!businessCols.includes('casetrust')) db.exec("ALTER TABLE businesses ADD COLUMN casetrust TEXT DEFAULT ''");
+// Admin verification: stores *what* was checked and when, so editing the value later voids the mark.
+for (const col of ['hdb_verified_value', 'hdb_verified_at', 'casetrust_verified_value', 'casetrust_verified_at']) {
+  if (!businessCols.includes(col)) db.exec(`ALTER TABLE businesses ADD COLUMN ${col} TEXT DEFAULT ''`);
+}
 
 export const PROPERTY_TYPES = ['HDB', 'Condo', 'Landed', 'Commercial'];
 export const STYLES = ['Minimalist', 'Scandinavian', 'Industrial', 'Modern', 'Contemporary', 'Classic'];

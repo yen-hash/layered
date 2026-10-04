@@ -181,6 +181,7 @@ export async function directoryRoute(req, res, ctx, url) {
   if (credential === 'hdb') sql += " AND hdb_licence_no != ''";
   else if (credential === 'casetrust') sql += " AND casetrust != ''";
   else if (credential === 'gold') sql += " AND casetrust = 'casetrust_gold'";
+  else if (credential === 'verified') sql += " AND ((hdb_licence_no != '' AND hdb_verified_value = hdb_licence_no AND hdb_verified_at >= datetime('now', '-365 days')) OR (casetrust != '' AND casetrust_verified_value = casetrust AND casetrust_verified_at >= datetime('now', '-365 days')))";
   sql += ' ORDER BY featured DESC, created_at DESC';
   const list = db.prepare(sql).all(...params);
 
@@ -226,6 +227,7 @@ export async function directoryRoute(req, res, ctx, url) {
           <option value="hdb" ${credential === 'hdb' ? 'selected' : ''}>HDB licensed</option>
           <option value="casetrust" ${credential === 'casetrust' ? 'selected' : ''}>CaseTrust accredited (any)</option>
           <option value="gold" ${credential === 'gold' ? 'selected' : ''}>CaseTrust Gold</option>
+          <option value="verified" ${credential === 'verified' ? 'selected' : ''}>Checked by Layered</option>
         </select>
       </div>
     </form>

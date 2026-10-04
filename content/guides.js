@@ -258,7 +258,7 @@ export const GUIDES = [
       },
       {
         h2: 'How credentials appear on Layered',
-        html: `<p>On Layered, firms can list their HDB licence number and their CaseTrust accreditation (CaseTrust, CaseTrust-RCMA or CaseTrust Gold). These are <strong>self-declared by the firm and not verified by Layered</strong>. Treat them as a prompt to check, not as proof. You can filter the <a href="/designers">designer directory</a> by these credentials, then confirm them on the official lookups above.</p>`,
+        html: `<p>On Layered, firms can list their HDB licence number and their CaseTrust accreditation (CaseTrust, CaseTrust-RCMA or CaseTrust Gold). Credentials are <strong>self-declared by the firm</strong> by default. When our team has checked a firm against HDB's and CASE's own lookups, the badge carries a tick and the date of the check, and the profile says so. Everything else is shown as self-declared. Either way, treat a badge as a prompt to check, not as proof, because registrations can lapse. You can filter the <a href="/designers">designer directory</a> by these credentials, including firms we have checked, then confirm them on the official lookups above.</p>`,
       },
       {
         h2: 'What neither credential guarantees',
@@ -269,7 +269,7 @@ export const GUIDES = [
       { q: 'What is the difference between CaseTrust and CaseTrust-RCMA?', a: 'Both are CASE accreditations for renovation businesses with the same core consumer protections. CaseTrust-RCMA is a joint scheme for members of the Renovation Contractors and Material Suppliers Association, while CaseTrust is for renovation businesses that are not RCMA members.' },
       { q: 'What does CaseTrust Gold mean?', a: 'Gold is the highest CaseTrust tier for renovation businesses. It includes enhanced protections such as 50% prepayment protection through an approved instrument like an insurance bond or banker\'s guarantee.' },
       { q: 'How do I check if a contractor has an HDB licence?', a: 'Ask for the exact registered company name and licence number, then look the company up on HDB\'s contractor lookup and confirm the details match and the registration is current.' },
-      { q: 'Does Layered verify the credentials firms list?', a: 'No. Credentials on Layered are self-declared by each firm and clearly labelled that way. Always confirm them with HDB and CaseTrust before signing a contract.' },
+      { q: 'Does Layered verify the credentials firms list?', a: 'Not by default. Credentials are self-declared by each firm and labelled that way. Where our team has checked a firm against the official HDB and CaseTrust lookups, the badge shows a tick and the date of the check. Registrations can lapse, so always confirm with HDB and CaseTrust before signing a contract.' },
     ],
     related: ['hdb-renovation-permit-and-rules', 'how-to-choose-an-interior-designer-singapore', 'hdb-renovation-cost-singapore'],
     links: [['/designers', 'Browse all designers']],
