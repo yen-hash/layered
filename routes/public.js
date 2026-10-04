@@ -1,6 +1,7 @@
 import { db, PROPERTY_TYPES, STYLES, BUDGET_RANGES } from '../db.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
 import { dispatchLeadNotifications } from '../lib/notify.js';
+import { credentialBadges, credentialsPanel } from '../lib/credentials.js';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -33,6 +34,7 @@ function designerCard(b) {
     <div class="body">
       <h3>${esc(b.company_name)}${b.featured ? ' ⭐' : ''}</h3>
       <div class="muted">${esc(b.service_areas || 'Singapore')}</div>
+      ${credentialBadges(b)}
       <div class="tag-row">${tags.slice(0, 4).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
     </div>
   </a>`;
@@ -124,10 +126,14 @@ export async function homeRoute(req, res, ctx) {
 export async function directoryRoute(req, res, ctx, url) {
   const propertyType = url.searchParams.get('property_type') || '';
   const style = url.searchParams.get('style') || '';
+  const credential = url.searchParams.get('credential') || '';
   let sql = 'SELECT * FROM businesses WHERE 1=1';
   const params = [];
   if (propertyType) { sql += " AND (',' || property_types || ',') LIKE ?"; params.push(`%,${propertyType},%`); }
   if (style) { sql += " AND (',' || styles || ',') LIKE ?"; params.push(`%,${style},%`); }
+  if (credential === 'hdb') sql += " AND hdb_licence_no != ''";
+  else if (credential === 'casetrust') sql += " AND casetrust != ''";
+  else if (credential === 'gold') sql += " AND casetrust = 'casetrust_gold'";
   sql += ' ORDER BY featured DESC, created_at DESC';
   const list = db.prepare(sql).all(...params);
 
@@ -152,6 +158,15 @@ export async function directoryRoute(req, res, ctx, url) {
           </select>
         </div>
       </div>
+      <div class="field">
+        <label>Credentials</label>
+        <select name="credential" onchange="this.form.submit()">
+          <option value="">Any</option>
+          <option value="hdb" ${credential === 'hdb' ? 'selected' : ''}>HDB licensed</option>
+          <option value="casetrust" ${credential === 'casetrust' ? 'selected' : ''}>CaseTrust accredited (any)</option>
+          <option value="gold" ${credential === 'gold' ? 'selected' : ''}>CaseTrust Gold</option>
+        </select>
+      </div>
     </form>
     <div class="grid grid-3">${list.map(designerCard).join('') || '<p class="muted">No designers match those filters yet.</p>'}</div>
   </section>`;
@@ -172,13 +187,15 @@ export async function designerProfileRoute(req, res, ctx, slug) {
       <div>
         <h1 style="margin:0 0 6px;">${esc(b.company_name)}${b.featured ? ' ⭐' : ''}</h1>
         <p class="muted" style="margin:0 0 8px;">${esc(b.service_areas || 'Singapore')}</p>
+        ${credentialBadges(b)}
         <div class="tag-row">${tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
       </div>
     </div>
   </div>
   <section class="wrap">
-    <div class="grid grid-2" style="grid-template-columns: 2fr 1fr; align-items:start;">
+    <div class="grid grid-2 profile-grid">
       <div>
+        ${credentialsPanel(b)}
         <h2>About</h2>
         <p>${esc(b.bio) || '<span class="muted">This designer hasn\'t added a bio yet.</span>'}</p>
         <h2>Projects (${projects.length})</h2>

@@ -31,6 +31,11 @@ no dependency updates to chase, and it runs anywhere with Node ≥ 22.5.
   manager (create/delete, with real photo upload via multipart form-data or
   a pasted image URL), and a leads inbox with a detail view and status
   tracker (new / contacted / won / lost).
+- **Credentials**: firms can list their HDB renovation contractor licence number
+  and one CaseTrust accreditation (CaseTrust, CaseTrust-RCMA, or CaseTrust Gold).
+  They show as badges on directory cards and a Credentials panel on the profile, and
+  the directory can be filtered by them. They are self-declared and labelled as
+  such, with links to HDB's and CaseTrust's own lookups; Layered does not verify them.
 - Ownership is enforced everywhere in the dashboard — a business can only see
   and edit its own leads and projects.
 

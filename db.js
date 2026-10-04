@@ -71,6 +71,11 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_lead_matches_lead ON lead_matches(lead_id);
 `);
 
+// Lightweight migrations for databases created before a column existed.
+const businessCols = db.prepare('PRAGMA table_info(businesses)').all().map((c) => c.name);
+if (!businessCols.includes('hdb_licence_no')) db.exec("ALTER TABLE businesses ADD COLUMN hdb_licence_no TEXT DEFAULT ''");
+if (!businessCols.includes('casetrust')) db.exec("ALTER TABLE businesses ADD COLUMN casetrust TEXT DEFAULT ''");
+
 export const PROPERTY_TYPES = ['HDB', 'Condo', 'Landed', 'Commercial'];
 export const STYLES = ['Minimalist', 'Scandinavian', 'Industrial', 'Modern', 'Contemporary', 'Classic'];
 export const BUDGET_RANGES = ['Below $20k', '$20k - $50k', '$50k - $100k', 'Above $100k'];

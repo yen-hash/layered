@@ -150,3 +150,17 @@ form.inline { display: inline; }
   .header-inner { height: auto; flex-wrap: wrap; padding-top: 10px; padding-bottom: 10px; row-gap: 6px; }
   .main-nav { flex-wrap: wrap; gap: 4px 14px; font-size: 0.9rem; }
 }
+
+/* Credentials */
+.badge-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 2px; }
+.badge { display: inline-block; font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; border: 1px solid transparent; white-space: nowrap; }
+.badge-hdb { background: #e7f1fb; color: #14507f; border-color: #c4dcf2; }
+.badge-casetrust { background: #e8f5ec; color: #1d6a3a; border-color: #c3e3cd; }
+.badge-gold { background: #fbf0cf; color: #7a5a00; border-color: #ecd68a; }
+.credentials { margin-bottom: 28px; }
+.credentials h3 { margin: 0 0 10px; }
+.credentials ul { list-style: none; margin: 0 0 10px; padding: 0; }
+.credentials li { margin: 8px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.small { font-size: 0.84rem; }
+.profile-grid { grid-template-columns: 2fr 1fr; align-items: start; }
+@media (max-width: 800px) { .profile-grid { grid-template-columns: 1fr; } }

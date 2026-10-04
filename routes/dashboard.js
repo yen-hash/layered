@@ -1,5 +1,6 @@
 import { db, PROPERTY_TYPES, STYLES } from '../db.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
+import { CASETRUST_OPTIONS, normaliseCaseTrust, normaliseHdbLicence } from '../lib/credentials.js';
 
 function dashLayout(active, inner, ctx) {
   const links = [
@@ -81,6 +82,16 @@ export async function profilePage(req, res, ctx) {
       <div class="field"><label>Bio</label><textarea name="bio">${esc(b.bio || '')}</textarea></div>
       <div class="field"><label>Property types you take on</label>${chipGroup('property_types', PROPERTY_TYPES, propertyTypes)}</div>
       <div class="field"><label>Styles you specialize in</label>${chipGroup('styles', STYLES, styles)}</div>
+      <h3>Credentials</h3>
+      <p class="muted small" style="margin-top:-6px;">Shown as badges on your public profile. These are self-declared and clearly labelled as such to homeowners, so only list what you currently hold.</p>
+      <div class="two-col">
+        <div class="field"><label>HDB renovation contractor licence no.</label><input type="text" name="hdb_licence_no" value="${esc(b.hdb_licence_no || '')}" maxlength="30" placeholder="As shown in HDB's Directory of Renovation Contractors"></div>
+        <div class="field"><label>CaseTrust accreditation</label>
+          <select name="casetrust">
+            ${CASETRUST_OPTIONS.map((o) => `<option value="${esc(o.value)}" ${o.value === (b.casetrust || '') ? 'selected' : ''}>${esc(o.label)}</option>`).join('')}
+          </select>
+        </div>
+      </div>
       <h3>Lead notifications</h3>
       <div class="field checkbox-row"><input type="checkbox" name="notify_email" id="notify_email" ${b.notify_email ? 'checked' : ''}><label for="notify_email" style="margin:0;">Email me new leads (to ${esc(b.email)})</label></div>
       <div class="field checkbox-row"><input type="checkbox" name="notify_sms" id="notify_sms" ${b.notify_sms ? 'checked' : ''}><label for="notify_sms" style="margin:0;">WhatsApp/SMS me new leads</label></div>
@@ -92,14 +103,21 @@ export async function profilePage(req, res, ctx) {
 }
 
 export async function profileSubmit(req, res, ctx, fields) {
+  const hdb = normaliseHdbLicence(fields.hdb_licence_no);
+  if (hdb.error) {
+    res.writeHead(302, { Location: '/dashboard/profile?err=' + encodeURIComponent(hdb.error) });
+    res.end();
+    return;
+  }
   const propertyTypes = Array.isArray(fields.property_types) ? fields.property_types : (fields.property_types ? [fields.property_types] : []);
   const styles = Array.isArray(fields.styles) ? fields.styles : (fields.styles ? [fields.styles] : []);
-  db.prepare(`UPDATE businesses SET company_name=?, contact_name=?, phone=?, service_areas=?, logo_url=?, bio=?, property_types=?, styles=?, notify_email=?, notify_sms=?, notify_phone=? WHERE id=?`)
+  db.prepare(`UPDATE businesses SET company_name=?, contact_name=?, phone=?, service_areas=?, logo_url=?, bio=?, property_types=?, styles=?, notify_email=?, notify_sms=?, notify_phone=?, hdb_licence_no=?, casetrust=? WHERE id=?`)
     .run(
       fields.company_name || ctx.business.company_name,
       fields.contact_name || '', fields.phone || '', fields.service_areas || '', fields.logo_url || '', fields.bio || '',
       propertyTypes.join(','), styles.join(','),
       fields.notify_email ? 1 : 0, fields.notify_sms ? 1 : 0, fields.notify_phone || '',
+      hdb.value, normaliseCaseTrust(fields.casetrust),
       ctx.business.id
     );
   res.writeHead(302, { Location: '/dashboard/profile?ok=' + encodeURIComponent('Profile updated.') });
