@@ -154,7 +154,7 @@ useful*, then close the trust gap with product, not copy.
 6. **Firm-submitted articles** (review queue) for fresh content and backlinks.
 
 ### Keyword queue for the blog (verify volumes in an SEO tool before writing)
-Published so far (13): the original six, plus batch 2 below. Remaining queue is open.
+Published so far (19): the original six, batch 2 (seven) and batch 3 (six, below). Remaining queue is open.
 
 | Status | Working title | Focus keyword | Category |
 |---|---|---|---|
@@ -165,14 +165,24 @@ Published so far (13): the original six, plus batch 2 below. Remaining queue is 
 | Published | Resale HDB hidden costs | resale hdb renovation cost | Costs & Budgeting |
 | Published | Defects liability period explained | defects liability period singapore | Rules & Permits |
 | Published | Scandinavian vs Japandi vs minimalist | scandinavian interior design hdb | Design Ideas |
-| Next | Small HDB storage ideas | small hdb storage ideas | Design Ideas |
-| Next | Landed home A&A basics | landed house renovation singapore | Rules & Permits |
-| Next | Office fit-out cost Singapore | office renovation cost singapore | Costs & Budgeting |
-| Next | 3-room and executive flat renovation cost | 3 room hdb renovation cost | Costs & Budgeting |
-| Next | Renovation loan options in Singapore (verify rates) | renovation loan singapore | Costs & Budgeting |
-| Next | Qanvast alternative: how to choose a platform | qanvast alternative | Choosing a Designer |
+| Published | 3-room HDB renovation cost | 3 room hdb renovation cost | Costs & Budgeting |
+| Published | Landed house renovation: approvals and A&A | landed house renovation singapore | Rules & Permits |
+| Published | Office renovation cost (fit-out per sq ft) | office renovation cost singapore | Costs & Budgeting |
+| Published | Renovation loan: how it works (no bank rates) | renovation loan singapore | Costs & Budgeting |
+| Published | Small HDB storage ideas | small hdb storage ideas | Design Ideas |
+| Published | 10 renovation mistakes and how to avoid them | renovation mistakes singapore | Choosing a Designer |
+| Next | Laminate vs veneer vs solid wood for built-ins | laminate vs veneer carpentry singapore | Design Ideas |
+| Next | Flooring for HDB: vinyl vs tiles vs timber | hdb flooring options | Design Ideas |
+| Next | How to read a renovation quotation | renovation quotation singapore | Choosing a Designer |
+| Next | HDB vs condo renovation cost | hdb vs condo renovation cost | Costs & Budgeting |
+| Next | Qanvast alternative (keep factual, cite their own site) | qanvast alternative | Choosing a Designer |
+| Next | Condo renovation timeline | condo renovation timeline singapore | Rules & Permits |
 
-**Publishing standard:** every article should score 14/14 in the editor's SEO scorecard (all 13 launch articles do), carry at least two internal links, cite its figures as indicative ranges, and have a unique cover image
+**Editorial QA lesson:** the SEO scorecard checks structure, not meaning. After a batch is written, read the rendered pages and
+list each article's headings; one batch had two sections attached to the wrong article by a scripted edit, which only a
+read-through caught. `docs/SEO.md` keeps this note so the next batch repeats the check.
+
+**Publishing standard:** every article should score 14/14 in the editor's SEO scorecard (all 19 launch articles do), carry at least two internal links, cite its figures as indicative ranges, and have a unique cover image
 with truthful alt text. Re-verify costs and rules each quarter and bump `updated_at` in the editor.
 
 ## Blog system

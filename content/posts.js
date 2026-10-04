@@ -215,20 +215,13 @@ That fits the S$12,000 to S$22,000 range commonly quoted for a 4-room kitchen on
 - Spend on hinges, drawer runners and waterproofing, and save on decorative finishes.
 - Ask for an itemised quote so you can see what each choice costs.
 
-## Ways to save without risking leaks
+## Common kitchen mistakes
 
-- **Keep the layout.** Moving the toilet bowl, shower or floor trap adds plumbing and tiling work.
-- **Spend on what is hidden.** Waterproofing, pipes and drainage matter more than decorative tiles.
-- **Choose standard tile sizes** and fittings. Large-format tiles and designer fittings add cost.
-- **Refresh instead of rebuild** if the existing tiles and waterproofing are sound. Only an inspection can confirm this.
-- **Ask whether the works need an HDB permit.** Hacking generally does, and your registered contractor applies. See the [HDB renovation rules](/guides/hdb-renovation-permit-and-rules).
-
-## Common mistakes
-
-- **Tiling over old waterproofing** without testing it.
-- **Skipping the water-ponding test,** which checks that the waterproofing holds before tiles go down.
-- **Forgetting ventilation,** which leads to mould in a humid climate.
-- **Choosing slippery floor tiles** for a wet area, especially with children or elderly family.
+- **Choosing appliances after the cabinets are built.** Hobs, hoods, ovens and fridges have exact dimensions, so decide them first and give your designer the model numbers.
+- **Too little counter space beside the hob and sink.** A good work triangle needs landing space next to both.
+- **Weak ventilation.** In a humid climate, an under-sized hood leaves cooking smells and grease on the cabinets.
+- **Saving on hinges and drawer runners.** They take the daily wear, so soft-close hardware from a reputable brand is worth paying for.
+- **Forgetting sockets.** Plan outlets for the kettle, rice cooker, air fryer and fridge before wiring is done.
 
 ## Questions to ask before you sign
 
@@ -310,6 +303,21 @@ The spread explains why a bathroom can cost S$5,000 or S$15,000: it is mostly th
 3. **Wall and floor tile choice,** including large-format tiles, which cost more to lay.
 4. **Shower enclosure:** a glass screen versus a curtain.
 5. **Resale condition:** older pipes and floor traps may need replacing. See [HDB renovation costs](/guides/hdb-renovation-cost-singapore) for the BTO and resale difference.
+
+## Ways to save without risking leaks
+
+- **Keep the layout.** Moving the toilet bowl, shower or floor trap adds plumbing and tiling work.
+- **Spend on what is hidden.** Waterproofing, pipes and drainage matter more than decorative tiles.
+- **Choose standard tile sizes** and fittings. Large-format tiles and designer fittings add cost.
+- **Refresh instead of rebuild** if the existing tiles and waterproofing are sound. Only an inspection can confirm this.
+- **Ask whether the works need an HDB permit.** Hacking generally does, and your registered contractor applies. See the [HDB renovation rules](/guides/hdb-renovation-permit-and-rules).
+
+## Common mistakes
+
+- **Tiling over old waterproofing** without testing it.
+- **Skipping the water-ponding test,** which checks that the waterproofing holds before tiles go down.
+- **Forgetting ventilation,** which leads to mould in a humid climate.
+- **Choosing slippery floor tiles** for a wet area, especially with children or elderly family.
 
 ## What a good bathroom quote lists
 
@@ -1005,5 +1013,449 @@ Yes. Light walls, pale wood and functional furniture help compact HDB flats feel
 
 ### Can I mix Scandinavian, Japandi and minimalist?
 Yes. The three share a calm, light base, so many Singapore homes blend them. Choose one as the lead and borrow carefully from the others.`,
+  },
+
+  // ---------- Batch 3 ----------
+  {
+    slug: '3-room-hdb-renovation-cost-singapore',
+    title: '3-Room HDB Renovation Cost in Singapore (2026 Price Guide)',
+    category: 'Costs & Budgeting',
+    focus_keyword: '3 room hdb renovation cost',
+    tags: '3-room, hdb, bto, resale, executive flat, cost',
+    meta_title: '3-Room HDB Renovation Cost Singapore: 2026 Price Guide',
+    meta_description: '3-room HDB renovation cost in Singapore: 2026 ranges for BTO and resale flats, what drives the price, executive flat notes and how to budget.',
+    excerpt: 'A 3-room flat is the smallest renovation most families take on, but its kitchen and bathroom cost nearly as much as a bigger flat’s. Here is how the 2026 numbers break down.',
+    cover_image: '/images/cover-3room.jpg',
+    cover_alt: 'Sectional sofa and round coffee tables in a bright living room',
+    body: `A 3-room flat is about 65 square metres, so it is natural to expect a small renovation bill. In practice the **3 room HDB renovation cost** is lower than a 4-room or 5-room, but not by as much as the floor area suggests. This guide shows the 2026 ranges for BTO and resale 3-room flats, explains why, and covers executive flats at the other end.
+
+*Ranges vary a lot between sources and between scopes. Treat them as a way to sanity-check quotes, not as a quote.*
+
+## 3-room HDB renovation cost at a glance
+
+| Flat | BTO (new) | Resale |
+|---|---|---|
+| 3-room | S$30,000 - S$45,000 | S$45,000 - S$65,000 |
+| 4-room | S$40,000 - S$55,000 | S$55,000 - S$75,000 |
+| 5-room | S$45,000 - S$67,000 | S$58,000 - S$90,000 |
+
+Published figures for 3-room flats range more widely than for larger ones. Some guides quote a BTO 3-room from the low S$20,000s, others in the S$36,000 to S$44,000 band, and a resale 3-room from the mid S$40,000s to above S$60,000. The wide spread mostly reflects how much carpentry and hacking each source assumed.
+
+## Why a smaller flat is not proportionally cheaper
+
+The most expensive rooms exist in every flat:
+
+- **One kitchen and at least one bathroom** need the same trades: hacking, waterproofing, plumbing, tiling and cabinets.
+- **Permits, project management and site protection** cost about the same whatever the size.
+- Cost per square metre is therefore **higher** in a small flat, because fixed costs are spread over less area.
+
+Where a 3-room does save money is in **flooring, painting, ceiling and the amount of wardrobe and cabinet runs**.
+
+## BTO vs resale: where the extra cost comes from
+
+A resale 3-room often costs 30-50% more than a BTO, mainly because of hacking old finishes, rewiring and re-waterproofing. Read [resale HDB renovation hidden costs](/blog/resale-hdb-renovation-hidden-costs) for what to inspect before you buy.
+
+## What drives the quote in a small flat
+
+1. **Custom carpentry.** Storage matters more in a compact flat, so wardrobes, a shoe cabinet and kitchen cabinets usually take the largest share. See our [small HDB storage ideas](/blog/small-hdb-storage-ideas).
+2. **Layout changes.** Removing a non-structural wall to open the kitchen is popular in small flats and adds hacking and permit work. Check the [HDB renovation rules](/guides/hdb-renovation-permit-and-rules).
+3. **Wet areas.** Read the [kitchen](/blog/hdb-kitchen-renovation-cost-singapore) and [bathroom](/blog/hdb-bathroom-renovation-cost-singapore) cost guides.
+4. **Finishes and fittings.** Tile grade, laminates and lighting.
+
+## Executive flats and larger homes
+
+Executive flats are larger than 5-room flats, and there is less published pricing for them. Use the 5-room range as a starting point, expect carpentry, tiling and painting areas to push the total higher, and ask designers for itemised quotes.
+
+## How to budget for a 3-room flat
+
+- Decide your **maximum budget**, then ask designers what it realistically buys.
+- Keep a **10-15% buffer**, more for an older resale flat.
+- Prioritise the **kitchen, bathroom and storage** you will use every day.
+- Compare **three itemised quotes** for the same brief. Our [HDB renovation cost guide](/guides/hdb-renovation-cost-singapore) and [4-room vs 5-room comparison](/blog/4-room-vs-5-room-hdb-renovation-cost) show the larger-flat ranges.
+
+Ready to compare firms? Browse [HDB interior designers on Layered](/interior-designers/hdb).
+
+## Frequently asked questions
+
+### How much does it cost to renovate a 3-room BTO?
+Many guides put a standard 3-room BTO renovation at roughly S$30,000 to S$45,000, with some quoting lower for a lighter scope and others higher for premium finishes.
+
+### How much does a 3-room resale HDB renovation cost?
+A typical range is around S$45,000 to S$65,000 because of the extra hacking, rewiring and waterproofing resale flats often need.
+
+### Is it cheaper to renovate a 3-room flat per square metre?
+No. Kitchens and bathrooms cost similar amounts in any flat, so the cost per square metre of a small flat is usually higher than a larger one.`,
+  },
+
+  {
+    slug: 'landed-house-renovation-singapore',
+    title: 'Landed House Renovation in Singapore: Approvals, A&A and Planning',
+    category: 'Rules & Permits',
+    focus_keyword: 'landed house renovation singapore',
+    tags: 'landed, a&a, qualified person, bca, ura, approvals',
+    meta_title: 'Landed House Renovation Singapore: Approvals & A&A',
+    meta_description: 'Planning a landed house renovation in Singapore? What needs approval, when A&A works need a Qualified Person, what is usually exempt, and how to plan the build.',
+    excerpt: 'Repainting and new carpentry are one thing. Extending a terrace house is another. Here is where renovation ends, where A&A begins and who has to sign off.',
+    cover_image: '/images/cover-landed.jpg',
+    cover_alt: 'Tan leather sofa with green cushions, a plant and a fireplace in a living room',
+    body: `A **landed house renovation in Singapore** can mean anything from a fresh coat of paint to adding a storey. The rules depend on which end of that range you are at. Cosmetic work is usually straightforward, but structural changes and extensions need professional involvement and approval. This guide explains the difference so you can plan the schedule, the team and the budget.
+
+*Rules are set by the Building and Construction Authority (BCA) and the Urban Redevelopment Authority (URA) and are updated from time to time. Always confirm with your Qualified Person or the authorities before you commit.*
+
+## Three levels of landed home work
+
+| Level | Examples | Typical approvals |
+|---|---|---|
+| **Interior renovation** | Repainting, new flooring, carpentry, kitchen and bathroom refresh | Usually none from the authorities for purely cosmetic work |
+| **Additions and alterations (A&A)** | Extending a room, a rear annex, adding a storey, changing structural walls or the roof | A Qualified Person submits plans to BCA, and to URA if floor area changes |
+| **Rebuild** | Demolishing and building a new house | Full planning and building approvals |
+
+## What is usually exempt
+
+Guides commonly list these as cosmetic works that do not need BCA approval, provided no structural element is involved:
+
+- Hacking and retiling **non-structural** walls and floors
+- Kitchen and wardrobe carpentry and built-in furniture
+- Painting and wallpaper
+- Replacing flooring materials
+- Upgrading sanitary fittings **without re-routing pipes**
+
+Some minor works, such as certain lightweight garden shelters and awnings, may also be exempt under building rules. Ask your Qualified Person to confirm what applies to your plans before you assume anything.
+
+## When you need a Qualified Person
+
+If your plans involve **structural changes or extensions**, a **Qualified Person (QP)**, an architect or professional engineer, must prepare and submit the plans to BCA for approval before building work starts. If the **gross floor area** changes, URA's planning approval is also involved. Your QP will also supervise and certify the works.
+
+## Planning a landed house renovation in Singapore
+
+1. **Define the scope.** Is this interior work, or will you touch the structure or add area? That decides the team.
+2. **Appoint a QP early** if you need one. Drawings and approvals take time.
+3. **Choose a firm with landed experience.** Multi-storey layouts, staircases, roofs and outdoor areas are different from flats. Browse [landed home interior designers](/interior-designers/landed).
+4. **Check the neighbours.** In terrace and semi-detached houses, works near party walls and boundaries need care, and neighbours should be told about noisy works.
+5. **Get a staged contract.** Longer projects need clear milestones and staged payments. See [renovation contract clauses to check](/blog/renovation-contract-singapore-what-to-check).
+
+## Things to inspect before you start
+
+- **Roof and waterproofing,** including flat roofs and balconies
+- **Drainage and water tanks** and the condition of old pipes
+- **Electrical capacity** for a larger home and modern appliances
+- **Termite and pest damage** to timber elements
+- **Boundary walls, gates and driveways**
+
+## Budget and timeline
+
+A landed house renovation in Singapore is closer to a small construction project than a flat refresh. Costs scale with floor area and with any structural work, so get itemised quotes against a clearly defined scope. Approvals can add weeks or months before building starts, and longer builds need a realistic schedule. Our [renovation checklist](/guides/renovation-checklist-singapore) helps you sequence the steps.
+
+## Frequently asked questions
+
+### Do I need approval to renovate a landed house in Singapore?
+Purely cosmetic interior work generally does not need BCA approval, but structural changes, extensions and additions do, and they need a Qualified Person to submit the plans.
+
+### What is the difference between a renovation and A&A works?
+Renovation usually means non-structural interior work. A&A (additions and alterations) means changes such as extensions, new storeys or structural alterations, which require approvals and a Qualified Person.
+
+### Does the URA need to approve my landed house works?
+If the works change the gross floor area, URA's planning approval is involved as well as BCA's. Your Qualified Person can confirm what applies.`,
+  },
+
+  {
+    slug: 'office-renovation-cost-singapore',
+    title: 'Office Renovation Cost in Singapore (2026 Fit-Out Price Guide)',
+    category: 'Costs & Budgeting',
+    focus_keyword: 'office renovation cost singapore',
+    tags: 'office, fit-out, commercial, cost per square foot, reinstatement',
+    meta_title: 'Office Renovation Cost Singapore: 2026 Fit-Out Guide',
+    meta_description: 'Office renovation cost in Singapore: 2026 fit-out ranges per square foot from basic to premium, what drives the price, hidden costs and how to budget.',
+    excerpt: 'Office fit-outs in Singapore are priced per square foot, from about S$60 for a basic job to several hundred for headquarters-grade spaces. Here is what moves the number.',
+    cover_image: '/images/cover-office.jpg',
+    cover_alt: 'Armchair, sofa and round tables beside a brick wall and a large window',
+    body: `Planning a move or a refresh? The **office renovation cost in Singapore** is usually quoted per square foot, and the range is wide. This guide breaks down the 2026 fit-out ranges by specification, shows a worked example, and lists the costs that most often catch businesses out.
+
+*Ranges are the figures Singapore fit-out guides quoted in 2026 and differ between sources. They are indicative only.*
+
+## Office renovation cost per square foot (2026)
+
+| Specification | Typical range (per sq ft) | What it usually means |
+|---|---|---|
+| Basic | S$60 - S$100 | Painting, carpet or vinyl, light partitioning, basic lighting |
+| Mid-range | S$100 - S$180 | Full mechanical and electrical works, meeting rooms, better finishes, some customisation |
+| Premium | S$180 - S$280 | Bespoke joinery, integrated audio-visual, premium finishes, acoustic treatment |
+| Headquarters-grade | S$280 - S$450 | Showpiece spaces with custom joinery, statement design and bespoke systems |
+
+Some sources set the bands slightly differently, for example S$70 to S$90 for a basic fit-out and S$120 to S$180 for mid-range, so ask each firm what its price includes.
+
+## A worked example: a 1,500 sq ft office
+
+| Specification | Low | High |
+|---|---|---|
+| Basic | S$90,000 | S$150,000 |
+| Mid-range | S$150,000 | S$270,000 |
+| Premium | S$270,000 | S$420,000 |
+
+These are simple multiplications of the ranges above (1,500 sq ft at S$60-S$100, S$100-S$180 and S$180-S$280). Furniture, IT and moving costs are often separate.
+
+## What drives office renovation cost in Singapore
+
+1. **Mechanical and electrical work.** Air-conditioning, power, data cabling and lighting are major cost items, especially in a bare shell.
+2. **Layout and partitions.** Glass partitions, meeting rooms and acoustic treatment cost more than open-plan space.
+3. **Joinery and finishes.** Reception desks, feature walls, pantries and flooring grade.
+4. **Location and building rules.** CBD buildings may have stricter requirements and working-hour limits.
+5. **Timeline.** Compressed schedules and after-hours work add cost.
+
+## Costs that catch businesses out
+
+- **Reinstatement.** Many leases require you to restore the space to its original condition when you leave. Ask what your lease requires and budget for it.
+- **Landlord and building management fees,** deposits and approvals.
+- **Fire safety and other approvals,** which depend on the layout. Ask your firm which apply.
+- **Furniture, IT and security systems,** often not included in the fit-out price.
+- **Defects and variations,** which are easier to control with a good contract. See [what to check in a renovation contract](/blog/renovation-contract-singapore-what-to-check).
+
+## How to keep a fit-out on budget
+
+To keep your office renovation cost in Singapore under control:
+
+- Fix the **scope and headcount plan** before collecting quotes.
+- Compare **itemised quotes** from at least three firms for the same brief.
+- Reuse existing **ceilings, lighting and air-conditioning** where they are sound.
+- Choose **standard finishes** in less visible areas and spend on reception and meeting rooms.
+- Agree **milestones and staged payments** and a defects period.
+
+## Choosing a fit-out firm
+
+Look for experience in your sector, a clear plan for approvals, and references from similar projects. Browse [commercial interior designers on Layered](/interior-designers/commercial), and read [how to choose an interior designer](/guides/how-to-choose-an-interior-designer-singapore).
+
+## Frequently asked questions
+
+### How much does it cost to renovate an office in Singapore?
+Fit-outs are commonly quoted from about S$60-S$100 per square foot for a basic job to S$180-S$280 for premium spaces, with headquarters-grade fit-outs going higher.
+
+### What is reinstatement in an office lease?
+Reinstatement is restoring the office to its original condition at the end of the lease, which can be a significant cost. Check your lease and budget for it from the start.
+
+### Is furniture included in office renovation cost?
+Often not. Furniture, IT and moving are commonly separate from the fit-out price, so ask each firm exactly what is included.`,
+  },
+
+  {
+    slug: 'renovation-loan-singapore-how-it-works',
+    title: 'Renovation Loan in Singapore: How It Works and What to Compare',
+    category: 'Costs & Budgeting',
+    focus_keyword: 'renovation loan singapore',
+    tags: 'renovation loan, interest rate, eir, financing, budget',
+    meta_title: 'Renovation Loan Singapore: How It Works & What to Compare',
+    meta_description: 'How a renovation loan works in Singapore: flat vs effective interest rate, tenure, fees, limits and the questions to ask before you borrow for your home.',
+    excerpt: 'A low flat rate can hide a much higher real cost. Here is how renovation loans work, how to compare them properly, and when not to borrow.',
+    cover_image: '/images/cover-loan.jpg',
+    cover_alt: 'Living room with a leather sofa, plants and floor-to-ceiling windows',
+    body: `Many homeowners finance part of their renovation with a loan. A **renovation loan in Singapore** is usually an unsecured loan from a bank that is repaid over a few years. The headline rate can be misleading, so it helps to understand how the numbers work before you borrow. This guide explains the basics and what to compare.
+
+*This is general information, not financial advice. Rates, limits and eligibility change often and differ by bank, so we do not quote specific bank rates here. Check each bank's current terms.*
+
+## How a renovation loan works in Singapore
+
+- It is typically an **unsecured personal loan** for home renovation, so no property is pledged as security.
+- It is repaid in **monthly instalments over a fixed tenure**, commonly up to around five years.
+- Banks usually place **limits** on the amount, linked to the renovation cost and your income, and regulations on unsecured borrowing in Singapore apply. Confirm the current limits with your bank.
+- Renovation loans count towards your **overall unsecured borrowing,** which can affect other credit applications.
+
+## Flat rate vs effective interest rate
+
+Renovation loans are often advertised with a **flat rate**: interest is calculated on the full original loan amount for the whole tenure, even though you repay part of it each month. The **effective interest rate (EIR)** reflects the true yearly cost and is always higher than the flat rate.
+
+### An illustration
+
+Borrow S$20,000 over three years at a 4% flat rate:
+
+| | Amount |
+|---|---|
+| Interest (20,000 x 4% x 3 years) | S$2,400 |
+| Total repayment | S$22,400 |
+| Monthly instalment (36 months) | about S$622 |
+
+Because you repay the principal gradually, the true annual cost is much higher than 4%. Over a five-year term, a flat rate in the region of 4% corresponds to an effective rate of around 7% or more. This is an illustration, not an offer.
+
+**Always compare the EIR, not the flat rate.**
+
+## What to compare
+
+| Item | Why it matters |
+|---|---|
+| Effective interest rate | The real yearly cost |
+| Processing or administration fee | Can be a fixed amount or a percentage |
+| Early repayment fee | Matters if you plan to repay sooner |
+| Tenure | Longer means smaller instalments but more total interest |
+| Promotional terms | Check what the rate becomes after any introductory period |
+| Approved works | Some loans are limited to specific renovation costs |
+
+## When not to borrow
+
+- **To pay for things you do not need.** Decor and appliances can wait.
+- **If the instalment strains your monthly budget.** Plan for a buffer in case costs rise.
+- **Before you know your real cost.** Get [itemised quotes](/blog/renovation-contract-singapore-what-to-check) and a contingency of 10-15% first.
+
+## Ways to borrow less
+
+- **Stage the work.** Do the essentials first and add extras later.
+- **Use staged payments.** Pay for completed milestones, not everything upfront. See our [renovation checklist](/guides/renovation-checklist-singapore).
+- **Compare scopes.** The [HDB renovation cost guide](/guides/hdb-renovation-cost-singapore) and [4-room vs 5-room comparison](/blog/4-room-vs-5-room-hdb-renovation-cost) show typical ranges, so you can budget realistically.
+
+## Frequently asked questions
+
+### What is a renovation loan in Singapore?
+It is usually an unsecured personal loan from a bank for home renovation costs, repaid in monthly instalments over a fixed tenure of a few years.
+
+### What is the difference between a flat rate and an effective interest rate?
+A flat rate charges interest on the original loan amount for the whole term. The effective interest rate reflects the true annual cost as you repay the principal, so it is higher. Compare loans on the effective rate.
+
+### How much can I borrow for renovation?
+Limits depend on your bank, your income and regulations on unsecured borrowing. Ask your bank for the current maximum before you plan around a figure.`,
+  },
+
+  {
+    slug: 'small-hdb-storage-ideas',
+    title: 'Small HDB Storage Ideas: 12 Smart Ways to Add Storage Without Clutter',
+    category: 'Design Ideas',
+    focus_keyword: 'small hdb storage ideas',
+    tags: 'storage, hdb, carpentry, small spaces, bto',
+    meta_title: 'Small HDB Storage Ideas: 12 Smart Ways to Add Storage',
+    meta_description: 'Small HDB storage ideas for BTO and resale flats: built-ins, hidden storage, kitchen and bedroom solutions, and what to plan with your designer.',
+    excerpt: 'In a compact flat, storage decides whether a home feels calm or crowded. Here are twelve practical ideas and how to plan them with your designer.',
+    cover_image: '/images/cover-storage.jpg',
+    cover_alt: 'Bright living room with a sofa, armchair and large windows',
+    body: `In a compact flat, **storage** decides whether a home feels calm or crowded. The good news is that most HDB flats have more usable storage than they appear to, if you plan it before the carpentry is built. These **small HDB storage ideas** work in BTO and resale flats of any size.
+
+## 12 small HDB storage ideas
+
+### Entryway and living room
+
+1. **A shallow, full-height shoe cabinet.** A cabinet 30-40 cm deep that runs floor to ceiling stores far more than a low bench, and tilting shelves keep it slim.
+2. **A TV feature wall with built-in storage.** Closed cabinets below and open shelves above hold media gear and books while keeping the wall tidy.
+3. **A window bench with drawers.** If you have a bay or deep window, a storage bench adds seating and a hidden place for linens and toys.
+4. **Multi-purpose furniture.** Storage ottomans, nesting tables and a sofa with drawers give you storage without adding a cabinet.
+
+### Kitchen
+
+5. **Cabinets to the ceiling.** Full-height upper cabinets store seasonal items in the top tier and avoid dust-collecting gaps.
+6. **A pull-out pantry.** A narrow tall pull-out gives access to dry goods in a column less than 30 cm wide.
+7. **Smart corner solutions.** L-shaped corners waste space unless they use corner pull-outs or swing-out trays.
+
+### Bedrooms and bathrooms
+
+8. **Floor-to-ceiling wardrobes with a loft.** Use the top section for items you rarely need, and sliding doors instead of swing doors to keep floor clearance.
+9. **A storage bed.** Drawers or a lift-up base use the dead space under the mattress.
+10. **Bathroom niches and mirror cabinets.** Recessed shelves and a mirror cabinet keep toiletries off the counter. Plan them with your waterproofing, as covered in our [bathroom renovation cost guide](/blog/hdb-bathroom-renovation-cost-singapore).
+
+### Whole-flat strategies
+
+11. **Sliding or folding doors where doors would swing into a room.** Every door that no longer needs swing space frees usable floor area.
+12. **Use the household shelter sensibly.** Many flats built from the late 1990s have a household shelter. It can often serve as a store room, but you must not alter its structure, doors or ventilation, and it needs to stay usable as a shelter. Check HDB's current rules and see the [HDB renovation rules](/guides/hdb-renovation-permit-and-rules).
+
+## How to plan storage with your designer
+
+- **Inventory what you own.** Measure your bulky items (suitcases, vacuum, sports gear) and plan a home for each.
+- **Rank by frequency.** Everyday items go at arm height, occasional items up high, seasonal items in the loft or shelter.
+- **Ask for internal layouts,** not just outer drawings: shelf heights, drawer depths and hanging rails.
+- **Keep it balanced.** Closed storage hides clutter, open shelves add personality. Too much open shelving makes a small flat look busy.
+
+## What storage costs
+
+Custom carpentry is usually the largest cost in an HDB renovation, so storage choices have a direct effect on your budget. Our [HDB renovation cost guide](/guides/hdb-renovation-cost-singapore) and [3-room](/blog/3-room-hdb-renovation-cost-singapore) and [4-room vs 5-room](/blog/4-room-vs-5-room-hdb-renovation-cost) cost articles show typical ranges. Use itemised quotes to see what each built-in costs.
+
+## Pair storage with the right style
+
+Hidden, handleless storage suits [minimalist](/interior-designers/style/minimalist) and [Japandi](/blog/japandi-interior-design-singapore) looks, while open shelving and visible textures suit [Scandinavian](/interior-designers/style/scandinavian) homes. Browse [HDB interior designers](/interior-designers/hdb) to see storage-focused portfolios.
+
+## Frequently asked questions
+
+### How can I get more storage in a small HDB flat?
+Use full-height built-ins, storage under beds and benches, cabinets to the ceiling, sliding doors and multi-purpose furniture, and plan everything before carpentry is built.
+
+### Can I use the household shelter for storage?
+Often yes, but keep it usable as a shelter and do not change its structure, doors or ventilation. Check HDB's current rules before you plan around it.
+
+### Is built-in carpentry better than loose furniture for storage?
+Built-ins use awkward spaces and the full ceiling height, so they generally store more. Loose furniture is more flexible and easier to move later. Many homes use both.`,
+  },
+
+  {
+    slug: 'renovation-mistakes-singapore',
+    title: '10 Renovation Mistakes Singapore Homeowners Make (and How to Avoid Them)',
+    category: 'Choosing a Designer',
+    focus_keyword: 'renovation mistakes singapore',
+    tags: 'mistakes, checklist, contract, permits, budget',
+    meta_title: '10 Renovation Mistakes in Singapore and How to Avoid Them',
+    meta_description: 'The 10 most common renovation mistakes in Singapore, from skipping permits to paying too much upfront, and how to avoid each one before it costs you.',
+    excerpt: 'Most renovation regrets come from the same ten mistakes. Here is what goes wrong, why, and the simple fix for each one.',
+    cover_image: '/images/cover-mistakes.jpg',
+    cover_alt: 'Black steel beams and a glass roof in an industrial building',
+    body: `Almost every renovation horror story in Singapore starts with one of a handful of avoidable mistakes. Knowing them in advance is the cheapest protection you can buy. Here are the **renovation mistakes Singapore homeowners make most often**, and how to avoid each.
+
+## 1. Not keeping a buffer
+
+Costs rise: hidden problems, changes of mind, price increases. Without a buffer you are forced to cut quality or borrow. **Fix:** keep 10-15% aside, more for resale flats. See [resale HDB hidden costs](/blog/resale-hdb-renovation-hidden-costs).
+
+## 2. Skipping the credential check
+
+Hiring a firm without confirming it is allowed to do the work is risky. **Fix:** check the [HDB licence](/blog/how-to-check-hdb-licensed-contractor) for HDB flats and CaseTrust accreditation on the official lookups, and make sure licensed electrical and plumbing workers are used.
+
+## 3. Relying on verbal promises
+
+If it is not in writing, it did not happen. **Fix:** put scope, brands, timeline and price in the contract. Read the [nine renovation contract clauses to check](/blog/renovation-contract-singapore-what-to-check).
+
+## 4. Paying too much upfront
+
+A large deposit leaves you with no leverage if the project stalls. **Fix:** keep the deposit small, tie payments to milestones, and hold back a retention sum until defects are fixed.
+
+## 5. Comparing quotes by total price only
+
+The cheapest quote often leaves things out. **Fix:** compare three itemised quotes for the same brief, line by line.
+
+## 6. Starting works before permits and approvals
+
+Hacking without an HDB permit or condo approval can mean fines and rework. **Fix:** wait for written approval. See the [HDB permit and rules guide](/guides/hdb-renovation-permit-and-rules) and [condo renovation approval](/blog/condo-renovation-approval-singapore).
+
+## 7. Approving drawings without thinking through daily use
+
+Poorly placed sockets, switches and cabinet doors are annoying for years. **Fix:** walk through your day against the drawings, room by room, before sign-off, and plan electrical points carefully.
+
+## 8. Cutting corners on waterproofing
+
+Leaks cause damage to your home and your neighbour's ceiling. **Fix:** insist on a proper waterproofing system, a water-ponding test and a written warranty. See the [bathroom cost guide](/blog/hdb-bathroom-renovation-cost-singapore).
+
+## 9. Ordering long-lead items too late
+
+Tiles, appliances and lights that arrive late stall the whole site. **Fix:** order early, confirm delivery dates, and see a [typical BTO renovation timeline](/blog/bto-renovation-timeline-singapore).
+
+## 10. Rushing the handover
+
+Once you sign off and pay, your leverage is gone. **Fix:** inspect every room in daylight, write a signed defects list, and use the [defects liability period](/blog/defects-liability-period-singapore).
+
+## A quick list to avoid renovation mistakes in Singapore
+
+Use this list to avoid the renovation mistakes Singapore homeowners make most.
+
+- [ ] 10-15% buffer set aside
+- [ ] Licences and accreditation verified
+- [ ] Written contract with drawings and brands
+- [ ] Small deposit, staged payments, retention
+- [ ] Three itemised quotes compared
+- [ ] Permits approved before works begin
+- [ ] Drawings checked against daily life
+- [ ] Waterproofing tested and warrantied
+- [ ] Long-lead items ordered early
+- [ ] Handover inspection done properly
+
+Our [complete renovation checklist](/guides/renovation-checklist-singapore) turns these into a step-by-step plan you can tick off, and you can [compare designers on Layered](/designers) to start your shortlist.
+
+## Frequently asked questions
+
+### What is the most common renovation mistake in Singapore?
+Common ones include not keeping a buffer, relying on verbal promises, paying too much upfront and comparing quotes by total price only. A written contract and itemised quotes prevent most of them.
+
+### How can I avoid renovation scams?
+Verify the firm's licences and accreditation on the official lookups, keep deposits small, tie payments to progress, get everything in writing and never start works before required approvals.
+
+### What should I check before signing off at handover?
+Test every tap, switch, socket, door and cabinet, inspect tiles, paint and silicone, write a signed defects list with fix dates and hold back the final payment until it is cleared.`,
   },
 ];
