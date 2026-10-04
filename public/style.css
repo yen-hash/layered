@@ -145,3 +145,8 @@ table.data-table tr:last-child td { border-bottom: none; }
 
 .actions-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
 form.inline { display: inline; }
+
+@media (max-width: 620px) {
+  .header-inner { height: auto; flex-wrap: wrap; padding-top: 10px; padding-bottom: 10px; row-gap: 6px; }
+  .main-nav { flex-wrap: wrap; gap: 4px 14px; font-size: 0.9rem; }
+}
