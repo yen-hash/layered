@@ -1,0 +1,44 @@
+// routes/seo.js — robots.txt and sitemap.xml.
+import { db } from '../db.js';
+import { esc } from '../lib/render.js';
+import { GUIDES, REVIEWED } from '../content/guides.js';
+import { PROPERTY_PAGES, STYLE_PAGES } from '../content/landing.js';
+
+export function robotsRoute(req, res, ctx) {
+  const lines = [
+    'User-agent: *',
+    'Allow: /',
+    // Private or action-only URLs. (Login is left crawlable but noindex so the noindex is seen.)
+    'Disallow: /dashboard',
+    'Disallow: /logout',
+    'Disallow: /leads',
+    '',
+    `Sitemap: ${ctx.site}/sitemap.xml`,
+    '',
+  ];
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=3600');
+  res.end(lines.join('\n'));
+}
+
+export function sitemapRoute(req, res, ctx) {
+  const urls = [
+    { loc: '/', changefreq: 'daily', priority: '1.0' },
+    { loc: '/designers', changefreq: 'daily', priority: '0.9' },
+    { loc: '/guides', changefreq: 'weekly', priority: '0.8', lastmod: REVIEWED },
+    ...Object.keys(PROPERTY_PAGES).map((k) => ({ loc: `/interior-designers/${k}`, changefreq: 'weekly', priority: '0.9' })),
+    ...Object.keys(STYLE_PAGES).map((k) => ({ loc: `/interior-designers/style/${k}`, changefreq: 'weekly', priority: '0.6' })),
+    ...GUIDES.map((g) => ({ loc: `/guides/${g.slug}`, changefreq: 'monthly', priority: '0.8', lastmod: REVIEWED })),
+    { loc: '/signup', changefreq: 'monthly', priority: '0.4' },
+    ...db.prepare('SELECT slug, created_at FROM businesses ORDER BY featured DESC, created_at DESC').all()
+      .map((b) => ({ loc: `/designers/${b.slug}`, changefreq: 'weekly', priority: '0.7', lastmod: String(b.created_at || '').slice(0, 10) || undefined })),
+  ];
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((u) => `  <url><loc>${esc(ctx.site + u.loc)}</loc>${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ''}<changefreq>${u.changefreq}</changefreq><priority>${u.priority}</priority></url>`).join('\n')}
+</urlset>
+`;
+  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=3600');
+  res.end(xml);
+}

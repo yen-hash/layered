@@ -17,7 +17,7 @@ function dashLayout(active, inner, ctx) {
       <div>${inner}</div>
     </div>
   </section>`;
-  return layout({ title: 'Business dashboard', body, business: ctx.business, flash: ctx.flash });
+  return layout({ title: 'Business dashboard', noindex: true, body, business: ctx.business, flash: ctx.flash });
 }
 
 export async function dashboardHome(req, res, ctx) {

@@ -36,6 +36,12 @@ no dependency updates to chase, and it runs anywhere with Node ≥ 22.5.
   They show as badges on directory cards and a Credentials panel on the profile, and
   the directory can be filtered by them. They are self-declared and labelled as
   such, with links to HDB's and CaseTrust's own lookups; Layered does not verify them.
+- **SEO**: keyword-targeted landing pages by property type and style
+  (`/interior-designers/hdb`, `/condo`, `/landed`, `/commercial`, `/style/*`), renovation
+  guides (`/guides/*`), canonical URLs, Open Graph, structured data (Organization,
+  Breadcrumb, Article, FAQPage, ItemList, HomeAndConstructionBusiness), `robots.txt`, a
+  dynamic `sitemap.xml`, gzip and caching. See `docs/SEO.md` for the audit, keyword map and
+  action plan, and run `node scripts/seo-check.js <base-url>` to check every page.
 - Ownership is enforced everywhere in the dashboard — a business can only see
   and edit its own leads and projects.
 
@@ -98,6 +104,7 @@ That rules out Vercel/Netlify in their default serverless mode. Good fits:
 Environment variables to set in production:
 ```
 SESSION_SECRET=<long random string>   # required — signs login sessions
+SITE_URL=https://www.example.sg       # required for SEO — canonical URLs, sitemap, structured data
 NODE_ENV=production                   # marks cookies Secure
 PORT=3000                             # or whatever your host expects
 RESEND_API_KEY=...                    # optional, see above
