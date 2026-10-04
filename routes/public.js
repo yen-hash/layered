@@ -24,12 +24,15 @@ function usableLogo(url) {
   } catch { return ''; }
 }
 
+// Photos fill their frame; PNG/SVG logos (wordmarks, transparent) are shown whole on white.
+const isMark = (url) => /\.(png|svg)(\?|$)/i.test(url || '');
+
 function designerCard(b) {
   const tags = [...(b.property_types || '').split(',').filter(Boolean), ...(b.styles || '').split(',').filter(Boolean)];
   const thumbImage = usableLogo(b.logo_url) || placeholderIllustration(b.id);
   return `
   <a class="card designer-card" href="/designers/${esc(b.slug)}">
-    <div class="thumb" style="background-image:url('${esc(thumbImage)}')"></div>
+    <div class="thumb${b.logo_url && thumbImage === b.logo_url && isMark(thumbImage) ? ' mark' : ''}" style="background-image:url('${esc(thumbImage)}')"></div>
     <div class="body">
       <h3>${esc(b.company_name)}${b.featured ? ' ⭐' : ''}</h3>
       <div class="muted">${esc(b.service_areas || 'Singapore')}</div>
@@ -168,7 +171,7 @@ export async function designerProfileRoute(req, res, ctx, slug) {
   const body = `
   <div class="profile-hero">
     <div class="wrap row">
-      <div class="logo-circle" style="${logo ? `background-image:url('${esc(logo)}')` : ''}">${logo ? '' : esc(initials(b.company_name))}</div>
+      <div class="logo-circle${logo && isMark(logo) ? ' mark' : ''}" style="${logo ? `background-image:url('${esc(logo)}')` : ''}">${logo ? '' : esc(initials(b.company_name))}</div>
       <div>
         <h1 style="margin:0 0 6px;">${esc(b.company_name)}${b.featured ? ' ⭐' : ''}</h1>
         <p class="muted" style="margin:0 0 8px;">${esc(b.service_areas || 'Singapore')}</p>
