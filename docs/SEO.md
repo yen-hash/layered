@@ -151,7 +151,7 @@ useful*, then close the trust gap with product, not copy.
 2. **Verified reviews:** invite homeowners from the lead record after completion; only reviews tied to a real lead are shown; add `Review` schema only then.
 3. **Deposit protection:** partner for a guarantee, or badge firms with CaseTrust deposit protection as "Protected deposit".
 4. ~~**Cost estimator**~~ **Built:** `/tools/renovation-cost-calculator` (HDB, condo, kitchen and bathrooms, office). Pre-fills the lead form with property type and budget band. Ranges live in `content/estimator.js`, tests in `test/`. Next: measure how many calculator visits become leads, and consider an emailed estimate.
-5. **Shortlist and compare view:** side-by-side firms with credentials, styles, projects.
+5. ~~Shortlist and compare view~~ **Built.** Heart button on cards and profiles saves up to 4 firms in the browser (localStorage); `/compare?d=slug,slug` shows them side by side (noindex). Next: measure how many compared firms get enquiries.
 6. **Firm-submitted articles** (review queue) for fresh content and backlinks.
 
 ### Keyword queue for the blog (verify volumes in an SEO tool before writing)

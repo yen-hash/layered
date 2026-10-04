@@ -36,6 +36,8 @@ export function designerCard(b) {
     ? `<img src="${esc(logo)}" alt="${esc(b.company_name)} interior design" loading="lazy" width="600" height="300">`
     : `<img src="${esc(placeholderIllustration(b.id))}" alt="" loading="lazy" width="600" height="300">`;
   return `
+  <div class="dcard">
+  <button type="button" class="save-btn" data-save="${esc(b.slug)}" aria-pressed="false" aria-label="Save ${esc(b.company_name)} to shortlist" title="Save to shortlist"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7-4.6-9.3-9A5.4 5.4 0 0 1 12 6.3 5.4 5.4 0 0 1 21.3 12C19 16.4 12 21 12 21z"/></svg></button>
   <a class="card designer-card" href="/designers/${esc(b.slug)}">
     <div class="thumb">${b.featured ? '<span class="pill-featured">Featured</span>' : ''}${img}</div>
     <div class="body">
@@ -44,7 +46,8 @@ export function designerCard(b) {
       ${credentialBadges(b)}
       <div class="tag-row">${tags.slice(0, 4).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
     </div>
-  </a>`;
+  </a>
+  </div>`;
 }
 
 function chipGroup(name, options, checkedList = []) {
@@ -290,6 +293,7 @@ export async function designerProfileRoute(req, res, ctx, slug) {
         <h1>${esc(b.company_name)}</h1>
         <p class="muted" style="margin:0 0 8px;">Interior design &amp; renovation · ${esc(b.service_areas || 'Singapore')}</p>
         ${credentialBadges(b)}
+        <p><button type="button" class="btn btn-outline btn-sm" data-save="${esc(b.slug)}" aria-pressed="false">Save to shortlist</button></p>
         <div class="tag-row">${tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
       </div>
     </div>

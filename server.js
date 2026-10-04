@@ -10,6 +10,7 @@ import { parseForm } from './lib/body.js';
 import { flashFromQuery, layout } from './lib/render.js';
 import { siteUrl } from './lib/seo.js';
 
+import { compareRoute } from './routes/compare.js';
 import { homeRoute, directoryRoute, designerProfileRoute, submitLeadRoute } from './routes/public.js';
 import { robotsRoute, sitemapRoute } from './routes/seo.js';
 import { blogIndexRoute, blogCategoryRoute, blogPostRoute, rssRoute } from './routes/blog.js';
@@ -124,6 +125,7 @@ async function router(req, res) {
 
   if (req.method === 'GET' && (
     url.pathname === '/style.css' ||
+    url.pathname === '/shortlist.js' ||
     url.pathname === '/favicon.svg' ||
     url.pathname === '/logo-mark.svg' ||
     url.pathname === '/og-default.jpg' ||
@@ -157,6 +159,7 @@ async function router(req, res) {
       const slug = url.pathname.split('/')[2];
       return await designerProfileRoute(req, res, ctx, slug);
     }
+    if (req.method === 'GET' && url.pathname === '/compare') return await compareRoute(req, res, ctx, url);
     if (req.method === 'GET' && url.pathname === '/tools/renovation-cost-calculator') return await calculatorRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname === '/blog') return await blogIndexRoute(req, res, ctx, url);
     if (req.method === 'GET' && url.pathname === '/blog/rss.xml') return await rssRoute(req, res, ctx);
