@@ -3,6 +3,7 @@ import { db } from '../db.js';
 import { esc } from '../lib/render.js';
 import { GUIDES, REVIEWED } from '../content/guides.js';
 import { PROPERTY_PAGES, STYLE_PAGES } from '../content/landing.js';
+import { BLOG_CATEGORIES } from '../content/blog-meta.js';
 
 export function robotsRoute(req, res, ctx) {
   const lines = [
@@ -28,7 +29,12 @@ export function sitemapRoute(req, res, ctx) {
     { loc: '/guides', changefreq: 'weekly', priority: '0.8', lastmod: REVIEWED },
     ...Object.keys(PROPERTY_PAGES).map((k) => ({ loc: `/interior-designers/${k}`, changefreq: 'weekly', priority: '0.9' })),
     ...Object.keys(STYLE_PAGES).map((k) => ({ loc: `/interior-designers/style/${k}`, changefreq: 'weekly', priority: '0.6' })),
+    { loc: '/guides/renovation-checklist-singapore', changefreq: 'monthly', priority: '0.9', lastmod: REVIEWED },
     ...GUIDES.map((g) => ({ loc: `/guides/${g.slug}`, changefreq: 'monthly', priority: '0.8', lastmod: REVIEWED })),
+    { loc: '/blog', changefreq: 'daily', priority: '0.8' },
+    ...BLOG_CATEGORIES.map((c) => ({ loc: `/blog/category/${c.slug}`, changefreq: 'weekly', priority: '0.6' })),
+    ...db.prepare("SELECT slug, COALESCE(updated_at, published_at) AS m FROM posts WHERE status = 'published' ORDER BY published_at DESC").all()
+      .map((p) => ({ loc: `/blog/${p.slug}`, changefreq: 'monthly', priority: '0.7', lastmod: String(p.m || '').slice(0, 10) || undefined })),
     { loc: '/signup', changefreq: 'monthly', priority: '0.4' },
     ...db.prepare('SELECT slug, created_at FROM businesses ORDER BY featured DESC, created_at DESC').all()
       .map((b) => ({ loc: `/designers/${b.slug}`, changefreq: 'weekly', priority: '0.7', lastmod: String(b.created_at || '').slice(0, 10) || undefined })),

@@ -1,13 +1,15 @@
 import { db, PROPERTY_TYPES, STYLES } from '../db.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
+import { isAdmin } from '../lib/admin.js';
 import { CASETRUST_OPTIONS, normaliseCaseTrust, normaliseHdbLicence } from '../lib/credentials.js';
 
-function dashLayout(active, inner, ctx) {
+export function dashLayout(active, inner, ctx) {
   const links = [
     ['/dashboard', 'Overview'],
     ['/dashboard/leads', 'Leads'],
     ['/dashboard/projects', 'Projects'],
     ['/dashboard/profile', 'Business Profile'],
+    ...(isAdmin(ctx.business) ? [['/dashboard/blog', 'Blog (admin)']] : []),
   ];
   const nav = links.map(([href, label]) => `<a href="${href}" class="${active === href ? 'active' : ''}">${esc(label)}</a>`).join('');
   const body = `

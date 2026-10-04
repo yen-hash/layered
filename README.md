@@ -42,6 +42,11 @@ no dependency updates to chase, and it runs anywhere with Node ≥ 22.5.
   Breadcrumb, Article, FAQPage, ItemList, HomeAndConstructionBusiness), `robots.txt`, a
   dynamic `sitemap.xml`, gzip and caching. See `docs/SEO.md` for the audit, keyword map and
   action plan, and run `node scripts/seo-check.js <base-url>` to check every page.
+- **Blog**: `/blog` with categories, RSS and an admin editor at `/dashboard/blog` (Markdown, live SEO
+  scorecard, draft/publish). Admins are accounts whose login email is in `ADMIN_EMAILS`. The first
+  `npm start` publishes six launch articles; after that the posts belong to the editor.
+- **Renovation checklist**: `/guides/renovation-checklist-singapore`, a tickable, printable homeowner guide
+  whose progress is saved in the visitor's own browser.
 - Ownership is enforced everywhere in the dashboard — a business can only see
   and edit its own leads and projects.
 
@@ -105,6 +110,7 @@ Environment variables to set in production:
 ```
 SESSION_SECRET=<long random string>   # required — signs login sessions
 SITE_URL=https://www.example.sg       # required for SEO — canonical URLs, sitemap, structured data
+ADMIN_EMAILS=you@example.com          # who may use /dashboard/blog (comma-separated; required in production)
 NODE_ENV=production                   # marks cookies Secure
 PORT=3000                             # or whatever your host expects
 RESEND_API_KEY=...                    # optional, see above

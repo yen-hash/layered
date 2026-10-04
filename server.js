@@ -12,7 +12,10 @@ import { siteUrl } from './lib/seo.js';
 
 import { homeRoute, directoryRoute, designerProfileRoute, submitLeadRoute } from './routes/public.js';
 import { robotsRoute, sitemapRoute } from './routes/seo.js';
-import { propertyLandingRoute, styleLandingRoute, guidesIndexRoute, guideRoute } from './routes/content.js';
+import { blogIndexRoute, blogCategoryRoute, blogPostRoute, rssRoute } from './routes/blog.js';
+import { blogAdminList, blogAdminEditor, blogAdminSave, blogAdminDelete } from './routes/blogAdmin.js';
+import { isAdmin } from './lib/admin.js';
+import { propertyLandingRoute, styleLandingRoute, guidesIndexRoute, guideRoute, checklistRoute } from './routes/content.js';
 import { signupPage, signupSubmit, loginPage, loginSubmit, logoutRoute } from './routes/auth.js';
 import {
   dashboardHome, profilePage, profileSubmit,
@@ -138,7 +141,7 @@ async function router(req, res) {
   }
 
   const business = getSessionBusiness(req);
-  const ctx = { business, flash: flashFromQuery(url.searchParams), site: siteUrl(req) };
+  const ctx = { business, flash: flashFromQuery(url.searchParams), site: siteUrl(req), isAdmin: isAdmin(business) };
 
   try {
     // ----- SEO files -----
@@ -152,7 +155,12 @@ async function router(req, res) {
       const slug = url.pathname.split('/')[2];
       return await designerProfileRoute(req, res, ctx, slug);
     }
+    if (req.method === 'GET' && url.pathname === '/blog') return await blogIndexRoute(req, res, ctx, url);
+    if (req.method === 'GET' && url.pathname === '/blog/rss.xml') return await rssRoute(req, res, ctx);
+    if (req.method === 'GET' && url.pathname.startsWith('/blog/category/')) return await blogCategoryRoute(req, res, ctx, url, url.pathname.split('/')[3]);
+    if (req.method === 'GET' && url.pathname.startsWith('/blog/')) return await blogPostRoute(req, res, ctx, url.pathname.split('/')[2]);
     if (req.method === 'GET' && url.pathname === '/guides') return await guidesIndexRoute(req, res, ctx);
+    if (req.method === 'GET' && url.pathname === '/guides/renovation-checklist-singapore') return await checklistRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname.startsWith('/guides/')) return await guideRoute(req, res, ctx, url.pathname.split('/')[2]);
     if (req.method === 'GET' && url.pathname.startsWith('/interior-designers/style/')) return await styleLandingRoute(req, res, ctx, url.pathname.split('/')[3]);
     if (req.method === 'GET' && url.pathname.startsWith('/interior-designers/')) return await propertyLandingRoute(req, res, ctx, url.pathname.split('/')[2]);
@@ -194,6 +202,18 @@ async function router(req, res) {
         const { fields, files } = await parseForm(req);
         return await projectCreate(req, res, ctx, fields, files);
       }
+      // ----- Blog admin -----
+      if (req.method === 'GET' && url.pathname === '/dashboard/blog') return await blogAdminList(req, res, ctx);
+      if (req.method === 'GET' && url.pathname === '/dashboard/blog/new') return await blogAdminEditor(req, res, ctx, 0);
+      const editMatch = url.pathname.match(/^\/dashboard\/blog\/(\d+)\/edit$/);
+      if (req.method === 'GET' && editMatch) return await blogAdminEditor(req, res, ctx, Number(editMatch[1]));
+      if (req.method === 'POST' && url.pathname === '/dashboard/blog/save') {
+        const { fields } = await parseForm(req);
+        return await blogAdminSave(req, res, ctx, fields);
+      }
+      const postDel = url.pathname.match(/^\/dashboard\/blog\/(\d+)\/delete$/);
+      if (req.method === 'POST' && postDel) return await blogAdminDelete(req, res, ctx, Number(postDel[1]));
+
       const delMatch = url.pathname.match(/^\/dashboard\/projects\/(\d+)\/delete$/);
       if (req.method === 'POST' && delMatch) return await projectDelete(req, res, ctx, delMatch[1]);
 

@@ -67,6 +67,27 @@ db.exec(`
     created_at TEXT DEFAULT (datetime('now'))
   );
 
+  CREATE TABLE IF NOT EXISTS posts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    slug TEXT UNIQUE NOT NULL,
+    title TEXT NOT NULL,
+    excerpt TEXT DEFAULT '',
+    body TEXT DEFAULT '',
+    category TEXT DEFAULT 'Guides',
+    tags TEXT DEFAULT '',
+    focus_keyword TEXT DEFAULT '',
+    meta_title TEXT DEFAULT '',
+    meta_description TEXT DEFAULT '',
+    cover_image TEXT DEFAULT '',
+    cover_alt TEXT DEFAULT '',
+    author_name TEXT DEFAULT 'Layered Editorial',
+    status TEXT DEFAULT 'draft',
+    published_at TEXT,
+    created_at TEXT DEFAULT (datetime('now')),
+    updated_at TEXT DEFAULT (datetime('now'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_posts_status ON posts(status, published_at);
+
   CREATE INDEX IF NOT EXISTS idx_lead_matches_business ON lead_matches(business_id);
   CREATE INDEX IF NOT EXISTS idx_lead_matches_lead ON lead_matches(lead_id);
 `);

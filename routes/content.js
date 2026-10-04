@@ -5,6 +5,7 @@ import { abs, breadcrumbSchema, faqSchema } from '../lib/seo.js';
 import { breadcrumbNav, faqHtml, formatDate } from '../lib/components.js';
 import { GUIDES, guideBySlug, REVIEWED, REVIEWED_LABEL } from '../content/guides.js';
 import { PROPERTY_PAGES, STYLE_PAGES } from '../content/landing.js';
+import { CHECKLIST } from '../content/checklist.js';
 import { designerCard, leadFormHtml } from './public.js';
 
 const notFound = (res, ctx, site) => {
@@ -126,6 +127,9 @@ export async function guidesIndexRoute(req, res, ctx) {
     ${breadcrumbNav(trail)}
     <h1>Renovation guides for Singapore homeowners</h1>
     <p class="section-sub">Plain-English guides to renovation costs, HDB and condo rules, and choosing the right interior designer. Last reviewed ${esc(REVIEWED_LABEL)}.</p>
+    <a class="card guide-feature" href="/guides/${CHECKLIST.slug}">
+      <div class="body"><span class="eyebrow">Start here</span><h2>${esc(CHECKLIST.h1)}</h2><p>${esc(CHECKLIST.summary)}</p><span class="more">Open the checklist →</span></div>
+    </a>
     <div class="grid grid-2">
       ${GUIDES.map((g) => `
       <a class="card guide-card" href="/guides/${g.slug}">
@@ -184,3 +188,86 @@ export async function guideRoute(req, res, ctx, slug) {
     ],
   }));
 }
+
+// ----- /guides/renovation-checklist-singapore (interactive checklist) -----
+export async function checklistRoute(req, res, ctx) {
+  const c = CHECKLIST;
+  const site = ctx.site;
+  const path = `/guides/${c.slug}`;
+  const trail = [{ name: 'Home', path: '/' }, { name: 'Renovation guides', path: '/guides' }, { name: 'Renovation checklist', path }];
+  const total = c.phases.reduce((n, p) => n + p.items.length, 0);
+
+  const body = `
+  <article class="wrap page-head guide checklist-page">
+    ${breadcrumbNav(trail)}
+    <h1>${esc(c.h1)}</h1>
+    <p class="byline muted">Last reviewed <time datetime="${REVIEWED}">${esc(formatDate(REVIEWED))}</time> · Rules and costs change; confirm with HDB and your management corporation.</p>
+    <div class="prose">${c.intro}</div>
+
+    <div class="cl-progress" id="cl-progress" data-total="${total}">
+      <div class="cl-progress-top"><strong><span id="cl-done">0</span> of ${total} done</strong>
+        <span class="cl-actions"><button type="button" class="btn btn-sm btn-outline" id="cl-print">Print</button> <button type="button" class="btn btn-sm btn-outline" id="cl-reset">Reset</button></span></div>
+      <div class="cl-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="0"><div id="cl-bar-fill"></div></div>
+      <p class="muted small">Your ticks are saved in this browser only. Nothing is sent to us.</p>
+    </div>
+
+    <nav class="toc" aria-label="Checklist stages"><strong>The eight stages</strong><ol>${c.phases.map((p) => `<li><a href="#${p.id}">${esc(p.title.replace(/^\d+\.\s*/, ''))}</a></li>`).join('')}</ol></nav>
+
+    <h2 id="timeline">Timeline at a glance</h2>
+    <div class="table-scroll"><table class="data-table"><thead><tr><th>When</th><th>What happens</th></tr></thead><tbody>
+      ${c.timeline.map(([w, t]) => `<tr><td><strong>${esc(w)}</strong></td><td>${esc(t)}</td></tr>`).join('')}
+    </tbody></table></div>
+
+    ${c.phases.map((p) => `
+    <section class="cl-phase" id="${p.id}">
+      <h2>${esc(p.title)}</h2>
+      <p class="cl-when">${esc(p.when)}</p>
+      <p>${esc(p.intro)}</p>
+      <ul class="cl-list">
+        ${p.items.map(([id, t, d]) => `<li><label><input type="checkbox" data-cl="${id}"><span class="cl-box" aria-hidden="true"></span><span class="cl-text"><strong>${esc(t)}</strong><span class="cl-desc">${d}</span></span></label></li>`).join('')}
+      </ul>
+    </section>`).join('')}
+
+    ${faqHtml(c.faqs)}
+    <div class="cta-box">
+      <h2>Find a designer you can check</h2>
+      <p>Compare Singapore interior designers and renovation firms, filter by HDB licence and CaseTrust credentials, then get matched for free.</p>
+      <p><a class="btn btn-sm" href="/designers">Browse designers</a> <a class="btn btn-sm btn-outline" href="/#get-recommendations">Get matched</a></p>
+    </div>
+    <section class="related"><h2>Related reading</h2><ul>
+      <li><a href="/guides/how-to-choose-an-interior-designer-singapore">How to choose an interior designer</a></li>
+      <li><a href="/guides/hdb-renovation-permit-and-rules">HDB renovation permit and rules</a></li>
+      <li><a href="/blog/bto-renovation-timeline-singapore">BTO renovation timeline</a></li>
+      <li><a href="/guides/casetrust-and-hdb-licence-explained">CaseTrust and HDB licence explained</a></li>
+    </ul></section>
+  </article>
+  <script>${CHECKLIST_JS}</script>`;
+
+  res.end(layout({
+    title: c.title, description: c.description, path, site, body, business: ctx.business, flash: ctx.flash, ogType: 'article',
+    jsonLd: [
+      breadcrumbSchema(site, trail),
+      faqSchema(c.faqs),
+      { '@context': 'https://schema.org', '@type': 'Article', headline: c.h1, description: c.description, inLanguage: 'en-SG', mainEntityOfPage: abs(site, path), dateModified: REVIEWED, datePublished: REVIEWED, author: { '@id': `${site}/#organization` }, publisher: { '@id': `${site}/#organization` }, image: abs(site, '/og-default.jpg') },
+    ],
+  }));
+}
+
+// Progress is stored in localStorage; the page works (read-only) without JS.
+const CHECKLIST_JS = `
+(function(){
+  var KEY='layered-renovation-checklist-v1', boxes=[].slice.call(document.querySelectorAll('input[data-cl]'));
+  var state={}; try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+  function paint(){
+    var done=boxes.filter(function(b){return b.checked}).length, total=boxes.length;
+    document.getElementById('cl-done').textContent=done;
+    document.getElementById('cl-bar-fill').style.width=(total?done/total*100:0)+'%';
+    document.querySelector('.cl-bar').setAttribute('aria-valuenow',done);
+    boxes.forEach(function(b){b.closest('li').classList.toggle('done',b.checked)});
+  }
+  boxes.forEach(function(b){b.checked=!!state[b.getAttribute('data-cl')]; b.addEventListener('change',function(){state[b.getAttribute('data-cl')]=b.checked; save(); paint()})});
+  document.getElementById('cl-reset').addEventListener('click',function(){ if(confirm('Clear all ticks?')){state={}; save(); boxes.forEach(function(b){b.checked=false}); paint()} });
+  document.getElementById('cl-print').addEventListener('click',function(){window.print()});
+  paint();
+})();`;

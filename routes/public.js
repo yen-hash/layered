@@ -37,9 +37,9 @@ export function designerCard(b) {
     : `<img src="${esc(placeholderIllustration(b.id))}" alt="" loading="lazy" width="600" height="300">`;
   return `
   <a class="card designer-card" href="/designers/${esc(b.slug)}">
-    <div class="thumb">${img}</div>
+    <div class="thumb">${b.featured ? '<span class="pill-featured">Featured</span>' : ''}${img}</div>
     <div class="body">
-      <h3>${esc(b.company_name)}${b.featured ? ' ⭐' : ''}</h3>
+      <h3>${esc(b.company_name)}</h3>
       <div class="muted">${esc(b.service_areas || 'Singapore')}</div>
       ${credentialBadges(b)}
       <div class="tag-row">${tags.slice(0, 4).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
@@ -102,39 +102,49 @@ export function leadFormHtml(prefill = {}) {
 
 export async function homeRoute(req, res, ctx) {
   const featured = db.prepare('SELECT * FROM businesses ORDER BY featured DESC, created_at DESC LIMIT 6').all();
-  const counts = db.prepare('SELECT (SELECT COUNT(*) FROM businesses) AS businesses, (SELECT COUNT(*) FROM projects) AS projects, (SELECT COUNT(*) FROM leads) AS leads').get();
+  const counts = db.prepare('SELECT (SELECT COUNT(*) FROM businesses) AS businesses, (SELECT COUNT(*) FROM projects) AS projects, (SELECT COUNT(*) FROM leads) AS leads, (SELECT COUNT(*) FROM posts WHERE status = \'published\') AS posts').get();
   const site = ctx.site;
 
   const body = `
   <section class="hero">
     <div class="wrap hero-inner">
       <div class="hero-copy">
-        <h1>Find a trusted interior designer in Singapore</h1>
-        <p class="lead">Compare interior designers and renovation firms for your HDB, condo, landed or commercial project. Tell us about your renovation and we'll match you with vetted designers who take on projects like yours — no spam, no obligation.</p>
-        <a class="btn" href="#get-recommendations">Get My Recommendations</a>
+        <span class="eyebrow">Interior design &amp; renovation in Singapore</span>
+        <h1>Find the <em>right</em> interior designer for your home</h1>
+        <p class="lead">Compare Singapore interior designers and renovation firms for your HDB, condo, landed or commercial project. Check their HDB licence and CaseTrust credentials, then tell us about your renovation and we'll match you with firms that take on projects like yours.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#get-recommendations">Get matched</a>
+          <a class="btn btn-outline" href="/guides/renovation-checklist-singapore">Free renovation checklist</a>
+        </div>
         <div class="stats">
           <div class="stat"><b>${counts.businesses}</b><span>Designers listed</span></div>
           <div class="stat"><b>${counts.projects}</b><span>Projects to browse</span></div>
-          <div class="stat"><b>${counts.leads}</b><span>Homeowners matched</span></div>
+          <div class="stat"><b>${GUIDES.length + 1 + counts.posts}</b><span>Free guides &amp; articles</span></div>
         </div>
       </div>
-      <div class="hero-art"><img src="/images/hero.jpg" alt="Bright, modern living room interior with a sofa and pendant lights" width="1600" height="889" fetchpriority="high"></div>
+      <div class="hero-art">
+        <div class="arch"><img src="/images/hero-1280.jpg" alt="Bright, modern living room interior with a sofa and pendant lights" width="1280" height="960" fetchpriority="high"></div>
+        <div class="float-card"><span class="float-dot" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><b>HDB &amp; CaseTrust</b><span>Credentials shown on every profile, with links to check them</span></div></div>
+      </div>
     </div>
   </section>
   <section class="wrap">
+    <span class="eyebrow">Start with your home</span>
     <h2>Interior designers in Singapore by property type</h2>
     <p class="section-sub">Whether you are renovating a new BTO, a resale flat, a condo or a landed home, start with firms that do your kind of project.</p>
     <div class="grid grid-4">
-      ${Object.entries(PROPERTY_PAGES).map(([k, p]) => `<a class="card link-card" href="/interior-designers/${k}"><div class="body"><h3>${esc(p.title)}</h3><span class="more">Compare firms →</span></div></a>`).join('')}
+      ${Object.entries(PROPERTY_PAGES).map(([k, p]) => `<a class="photo-tile" href="/interior-designers/${k}"><img src="/images/tile-${k}.jpg" alt="" width="720" height="540" loading="lazy"><span class="label"><h3>${esc(p.propertyType === 'Commercial' ? 'Commercial' : p.propertyType === 'HDB' ? 'HDB flats' : p.propertyType === 'Condo' ? 'Condos' : 'Landed homes')}</h3><span class="more">Compare designers</span></span></a>`).join('')}
     </div>
   </section>
   <section class="wrap">
+    <span class="eyebrow">The directory</span>
     <h2>Featured designers</h2>
     <p class="section-sub">A snapshot of firms on Layered right now.</p>
     <div class="grid grid-3">${featured.map(designerCard).join('') || '<p class="muted">No designers listed yet.</p>'}</div>
     <p style="margin-top:20px"><a href="/designers">Browse the full directory →</a></p>
   </section>
   <section class="wrap">
+    <span class="eyebrow">Learn before you spend</span>
     <h2>Renovation guides for Singapore homeowners</h2>
     <p class="section-sub">Costs, permits and how to pick the right firm, explained in plain English.</p>
     <div class="grid grid-3">
@@ -185,7 +195,7 @@ export async function directoryRoute(req, res, ctx, url) {
     <p class="section-sub">${list.length} firm${list.length === 1 ? '' : 's'} found. Filter by property type, style and credentials, or jump to <a href="/interior-designers/hdb">HDB</a>, <a href="/interior-designers/condo">condo</a>, <a href="/interior-designers/landed">landed</a> and <a href="/interior-designers/commercial">commercial</a> designers.</p>
   </section>
   <section class="wrap">
-    <form class="panel wide" method="get" action="/designers" style="margin-bottom:28px;">
+    <form class="panel wide filter-bar" method="get" action="/designers">
       <div class="two-col">
         <div class="field">
           <label for="f-type">Property type</label>
@@ -261,12 +271,14 @@ export async function designerProfileRoute(req, res, ctx, slug) {
   // Credentials are deliberately left out of structured data: they are self-declared and
   // unverified, so we don't assert them to search engines.
 
+  const banner = projects.find((p) => p.cover_image)?.cover_image || '';
   const body = `
-  <div class="profile-hero">
+  <div class="profile-hero"${banner ? ` style="background-image:url('${esc(banner)}')"` : ''}>
     <div class="wrap row">
       <div class="logo-circle" style="${logo ? `background-image:url('${esc(logo)}')` : ''}" role="img" aria-label="${esc(b.company_name)} logo">${logo ? '' : esc(initials(b.company_name))}</div>
       <div>
-        <h1 style="margin:0 0 6px;">${esc(b.company_name)}${b.featured ? ' ⭐' : ''}</h1>
+        ${b.featured ? '<span class="pill-featured">Featured</span>' : ''}
+        <h1>${esc(b.company_name)}</h1>
         <p class="muted" style="margin:0 0 8px;">Interior design &amp; renovation · ${esc(b.service_areas || 'Singapore')}</p>
         ${credentialBadges(b)}
         <div class="tag-row">${tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
@@ -281,20 +293,30 @@ export async function designerProfileRoute(req, res, ctx, slug) {
         <h2>About ${esc(b.company_name)}</h2>
         <p>${esc(b.bio) || '<span class="muted">This designer hasn\'t added a bio yet.</span>'}</p>
         <h2>Projects (${projects.length})</h2>
-        <div class="project-grid">
-          ${projects.map((p) => `
+        <div class="project-grid${projects.length >= 3 ? ' gallery' : ''}">
+          ${projects.map((p) => {
+            const src = p.cover_image || placeholderIllustration(p.id);
+            const alt = p.cover_image ? projectAlt(p) : '';
+            return `
           <div class="card project-card">
-            <div class="thumb"><img src="${esc(p.cover_image || placeholderIllustration(p.id))}" alt="${p.cover_image ? esc(projectAlt(p)) : ''}" loading="lazy" width="600" height="260"></div>
+            <div class="thumb">${p.cover_image
+              ? `<button type="button" class="lb-open" data-src="${esc(src)}" data-caption="${esc(p.title)}" aria-label="View larger: ${esc(p.title)}"><img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" width="600" height="450"></button>`
+              : `<img src="${esc(src)}" alt="" loading="lazy" width="600" height="450">`}</div>
             <div class="body">
               <h3>${esc(p.title)}</h3>
               <div class="tag-row">${[p.property_type, p.style].filter(Boolean).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
             </div>
-          </div>`).join('') || '<p class="muted">No projects uploaded yet.</p>'}
+          </div>`;
+          }).join('') || '<p class="muted">No projects uploaded yet.</p>'}
         </div>
       </div>
       <div>${leadFormHtml({})}</div>
     </div>
-  </section>`;
+  </section>
+  <dialog class="lightbox" id="lightbox" aria-label="Project photo"><button type="button" class="lb-close" aria-label="Close">×</button><figure><img src="" alt="" width="1200" height="800"><figcaption></figcaption></figure></dialog>
+  <script>(function(){var d=document.getElementById('lightbox');if(!d||!d.showModal)return;var img=d.querySelector('img'),cap=d.querySelector('figcaption');
+  document.querySelectorAll('.lb-open').forEach(function(b){b.addEventListener('click',function(){img.src=b.dataset.src;img.alt=b.querySelector('img').alt;cap.textContent=b.dataset.caption;d.showModal()})});
+  d.querySelector('.lb-close').addEventListener('click',function(){d.close()});d.addEventListener('click',function(e){if(e.target===d)d.close()});})();</script>`;
   res.end(layout({
     fullTitle: `${b.company_name} | Interior Designer in Singapore`.slice(0, 70),
     description, path, site,

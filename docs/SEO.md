@@ -115,3 +115,63 @@ to WebP/AVIF with 2-3 widths and serve through a CDN once real photography is in
 5. Backlinks: partner content with CaseTrust-accredited firms, property-agent/mortgage blogs, Singapore press, local business
    directories; publish an annual cost survey as linkable data.
 6. Measure: Search Console (queries, indexing), Lighthouse/PageSpeed field data, lead conversion by landing page.
+
+
+---
+
+## Competitive strategy: Qanvast and Hometrust
+
+*Assumption: "Canvas" means Qanvast. Everything about the competitors below is what they say about themselves on their own sites in October 2026; no competitor SEO or backlink data was available.*
+
+| | Qanvast | Hometrust | Layered today |
+|---|---|---|---|
+| Model | Free matched shortlist of 3-5 vetted firms | Review platform plus personalised shortlist | Directory + guides + matching |
+| Trust signals | Vetting, verified reviews, SuperTrust badge, deposit guarantee up to S$50,000 | Thousands of homeowner reviews | Self-declared HDB licence + CaseTrust tier, links to official lookups |
+| Scale | ~95,000 homeowners served (their figure) | ~2,500 firms, ~8,600 reviews (their figure) | Demo data only |
+| Content | Large editorial library | Forum + reviews | 6 guides, checklist, 6 articles |
+
+**Be honest about the gap.** Layered has no reviews, no vetting and no guarantee yet, and the site says so (the comparison
+article states it plainly). Claiming otherwise would be both untrue and a trust-killer. We win by being *clearer and more
+useful*, then close the trust gap with product, not copy.
+
+### Where we can win now
+1. **Credential transparency.** The only directory that lets homeowners filter by HDB licence and CaseTrust tier (CaseTrust,
+   RCMA, Gold) and links straight to the official checkers.
+2. **Free tools and guides that rank.** The interactive renovation checklist, cost guides and the comparison article target
+   high-intent queries competitors cover only in blog form.
+3. **Alternative / comparison queries.** `qanvast vs hometrust`, `qanvast alternative`, `hometrust alternative`,
+   `best renovation platform singapore` (article: `/blog/qanvast-vs-hometrust-vs-layered`). Keep the tone factual; update
+   the figures from their sites each quarter.
+4. **Content velocity.** The admin editor's SEO scorecard makes it cheap to publish consistently (target 1-2 articles a week).
+5. **Speed and cleanliness.** Server-rendered pages, gzip, system fonts, no third-party scripts.
+
+### Product roadmap to close the trust gap (in priority order)
+1. **Verified credentials:** an admin "verified on <date>" flag set after checking HDB/CaseTrust lookups, shown instead of "self-declared".
+2. **Verified reviews:** invite homeowners from the lead record after completion; only reviews tied to a real lead are shown; add `Review` schema only then.
+3. **Deposit protection:** partner for a guarantee, or badge firms with CaseTrust deposit protection as "Protected deposit".
+4. **Cost estimator** (interactive, uses the ranges in the guides): a strong link magnet and lead source.
+5. **Shortlist and compare view:** side-by-side firms with credentials, styles, projects.
+6. **Firm-submitted articles** (review queue) for fresh content and backlinks.
+
+### Keyword queue for the blog (verify volumes in an SEO tool before writing)
+| Priority | Working title | Focus keyword | Category |
+|---|---|---|---|
+| High | 4-room vs 5-room HDB renovation cost | 4 room hdb renovation cost | Costs & Budgeting |
+| High | How to check an HDB licensed contractor | hdb licensed contractor | Rules & Permits |
+| High | Renovation contract clauses to look for | renovation contract singapore | Choosing a Designer |
+| High | Condo renovation approval step by step | condo renovation approval | Rules & Permits |
+| Medium | Resale HDB hidden costs | resale hdb renovation cost | Costs & Budgeting |
+| Medium | Scandinavian vs Japandi vs minimalist | scandinavian interior design hdb | Design Ideas |
+| Medium | Defects liability period explained | defects liability period singapore | Rules & Permits |
+| Medium | Small HDB storage ideas | small hdb storage ideas | Design Ideas |
+| Medium | Landed home A&A basics | landed house renovation singapore | Rules & Permits |
+| Low | Office fit-out cost Singapore | office renovation cost singapore | Costs & Budgeting |
+
+## Blog system
+
+- Public: `/blog`, `/blog/category/*`, `/blog/<slug>`, `/blog/rss.xml`. Posts are `BlogPosting` + Breadcrumb schema, in the
+  sitemap with real `lastmod`, with related posts and internal CTAs.
+- Authoring: `/dashboard/blog` for admin accounts (set `ADMIN_EMAILS`). Markdown editor with a live **SEO scorecard**
+  (title and description length, keyword in title/description/first 100 words/H2, keyword use, word count, H2 count, internal
+  links, cover alt, FAQ section). Drafts are hidden from visitors and previewable by admins (`noindex`).
+- Safety: raw HTML is escaped, link and image URLs are restricted to http(s), mailto and site-relative paths.
