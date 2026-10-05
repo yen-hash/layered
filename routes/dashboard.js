@@ -322,7 +322,7 @@ function reviewBlock(row, ctx) {
 }
 
 export async function leadDetailPage(req, res, ctx, matchId) {
-  const row = db.prepare(`SELECT l.*, lm.status, lm.id as match_id FROM lead_matches lm JOIN leads l ON l.id = lm.lead_id WHERE lm.id = ? AND lm.business_id = ?`).get(matchId, ctx.business.id);
+  const row = db.prepare(`SELECT l.*, lm.status, lm.id as match_id, lm.lead_id AS lead_id FROM lead_matches lm JOIN leads l ON l.id = lm.lead_id WHERE lm.id = ? AND lm.business_id = ?`).get(matchId, ctx.business.id);
   if (!row) { res.statusCode = 404; res.end(dashLayout('/dashboard/leads', '<p>Lead not found.</p>', ctx)); return; }
 
   const statuses = ['new', 'contacted', 'won', 'lost'];
