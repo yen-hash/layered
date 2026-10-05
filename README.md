@@ -186,3 +186,7 @@ Public POST endpoints are rate limited per IP (login 10 per 15 min; signup, lead
 ## Password reset
 
 `/forgot` emails a one-time link (valid 60 minutes) to the account's address; the page answers the same way whether or not the email exists, and the database stores only a hash of each token. It needs `RESEND_API_KEY` and `EMAIL_FROM`, otherwise the link is only written to `data/notifications.log`. Sessions are stateless signed cookies, so a reset does not log out a browser that is already signed in.
+
+## Portfolio uploads
+
+Firms add projects at `/dashboard/projects` with up to 12 photos (JPG, PNG, WebP or GIF, 8MB each), an optional photo credit, and a required tick confirming they own or have permission to publish the photos (the time of the confirmation is stored with the project). Uploads are checked by file signature and extension, so SVG and HTML are rejected, and file parts are ignored on every other form, including the public enquiry form.

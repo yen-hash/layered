@@ -235,8 +235,8 @@ async function router(req, res) {
       }
       if (req.method === 'GET' && url.pathname === '/dashboard/projects') return await projectsPage(req, res, ctx);
       if (req.method === 'POST' && url.pathname === '/dashboard/projects') {
-        const { fields, files } = await parseForm(req);
-        return await projectCreate(req, res, ctx, fields, files);
+        const { fields, files, rejected } = await parseForm(req, { allowFiles: true });
+        return await projectCreate(req, res, ctx, fields, files, rejected);
       }
       // ----- Firm-written articles -----
       if (req.method === 'GET' && url.pathname === '/dashboard/articles') return await articlesList(req, res, ctx);
