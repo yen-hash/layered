@@ -31,6 +31,25 @@ no dependency updates to chase, and it runs anywhere with Node ≥ 22.5.
   manager (create/delete, with real photo upload via multipart form-data or
   a pasted image URL), and a leads inbox with a detail view and status
   tracker (new / contacted / won / lost).
+- **Credentials**: firms can list their HDB renovation contractor licence number
+  and one CaseTrust accreditation (CaseTrust, CaseTrust-RCMA, or CaseTrust Gold).
+  They show as badges on directory cards and a Credentials panel on the profile, and
+  the directory can be filtered by them. They are self-declared and labelled as
+  such, with links to HDB's and CaseTrust's own lookups; Layered does not verify them.
+- **SEO**: keyword-targeted landing pages by property type and style
+  (`/interior-designers/hdb`, `/condo`, `/landed`, `/commercial`, `/style/*`), renovation
+  guides (`/guides/*`), canonical URLs, Open Graph, structured data (Organization,
+  Breadcrumb, Article, FAQPage, ItemList, HomeAndConstructionBusiness), `robots.txt`, a
+  dynamic `sitemap.xml`, gzip and caching. See `docs/SEO.md` for the audit, keyword map and
+  action plan, and run `node scripts/seo-check.js <base-url>` to check every page.
+- **Blog**: `/blog` with categories, RSS and an admin editor at `/dashboard/blog` (Markdown, live SEO
+  scorecard, draft/publish). Admins are accounts whose login email is in `ADMIN_EMAILS`. The first
+  `npm start` publishes six launch articles; after that the posts belong to the editor.
+- **Renovation checklist**: `/guides/renovation-checklist-singapore`, a tickable, printable homeowner guide
+  whose progress is saved in the visitor's own browser.
+- **Cost calculator**: `/tools/renovation-cost-calculator` estimates HDB, condo, kitchen and bathroom
+  or office renovation budgets from the 2026 ranges in `content/estimator.js`, then hands the property
+  type and budget band to the brief form. `npm test` runs the unit tests (estimator maths, Markdown safety).
 - Ownership is enforced everywhere in the dashboard — a business can only see
   and edit its own leads and projects.
 
@@ -93,6 +112,8 @@ That rules out Vercel/Netlify in their default serverless mode. Good fits:
 Environment variables to set in production:
 ```
 SESSION_SECRET=<long random string>   # required — signs login sessions
+SITE_URL=https://www.example.sg       # required for SEO — canonical URLs, sitemap, structured data
+ADMIN_EMAILS=you@example.com          # who may use /dashboard/blog (comma-separated; required in production)
 NODE_ENV=production                   # marks cookies Secure
 PORT=3000                             # or whatever your host expects
 RESEND_API_KEY=...                    # optional, see above
@@ -133,3 +154,15 @@ data/app.db                       SQLite database (gitignored, auto-created)
 - Lead matching is a simple property-type overlap, not a scoring algorithm.
 - Photo uploads are stored on local disk, which won't survive on ephemeral/
   serverless filesystems — see the deploy notes above.
+
+## Verifying credentials
+
+Admins (`ADMIN_EMAILS`) open `/dashboard/verification`, check each firm's HDB licence / CaseTrust against the official lookups, and click Verify. The checked value and date are stored; changing the declared value, or 365 days passing, removes the tick automatically. Unchecked credentials stay labelled self-declared.
+
+## Shortlist and compare
+
+Visitors save up to four designers with the heart button (stored in their browser only) and open `/compare` to see service areas, styles, credentials (with checked dates) and project counts side by side. The page is `noindex`.
+
+## Deploying on Render
+
+`render.yaml` is a Blueprint: in Render choose New > Blueprint, select this repo and branch, and fill in `ADMIN_EMAILS` and `SITE_URL` when prompted. The free plan has no persistent disk, so data resets on redeploy; for real use move to a paid plan and enable the disk block in the file (set `DB_PATH` to the mount path).

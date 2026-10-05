@@ -12,7 +12,7 @@ export async function signupPage(req, res, ctx) {
   const body = `
   <div class="wrap split-auth">
     <form class="panel" method="post" action="/signup">
-      <h2>List your business on Layered</h2>
+      <h1>List your interior design business on Layered</h1>
       <p class="section-sub">Get a free profile, a project gallery, and inbound leads sent straight to your dashboard.</p>
       <div class="two-col">
         <div class="field"><label>Company name</label><input type="text" name="company_name" required></div>
@@ -32,7 +32,11 @@ export async function signupPage(req, res, ctx) {
       <p class="hint" style="margin-top:14px;text-align:center;">Already have an account? <a href="/login">Log in</a></p>
     </form>
   </div>`;
-  res.end(layout({ title: 'List your business', body, business: ctx.business, flash: ctx.flash }));
+  res.end(layout({
+    title: 'List Your Interior Design Business in Singapore',
+    description: 'List your interior design or renovation firm on Layered to showcase projects, add your HDB licence and CaseTrust credentials, and receive homeowner leads.',
+    path: '/signup', site: ctx.site, body, business: ctx.business, flash: ctx.flash,
+  }));
 }
 
 export async function signupSubmit(req, res, fields) {
@@ -74,14 +78,14 @@ export async function loginPage(req, res, ctx) {
   const body = `
   <div class="wrap split-auth">
     <form class="panel" method="post" action="/login">
-      <h2>Business login</h2>
+      <h1>Business login</h1>
       <div class="field"><label>Email</label><input type="email" name="email" required></div>
       <div class="field"><label>Password</label><input type="password" name="password" required></div>
       <button class="btn btn-block" type="submit">Log in</button>
       <p class="hint" style="margin-top:14px;text-align:center;">New here? <a href="/signup">List your business</a></p>
     </form>
   </div>`;
-  res.end(layout({ title: 'Business login', body, business: ctx.business, flash: ctx.flash }));
+  res.end(layout({ title: 'Business login', noindex: true, site: ctx.site, body, business: ctx.business, flash: ctx.flash }));
 }
 
 export async function loginSubmit(req, res, fields) {

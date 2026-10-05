@@ -1,0 +1,130 @@
+// content/checklist.js — the flagship "complete renovation guide & checklist" for Singapore homeowners.
+// Each item has a stable id so a homeowner's ticks survive edits to the wording.
+
+export const CHECKLIST = {
+  slug: 'renovation-checklist-singapore',
+  title: 'Singapore Renovation Checklist: Complete Guide',
+  h1: 'The complete Singapore renovation guide and checklist',
+  description: 'A step-by-step renovation checklist for Singapore homeowners: budget, designer, contract, permits, site visits, handover and defects. Tick it off and print it.',
+  summary: 'Every step from budget to handover and the defects period, as a tickable, printable checklist.',
+  intro: `<p>Renovating a home in Singapore involves dozens of decisions, a handful of regulations and a lot of money. Most problems come from steps skipped or done in the wrong order. This guide walks you through the whole journey, <strong>from first budget to the end of the defects period</strong>, as a checklist you can tick off. Your progress is saved in this browser, and you can print the page.</p>
+<p>It applies to HDB, condo and landed homes, with notes where the rules differ. Cost figures and rules change, so where we mention them we link to the detail and to the official source.</p>`,
+  phases: [
+    {
+      id: 'plan', title: '1. Plan and budget', when: '3 to 6 months before keys or works',
+      intro: 'Get clear on what you want and what you can spend before you talk to anyone. A clear brief gets you comparable quotes.',
+      items: [
+        ['p1', 'List your must-haves and nice-to-haves', 'Rooms to change, storage you need, who lives there, and whether anyone works from home. Must-haves are what you protect when the budget is tight.'],
+        ['p2', 'Set a total budget and keep a 10-15% buffer', 'Surprises are normal, especially in resale homes. See typical ranges in our <a href="/guides/hdb-renovation-cost-singapore">HDB renovation cost guide</a> and <a href="/guides/condo-renovation-cost-and-rules">condo guide</a>.'],
+        ['p3', 'Know the rules for your property type', 'HDB needs a permit and a registered contractor. Condos need management corporation approval. Read the <a href="/guides/hdb-renovation-permit-and-rules">HDB permit guide</a> or the <a href="/guides/condo-renovation-cost-and-rules">condo guide</a>.'],
+        ['p4', 'Get the floor plan and measurements', 'HDB and developer plans show structural walls. Good plans prevent wrongly designed layouts.'],
+        ['p5', 'Collect inspiration and pick two or three styles', 'Save photos you like and note what you like in each. Browse styles such as <a href="/interior-designers/style/minimalist">minimalist</a> or <a href="/interior-designers/style/scandinavian">Scandinavian</a>.'],
+        ['p6', 'Set your timeline and move-in date', 'Work back from the date you need the home. Allow for permits, design time and ordering. A typical site schedule is about ten weeks; see the <a href="/blog/bto-renovation-timeline-singapore">BTO renovation timeline</a>.'],
+        ['p7', 'Decide how you will pay', 'Plan cash flow for staged payments and keep money aside for the buffer.'],
+      ],
+    },
+    {
+      id: 'choose', title: '2. Choose your designer or contractor', when: '2 to 4 months before works',
+      intro: 'The firm you pick matters more than any material. Shortlist on evidence, then check credentials yourself.',
+      items: [
+        ['c1', 'Shortlist three to five firms that do your kind of home', 'Use the directory: <a href="/interior-designers/hdb">HDB</a>, <a href="/interior-designers/condo">condo</a>, <a href="/interior-designers/landed">landed</a> or <a href="/interior-designers/commercial">commercial</a> designers.'],
+        ['c2', 'Verify HDB registration (for HDB flats)', 'Ask for the licence number and check it on HDB’s contractor lookup. Only registered contractors can apply for your permit. <a href="/guides/casetrust-and-hdb-licence-explained">How to check</a>.'],
+        ['c3', 'Check CaseTrust accreditation', 'CaseTrust, CaseTrust-RCMA and CaseTrust Gold add a standard contract and deposit protection. Confirm it on CASE’s website, including the expiry.'],
+        ['c4', 'Confirm the company is properly registered', 'Ask for the registered company name and UEN, and make sure the name on the quote matches the name on the contract.'],
+        ['c5', 'Meet at least three firms and give each the same brief', 'Identical briefs make quotes comparable. Note how each firm listens and how clearly it explains trade-offs.'],
+        ['c6', 'Review portfolios of similar homes and ask for references', 'Ask how the final cost and timeline compared to the original. Visit a completed project or speak to a past client if you can.'],
+        ['c7', 'Compare itemised quotes, not totals', 'Each quote should break down by work type, with materials and brands. A very low quote often leaves things out. Use our <a href="/guides/how-to-choose-an-interior-designer-singapore">guide to choosing a designer</a>.'],
+      ],
+    },
+    {
+      id: 'contract', title: '3. Contract and payments', when: 'Before you pay anything',
+      intro: 'The contract is your protection. Read every line and keep the signed copy.',
+      items: [
+        ['k1', 'Get scope, drawings, materials, timeline and price in writing', 'Everything promised verbally should be in the contract or its schedules, including brands and finishes.'],
+        ['k2', 'Insist on staged payments tied to progress', 'Be wary of a large upfront deposit. Pay for completed milestones, not for time passed.'],
+        ['k3', 'Ask how your deposit is protected', 'CaseTrust-accredited firms follow a standard contract with deposit protection. Ask any firm what protects you if it stops trading.'],
+        ['k4', 'Agree how variations are handled', 'Changes mid-project should be priced and signed in writing before the work is done.'],
+        ['k5', 'Agree the defects liability period and a retention sum', 'A defects liability period, commonly around 12 months, and a small retention until defects are fixed, give the firm a reason to return.'],
+        ['k6', 'Ask for proof of insurance', 'Ask for work injury compensation and public liability insurance covering the site, in case a worker is hurt or a neighbour’s unit is damaged.'],
+        ['k7', 'Confirm who handles permits and approvals', 'For HDB, the registered contractor applies. For condos, agree who submits to the management corporation and who pays the deposit.'],
+      ],
+    },
+    {
+      id: 'permits', title: '4. Permits and approvals', when: 'After signing, before any works begin',
+      intro: 'Nothing that needs approval should start until approval is in hand. Breaking this rule is the fastest way to get fined.',
+      items: [
+        ['a1', 'HDB: confirm the renovation permit is approved before hacking', 'Your registered contractor applies. Approval usually takes a few working days. Details in the <a href="/guides/hdb-renovation-permit-and-rules">HDB permit and rules guide</a>.'],
+        ['a2', 'Condo: submit the renovation application and pay the deposit', 'Get written approval from the management corporation or office, and note the permitted working hours and worker registration rules.'],
+        ['a3', 'Landed or structural changes: confirm the professional and approvals needed', 'Extensions and structural changes typically need a qualified professional and regulatory approval. Ask your firm to list what applies.'],
+        ['a4', 'Confirm which walls are structural', 'Never design around removing a wall until it is confirmed non-structural against official plans.'],
+        ['a5', 'Check permitted working days and hours', 'Noisy works are limited and Sundays and public holidays are off limits. Make sure the schedule respects them.'],
+        ['a6', 'Tell your neighbours before noisy works start', 'A short note with dates and a contact number prevents most complaints.'],
+      ],
+    },
+    {
+      id: 'design', title: '5. Finalise the design and order early', when: '4 to 8 weeks before works',
+      intro: 'Late decisions are the number one cause of delay. Lock the design and order slow items first.',
+      items: [
+        ['d1', 'Approve final drawings: layout, carpentry, electrical and lighting plans', 'Check every cabinet, socket and switch position against how you actually live.'],
+        ['d2', 'Choose finishes using physical samples', 'Colours and textures look different on screen. See tiles, laminates and paint in your own lighting.'],
+        ['d3', 'Order long-lead items now', 'Appliances, sanitary fittings, lights, tiles and countertops can take weeks to arrive.'],
+        ['d4', 'Plan where you will live and store belongings', 'Arrange temporary housing if needed, and somewhere safe for furniture and valuables.'],
+        ['d5', 'Confirm the master schedule in writing', 'Ask for a week-by-week plan with milestones that match the payment stages.'],
+      ],
+    },
+    {
+      id: 'during', title: '6. During the renovation', when: 'About 8 to 12 weeks on site',
+      intro: 'Stay involved. Regular site visits catch problems while they are cheap to fix.',
+      items: [
+        ['w1', 'Check site protection is in place on day one', 'Lifts, corridors, floors and neighbours’ doors should be protected.'],
+        ['w2', 'Visit at every milestone and photograph the work', 'Keep dated photos, especially of walls and floors before they are covered.'],
+        ['w3', 'Inspect hidden works before they are covered', 'Waterproofing and a water-ponding test, plumbing pressure tests and electrical conduits should be checked before tiling and ceilings.'],
+        ['w4', 'Put every change in writing before work is done', 'Signed variation orders with price and timing avoid arguments later.'],
+        ['w5', 'Pay only against completed milestones', 'Match each payment to finished work, not to the calendar.'],
+        ['w6', 'Keep the permit displayed and the schedule on track', 'Ask about delays early and get any revised schedule in writing.'],
+      ],
+    },
+    {
+      id: 'handover', title: '7. Handover inspection', when: 'Before you sign off and make the final payment',
+      intro: 'Defects found before you sign are the firm’s job to fix. After you sign they can become a negotiation. Take your time.',
+      items: [
+        ['h1', 'Walk through with your designer, room by room, in daylight', 'Bring a torch, a phone charger and a list. Do not rush.'],
+        ['h2', 'Test every tap, drain and flush for leaks and flow', 'Look under sinks and around the base of toilets.'],
+        ['h3', 'Test every switch, socket, light and the circuit breaker', 'Use a phone charger in each socket. Check lights are the specified type and colour.'],
+        ['h4', 'Open and close every door, drawer and cabinet', 'Check alignment, soft-close action, handles and hinges.'],
+        ['h5', 'Inspect floors and walls', 'Tap tiles for hollow sounds, look for cracks and uneven grout, and check paint for patches and marks in side light.'],
+        ['h6', 'Check silicone, glass and windows', 'Silicone should be neat and complete around basins, showers and kitchen counters. Windows and grilles should open and lock.'],
+        ['h7', 'Write a signed defects list with a fix date', 'Photograph each item. Agree a deadline for each fix in writing.'],
+        ['h8', 'Hold back the final payment or retention until fixes are done', 'Only release the last payment when the defects list is cleared.'],
+        ['h9', 'Collect warranties, manuals, permits and as-built plans', 'Keep them together, plus the contract and all variation orders.'],
+      ],
+    },
+    {
+      id: 'after', title: '8. After you move in', when: 'The first 12 months',
+      intro: 'The defects liability period is your safety net. Use it.',
+      items: [
+        ['f1', 'Report new defects in writing, with photos, straight away', 'Quote the contract clause and the date you noticed the problem.'],
+        ['f2', 'Do a seasonal check', 'After heavy rain, look for seepage, damp patches or loose silicone, especially around windows and wet areas.'],
+        ['f3', 'Diarise the end of the defects liability period', 'Do a final inspection a few weeks before it ends and send a last list.'],
+        ['f4', 'Release the retention only after defects are fixed', 'Pay the remaining sum once the firm has rectified everything.'],
+        ['f5', 'Keep all records', 'Contract, quotes, permits, receipts, photos and warranties help with future repairs and resale.'],
+        ['f6', 'Share your experience', 'Honest feedback helps the next homeowner choose well.'],
+      ],
+    },
+  ],
+  timeline: [
+    ['3-6 months before', 'Budget, brief, shortlist designers'],
+    ['2-3 months before', 'Meet firms, compare quotes, check credentials, sign the contract'],
+    ['1-2 months before', 'Permits and approvals, final design, order long-lead items'],
+    ['Weeks 1-10 on site', 'Hacking and masonry, plumbing and electrical, tiling, ceiling, painting, carpentry, fittings, cleaning'],
+    ['Handover', 'Inspection, defects list, final payment on completion'],
+    ['Months 1-12 after', 'Defects liability period, seasonal checks, final inspection'],
+  ],
+  faqs: [
+    { q: 'What should I do first when renovating in Singapore?', a: 'Set a realistic budget with a 10 to 15 percent buffer, list your must-haves, and learn the rules for your property type. Then shortlist designers and verify their credentials.' },
+    { q: 'How long does a home renovation take in Singapore?', a: 'Site work often takes eight to twelve weeks, with about ten weeks a common benchmark, plus planning, permits and ordering time beforehand. A lighter scope can be shorter.' },
+    { q: 'What should I check at handover?', a: 'Test every tap, switch, socket, door and cabinet, inspect tiles, paint and silicone, write a signed defects list with fix dates, and hold back the final payment until it is cleared.' },
+    { q: 'What is a defects liability period?', a: 'It is the agreed period after handover during which the contractor must fix workmanship defects. It is commonly around 12 months, and your contract should state it.' },
+    { q: 'Do I need a permit to renovate?', a: 'For HDB flats, works such as hacking need an HDB renovation permit that your registered contractor applies for. Condos require management corporation approval. Ask your firm which approvals your plans need.' },
+  ],
+};

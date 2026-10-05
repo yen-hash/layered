@@ -67,9 +67,39 @@ db.exec(`
     created_at TEXT DEFAULT (datetime('now'))
   );
 
+  CREATE TABLE IF NOT EXISTS posts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    slug TEXT UNIQUE NOT NULL,
+    title TEXT NOT NULL,
+    excerpt TEXT DEFAULT '',
+    body TEXT DEFAULT '',
+    category TEXT DEFAULT 'Guides',
+    tags TEXT DEFAULT '',
+    focus_keyword TEXT DEFAULT '',
+    meta_title TEXT DEFAULT '',
+    meta_description TEXT DEFAULT '',
+    cover_image TEXT DEFAULT '',
+    cover_alt TEXT DEFAULT '',
+    author_name TEXT DEFAULT 'Layered Editorial',
+    status TEXT DEFAULT 'draft',
+    published_at TEXT,
+    created_at TEXT DEFAULT (datetime('now')),
+    updated_at TEXT DEFAULT (datetime('now'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_posts_status ON posts(status, published_at);
+
   CREATE INDEX IF NOT EXISTS idx_lead_matches_business ON lead_matches(business_id);
   CREATE INDEX IF NOT EXISTS idx_lead_matches_lead ON lead_matches(lead_id);
 `);
+
+// Lightweight migrations for databases created before a column existed.
+const businessCols = db.prepare('PRAGMA table_info(businesses)').all().map((c) => c.name);
+if (!businessCols.includes('hdb_licence_no')) db.exec("ALTER TABLE businesses ADD COLUMN hdb_licence_no TEXT DEFAULT ''");
+if (!businessCols.includes('casetrust')) db.exec("ALTER TABLE businesses ADD COLUMN casetrust TEXT DEFAULT ''");
+// Admin verification: stores *what* was checked and when, so editing the value later voids the mark.
+for (const col of ['hdb_verified_value', 'hdb_verified_at', 'casetrust_verified_value', 'casetrust_verified_at']) {
+  if (!businessCols.includes(col)) db.exec(`ALTER TABLE businesses ADD COLUMN ${col} TEXT DEFAULT ''`);
+}
 
 export const PROPERTY_TYPES = ['HDB', 'Condo', 'Landed', 'Commercial'];
 export const STYLES = ['Minimalist', 'Scandinavian', 'Industrial', 'Modern', 'Contemporary', 'Classic'];
