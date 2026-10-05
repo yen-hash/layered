@@ -240,6 +240,7 @@ export async function directoryRoute(req, res, ctx, url) {
         </select>
       </div>
     </form>
+    <h2 class="sr-only">Designers</h2>
     <div class="grid grid-3">${list.map(designerCard).join('') || '<p class="muted">No designers match those filters yet.</p>'}</div>
   </section>`;
   res.end(layout({

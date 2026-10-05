@@ -59,6 +59,7 @@ async function listing(req, res, ctx, url, { category = null } = {}) {
   </section>
   <section class="wrap">
     ${posts.length ? `
+      <h2 class="sr-only">Articles</h2>
       ${showFeature ? `<div class="post-feature">${postCard(first, { large: true })}</div>` : ''}
       <div class="grid grid-3">${(showFeature ? rest : posts).map((p) => postCard(p)).join('')}</div>
       ${pagination(base, page, total)}` : '<p class="muted">No articles here yet. Check back soon.</p>'}
