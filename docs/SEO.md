@@ -155,7 +155,7 @@ useful*, then close the trust gap with product, not copy.
 6. ~~Firm-submitted articles~~ **Built.** Firms draft at `/dashboard/articles` (500+ words, max 3 waiting); admins approve or return with a note from the Blog admin page (or edit first in the editor). Published with the firm byline, a "written by a listed firm" notice, `nofollow ugc` external links and no images. Check the meta description and cover before approving.
 
 ### Keyword queue for the blog (verify volumes in an SEO tool before writing)
-Published so far (22): the original six, batch 2 (seven), batch 3 (six) and batch 4 (three: quotation, flooring, HDB vs condo cost). Batch 4 flooring prices (vinyl, tiles, timber per sq ft) are commonly quoted contractor bands, not sourced from a published survey: re-verify them first. Remaining queue is open.
+Published so far (24): the original six, batch 2 (seven), batch 3 (six) batch 4 (three: quotation, flooring, HDB vs condo cost) and batch 5 (two: laminate vs veneer, condo timeline). Stage lengths in the condo timeline are typical ranges, not sourced figures: re-verify. Batch 4 flooring prices (vinyl, tiles, timber per sq ft) are commonly quoted contractor bands, not sourced from a published survey: re-verify them first. Remaining queue is open.
 
 | Status | Working title | Focus keyword | Category |
 |---|---|---|---|
@@ -172,12 +172,12 @@ Published so far (22): the original six, batch 2 (seven), batch 3 (six) and batc
 | Published | Renovation loan: how it works (no bank rates) | renovation loan singapore | Costs & Budgeting |
 | Published | Small HDB storage ideas | small hdb storage ideas | Design Ideas |
 | Published | 10 renovation mistakes and how to avoid them | renovation mistakes singapore | Choosing a Designer |
-| Next | Laminate vs veneer vs solid wood for built-ins | laminate vs veneer carpentry singapore | Design Ideas |
+| Published | Laminate vs veneer vs solid wood for built-ins | laminate vs veneer carpentry singapore | Design Ideas |
 | Published | Flooring for HDB: vinyl vs tiles vs timber | hdb flooring options | Design Ideas |
 | Published | How to read a renovation quotation | renovation quotation singapore | Choosing a Designer |
 | Published | HDB vs condo renovation cost | hdb vs condo renovation cost | Costs & Budgeting |
 | Next | Qanvast alternative (keep factual, cite their own site) | qanvast alternative | Choosing a Designer |
-| Next | Condo renovation timeline | condo renovation timeline singapore | Rules & Permits |
+| Published | Condo renovation timeline | condo renovation timeline singapore | Rules & Permits |
 
 **Editorial QA lesson:** the SEO scorecard checks structure, not meaning. After a batch is written, read the rendered pages and
 list each article's headings; one batch had two sections attached to the wrong article by a scripted edit, which only a
