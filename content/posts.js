@@ -1458,4 +1458,293 @@ Verify the firm's licences and accreditation on the official lookups, keep depos
 ### What should I check before signing off at handover?
 Test every tap, switch, socket, door and cabinet, inspect tiles, paint and silicone, write a signed defects list with fix dates and hold back the final payment until it is cleared.`,
   },
+  {
+    slug: 'how-to-read-a-renovation-quotation-singapore',
+    title: 'How to Read a Renovation Quotation in Singapore (and Compare Quotes Fairly)',
+    category: 'Choosing a Designer',
+    focus_keyword: 'renovation quotation singapore',
+    tags: 'quotation, quote, contract, interior designer, hdb',
+    meta_title: 'How to Read a Renovation Quotation in Singapore',
+    meta_description: 'How to read a renovation quotation in Singapore: what a good quote lists, terms like provisional sum, red flags, and how to compare quotes fairly.',
+    excerpt: 'Two renovation quotes for the same flat can differ by thousands of dollars and still not be comparable. Here is how to read each line and compare quotes properly.',
+    cover_image: '/images/cover-quotation.jpg',
+    cover_alt: 'Wooden window blinds beside a floor lamp and a framed artwork on a white wall',
+    body: `A **renovation quotation in Singapore** is the document you will compare, negotiate from and, once signed, be held to. Yet two quotes for the same flat can differ by thousands of dollars and still not be comparable, because one prices a detailed scope and the other prices a sentence. This guide shows how to read each part of a quote, which terms to question, and how to line quotes up so you are comparing like with like.
+
+*The terms below are common industry usage. Every firm words things slightly differently, so ask what each term means in your own quote.*
+
+## What a good renovation quotation in Singapore lists
+
+A useful quote lets a stranger understand exactly what will be built. Look for these:
+
+- **Scope by area.** Work broken down by room or zone (living, kitchen, bathrooms, bedrooms), not one lump sum.
+- **Quantities and units.** Carpentry by running foot or per item, tiling by square foot, electrical by the number of points, with the quantity stated beside each price.
+- **Materials and brands.** The laminate or veneer, the board core, the tile size and grade, the paint brand and the hardware (hinges, drawer runners). "Quality laminate" is not a specification.
+- **What is excluded.** Furniture, appliances, curtains, cleaning, and permit or management fees may or may not be in the price. Exclusions should be written down.
+- **Payment schedule and timeline.** Stage-based payments and a start and end date.
+- **Warranty.** What is covered, for how long, and how to claim. See our guide to the [defects liability period](/blog/defects-liability-period-singapore).
+
+If a quote is missing several of these, the price may look low only because the work is undefined.
+
+## Quotation terms worth knowing
+
+| Term | What it usually means | What to ask |
+|---|---|---|
+| **Provisional sum (PS)** | A placeholder amount for something not yet specified, such as a feature wall or lighting | What exactly is it for, and who pays if it costs more? |
+| **Supply and install** | The price covers both the material and the labour | Is delivery, disposal and protection included? |
+| **Hacking and disposal** | Removing old finishes, with debris removal | Which walls and floors, and is disposal included? |
+| **Variation order (VO)** | A signed change to the scope, with its price | Will every change be priced and signed before the work is done? |
+| **Design or project management fee** | A fee for design drawings and supervision, charged separately by some firms | Is it a fixed sum or a percentage, and what does it cover? |
+| **Subject to site measurement** | Final quantities will be confirmed after the firm measures | Is there a cap if measurements come out larger? |
+
+## Red flags in a quote
+
+- **Lump sums with no breakdown**, such as "Kitchen carpentry: S$14,000".
+- **Vague materials**, with no brand, thickness or finish named.
+- **Large provisional sums** covering major items.
+- **A deposit that is large or due before anything is agreed in writing.** See [what to check in a renovation contract](/blog/renovation-contract-singapore-what-to-check).
+- **No mention of permits or licensed trades** for electrical, plumbing and gas work. Our guide to [checking an HDB licensed contractor](/blog/how-to-check-hdb-licensed-contractor) shows how to verify the firm.
+- **Pressure to sign today** because the price "expires".
+
+## How to compare renovation quotes fairly
+
+Test every renovation quotation Singapore firms send you the same way, so the comparison is fair.
+
+1. **Ask every firm to quote the same brief.** Give each the same floor plan, wish list and list of exclusions.
+2. **Put the quotes in one table.** One row per item (carpentry, flooring, painting, electrical, plumbing, waterproofing), one column per firm.
+3. **Fill the gaps.** Where one firm includes something another leaves out, ask for a price so each column covers the same scope.
+4. **Compare specifications, not only totals.** A cheaper quote with thinner boards or a lower-grade tile is a different product.
+5. **Check the payment terms and warranty** after the price.
+6. **Query the odd one out.** A quote far below the others usually has a gap, and one far above may include extras you did not ask for.
+
+For rough benchmarks, see our guides to [HDB renovation costs](/guides/hdb-renovation-cost-singapore) and the [renovation cost calculator](/tools/renovation-cost-calculator). They are indicative ranges, not prices.
+
+## A quick checklist before you sign
+
+- [ ] Scope listed by room, with quantities and units
+- [ ] Materials and brands named
+- [ ] Exclusions written down
+- [ ] Provisional sums explained and capped
+- [ ] Payments tied to stages, with a small deposit
+- [ ] Start date, end date and warranty stated
+- [ ] Firm's licences and accreditation checked
+
+Our [renovation checklist](/guides/renovation-checklist-singapore) walks through the full process, and you can [browse designers](/designers) and request quotes from several at once.
+
+## Frequently asked questions
+
+### How many renovation quotations should I get?
+Three is a common number. It is enough to see the spread without becoming hard to compare. Give each firm the same brief.
+
+### Are renovation quotations binding?
+A quote is an offer. It becomes binding when you sign a contract that incorporates it. Read the contract and check that it attaches the itemised quote and drawings.
+
+### What is a provisional sum in a quotation?
+It is a placeholder amount for work that has not been specified yet. Ask what it covers and what happens if the real cost is higher or lower.
+
+### Should I pick the cheapest quote?
+Not by default. Compare the scope, materials and payment terms first. A low total can mean missing items that appear later as variation orders.
+`,
+  },
+  {
+    slug: 'hdb-flooring-options-vinyl-tiles-timber',
+    title: 'HDB Flooring Options: Vinyl vs Tiles vs Timber (Cost, Pros and Cons)',
+    category: 'Design Ideas',
+    focus_keyword: 'hdb flooring options',
+    tags: 'flooring, vinyl, tiles, timber, hdb, bto',
+    meta_title: 'HDB Flooring Options: Vinyl vs Tiles vs Timber',
+    meta_description: 'HDB flooring options compared: vinyl, porcelain tiles and engineered timber. Pros, cons, indicative cost per square foot and what suits wet areas.',
+    excerpt: 'Vinyl, tiles or timber? Each HDB flooring option suits different rooms, budgets and lifestyles. Here is how they compare and what to ask before you choose.',
+    cover_image: '/images/cover-flooring.jpg',
+    cover_alt: 'Timber-look floor beside a wooden bench, a plant and a bed with drawers',
+    body: `Flooring is one of the largest surfaces in your flat, and one of the hardest to change later. The main **HDB flooring options** are vinyl, porcelain or homogeneous tiles, and timber or timber-look floors, and each behaves differently underfoot, in humidity and on your budget. This guide compares them room by room so you can brief your designer with confidence.
+
+*Prices are indicative ranges that Singapore contractors commonly quote and vary by brand, area and site. Ask for itemised quotes before deciding.*
+
+## HDB flooring options at a glance
+
+| | Vinyl | Tiles | Timber (engineered or solid) |
+|---|---|---|---|
+| **Look** | Wide range, including timber and stone looks | Wide range, from marble look to concrete look | Natural grain and warmth |
+| **Water resistance** | Good for most vinyl, check the product | Excellent | Poor to moderate, avoid wet areas |
+| **Feel** | Slightly soft, warmer than tile | Hard and cool, helpful in the heat | Warm, comfortable |
+| **Install** | Often laid over a levelled floor with little hacking | Wet works, can be laid over existing tiles in some cases | Needs a flat, dry base and underlay |
+| **Upkeep** | Easy to clean, can dent or scratch | Very durable, grout needs cleaning | Needs more care, can scratch or swell |
+| **Typical suitability** | Living areas and bedrooms | Whole flat, especially kitchens and bathrooms | Bedrooms and living areas, with care |
+
+## Vinyl flooring in an HDB flat
+
+Vinyl planks, including click-lock rigid-core types, are popular in BTO and resale flats because they install quickly and look like timber without the maintenance.
+
+**Pros**
+- Quicker and cleaner to install than tiling, with less hacking.
+- Many designs, and generally easy to clean.
+- Softer and warmer underfoot than tile.
+
+**Cons**
+- Can dent under heavy furniture and scratch with grit.
+- Can sound slightly hollow, so ask about underlay.
+- Quality varies widely. Thin or poorly bonded products may lift or discolour.
+
+**Ask your designer:** the thickness and wear layer, whether it is rated for humid conditions, whether the subfloor will be levelled, and the warranty.
+
+## Tiles: porcelain and homogeneous
+
+Tiles are the long-standing choice for Singapore homes. They handle humidity, spills and heavy furniture well, and larger formats reduce visible grout lines.
+
+**Pros**
+- Very durable and water-resistant, so they suit kitchens, bathrooms and balconies.
+- Stays cooler, which many people prefer in the heat.
+- A large choice of sizes and finishes.
+
+**Cons**
+- Hard and cold underfoot, and unforgiving if something is dropped.
+- Installation involves wet works and curing time, and heavy hacking is noisy and subject to renovation-hour rules (see our [HDB renovation permit and rules guide](/guides/hdb-renovation-permit-and-rules)).
+- Grout can stain and needs cleaning.
+
+**Ask your designer:** the tile size and slip rating, how the tiles will be fixed, and whether existing floor tiles will be hacked or tiled over. Laying over existing tiles can reduce cost and noise, but it raises the floor level, so check the effect on doors and thresholds.
+
+## Timber and engineered timber
+
+Solid timber suits a dry, controlled space more than a humid flat. Engineered timber, which has a real wood surface over a layered core, is more stable and is the usual choice.
+
+**Pros**
+- Warm look and feel that is hard to match.
+- Can often be refinished, depending on the product.
+
+**Cons**
+- Sensitive to water and humidity, so it is not suited to kitchens, bathrooms or balconies.
+- Scratches more easily than tile.
+- Generally costs more than vinyl.
+
+## Indicative cost of flooring
+
+Installed prices per square foot vary with the product, but contractors commonly quote in these bands:
+
+| Option | Indicative installed cost |
+|---|---|
+| Vinyl | About S$3 to S$8 per sq ft |
+| Porcelain tiles (standard size) | About S$6 to S$12 per sq ft, more for large or premium formats |
+| Engineered timber | About S$8 to S$15 per sq ft or more |
+
+Treat these as a starting point and compare itemised quotes. For the whole-flat picture, see our [HDB renovation cost guide](/guides/hdb-renovation-cost-singapore) and the [renovation cost calculator](/tools/renovation-cost-calculator).
+
+## Which flooring for which room?
+
+- **Living and dining:** vinyl, tile or engineered timber, depending on budget and look.
+- **Bedrooms:** vinyl or engineered timber for warmth underfoot.
+- **Kitchen:** tile, or a water-rated vinyl if your designer confirms it suits the layout.
+- **Bathrooms and balcony:** tile only, with proper waterproofing and falls to the drain.
+- **Whole flat in one material:** tile or vinyl gives a continuous, spacious look.
+
+## What to settle before ordering
+
+- [ ] Floor finish chosen for each room
+- [ ] Hack, level or overlay decision made
+- [ ] Skirting and door thresholds checked against the new floor height
+- [ ] Underlay and warranty confirmed for vinyl or timber
+- [ ] Spare boxes or tiles ordered for future repairs
+
+Use our [renovation checklist](/guides/renovation-checklist-singapore) to place flooring in the right order of works, and [browse HDB designers](/interior-designers/hdb) to compare ideas and quotes.
+
+## Frequently asked questions
+
+### Is vinyl or tile better for an HDB flat?
+Neither is better everywhere. Tile is more durable and suits wet areas, while vinyl is warmer, quicker to install and often cheaper in living areas and bedrooms.
+
+### Can I lay vinyl over existing tiles?
+Often yes, if the tiles are sound and the surface is levelled. Check the height change at doors, and ask your contractor to confirm the base is suitable.
+
+### Is timber flooring suitable in Singapore's humidity?
+Engineered timber can work in a controlled indoor space such as a bedroom or living room, but avoid wet areas and ask about moisture protection and the warranty.
+
+### Do I need to hack the old floor tiles?
+Not always. Hacking is noisy and adds cost, so many owners tile or lay vinyl over sound existing tiles. Your designer should advise based on the condition and floor height.
+`,
+  },
+  {
+    slug: 'hdb-vs-condo-renovation-cost-singapore',
+    title: 'HDB vs Condo Renovation Cost in Singapore: What Really Differs',
+    category: 'Costs & Budgeting',
+    focus_keyword: 'hdb vs condo renovation cost',
+    tags: 'hdb, condo, renovation cost, budget, psf',
+    meta_title: 'HDB vs Condo Renovation Cost in Singapore (2026)',
+    meta_description: 'HDB vs condo renovation cost in Singapore: how the two are priced, the extra condo deposits and rules, and which costs more for your home.',
+    excerpt: 'HDB renovations are usually quoted by flat type and condos by square foot. Here is how the two compare, and the extra costs and rules that catch condo owners out.',
+    cover_image: '/images/cover-hdb-vs-condo.jpg',
+    cover_alt: 'Living room with a tan sofa, white coffee table and floor-to-ceiling windows',
+    body: `The **HDB vs condo renovation cost** question has no single answer, because the two are priced differently and the work involved is different. HDB renovations are usually quoted by flat type and specification, while condo renovations are usually quoted per square foot. This guide shows how the numbers line up, what changes the bill, and the extra deposits and rules condo owners should plan for.
+
+*Figures are indicative ranges quoted by Singapore renovation guides in 2026. They are not quotes. Always get itemised quotes for your own home.*
+
+## HDB vs condo renovation cost at a glance
+
+| | HDB | Condo |
+|---|---|---|
+| **How it is usually priced** | By flat type and specification (3-room, 4-room, 5-room) | Per square foot of floor area |
+| **Typical full-renovation range** | 4-room BTO: about S$40,000 to S$55,000 at standard specification. 4-room resale: about S$55,000 to S$75,000 | About S$50 to S$120 per sq ft for a full renovation, with high-specification work from about S$150 per sq ft |
+| **Who approves works** | HDB rules and permits for certain works | The management corporation, with its own rules |
+| **Extra costs** | Permit, removal of old finishes in resale flats | Refundable renovation deposit, lift and common-area protection, and possibly management fees |
+| **Working hours** | HDB renovation-hour rules | Set by the condo's management |
+
+## How much does an HDB renovation cost?
+
+HDB renovation budgets are usually quoted by flat type. At a standard specification, commonly quoted ranges are about S$30,000 to S$45,000 for a 3-room BTO, S$40,000 to S$55,000 for a 4-room and S$45,000 to S$67,000 for a 5-room. Resale flats tend to cost more because old floors, walls and bathrooms may need to be replaced. For the detail, see our [HDB renovation cost guide](/guides/hdb-renovation-cost-singapore) and [4-room vs 5-room breakdown](/blog/4-room-vs-5-room-hdb-renovation-cost).
+
+## How much does a condo renovation cost?
+
+Condo renovation is usually priced per square foot. Commonly quoted bands are:
+
+- **Cosmetic refresh** (little hacking): from about S$40 per sq ft.
+- **Full renovation:** about S$50 to S$120 per sq ft.
+- **High specification** (stone, feature joinery, smart home): from about S$150 per sq ft.
+
+So an 800 sq ft condo might land around S$40,000 to S$96,000 for a full renovation, before the extra costs below. Our [condo renovation cost and rules guide](/guides/condo-renovation-cost-and-rules) covers the approval steps in more detail.
+
+## Why the two are not like for like
+
+- **Size.** A 4-room HDB flat is often roughly 90 sq m (about 970 sq ft), while many condo units are smaller. A per-square-foot rate on a smaller unit can still add up to a similar total.
+- **Condition.** A new-launch condo often arrives with floor finishes and fittings, so the work can be lighter. A resale condo or resale HDB flat can need much more.
+- **Specification.** Condo owners often choose higher-specification finishes, which raises the rate per square foot.
+- **Layout work.** HDB flats have structural walls and rules about what can be removed. Condos have their own limits, set by the building and management.
+
+## Extra costs and rules for condo owners
+
+Condo renovations come with costs that HDB owners do not usually face:
+
+- **Renovation deposit.** Many management corporations ask for a refundable deposit before works begin, returned if the common areas are left undamaged.
+- **Protection of common areas.** You may need to protect lifts and corridors, and the contractor may bear the cost.
+- **Approval time.** Submit drawings and contractor details early. See our [condo renovation approval guide](/blog/condo-renovation-approval-singapore).
+- **Rules on hours, deliveries and noise.** These are set by the condo and can affect your schedule.
+
+Ask the management office for the renovation rules before you finalise your quote.
+
+## Costs both types of home share
+
+Whatever you own, remember these:
+
+- A **buffer** of about 10 to 15% for changes and surprises.
+- **Furniture, appliances and curtains**, which are often outside the renovation quote.
+- **Renovation loans or financing**, if you need them. See our [guide to how renovation loans work](/blog/renovation-loan-singapore-how-it-works).
+- **Hidden costs** in older homes, covered in our [resale HDB hidden costs guide](/blog/resale-hdb-renovation-hidden-costs).
+
+## So which costs more?
+
+For similar size and specification, a condo often costs more per square foot because of higher-specification choices and extra approvals, while an HDB resale can cost a lot when walls, floors and bathrooms are redone. Compare by getting itemised quotes. Our [renovation cost calculator](/tools/renovation-cost-calculator) gives a quick range for either type, and you can [browse HDB designers](/interior-designers/hdb) or [condo designers](/interior-designers/condo) to request quotes.
+
+## Frequently asked questions
+
+### Is it cheaper to renovate an HDB or a condo?
+It depends on size, condition and specification. An HDB BTO at standard specification is often cheaper in total, but a heavily renovated resale HDB flat can cost as much as a condo.
+
+### Why are condo renovations quoted per square foot?
+Condo units vary widely in size and finish, so firms price by floor area. HDB renovations are more standardised by flat type, so they are usually quoted that way.
+
+### Do I pay a deposit to renovate a condo?
+Many condo management corporations ask for a refundable renovation deposit and may charge other fees. Check the rules with the management office early.
+
+### How much buffer should I keep?
+Many guides suggest 10 to 15% of the renovation budget for changes and surprises, and more for older homes.
+`,
+  },
 ];
