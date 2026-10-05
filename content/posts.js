@@ -1950,4 +1950,98 @@ You can shorten the process by finalising the design early, submitting complete 
 Start at least three to five months before your target move-in date, and earlier for a large renovation.
 `,
   },
+  {
+    slug: 'qanvast-alternative-singapore',
+    title: 'Qanvast Alternatives in Singapore: Other Ways to Find a Renovation Firm',
+    category: 'Choosing a Designer',
+    focus_keyword: 'qanvast alternative',
+    tags: 'qanvast, alternative, hometrust, casetrust, renovation platform',
+    meta_title: 'Qanvast Alternatives in Singapore: 5 Other Options',
+    meta_description: 'Looking for a Qanvast alternative? How Qanvast and its guarantee work, other ways to find a Singapore renovation firm, and how to protect your deposit.',
+    excerpt: 'Qanvast is a popular way to find a renovation firm in Singapore, but it is not the only one. Here is what it offers, what to compare it with, and how to protect your deposit whichever route you choose.',
+    cover_image: '/images/cover-qanvast-alternative.jpg',
+    cover_alt: 'White armchairs facing a tan leather sofa and coffee table, with a kitchen behind',
+    body: `Qanvast is one of the best-known ways to find a renovation firm in Singapore, so it is natural to look for a **Qanvast alternative** to compare against. This guide sets out what Qanvast says it offers, the other routes homeowners use, and how to protect your deposit whichever one you choose. It is written by Layered, which is one of the options, so we say plainly where we are newer or smaller.
+
+*What we say about Qanvast below is taken from Qanvast's own pages as they appeared in October 2026. Terms change, so read the current page before you rely on any of it.*
+
+## What Qanvast says it offers
+
+According to Qanvast's own pages:
+
+- **A free quote service.** You submit your requirements and receive a shortlist of up to five firms that match them.
+- **Vetted firms and verified portfolios.** Qanvast says its listed firms have verified portfolios and real reviews.
+- **Reviews verified with contracts.** It says homeowner reviews are verified with accompanying contract submissions.
+- **The Qanvast Guarantee.** A free scheme that covers 50% of your contract value, up to S$50,000, if the recommended firm becomes insolvent.
+
+## How the Qanvast Guarantee works
+
+The guarantee is worth understanding before you rely on it. Qanvast states that:
+
+- You must opt in within **7 days** of signing the quotation.
+- It applies only if you engaged a firm through Qanvast's quote request, direct enquiry or events.
+- It covers a firm's **insolvency**. It does not apply if the firm was not referred by Qanvast, if you terminate the contract or are the party in breach, or if you refuse the services of the firm's appointed agents or contractors.
+- Claims are limited to 50% of the contract value, capped at S$50,000. In Qanvast's example, a S$50,000 contract with a S$30,000 deposit and no work done could claim up to S$25,000.
+
+Read the current terms before you sign, because the details decide what you can claim.
+
+## Why people look for an alternative
+
+- You want to **compare firms yourself** rather than receive a shortlist.
+- The firm you like is **not listed** on the platform.
+- You prefer to **deal directly**, or you have a recommendation from a friend.
+- You want **more than one source** of information before you commit.
+
+None of these means Qanvast is a poor choice. They are reasons to look at more than one place.
+
+## Qanvast alternative options: other ways to find a renovation firm
+
+| Route | How it works | Worth knowing |
+|---|---|---|
+| **A review platform such as Hometrust** | Read homeowner reviews and get a shortlist | Check how recent the reviews are. See our [Qanvast vs Hometrust vs Layered comparison](/blog/qanvast-vs-hometrust-vs-layered) |
+| **Layered** | Browse and filter firms, compare them side by side, or submit a brief | Newer, with fewer firms. Credentials are self-declared unless a checked date is shown. Reviews come only from homeowners who enquired through Layered, and every review is read before it appears. There is no deposit guarantee |
+| **CaseTrust-accredited firms** | Look for firms accredited by the Consumers Association of Singapore | Accreditation includes consumer safeguards, covered below |
+| **Personal referrals** | Ask friends and neighbours, then visit a finished home | Ask to see the contract and payment schedule, not just the result |
+| **Visiting showrooms** | Meet firms in person | Compare the same brief across several |
+
+Whichever route you use, check the basics yourself. Our guides show how to [check an HDB licensed contractor](/blog/how-to-check-hdb-licensed-contractor) and how [CaseTrust and HDB licences work](/guides/casetrust-and-hdb-licence-explained).
+
+## Protecting your deposit, whichever route you choose
+
+A platform guarantee is one layer of protection. Others sit with the firm and the contract:
+
+- **CaseTrust deposit safeguards.** CASE requires CaseTrust-accredited renovation businesses to purchase a deposit performance bond that safeguards homeowners' deposits if the firm closes or is wound up, and states that the initial deposit is capped at 20% of the contract. Ask the firm for its bond details, and check its status on the CaseTrust lookup.
+- **A small deposit and staged payments.** Tie each payment to completed work. See our guide to [what to check in a renovation contract](/blog/renovation-contract-singapore-what-to-check).
+- **A written, itemised quotation.** See how to [read a renovation quotation](/blog/how-to-read-a-renovation-quotation-singapore).
+- **A retention.** Hold back a final payment until defects are fixed. See the [defects liability period](/blog/defects-liability-period-singapore).
+
+A platform guarantee, a CaseTrust bond and a staged payment plan do different jobs. Do not assume one replaces the others.
+
+## How Layered fits in
+
+Layered is a good place to start comparing if you want to see several firms, their credentials and their projects side by side. It is newer than Qanvast, has fewer firms and does not offer a deposit guarantee. Where a firm lists an HDB licence or CaseTrust accreditation, the profile says whether Layered has checked it, and with what date. You can [browse designers](/designers) and request quotes from several at once, and the [how to choose an interior designer guide](/guides/how-to-choose-an-interior-designer-singapore) covers what to ask them.
+
+## A quick checklist
+
+- [ ] Quotes from at least three firms on the same brief
+- [ ] HDB licence and CaseTrust status checked on the official lookups
+- [ ] Deposit capped, payments staged, retention agreed
+- [ ] Platform guarantee terms read, including opt-in deadlines and exclusions
+- [ ] Written contract with drawings and an itemised quotation
+
+## Frequently asked questions
+
+### What is a good Qanvast alternative in Singapore?
+There is no single best one. Hometrust, Layered, CaseTrust-accredited firms, personal referrals and showroom visits all work. Many homeowners use two or three routes and compare the quotes.
+
+### Is the Qanvast Guarantee the same as CaseTrust deposit protection?
+No. The Qanvast Guarantee is a scheme tied to firms you engage through Qanvast, with its own opt-in rules and limits. CaseTrust requires accredited firms to hold a deposit performance bond and cap initial deposits. They work differently, so read each one's terms.
+
+### Can I use Layered and Qanvast together?
+Yes. Nothing stops you from comparing quotes from firms found on both. If you want Qanvast's guarantee, check its terms about how the firm must be engaged.
+
+### How do I check that a renovation firm is legitimate?
+Check its HDB licence and CaseTrust accreditation on the official lookups, ask for its ACRA registration, read the contract and keep the deposit small.
+`,
+  },
 ];
