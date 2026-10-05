@@ -386,7 +386,14 @@ dialog.lightbox .lb-close { position: absolute; right: -6px; top: -46px; backgro
 /* ---------- Responsive header ---------- */
 @media (max-width: 760px) {
   .header-inner { height: auto; flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; row-gap: 8px; }
-  .main-nav { flex-wrap: wrap; gap: 6px 18px; font-size: .92rem; }
+  /* Phones: compact, non-sticky header. Logo and the main button share the first row; links wrap to a second row. */
+  .site-header { position: static; }
+  .header-inner { column-gap: 18px; justify-content: flex-start; }
+  .nav-long { display: none; }
+  .main-nav { display: contents; font-size: .92rem; }
+  .header-inner .logo { order: 1; }
+  .main-nav .btn { order: 2; margin-left: auto; }
+  .main-nav a:not(.btn) { order: 3; white-space: nowrap; padding: 4px 0; }
   .main-nav .nav-hide-sm { display: none; }
   section, section.wrap { padding-top: 36px; padding-bottom: 36px; }
   section.wrap.page-head { padding-top: 8px; padding-bottom: 12px; }
