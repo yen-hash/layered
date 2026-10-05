@@ -332,6 +332,7 @@ export async function designerProfileRoute(req, res, ctx, slug) {
             <div class="body">
               <h3>${esc(p.title)}</h3>
               <div class="tag-row">${[p.property_type, p.style].filter(Boolean).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+              ${p.description ? `<p class="muted small project-desc">${esc(p.description.length > 150 ? p.description.slice(0, 147).trimEnd() + '…' : p.description)}</p>` : ''}
               ${p.photo_credit ? `<p class="muted small photo-credit">${esc(p.photo_credit)}</p>` : ''}
             </div>
           </div>`;

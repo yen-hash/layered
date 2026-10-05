@@ -25,7 +25,7 @@ import { propertyLandingRoute, styleLandingRoute, guidesIndexRoute, guideRoute, 
 import { signupPage, signupSubmit, loginPage, loginSubmit, logoutRoute, forgotPage, forgotSubmit, resetPage, resetSubmit } from './routes/auth.js';
 import {
   dashboardHome, profilePage, profileSubmit,
-  projectsPage, projectCreate, projectDelete,
+  projectsPage, projectCreate, projectDelete, projectEditPage, projectUpdate,
   leadsPage, leadDetailPage, leadStatusUpdate,
 } from './routes/dashboard.js';
 
@@ -129,6 +129,7 @@ async function router(req, res) {
   if (req.method === 'GET' && (
     url.pathname === '/style.css' ||
     url.pathname === '/shortlist.js' ||
+    url.pathname === '/photos.js' ||
     url.pathname === '/favicon.svg' ||
     url.pathname === '/logo-mark.svg' ||
     url.pathname === '/og-default.jpg' ||
@@ -230,8 +231,8 @@ async function router(req, res) {
       if (req.method === 'GET' && url.pathname === '/dashboard') return await dashboardHome(req, res, ctx);
       if (req.method === 'GET' && url.pathname === '/dashboard/profile') return await profilePage(req, res, ctx);
       if (req.method === 'POST' && url.pathname === '/dashboard/profile') {
-        const { fields } = await parseForm(req);
-        return await profileSubmit(req, res, ctx, fields);
+        const { fields, files } = await parseForm(req, { allowFiles: true });
+        return await profileSubmit(req, res, ctx, fields, files);
       }
       if (req.method === 'GET' && url.pathname === '/dashboard/projects') return await projectsPage(req, res, ctx);
       if (req.method === 'POST' && url.pathname === '/dashboard/projects') {
@@ -279,6 +280,14 @@ async function router(req, res) {
       const postDel = url.pathname.match(/^\/dashboard\/blog\/(\d+)\/delete$/);
       if (req.method === 'POST' && postDel) return await blogAdminDelete(req, res, ctx, Number(postDel[1]));
 
+      const projEdit = url.pathname.match(/^\/dashboard\/projects\/(\d+)\/edit$/);
+      if (req.method === 'GET' && projEdit) return await projectEditPage(req, res, ctx, Number(projEdit[1]));
+      const projUpd = url.pathname.match(/^\/dashboard\/projects\/(\d+)$/);
+      if (req.method === 'POST' && projUpd) {
+        const { fields, files, rejected } = await parseForm(req, { allowFiles: true });
+        return await projectUpdate(req, res, ctx, Number(projUpd[1]), fields, files, rejected);
+      }
+
       const delMatch = url.pathname.match(/^\/dashboard\/projects\/(\d+)\/delete$/);
       if (req.method === 'POST' && delMatch) return await projectDelete(req, res, ctx, delMatch[1]);
 
@@ -296,6 +305,11 @@ async function router(req, res) {
     res.statusCode = 404;
     res.end(layout({ title: 'Page not found', noindex: true, site: ctx.site, body: '<div class="wrap" style="padding:60px 0;"><h1>404 — Page not found</h1><p><a href="/">Back home</a> · <a href="/designers">Find a designer</a> · <a href="/guides">Renovation guides</a></p></div>', business: ctx.business }));
   } catch (err) {
+    if (err && err.code === 'TOO_LARGE') {
+      res.statusCode = 413;
+      res.end(layout({ title: 'Upload too large', noindex: true, body: `<div class="wrap" style="padding:60px 0;"><h1>That upload is too large</h1><p class="muted">One submission can carry about 48MB. Add fewer photos at a time, or let your browser shrink them (photos over 1.2MB are resized automatically when JavaScript is on).</p><p><a class="btn" href="/dashboard/projects">Back to projects</a></p></div>`, business: ctx.business }));
+      return;
+    }
     console.error(err);
     res.statusCode = 500;
     res.end(layout({ title: 'Error', noindex: true, body: `<div class="wrap" style="padding:60px 0;"><h1>Something went wrong</h1><p class="muted">Please try again in a moment.</p></div>`, business: ctx.business }));

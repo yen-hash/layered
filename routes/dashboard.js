@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { db, PROPERTY_TYPES, STYLES } from '../db.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
 import { isAdmin } from '../lib/admin.js';
@@ -72,7 +74,7 @@ export async function profilePage(req, res, ctx) {
   const styles = (b.styles || '').split(',').filter(Boolean);
   const inner = `
     <h1>Business profile</h1>
-    <form class="panel wide" method="post" action="/dashboard/profile">
+    <form class="panel wide" method="post" action="/dashboard/profile" enctype="multipart/form-data">
       <div class="two-col">
         <div class="field"><label>Company name</label><input type="text" name="company_name" value="${esc(b.company_name)}" required></div>
         <div class="field"><label>Contact name</label><input type="text" name="contact_name" value="${esc(b.contact_name || '')}"></div>
@@ -81,7 +83,10 @@ export async function profilePage(req, res, ctx) {
         <div class="field"><label>Phone</label><input type="tel" name="phone" value="${esc(b.phone || '')}"></div>
         <div class="field"><label>Service areas</label><input type="text" name="service_areas" value="${esc(b.service_areas || '')}"></div>
       </div>
-      <div class="field"><label>Logo / cover image URL</label><input type="url" name="logo_url" value="${esc(b.logo_url || '')}" placeholder="https://..."></div>
+      <div class="field"><label for="logo_file">Logo</label>
+        ${b.logo_url ? `<p><img src="${esc(b.logo_url)}" alt="Current logo" width="72" height="72" style="object-fit:contain;border:1px solid var(--line);border-radius:12px;background:#fff;"></p>` : ''}
+        <input id="logo_file" type="file" name="logo_file" accept="image/jpeg,image/png,image/webp,image/gif"><p class="hint">JPG, PNG, WebP or GIF under 8MB. A square image works best.</p></div>
+      <div class="field"><label for="logo_url">Or a logo image URL</label><input id="logo_url" type="url" name="logo_url" value="${esc(b.logo_url || '')}" placeholder="https://..."></div>
       <div class="field"><label>Bio</label><textarea name="bio">${esc(b.bio || '')}</textarea></div>
       <div class="field"><label>Property types you take on</label>${chipGroup('property_types', PROPERTY_TYPES, propertyTypes)}</div>
       <div class="field"><label>Styles you specialize in</label>${chipGroup('styles', STYLES, styles)}</div>
@@ -105,7 +110,7 @@ export async function profilePage(req, res, ctx) {
   res.end(dashLayout('/dashboard/profile', inner, ctx));
 }
 
-export async function profileSubmit(req, res, ctx, fields) {
+export async function profileSubmit(req, res, ctx, fields, files = {}) {
   const hdb = normaliseHdbLicence(fields.hdb_licence_no);
   if (hdb.error) {
     res.writeHead(302, { Location: '/dashboard/profile?err=' + encodeURIComponent(hdb.error) });
@@ -114,15 +119,20 @@ export async function profileSubmit(req, res, ctx, fields) {
   }
   const propertyTypes = Array.isArray(fields.property_types) ? fields.property_types : (fields.property_types ? [fields.property_types] : []);
   const styles = Array.isArray(fields.styles) ? fields.styles : (fields.styles ? [fields.styles] : []);
+  const logoFile = files.logo_file && files.logo_file[0];
+  const typedUrl = String(fields.logo_url || '').trim();
+  const logoUrl = logoFile ? logoFile.publicPath : (/^https?:\/\/\S+$/i.test(typedUrl) || typedUrl.startsWith('/uploads/') ? typedUrl : '');
+  const oldLogo = ctx.business.logo_url;
   db.prepare(`UPDATE businesses SET company_name=?, contact_name=?, phone=?, service_areas=?, logo_url=?, bio=?, property_types=?, styles=?, notify_email=?, notify_sms=?, notify_phone=?, hdb_licence_no=?, casetrust=? WHERE id=?`)
     .run(
       fields.company_name || ctx.business.company_name,
-      fields.contact_name || '', fields.phone || '', fields.service_areas || '', fields.logo_url || '', fields.bio || '',
+      fields.contact_name || '', fields.phone || '', fields.service_areas || '', logoUrl, fields.bio || '',
       propertyTypes.join(','), styles.join(','),
       fields.notify_email ? 1 : 0, fields.notify_sms ? 1 : 0, fields.notify_phone || '',
       hdb.value, normaliseCaseTrust(fields.casetrust),
       ctx.business.id
     );
+  if (logoFile && oldLogo !== logoUrl) removeUploads([oldLogo]);
   res.writeHead(302, { Location: '/dashboard/profile?ok=' + encodeURIComponent('Profile updated.') });
   res.end();
 }
@@ -146,13 +156,14 @@ export async function projectsPage(req, res, ctx) {
           <select name="style"><option value="">-</option>${STYLES.map((s) => `<option value="${esc(s)}">${esc(s)}</option>`).join('')}</select>
         </div>
         <div class="field"><label>Description</label><textarea name="description"></textarea></div>
-        <div class="field"><label for="photos">Project photos</label><input id="photos" type="file" name="photos" accept="image/jpeg,image/png,image/webp,image/gif" multiple><p class="hint">Up to 12 photos (JPG, PNG, WebP or GIF, 8MB each). The first is the cover.</p></div>
+        <div class="field"><label for="photos">Project photos</label><input id="photos" type="file" name="photos" data-resize accept="image/jpeg,image/png,image/webp,image/gif" multiple><p class="hint">Up to 12 photos (JPG, PNG, WebP or GIF, 8MB each). The first is the cover.</p></div>
         <div class="field"><label for="cover_image_url">Or a cover image URL</label><input id="cover_image_url" type="url" name="cover_image_url" placeholder="https://..."></div>
         <div class="field"><label for="photo_credit">Photo credit (optional)</label><input id="photo_credit" type="text" name="photo_credit" maxlength="120" placeholder="e.g. Photography by Studio Name"></div>
         <div class="field checkbox-row"><input type="checkbox" name="rights" id="rights" required><label for="rights" style="margin:0;">I own these photos or have permission to publish them on Layered.</label></div>
         <button class="btn" type="submit">Add project</button>
       </form>
     </div>
+    <script src="/photos.js" defer></script>
     <div class="project-grid">
       ${projects.map((p) => `
       <div class="card project-card">
@@ -160,6 +171,7 @@ export async function projectsPage(req, res, ctx) {
         <div class="body">
           <h4>${esc(p.title)}</h4>
           <p class="muted small">${photoCount(p)} photo${photoCount(p) === 1 ? '' : 's'}</p>
+          <p><a class="btn btn-sm btn-outline" href="/dashboard/projects/${p.id}/edit">Edit</a></p>
           <div class="tag-row">${[p.property_type, p.style].filter(Boolean).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
           <form class="inline" method="post" action="/dashboard/projects/${p.id}/delete" onsubmit="return confirm('Delete this project?')">
             <button class="btn btn-sm btn-outline" type="submit">Delete</button>
@@ -169,6 +181,19 @@ export async function projectsPage(req, res, ctx) {
     </div>
   `;
   res.end(dashLayout('/dashboard/projects', inner, ctx));
+}
+
+const UPLOAD_ROOT = path.join(process.cwd(), 'public', 'uploads');
+// Deletes files we stored under /uploads (and nothing else), ignoring any that are still referenced elsewhere.
+export function removeUploads(paths) {
+  for (const rel of paths) {
+    if (typeof rel !== 'string' || !rel.startsWith('/uploads/')) continue;
+    const file = path.join(process.cwd(), 'public', rel);
+    if (!file.startsWith(UPLOAD_ROOT + path.sep)) continue;
+    const used = db.prepare("SELECT 1 FROM projects WHERE cover_image = ? OR images LIKE ? UNION SELECT 1 FROM businesses WHERE logo_url = ?").get(rel, `%${rel}%`, rel);
+    if (used) continue;
+    try { fs.unlinkSync(file); } catch { /* already gone */ }
+  }
 }
 
 export const photoList = (p) => {
@@ -196,8 +221,67 @@ export async function projectCreate(req, res, ctx, fields, files, rejected = [])
   back('ok', 'Project added.' + note);
 }
 
+export async function projectEditPage(req, res, ctx, id) {
+  const p = db.prepare('SELECT * FROM projects WHERE id = ? AND business_id = ?').get(id, ctx.business.id);
+  if (!p) { res.writeHead(302, { Location: '/dashboard/projects?err=' + encodeURIComponent('Project not found.') }); res.end(); return; }
+  const photos = photoList(p).length ? photoList(p) : (p.cover_image ? [p.cover_image] : []);
+  const inner = `
+    <p><a href="/dashboard/projects">← Back to projects</a></p>
+    <script src="/photos.js" defer></script>
+    <div class="dash-card">
+      <h1 style="margin-top:0;">Edit project</h1>
+      <form class="panel wide" method="post" action="/dashboard/projects/${p.id}" enctype="multipart/form-data">
+        <div class="two-col">
+          <div class="field"><label for="title">Project title</label><input id="title" type="text" name="title" value="${esc(p.title)}" maxlength="120" required></div>
+          <div class="field"><label for="property_type">Property type</label>
+            <select id="property_type" name="property_type"><option value="">-</option>${PROPERTY_TYPES.map((t) => `<option value="${esc(t)}" ${t === p.property_type ? 'selected' : ''}>${esc(t)}</option>`).join('')}</select></div>
+        </div>
+        <div class="field"><label for="style">Style</label>
+          <select id="style" name="style"><option value="">-</option>${STYLES.map((t) => `<option value="${esc(t)}" ${t === p.style ? 'selected' : ''}>${esc(t)}</option>`).join('')}</select></div>
+        <div class="field"><label for="description">Description</label><textarea id="description" name="description" maxlength="2000">${esc(p.description || '')}</textarea></div>
+        ${photos.length ? `<div class="field"><span class="label">Photos</span>
+          <div class="edit-photos">${photos.map((u, i) => `
+            <figure><img src="${esc(u)}" alt="Photo ${i + 1} of ${esc(p.title)}" loading="lazy" width="160" height="120" onerror="this.style.visibility='hidden'">
+              <label class="small"><input type="radio" name="cover" value="${esc(u)}" ${u === p.cover_image || (!p.cover_image && i === 0) ? 'checked' : ''}> Cover</label>
+              <label class="small"><input type="checkbox" name="remove" value="${esc(u)}"> Remove</label></figure>`).join('')}</div></div>` : ''}
+        <div class="field"><label for="photos">Add more photos</label><input id="photos" type="file" name="photos" data-resize accept="image/jpeg,image/png,image/webp,image/gif" multiple><p class="hint">Up to 12 photos in total.</p></div>
+        <div class="field"><label for="photo_credit">Photo credit (optional)</label><input id="photo_credit" type="text" name="photo_credit" maxlength="120" value="${esc(p.photo_credit || '')}"></div>
+        <div class="field checkbox-row"><input type="checkbox" name="rights" id="rights"><label for="rights" style="margin:0;">I own any photos I am adding, or have permission to publish them on Layered.</label></div>
+        <button class="btn" type="submit">Save changes</button>
+      </form>
+    </div>`;
+  res.end(dashLayout('/dashboard/projects', inner, ctx));
+}
+
+export async function projectUpdate(req, res, ctx, id, fields, files, rejected = []) {
+  const p = db.prepare('SELECT * FROM projects WHERE id = ? AND business_id = ?').get(id, ctx.business.id);
+  const back = (kind, text, to = `/dashboard/projects/${id}/edit`) => { res.writeHead(302, { Location: `${to}?${kind}=` + encodeURIComponent(text) }); res.end(); };
+  if (!p) return back('err', 'Project not found.', '/dashboard/projects');
+  const title = String(fields.title || '').trim().slice(0, 120);
+  if (!title) return back('err', 'Project title is required.');
+  const added = (files.photos || []).map((f) => f.publicPath);
+  if ((added.length || rejected.length) && !fields.rights) { removeUploads(added); return back('err', 'Please confirm you own the photos you are adding or have permission to publish them.'); }
+
+  const current = photoList(p).length ? photoList(p) : (p.cover_image ? [p.cover_image] : []);
+  const toRemove = new Set([].concat(fields.remove || []));
+  const kept = current.filter((u) => !toRemove.has(u));
+  let photos = [...kept, ...added];
+  if (photos.length > 12) { removeUploads(added); return back('err', 'A project can have at most 12 photos. Remove some first.'); }
+  const wanted = String(fields.cover || '');
+  const cover = photos.includes(wanted) ? wanted : (photos[0] || (toRemove.size || added.length ? '' : p.cover_image));
+  if (cover) photos = [cover, ...photos.filter((u) => u !== cover)];
+
+  db.prepare(`UPDATE projects SET title=?, property_type=?, style=?, description=?, cover_image=?, images=?, photo_credit=?, rights_confirmed_at=CASE WHEN ? THEN datetime('now') ELSE rights_confirmed_at END WHERE id=?`)
+    .run(title, fields.property_type || '', fields.style || '', String(fields.description || '').slice(0, 2000), cover, JSON.stringify(photos), String(fields.photo_credit || '').trim().slice(0, 120), added.length ? 1 : 0, id);
+  removeUploads([...toRemove]);
+  const skipped = rejected.length ? ` ${rejected.length} file${rejected.length === 1 ? ' was' : 's were'} skipped (JPG, PNG, WebP or GIF under 8MB only).` : '';
+  back('ok', 'Project updated.' + skipped);
+}
+
 export async function projectDelete(req, res, ctx, projectId) {
+  const old = db.prepare('SELECT * FROM projects WHERE id = ? AND business_id = ?').get(projectId, ctx.business.id);
   db.prepare('DELETE FROM projects WHERE id = ? AND business_id = ?').run(projectId, ctx.business.id);
+  if (old) removeUploads([old.cover_image, ...photoList(old)]);
   res.writeHead(302, { Location: '/dashboard/projects?ok=' + encodeURIComponent('Project removed.') });
   res.end();
 }
