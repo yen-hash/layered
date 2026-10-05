@@ -461,3 +461,9 @@ dialog.lightbox .lb-close { position: absolute; right: -6px; top: -46px; backgro
 .review p { margin: 6px 0 0; }
 .review .stars { color: #b5482d; letter-spacing: 2px; }
 .narrow { max-width: 640px; margin-left: auto; margin-right: auto; }
+
+/* Outline buttons on the dark profile hero need light text */
+.profile-hero .btn-outline { color: #fff; border-color: rgba(255,255,255,.75); background: transparent; }
+.profile-hero .btn-outline:hover { background: rgba(255,255,255,.16); color: #fff; }
+
+a.eyebrow { padding: 6px 0; }
