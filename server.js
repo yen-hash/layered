@@ -10,6 +10,7 @@ import { parseForm } from './lib/body.js';
 import { flashFromQuery, layout } from './lib/render.js';
 import { siteUrl } from './lib/seo.js';
 
+import { uploadFileFor } from './lib/paths.js';
 import { check as rateCheck, clientIp } from './lib/ratelimit.js';
 import { compareRoute } from './routes/compare.js';
 import { articlesList, articleEditor, articleSave, articleDelete, articleReview } from './routes/articles.js';
@@ -43,8 +44,12 @@ const COMPRESSIBLE = new Set(['.css', '.js', '.svg']);
 const gzipCache = new Map(); // etag -> gzipped buffer
 
 function serveStatic(req, res, url) {
-  const filePath = path.join(PUBLIC_DIR, decodeURIComponent(url.pathname));
+  const pathname = decodeURIComponent(url.pathname);
+  let filePath = path.join(PUBLIC_DIR, pathname);
   if (!filePath.startsWith(PUBLIC_DIR)) { res.statusCode = 403; res.end('Forbidden'); return true; }
+  // Uploads live in UPLOAD_DIR (a persistent disk in production); fall back to files bundled in the repo.
+  const stored = uploadFileFor(pathname);
+  if (stored && fs.existsSync(stored)) filePath = stored;
   if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) return false;
   const ext = path.extname(filePath);
   const st = fs.statSync(filePath);
