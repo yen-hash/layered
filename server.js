@@ -10,6 +10,7 @@ import { parseForm } from './lib/body.js';
 import { flashFromQuery, layout } from './lib/render.js';
 import { siteUrl } from './lib/seo.js';
 
+import { check as rateCheck, clientIp } from './lib/ratelimit.js';
 import { compareRoute } from './routes/compare.js';
 import { articlesList, articleEditor, articleSave, articleDelete, articleReview } from './routes/articles.js';
 import { reviewInvite, reviewFormPage, reviewSubmit, reviewsAdmin, reviewModerate } from './routes/reviews.js';
@@ -150,6 +151,16 @@ async function router(req, res) {
   const ctx = { business, flash: flashFromQuery(url.searchParams), site: siteUrl(req), isAdmin: isAdmin(business) };
 
   try {
+    // ----- Abuse protection on public POST endpoints -----
+    const limited = rateCheck(req.method, url.pathname, clientIp(req));
+    if (limited) {
+      res.statusCode = 429;
+      res.setHeader('Retry-After', String(limited.retryAfter));
+      res.setHeader('Cache-Control', 'no-store');
+      res.end(layout({ title: 'Too many attempts', noindex: true, site: ctx.site, body: `<div class="wrap" style="padding:60px 0;"><h1>Too many attempts</h1><p class="muted">Please wait about ${Math.ceil(limited.retryAfter / 60)} minute(s) and try again.</p><p><a href="/">Back home</a></p></div>`, business: ctx.business }));
+      return;
+    }
+
     // ----- SEO files -----
     if (req.method === 'GET' && url.pathname === '/robots.txt') return robotsRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname === '/sitemap.xml') return sitemapRoute(req, res, ctx);
