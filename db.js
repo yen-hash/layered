@@ -67,6 +67,21 @@ db.exec(`
     created_at TEXT DEFAULT (datetime('now'))
   );
 
+  CREATE TABLE IF NOT EXISTS reviews (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    lead_id INTEGER NOT NULL REFERENCES leads(id) ON DELETE CASCADE,
+    business_id INTEGER NOT NULL REFERENCES businesses(id) ON DELETE CASCADE,
+    token TEXT UNIQUE NOT NULL,
+    status TEXT NOT NULL DEFAULT 'invited',   -- invited | pending | published | rejected
+    rating INTEGER,
+    body TEXT DEFAULT '',
+    reviewer_name TEXT DEFAULT '',
+    invited_at TEXT DEFAULT (datetime('now')),
+    submitted_at TEXT,
+    moderated_at TEXT,
+    UNIQUE (lead_id, business_id)
+  );
+
   CREATE TABLE IF NOT EXISTS posts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     slug TEXT UNIQUE NOT NULL,
@@ -94,6 +109,10 @@ db.exec(`
 
 // Lightweight migrations for databases created before a column existed.
 const businessCols = db.prepare('PRAGMA table_info(businesses)').all().map((c) => c.name);
+const postCols = db.prepare('PRAGMA table_info(posts)').all().map((c) => c.name);
+for (const [col, ddl] of [['author_business_id', 'INTEGER DEFAULT 0'], ['review_note', "TEXT DEFAULT ''"]]) {
+  if (!postCols.includes(col)) db.exec(`ALTER TABLE posts ADD COLUMN ${col} ${ddl}`);
+}
 if (!businessCols.includes('hdb_licence_no')) db.exec("ALTER TABLE businesses ADD COLUMN hdb_licence_no TEXT DEFAULT ''");
 if (!businessCols.includes('casetrust')) db.exec("ALTER TABLE businesses ADD COLUMN casetrust TEXT DEFAULT ''");
 // Admin verification: stores *what* was checked and when, so editing the value later voids the mark.

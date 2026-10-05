@@ -148,14 +148,14 @@ useful*, then close the trust gap with product, not copy.
 
 ### Product roadmap to close the trust gap (in priority order)
 1. ~~Verified credentials~~ **Built.** Admins check HDB/CaseTrust lookups at `/dashboard/verification`; a tick and date appear on the profile and a "Checked by Layered" directory filter. Editing the number voids the mark; marks expire after 365 days.
-2. **Verified reviews:** invite homeowners from the lead record after completion; only reviews tied to a real lead are shown; add `Review` schema only then.
+2. ~~Verified reviews~~ **Built.** A firm marks an enquiry won and asks Layered to invite the homeowner; the one-time link goes only to the enquiry email (the firm never sees it). Reviews are read by an admin at `/dashboard/reviews` before publishing (positive or negative). `Review`/`AggregateRating` schema appears only with 3+ published reviews. Layered does not verify the work itself. Needs `RESEND_API_KEY` and `EMAIL_FROM` for real email; otherwise the link is only written to `data/notifications.log`.
 3. **Deposit protection:** partner for a guarantee, or badge firms with CaseTrust deposit protection as "Protected deposit".
 4. ~~**Cost estimator**~~ **Built:** `/tools/renovation-cost-calculator` (HDB, condo, kitchen and bathrooms, office). Pre-fills the lead form with property type and budget band. Ranges live in `content/estimator.js`, tests in `test/`. Next: measure how many calculator visits become leads, and consider an emailed estimate.
 5. ~~Shortlist and compare view~~ **Built.** Heart button on cards and profiles saves up to 4 firms in the browser (localStorage); `/compare?d=slug,slug` shows them side by side (noindex). Next: measure how many compared firms get enquiries.
-6. **Firm-submitted articles** (review queue) for fresh content and backlinks.
+6. ~~Firm-submitted articles~~ **Built.** Firms draft at `/dashboard/articles` (500+ words, max 3 waiting); admins approve or return with a note from the Blog admin page (or edit first in the editor). Published with the firm byline, a "written by a listed firm" notice, `nofollow ugc` external links and no images. Check the meta description and cover before approving.
 
 ### Keyword queue for the blog (verify volumes in an SEO tool before writing)
-Published so far (19): the original six, batch 2 (seven) and batch 3 (six, below). Remaining queue is open.
+Published so far (22): the original six, batch 2 (seven), batch 3 (six) and batch 4 (three: quotation, flooring, HDB vs condo cost). Batch 4 flooring prices (vinyl, tiles, timber per sq ft) are commonly quoted contractor bands, not sourced from a published survey: re-verify them first. Remaining queue is open.
 
 | Status | Working title | Focus keyword | Category |
 |---|---|---|---|
@@ -173,9 +173,9 @@ Published so far (19): the original six, batch 2 (seven) and batch 3 (six, below
 | Published | Small HDB storage ideas | small hdb storage ideas | Design Ideas |
 | Published | 10 renovation mistakes and how to avoid them | renovation mistakes singapore | Choosing a Designer |
 | Next | Laminate vs veneer vs solid wood for built-ins | laminate vs veneer carpentry singapore | Design Ideas |
-| Next | Flooring for HDB: vinyl vs tiles vs timber | hdb flooring options | Design Ideas |
-| Next | How to read a renovation quotation | renovation quotation singapore | Choosing a Designer |
-| Next | HDB vs condo renovation cost | hdb vs condo renovation cost | Costs & Budgeting |
+| Published | Flooring for HDB: vinyl vs tiles vs timber | hdb flooring options | Design Ideas |
+| Published | How to read a renovation quotation | renovation quotation singapore | Choosing a Designer |
+| Published | HDB vs condo renovation cost | hdb vs condo renovation cost | Costs & Budgeting |
 | Next | Qanvast alternative (keep factual, cite their own site) | qanvast alternative | Choosing a Designer |
 | Next | Condo renovation timeline | condo renovation timeline singapore | Rules & Permits |
 

@@ -166,3 +166,11 @@ Visitors save up to four designers with the heart button (stored in their browse
 ## Deploying on Render
 
 `render.yaml` is a Blueprint: in Render choose New > Blueprint, select this repo and branch, and fill in `ADMIN_EMAILS` and `SITE_URL` when prompted. The free plan has no persistent disk, so data resets on redeploy; for real use move to a paid plan and enable the disk block in the file (set `DB_PATH` to the mount path).
+
+## Reviews
+
+Firms ask Layered to invite a homeowner from a lead marked **won**; the one-time link is emailed to the address on the enquiry only. Submissions wait in `/dashboard/reviews` (admins) and appear on the profile once published. Set `RESEND_API_KEY` and `EMAIL_FROM` so invitations are really emailed; without them the link is only logged to `data/notifications.log`.
+
+## Firm-written articles
+
+Firms write at `/dashboard/articles` and submit for review. Admins see submissions at the top of `/dashboard/blog`: approve, return with a note, or open the full editor first to add a meta description and cover. Published firm articles carry the firm's byline and an "written by a listed firm" notice; their external links are `nofollow ugc` and images are removed.

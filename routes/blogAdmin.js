@@ -18,7 +18,7 @@ const safeImage = (u) => {
   return /^(https?:\/\/|\/(?!\/))/i.test(v) ? v : '';
 };
 
-function uniqueSlug(base, ignoreId = 0) {
+export function uniqueSlug(base, ignoreId = 0) {
   let slug = slugify(base) || 'post';
   const root = slug;
   let n = 2;
@@ -32,6 +32,11 @@ export async function blogAdminList(req, res, ctx) {
   const inner = `
     <div class="head-row"><h1>Blog</h1><a class="btn btn-sm" href="/dashboard/blog/new">Write a new article</a></div>
     <p class="muted">Write in Markdown, check the SEO scorecard, then publish. Published articles appear on <a href="/blog" target="_blank">/blog</a>, in the sitemap and in the RSS feed automatically.</p>
+    ${posts.some((p) => p.status === 'submitted') ? `<div class="dash-card"><h2 style="margin-top:0;">Firm submissions awaiting review</h2>${posts.filter((p) => p.status === 'submitted').map((p) => `
+      <div class="review-item"><p><strong>${esc(p.title)}</strong> <span class="muted">by ${esc(p.author_name)}</span></p>
+      <p><a class="btn btn-sm btn-outline" href="/dashboard/blog/${p.id}/edit">Read &amp; edit</a>
+      <form method="post" action="/dashboard/articles/${p.id}/approve" class="inline"><button class="btn btn-sm" type="submit">Approve &amp; publish</button></form></p>
+      <form method="post" action="/dashboard/articles/${p.id}/return"><div class="field"><label for="n${p.id}">Note to the firm (what to change)</label><input id="n${p.id}" name="note" maxlength="400" placeholder="e.g. Please add sources for the price ranges"></div><button class="btn btn-sm btn-outline" type="submit">Return to firm</button></form></div>`).join('')}</div>` : ''}
     <div class="dash-card">
       ${posts.length ? `<table class="data-table"><thead><tr><th>Title</th><th>Category</th><th>Status</th><th>Updated</th><th></th></tr></thead><tbody>
       ${posts.map((p) => `<tr>
