@@ -274,6 +274,196 @@ export const GUIDES = [
     related: ['hdb-renovation-permit-and-rules', 'how-to-choose-an-interior-designer-singapore', 'hdb-renovation-cost-singapore'],
     links: [['/designers', 'Browse all designers']],
   },
+  {
+    slug: 'renovation-for-beginners-singapore',
+    title: 'Renovation for Beginners in Singapore',
+    h1: 'Renovation for beginners in Singapore: a step-by-step guide',
+    description: 'First time renovating in Singapore? A plain-English guide to budgeting, hiring, permits, the order of works and handover, with links to our tools and checklists.',
+    summary: 'A plain-English walk through the whole renovation, from budget to handover, for first-time owners.',
+    intro: `<p>If this is your first renovation, the process can feel like a maze of unfamiliar terms, quotes and approvals. It is easier once you see it as eight steps in a fixed order. This guide walks through them in plain English and points to our free tools for each one: the <a href="/tools/renovation-cost-calculator">cost calculator</a>, the <a href="/guides/renovation-checklist-singapore">renovation checklist</a> and the <a href="/guides/renovation-glossary-singapore">glossary of renovation terms</a>.</p>
+<p>Figures and rules here are general guidance. HDB, your condo's management office and the firms you hire set the details, so confirm them before you commit.</p>`,
+    sections: [
+      {
+        h2: 'The eight steps at a glance',
+        html: `<ol>
+<li><strong>Decide the scope.</strong> A light refresh or a full overhaul?</li>
+<li><strong>Set a budget</strong> with a buffer.</li>
+<li><strong>Choose who to hire:</strong> an interior design firm, a contractor, or a package.</li>
+<li><strong>Collect and compare quotations</strong> on the same brief.</li>
+<li><strong>Check credentials and sign a written contract.</strong></li>
+<li><strong>Get the permits and approvals</strong> your home needs.</li>
+<li><strong>Follow the works</strong> in the right order and visit the site.</li>
+<li><strong>Inspect at handover</strong> and use the warranty for defects.</li>
+</ol>
+<p>Most of the money and most of the mistakes sit in steps 2 to 5, so spend your time there.</p>`,
+      },
+      {
+        h2: 'Step 1: Decide what kind of renovation you need',
+        html: `<p>Start with the state of the home, not the style. A <strong>new BTO flat</strong> usually needs finishing and carpentry rather than demolition. A <strong>resale flat</strong> often needs old floors, bathrooms or wiring replaced, which costs more and takes longer. A <strong>condo</strong> may arrive with finishes already installed. Write down what must change, what would be nice, and what can wait. That list is the brief you will give every firm. Our guides to <a href="/guides/hdb-renovation-cost-singapore">HDB renovation cost</a> and <a href="/guides/condo-renovation-cost-and-rules">condo renovation</a> show what is typical for each.</p>`,
+      },
+      {
+        h2: 'Step 2: Set a budget (and keep a buffer)',
+        html: `<p>Use the <a href="/tools/renovation-cost-calculator">renovation cost calculator</a> to get an indicative range for your home, then add a <strong>buffer of about 10 to 15%</strong> for changes and surprises. Remember what quotes often leave out: furniture, appliances, curtains, and sometimes permit or management fees. If you need financing, read how <a href="/blog/renovation-loan-singapore-how-it-works">renovation loans work</a> before you sign anything.</p>`,
+      },
+      {
+        h2: 'Step 3: Choose who to hire',
+        html: `<p>You generally have three routes:</p>
+<ul>
+<li><strong>An interior design firm</strong> designs, manages and builds. You pay for design and coordination, and you get one point of contact.</li>
+<li><strong>A contractor</strong> builds to your plans. It can cost less, but you do more of the design and coordination yourself.</li>
+<li><strong>A renovation package</strong> offers a fixed scope at a set price. It is simple, but changes cost extra. Our article on <a href="/blog/renovation-package-vs-custom-design-singapore">package vs custom design</a> explains the trade-offs.</li>
+</ul>
+<p>Whichever you choose, <a href="/designers">browse designers</a> and look at finished projects in your type of home, not only the best photos.</p>`,
+      },
+      {
+        h2: 'Step 4: Compare quotations properly',
+        html: `<p>Give every firm the same brief, then compare quotes line by line, not by total. A cheap quote often leaves things out that appear later as extra charges. Our guide to <a href="/blog/how-to-read-a-renovation-quotation-singapore">reading a renovation quotation</a> explains terms such as provisional sums and variation orders, and shows how to line up three quotes fairly.</p>`,
+      },
+      {
+        h2: 'Step 5: Check credentials and sign a contract',
+        html: `<p>Before paying a deposit, confirm the firm's licences and accreditation on the official lookups. See <a href="/guides/casetrust-and-hdb-licence-explained">CaseTrust and HDB licences explained</a> and <a href="/blog/how-to-check-hdb-licensed-contractor">how to check an HDB licensed contractor</a>. Then insist on a written contract that attaches the itemised quote and drawings. <a href="/blog/renovation-contract-singapore-what-to-check">Nine clauses to check</a> covers payments, timelines and warranties. Keep the deposit small and tie later payments to finished work.</p>`,
+      },
+      {
+        h2: 'Step 6: Permits and approvals',
+        html: `<p>Certain works in an HDB flat need an HDB renovation permit, and the work must be done by a contractor registered with HDB. Condos usually need written approval from the management office, and often a refundable deposit. Both set rules on working hours and noise. Read our <a href="/guides/hdb-renovation-permit-and-rules">HDB permit and rules guide</a> and the <a href="/blog/condo-renovation-approval-singapore">condo approval steps</a>, and let your designer handle the paperwork where possible. Do not let works start before approval.</p>`,
+      },
+      {
+        h2: 'Step 7: What happens during the works',
+        html: `<p>Most renovations follow this order, because later trades depend on earlier ones:</p>
+<ol>
+<li>Protection of common areas and removal of old finishes (hacking), if needed</li>
+<li>Electrical and plumbing</li>
+<li>Waterproofing, then tiling and screeding (wet works)</li>
+<li>Ceiling and partitions</li>
+<li>Carpentry (built-in cabinets and wardrobes)</li>
+<li>Painting and finishing</li>
+<li>Installation of lights, fittings, glass and appliances, then cleaning</li>
+</ol>
+<p>Visit the site regularly, take dated photos, and approve any change in writing with its price before the work is done. Late changes are the most common cause of budget overruns. A realistic <a href="/blog/bto-renovation-timeline-singapore">BTO renovation timeline</a> and a <a href="/blog/condo-renovation-timeline-singapore">condo timeline</a> help you plan your move-in date.</p>`,
+      },
+      {
+        h2: 'Step 8: Handover and defects',
+        html: `<p>Do a proper walk-through: test every tap, switch, socket, door and drawer, and inspect tiles, paint and silicone. Write a signed defects list with dates to fix each item, and hold back the final payment until it is done. Read how the <a href="/blog/defects-liability-period-singapore">defects liability period</a> works so you know what is covered.</p>`,
+      },
+      {
+        h2: 'Mistakes first-time renovators make',
+        html: `<ul>
+<li>Having no buffer for changes and hidden problems</li>
+<li>Agreeing to things verbally instead of in the contract</li>
+<li>Paying a large deposit up front</li>
+<li>Choosing the cheapest quote without comparing what is included</li>
+<li>Making design changes after works have started</li>
+<li>Skipping the handover inspection</li>
+</ul>
+<p>Our article on <a href="/blog/renovation-mistakes-singapore">renovation mistakes and how to avoid them</a> goes through each in detail.</p>`,
+      },
+    ],
+    faqs: [
+      { q: 'Where do I start if I have never renovated before?', a: 'Start with your scope and budget. Use the cost calculator for a range, add a 10 to 15% buffer, then gather quotations from a few firms on the same brief. Our renovation checklist puts every step in order.' },
+      { q: 'Do I need an interior designer, or can I hire a contractor directly?', a: 'Either works. A design firm handles design, coordination and building for one price, while a contractor builds to plans you provide. Pick based on how much design and project management you want to do yourself.' },
+      { q: 'How long does a renovation take?', a: 'The works alone commonly take several weeks to a few months depending on scope, and the planning and approval stages add to that. See our BTO and condo timelines for typical stage lengths.' },
+      { q: 'Can I live in the flat during renovation?', a: 'Most owners do not, because of dust, noise and unusable bathrooms and kitchens. Plan alternative accommodation, especially for a full renovation.' },
+      { q: 'What should I check before signing with a firm?', a: 'Confirm its licences and accreditation, read the whole contract, make sure the itemised quote and drawings are attached, keep the deposit small, and tie payments to progress.' },
+    ],
+    related: ['hdb-renovation-cost-singapore', 'how-to-choose-an-interior-designer-singapore'],
+    links: [['/tools/renovation-cost-calculator', 'Cost calculator'], ['/guides/renovation-checklist-singapore', 'Renovation checklist'], ['/designers', 'Browse designers']],
+  },
+
+  {
+    slug: 'renovation-glossary-singapore',
+    title: 'Renovation Glossary for Singapore Homeowners',
+    h1: 'Renovation terms explained: a glossary for Singapore homeowners',
+    description: 'Plain-English meanings of renovation terms you will meet in Singapore quotes and contracts, from hacking and wet works to provisional sums and DLP.',
+    summary: 'Plain-English meanings of the terms in Singapore renovation quotes and contracts.',
+    intro: `<p>Renovation quotes and contracts are full of shorthand. Here are the terms Singapore homeowners meet most often, in plain English. Firms use some of them slightly differently, so if a word in your quote is unclear, ask what it covers. For the whole process, read our <a href="/guides/renovation-for-beginners-singapore">beginner's guide</a>.</p>`,
+    sections: [
+      {
+        h2: 'Your home and the paperwork',
+        html: `<table class="data-table">
+<thead><tr><th>Term</th><th>What it means</th></tr></thead>
+<tbody>
+<tr><td><strong>BTO</strong></td><td>Build-To-Order flat, a new HDB flat you buy before it is built.</td></tr>
+<tr><td><strong>Resale flat</strong></td><td>An HDB flat bought from a current owner, usually older and often needing more work.</td></tr>
+<tr><td><strong>Key collection</strong></td><td>The day you collect the keys to a new BTO flat, when you can start renovating.</td></tr>
+<tr><td><strong>HDB renovation permit</strong></td><td>Approval from HDB for certain works in a flat, applied for through a registered contractor.</td></tr>
+<tr><td><strong>HDB-registered contractor</strong></td><td>A contractor on HDB's list, required for works that need a permit.</td></tr>
+<tr><td><strong>MCST</strong></td><td>Management Corporation Strata Title, the body that runs a condo and sets its renovation rules.</td></tr>
+<tr><td><strong>Renovation deposit</strong></td><td>A refundable sum many condos ask for before works begin, returned if common areas are left undamaged.</td></tr>
+<tr><td><strong>CaseTrust</strong></td><td>An accreditation by the Consumers Association of Singapore for businesses with consumer safeguards. See <a href="/guides/casetrust-and-hdb-licence-explained">CaseTrust explained</a>.</td></tr>
+</tbody>
+</table>`,
+      },
+      {
+        h2: 'People and ways of hiring',
+        html: `<table class="data-table">
+<thead><tr><th>Term</th><th>What it means</th></tr></thead>
+<tbody>
+<tr><td><strong>ID (interior designer) firm</strong></td><td>A firm that designs, manages and often builds. Also called design-and-build.</td></tr>
+<tr><td><strong>Contractor</strong></td><td>A business that carries out the construction work to a design or brief.</td></tr>
+<tr><td><strong>Renovation package</strong></td><td>A fixed scope at a set price, with extras charged separately.</td></tr>
+<tr><td><strong>Subcontractor</strong></td><td>A specialist (electrician, tiler, carpenter) hired by the main firm.</td></tr>
+<tr><td><strong>Project manager</strong></td><td>The person who coordinates trades and schedules on site.</td></tr>
+</tbody>
+</table>`,
+      },
+      {
+        h2: 'The works',
+        html: `<table class="data-table">
+<thead><tr><th>Term</th><th>What it means</th></tr></thead>
+<tbody>
+<tr><td><strong>Hacking</strong></td><td>Breaking out old tiles, screed, cabinets or non-structural walls.</td></tr>
+<tr><td><strong>Wet works</strong></td><td>Work using water-based materials: waterproofing, screeding, tiling.</td></tr>
+<tr><td><strong>Waterproofing</strong></td><td>A membrane applied in wet areas such as bathrooms to stop leaks.</td></tr>
+<tr><td><strong>Screed</strong></td><td>A thin layer of cement leveling the floor before tiling.</td></tr>
+<tr><td><strong>Overlay</strong></td><td>Laying new tiles or flooring over existing ones instead of hacking them off.</td></tr>
+<tr><td><strong>Electrical point</strong></td><td>One socket, switch or light connection. Quotes often count and price points.</td></tr>
+<tr><td><strong>False ceiling</strong></td><td>A lowered ceiling that hides pipes and wiring and holds lights.</td></tr>
+<tr><td><strong>Cove light</strong></td><td>Hidden lighting set into a ceiling edge or recess.</td></tr>
+<tr><td><strong>Built-in carpentry</strong></td><td>Cabinets and wardrobes made to fit your home, as opposed to loose furniture.</td></tr>
+<tr><td><strong>Feet run (ft run)</strong></td><td>A way of pricing carpentry by length of cabinet in feet.</td></tr>
+</tbody>
+</table>`,
+      },
+      {
+        h2: 'Materials',
+        html: `<table class="data-table">
+<thead><tr><th>Term</th><th>What it means</th></tr></thead>
+<tbody>
+<tr><td><strong>Laminate</strong></td><td>A durable printed surface bonded to a board. See <a href="/blog/laminate-vs-veneer-vs-solid-wood-carpentry-singapore">laminate vs veneer vs solid wood</a>.</td></tr>
+<tr><td><strong>Veneer</strong></td><td>A thin slice of real wood glued to a board.</td></tr>
+<tr><td><strong>Quartz</strong></td><td>An engineered stone often used for kitchen countertops.</td></tr>
+<tr><td><strong>Vinyl flooring</strong></td><td>Plank flooring in plastic-based materials that often imitates timber. See <a href="/blog/hdb-flooring-options-vinyl-tiles-timber">HDB flooring options</a>.</td></tr>
+<tr><td><strong>Homogeneous tile</strong></td><td>A dense tile with the same material and color all the way through.</td></tr>
+</tbody>
+</table>`,
+      },
+      {
+        h2: 'Money and contracts',
+        html: `<table class="data-table">
+<thead><tr><th>Term</th><th>What it means</th></tr></thead>
+<tbody>
+<tr><td><strong>Quotation</strong></td><td>The firm's priced offer. See <a href="/blog/how-to-read-a-renovation-quotation-singapore">how to read a quotation</a>.</td></tr>
+<tr><td><strong>Provisional sum (PS)</strong></td><td>A placeholder amount for something not yet specified.</td></tr>
+<tr><td><strong>Variation order (VO)</strong></td><td>A signed change to the scope, with its price.</td></tr>
+<tr><td><strong>Deposit</strong></td><td>The first payment, paid on signing. Keep it small.</td></tr>
+<tr><td><strong>Progress payment</strong></td><td>A payment tied to a finished stage of the work.</td></tr>
+<tr><td><strong>Retention</strong></td><td>A final portion held back until defects are fixed.</td></tr>
+<tr><td><strong>Defects liability period (DLP)</strong></td><td>The period after handover when the firm must fix defects. See <a href="/blog/defects-liability-period-singapore">the DLP explained</a>.</td></tr>
+<tr><td><strong>Punch list</strong></td><td>The signed list of defects found at handover, with dates for fixing them.</td></tr>
+<tr><td><strong>Handover</strong></td><td>The point where the finished home is inspected and accepted.</td></tr>
+</tbody>
+</table>`,
+      },
+    ],
+    faqs: [
+      { q: 'What is the difference between hacking and wet works?', a: 'Hacking is breaking out old finishes. Wet works are the water-based tasks that follow, such as waterproofing, screeding and tiling.' },
+      { q: 'What is a provisional sum in a renovation quote?', a: 'A placeholder amount for an item that has not been specified yet. Ask what it covers and who pays if the real cost differs.' },
+      { q: 'What does DLP mean?', a: 'DLP stands for defects liability period, the time after handover when the firm must fix defects at its own cost, as set out in your contract.' },
+      { q: 'What is a variation order?', a: 'A written change to the agreed scope with its price. Approve each one in writing before the work is done.' },
+    ],
+    related: ['renovation-for-beginners-singapore', 'how-to-choose-an-interior-designer-singapore'],
+    links: [['/guides/renovation-for-beginners-singapore', "Beginner's guide"], ['/tools/renovation-cost-calculator', 'Cost calculator']],
+  },
 ];
 
 export const guideBySlug = (slug) => GUIDES.find((g) => g.slug === slug) || null;

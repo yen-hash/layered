@@ -131,6 +131,7 @@ export async function homeRoute(req, res, ctx) {
         <div class="hero-cta">
           <a class="btn" href="#get-recommendations">Get matched</a>
           <a class="btn btn-outline" href="/guides/renovation-checklist-singapore">Free renovation checklist</a>
+          <a class="btn btn-outline" href="/guides/renovation-for-beginners-singapore">First time renovating?</a>
         </div>
         <div class="stats">
           <div class="stat"><b>${counts.businesses}</b><span>Designers listed</span></div>
