@@ -22,7 +22,7 @@ import { isAdmin } from './lib/admin.js';
 import { calculatorRoute } from './routes/tools.js';
 import { verificationList, verificationAction } from './routes/verification.js';
 import { propertyLandingRoute, styleLandingRoute, guidesIndexRoute, guideRoute, checklistRoute } from './routes/content.js';
-import { signupPage, signupSubmit, loginPage, loginSubmit, logoutRoute } from './routes/auth.js';
+import { signupPage, signupSubmit, loginPage, loginSubmit, logoutRoute, forgotPage, forgotSubmit, resetPage, resetSubmit } from './routes/auth.js';
 import {
   dashboardHome, profilePage, profileSubmit,
   projectsPage, projectCreate, projectDelete,
@@ -86,7 +86,7 @@ function enableCompression(req, res) {
   };
 }
 
-const PRIVATE_PREFIXES = ['/dashboard', '/login', '/logout', '/leads', '/review'];
+const PRIVATE_PREFIXES = ['/dashboard', '/login', '/logout', '/leads', '/review', '/forgot', '/reset'];
 
 function getSessionBusiness(req) {
   const cookies = parseCookies(req);
@@ -204,6 +204,17 @@ async function router(req, res) {
     if (req.method === 'POST' && url.pathname === '/signup') {
       const { fields } = await parseForm(req);
       return await signupSubmit(req, res, fields);
+    }
+    if (req.method === 'GET' && url.pathname === '/forgot') return await forgotPage(req, res, ctx);
+    if (req.method === 'POST' && url.pathname === '/forgot') {
+      const { fields } = await parseForm(req);
+      return await forgotSubmit(req, res, ctx, fields);
+    }
+    const resetTok = url.pathname.match(/^\/reset\/([0-9a-f]+)$/);
+    if (req.method === 'GET' && resetTok) return await resetPage(req, res, ctx, resetTok[1]);
+    if (req.method === 'POST' && resetTok) {
+      const { fields } = await parseForm(req);
+      return await resetSubmit(req, res, ctx, resetTok[1], fields);
     }
     if (req.method === 'GET' && url.pathname === '/login') return await loginPage(req, res, ctx);
     if (req.method === 'POST' && url.pathname === '/login') {
