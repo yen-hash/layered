@@ -62,3 +62,9 @@ test('licence input is normalised and junk is rejected', () => {
   assert.equal(normaliseCaseTrust('platinum'), '');
   assert.equal(normaliseCaseTrust('casetrust_rcma'), 'casetrust_rcma');
 });
+
+test('CaseTrust firms get the deposit-bond note, others do not', async () => {
+  const { credentialsPanel } = await import('../lib/credentials.js');
+  assert.match(credentialsPanel({ casetrust: 'casetrust' }), /deposit performance bond/);
+  assert.ok(!/deposit performance bond/.test(credentialsPanel({ hdb_licence_no: 'HB12345678' })));
+});

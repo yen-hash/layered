@@ -155,7 +155,7 @@ useful*, then close the trust gap with product, not copy.
 6. ~~Firm-submitted articles~~ **Built.** Firms draft at `/dashboard/articles` (500+ words, max 3 waiting); admins approve or return with a note from the Blog admin page (or edit first in the editor). Published with the firm byline, a "written by a listed firm" notice, `nofollow ugc` external links and no images. Check the meta description and cover before approving.
 
 ### Keyword queue for the blog (verify volumes in an SEO tool before writing)
-Published so far (24): the original six, batch 2 (seven), batch 3 (six) batch 4 (three: quotation, flooring, HDB vs condo cost) and batch 5 (two: laminate vs veneer, condo timeline). Stage lengths in the condo timeline are typical ranges, not sourced figures: re-verify. Batch 4 flooring prices (vinyl, tiles, timber per sq ft) are commonly quoted contractor bands, not sourced from a published survey: re-verify them first. Remaining queue is open.
+Published so far (25): the original six, batch 2 (seven), batch 3 (six) batch 4 (three: quotation, flooring, HDB vs condo cost) and batch 5 (two: laminate vs veneer, condo timeline). The Qanvast alternative article (batch 6) describes Qanvast and its guarantee from Qanvast's own pages as returned by search in Oct 2026 (qanvast.com could not be fetched directly) and CaseTrust's deposit rules as CASE states them (20% initial deposit cap, deposit performance bond): re-read both primary pages and update the article before promoting it. Stage lengths in the condo timeline are typical ranges, not sourced figures: re-verify. Batch 4 flooring prices (vinyl, tiles, timber per sq ft) are commonly quoted contractor bands, not sourced from a published survey: re-verify them first. Remaining queue is open.
 
 | Status | Working title | Focus keyword | Category |
 |---|---|---|---|
@@ -176,7 +176,7 @@ Published so far (24): the original six, batch 2 (seven), batch 3 (six) batch 4 
 | Published | Flooring for HDB: vinyl vs tiles vs timber | hdb flooring options | Design Ideas |
 | Published | How to read a renovation quotation | renovation quotation singapore | Choosing a Designer |
 | Published | HDB vs condo renovation cost | hdb vs condo renovation cost | Costs & Budgeting |
-| Next | Qanvast alternative (keep factual, cite their own site) | qanvast alternative | Choosing a Designer |
+| Published | Qanvast alternative (keep factual, cite their own site) | qanvast alternative | Choosing a Designer |
 | Published | Condo renovation timeline | condo renovation timeline singapore | Rules & Permits |
 
 **Editorial QA lesson:** the SEO scorecard checks structure, not meaning. After a batch is written, read the rendered pages and
