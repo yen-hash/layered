@@ -1,5 +1,8 @@
 import { db, slugify, PROPERTY_TYPES, STYLES } from '../db.js';
 import { esc, layout } from '../lib/render.js';
+import { abs } from '../lib/seo.js';
+import { sendEmail } from '../lib/notify.js';
+import { createResetToken, findValidToken, consumeToken, passwordProblem, RESET_TTL_MINUTES, MIN_PASSWORD } from '../lib/passwordReset.js';
 import { hashPassword, verifyPassword, createSessionToken, setCookie, clearCookie } from '../lib/auth.js';
 
 function chipGroup(name, options) {
@@ -82,6 +85,7 @@ export async function loginPage(req, res, ctx) {
       <div class="field"><label>Email</label><input type="email" name="email" required></div>
       <div class="field"><label>Password</label><input type="password" name="password" required></div>
       <button class="btn btn-block" type="submit">Log in</button>
+      <p class="hint" style="margin-top:14px;text-align:center;"><a href="/forgot">Forgot your password?</a></p>
       <p class="hint" style="margin-top:14px;text-align:center;">New here? <a href="/signup">List your business</a></p>
     </form>
   </div>`;
@@ -105,5 +109,67 @@ export async function loginSubmit(req, res, fields) {
 export async function logoutRoute(req, res) {
   clearCookie(res, 'session');
   res.writeHead(302, { Location: '/' });
+  res.end();
+}
+
+// ----- Password reset -----
+export async function forgotPage(req, res, ctx) {
+  const body = `
+  <div class="wrap split-auth">
+    <form class="panel" method="post" action="/forgot">
+      <h1>Reset your password</h1>
+      <p class="muted">Enter the email you signed up with. If it matches an account, we will email a link that works once for ${RESET_TTL_MINUTES} minutes.</p>
+      <div class="field"><label>Email</label><input type="email" name="email" required></div>
+      <button class="btn btn-block" type="submit">Email me a reset link</button>
+      <p class="hint" style="margin-top:14px;text-align:center;"><a href="/login">Back to login</a></p>
+    </form>
+  </div>`;
+  res.end(layout({ title: 'Reset password', noindex: true, site: ctx.site, body, business: ctx.business, flash: ctx.flash }));
+}
+
+export async function forgotSubmit(req, res, ctx, fields) {
+  const email = String(fields.email || '').trim().toLowerCase();
+  const business = email ? db.prepare('SELECT * FROM businesses WHERE email = ?').get(email) : null;
+  if (business) {
+    const raw = createResetToken(db, business.id);
+    await sendEmail({
+      to: business.email,
+      subject: 'Reset your Layered password',
+      text: [`Hi ${business.contact_name || business.company_name},`, '', `Use this link to choose a new password. It works once and expires in ${RESET_TTL_MINUTES} minutes:`, '', abs(ctx.site, `/reset/${raw}`), '', 'If you did not ask for this, ignore this email. Your password has not changed.'].join('\n'),
+    });
+  }
+  // Same answer whether or not the email exists, so the form cannot be used to find accounts.
+  res.writeHead(302, { Location: '/login?ok=' + encodeURIComponent('If that email has an account, a reset link is on its way.') });
+  res.end();
+}
+
+function resetForm(token, error = '') {
+  return `
+  <div class="wrap split-auth">
+    <form class="panel" method="post" action="/reset/${token}">
+      <h1>Choose a new password</h1>
+      ${error ? `<p class="error" role="alert">${error}</p>` : ''}
+      <div class="field"><label>New password</label><input type="password" name="password" minlength="${MIN_PASSWORD}" required autocomplete="new-password"></div>
+      <div class="field"><label>Repeat new password</label><input type="password" name="confirm" minlength="${MIN_PASSWORD}" required autocomplete="new-password"></div>
+      <button class="btn btn-block" type="submit">Save password</button>
+    </form>
+  </div>`;
+}
+
+const invalidLink = '<div class="wrap" style="padding:60px 0;"><h1>This link has expired</h1><p class="muted">Reset links work once and last an hour.</p><p><a class="btn" href="/forgot">Get a new link</a></p></div>';
+
+export async function resetPage(req, res, ctx, token) {
+  if (!findValidToken(db, token)) { res.statusCode = 410; return res.end(layout({ title: 'Link expired', noindex: true, site: ctx.site, body: invalidLink, business: ctx.business })); }
+  res.end(layout({ title: 'Choose a new password', noindex: true, site: ctx.site, body: resetForm(token), business: ctx.business }));
+}
+
+export async function resetSubmit(req, res, ctx, token, fields) {
+  const row = findValidToken(db, token);
+  if (!row) { res.statusCode = 410; return res.end(layout({ title: 'Link expired', noindex: true, site: ctx.site, body: invalidLink, business: ctx.business })); }
+  const problem = passwordProblem(fields.password, fields.confirm);
+  if (problem) { res.statusCode = 400; return res.end(layout({ title: 'Choose a new password', noindex: true, site: ctx.site, body: resetForm(token, problem), business: ctx.business })); }
+  if (!consumeToken(db, row.id)) { res.statusCode = 410; return res.end(layout({ title: 'Link expired', noindex: true, site: ctx.site, body: invalidLink, business: ctx.business })); }
+  db.prepare('UPDATE businesses SET password_hash = ? WHERE id = ?').run(hashPassword(fields.password), row.business_id);
+  res.writeHead(302, { Location: '/login?ok=' + encodeURIComponent('Password updated. Log in with your new password.') });
   res.end();
 }

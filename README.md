@@ -182,3 +182,7 @@ Public POST endpoints are rate limited per IP (login 10 per 15 min; signup, lead
 ## Demo data in production
 
 `scripts/seed.js` adds sample firms on a first start. With `NODE_ENV=production` they no longer use the public demo password: they get a random one, or `SEED_PASSWORD` if you set it (needed to log in as a seeded firm). Set `SEED_DEMO=0` before launch so no demo firms are created. Existing databases are not changed by this, so a deploy that resets the database (free Render plan) picks it up automatically.
+
+## Password reset
+
+`/forgot` emails a one-time link (valid 60 minutes) to the account's address; the page answers the same way whether or not the email exists, and the database stores only a hash of each token. It needs `RESEND_API_KEY` and `EMAIL_FROM`, otherwise the link is only written to `data/notifications.log`. Sessions are stateless signed cookies, so a reset does not log out a browser that is already signed in.

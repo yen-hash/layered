@@ -134,3 +134,6 @@ export function slugify(str) {
   }
   return slug;
 }
+
+import { ensureTable as ensurePasswordResets } from './lib/passwordReset.js';
+ensurePasswordResets(db);
