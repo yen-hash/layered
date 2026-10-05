@@ -178,3 +178,7 @@ Firms write at `/dashboard/articles` and submit for review. Admins see submissio
 ## Abuse protection and CI
 
 Public POST endpoints are rate limited per IP (login 10 per 15 min; signup, leads 5 per hour; review submissions 10 per hour) in `lib/ratelimit.js`. State is in memory for a single instance. `.github/workflows/test.yml` runs `npm test` on every push to `main` and every pull request.
+
+## Demo data in production
+
+`scripts/seed.js` adds sample firms on a first start. With `NODE_ENV=production` they no longer use the public demo password: they get a random one, or `SEED_PASSWORD` if you set it (needed to log in as a seeded firm). Set `SEED_DEMO=0` before launch so no demo firms are created. Existing databases are not changed by this, so a deploy that resets the database (free Render plan) picks it up automatically.

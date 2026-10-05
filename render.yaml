@@ -19,6 +19,10 @@ services:
         generateValue: true
       - key: ADMIN_EMAILS
         sync: false   # you will be prompted: the login email(s) allowed to use the blog and verification admin
+      # Demo firms are seeded on first start. In production they get a random password unless you set
+      # SEED_PASSWORD (use it to log in as a seeded firm). Set SEED_DEMO=0 at launch to skip demo firms.
+      # - key: SEED_DEMO
+      #   value: "0"
       - key: SITE_URL
         sync: false   # prompted: https://<your-service>.onrender.com (edit later if you add a domain)
     # plan: starter
