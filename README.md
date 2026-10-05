@@ -174,3 +174,7 @@ Firms ask Layered to invite a homeowner from a lead marked **won**; the one-time
 ## Firm-written articles
 
 Firms write at `/dashboard/articles` and submit for review. Admins see submissions at the top of `/dashboard/blog`: approve, return with a note, or open the full editor first to add a meta description and cover. Published firm articles carry the firm's byline and an "written by a listed firm" notice; their external links are `nofollow ugc` and images are removed.
+
+## Abuse protection and CI
+
+Public POST endpoints are rate limited per IP (login 10 per 15 min; signup, leads 5 per hour; review submissions 10 per hour) in `lib/ratelimit.js`. State is in memory for a single instance. `.github/workflows/test.yml` runs `npm test` on every push to `main` and every pull request.
