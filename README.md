@@ -162,3 +162,7 @@ Admins (`ADMIN_EMAILS`) open `/dashboard/verification`, check each firm's HDB li
 ## Shortlist and compare
 
 Visitors save up to four designers with the heart button (stored in their browser only) and open `/compare` to see service areas, styles, credentials (with checked dates) and project counts side by side. The page is `noindex`.
+
+## Deploying on Render
+
+`render.yaml` is a Blueprint: in Render choose New > Blueprint, select this repo and branch, and fill in `ADMIN_EMAILS` and `SITE_URL` when prompted. The free plan has no persistent disk, so data resets on redeploy; for real use move to a paid plan and enable the disk block in the file (set `DB_PATH` to the mount path).

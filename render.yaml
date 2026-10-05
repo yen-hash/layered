@@ -1,0 +1,29 @@
+# Render Blueprint. New > Blueprint > pick this repo/branch.
+# Free plan = no persistent disk: the SQLite database (firms, leads, edited articles) resets on every
+# redeploy and after the service spins down. Fine for testing. For real use, switch to a paid plan and
+# uncomment the disk block so DB_PATH survives deploys.
+services:
+  - type: web
+    name: layered
+    runtime: node
+    plan: free
+    buildCommand: npm install --omit=dev
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ADMIN_EMAILS
+        sync: false   # you will be prompted: the login email(s) allowed to use the blog and verification admin
+      - key: SITE_URL
+        sync: false   # prompted: https://<your-service>.onrender.com (edit later if you add a domain)
+    # plan: starter
+    # disk:
+    #   name: layered-data
+    #   mountPath: /var/data
+    #   sizeGB: 1
+    # and add envVar DB_PATH=/var/data/app.db
