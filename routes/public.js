@@ -4,6 +4,7 @@ import { dispatchLeadNotifications } from '../lib/notify.js';
 import { credentialBadges, credentialsPanel } from '../lib/credentials.js';
 import { abs, breadcrumbSchema, organizationSchema, websiteSchema } from '../lib/seo.js';
 import { breadcrumbNav } from '../lib/components.js';
+import { reviewsSection, reviewSchema, ratingBadge, summarise } from '../lib/reviews.js';
 import { PROPERTY_PAGES, STYLE_PAGES } from '../content/landing.js';
 import { GUIDES } from '../content/guides.js';
 import fs from 'node:fs';
@@ -29,6 +30,10 @@ function usableLogo(url) {
   } catch { return ''; }
 }
 
+function publishedReviews(businessId) {
+  return db.prepare("SELECT rating, body, reviewer_name, submitted_at FROM reviews WHERE business_id = ? AND status = 'published' ORDER BY moderated_at DESC").all(businessId);
+}
+
 export function designerCard(b) {
   const tags = [...(b.property_types || '').split(',').filter(Boolean), ...(b.styles || '').split(',').filter(Boolean)];
   const logo = usableLogo(b.logo_url);
@@ -44,6 +49,7 @@ export function designerCard(b) {
       <h3>${esc(b.company_name)}</h3>
       <div class="muted">${esc(b.service_areas || 'Singapore')}</div>
       ${credentialBadges(b)}
+      ${ratingBadge(summarise(publishedReviews(b.id)))}
       <div class="tag-row">${tags.slice(0, 4).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
     </div>
   </a>
@@ -283,6 +289,9 @@ export async function designerProfileRoute(req, res, ctx, slug) {
   // Credentials are deliberately left out of structured data: they are self-declared and
   // unverified, so we don't assert them to search engines.
 
+  const reviews = publishedReviews(b.id);
+  Object.assign(localBusiness, reviewSchema(reviews) || {});
+
   const banner = projects.find((p) => p.cover_image)?.cover_image || '';
   const body = `
   <div class="profile-hero"${banner ? ` style="background-image:url('${esc(banner)}')"` : ''}>
@@ -326,6 +335,7 @@ export async function designerProfileRoute(req, res, ctx, slug) {
       <div>${leadFormHtml({})}</div>
     </div>
   </section>
+  <section class="wrap" id="reviews">${reviewsSection(b, reviews)}</section>
   <dialog class="lightbox" id="lightbox" aria-label="Project photo"><button type="button" class="lb-close" aria-label="Close">×</button><figure><img src="" alt="" width="1200" height="800"><figcaption></figcaption></figure></dialog>
   <script>(function(){var d=document.getElementById('lightbox');if(!d||!d.showModal)return;var img=d.querySelector('img'),cap=d.querySelector('figcaption');
   document.querySelectorAll('.lb-open').forEach(function(b){b.addEventListener('click',function(){img.src=b.dataset.src;img.alt=b.querySelector('img').alt;cap.textContent=b.dataset.caption;d.showModal()})});

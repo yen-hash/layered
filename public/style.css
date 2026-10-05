@@ -452,3 +452,12 @@ dialog.lightbox .lb-close { position: absolute; right: -6px; top: -46px; backgro
 .compare-table tbody th { font-weight: 600; width: 150px; color: var(--ink); }
 .compare-table .cmp-name { font-size: 1.15rem; display: block; }
 @media print { .save-btn, .shortlist-bar { display: none; } }
+
+/* Reviews */
+.rating-badge { display: inline-flex; gap: 4px; align-items: center; font-weight: 600; font-size: .9rem; color: var(--ink); }
+.rating-badge span[aria-hidden] { color: #b5482d; }
+.review-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 14px; }
+.review { padding: 16px 18px; border: 1px solid rgba(0,0,0,.1); border-radius: 12px; background: #fff; }
+.review p { margin: 6px 0 0; }
+.review .stars { color: #b5482d; letter-spacing: 2px; }
+.narrow { max-width: 640px; margin-left: auto; margin-right: auto; }

@@ -11,6 +11,7 @@ import { flashFromQuery, layout } from './lib/render.js';
 import { siteUrl } from './lib/seo.js';
 
 import { compareRoute } from './routes/compare.js';
+import { reviewInvite, reviewFormPage, reviewSubmit, reviewsAdmin, reviewModerate } from './routes/reviews.js';
 import { homeRoute, directoryRoute, designerProfileRoute, submitLeadRoute } from './routes/public.js';
 import { robotsRoute, sitemapRoute } from './routes/seo.js';
 import { blogIndexRoute, blogCategoryRoute, blogPostRoute, rssRoute } from './routes/blog.js';
@@ -83,7 +84,7 @@ function enableCompression(req, res) {
   };
 }
 
-const PRIVATE_PREFIXES = ['/dashboard', '/login', '/logout', '/leads'];
+const PRIVATE_PREFIXES = ['/dashboard', '/login', '/logout', '/leads', '/review'];
 
 function getSessionBusiness(req) {
   const cookies = parseCookies(req);
@@ -175,6 +176,12 @@ async function router(req, res) {
       res.end();
       return;
     }
+    const reviewTok = url.pathname.match(/^\/review\/([0-9a-f]+)$/);
+    if (req.method === 'GET' && reviewTok) return await reviewFormPage(req, res, ctx, reviewTok[1]);
+    if (req.method === 'POST' && reviewTok) {
+      const { fields } = await parseForm(req);
+      return await reviewSubmit(req, res, ctx, reviewTok[1], fields);
+    }
     if (req.method === 'POST' && url.pathname === '/leads') {
       const { fields } = await parseForm(req);
       return await submitLeadRoute(req, res, ctx, fields);
@@ -208,6 +215,13 @@ async function router(req, res) {
         const { fields, files } = await parseForm(req);
         return await projectCreate(req, res, ctx, fields, files);
       }
+      // ----- Reviews -----
+      const invMatch = url.pathname.match(/^\/dashboard\/leads\/(\d+)\/review-invite$/);
+      if (req.method === 'POST' && invMatch) return await reviewInvite(req, res, ctx, Number(invMatch[1]));
+      if (req.method === 'GET' && url.pathname === '/dashboard/reviews') return await reviewsAdmin(req, res, ctx);
+      const modMatch = url.pathname.match(/^\/dashboard\/reviews\/(\d+)\/(publish|reject)$/);
+      if (req.method === 'POST' && modMatch) return await reviewModerate(req, res, ctx, Number(modMatch[1]), modMatch[2]);
+
       // ----- Credential verification (admin) -----
       if (req.method === 'GET' && url.pathname === '/dashboard/verification') return await verificationList(req, res, ctx);
       const verMatch = url.pathname.match(/^\/dashboard\/verification\/(\d+)\/(hdb|casetrust)\/(verify|clear)$/);

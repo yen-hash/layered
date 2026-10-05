@@ -14,6 +14,7 @@ export function robotsRoute(req, res, ctx) {
     'Disallow: /dashboard',
     'Disallow: /logout',
     'Disallow: /leads',
+    'Disallow: /review/',
     '',
     `Sitemap: ${ctx.site}/sitemap.xml`,
     '',

@@ -9,7 +9,7 @@ export function dashLayout(active, inner, ctx) {
     ['/dashboard/leads', 'Leads'],
     ['/dashboard/projects', 'Projects'],
     ['/dashboard/profile', 'Business Profile'],
-    ...(isAdmin(ctx.business) ? [['/dashboard/blog', 'Blog (admin)'], ['/dashboard/verification', 'Verify credentials']] : []),
+    ...(isAdmin(ctx.business) ? [['/dashboard/blog', 'Blog (admin)'], ['/dashboard/verification', 'Verify credentials'], ['/dashboard/reviews', 'Reviews (admin)']] : []),
   ];
   const nav = links.map(([href, label]) => `<a href="${href}" class="${active === href ? 'active' : ''}">${esc(label)}</a>`).join('');
   const body = `
@@ -214,6 +214,18 @@ export async function leadsPage(req, res, ctx) {
   res.end(dashLayout('/dashboard/leads', inner, ctx));
 }
 
+function reviewBlock(row, ctx) {
+  const rv = db.prepare('SELECT status FROM reviews WHERE lead_id = ? AND business_id = ?').get(row.lead_id, ctx.business.id);
+  const intro = '<h3>Review</h3>';
+  if (rv) {
+    const label = { invited: 'Invitation emailed. Waiting for the homeowner.', pending: 'Review received. Waiting for Layered to read it.', published: 'Review published on your profile.', rejected: 'Review was not published.' }[rv.status];
+    return `${intro}<p>${esc(label)}</p>`;
+  }
+  if (row.status !== 'won') return `${intro}<p class="muted">Once this enquiry is marked <b>won</b>, you can ask Layered to invite the homeowner to review you.</p>`;
+  return `${intro}<p>Layered will email the homeowner a one-time review link. You will not see the link or the review before it is published, and every review is read by Layered first, good or bad.</p>
+      <form method="post" action="/dashboard/leads/${row.match_id}/review-invite"><button class="btn btn-sm" type="submit">Invite homeowner to review</button></form>`;
+}
+
 export async function leadDetailPage(req, res, ctx, matchId) {
   const row = db.prepare(`SELECT l.*, lm.status, lm.id as match_id FROM lead_matches lm JOIN leads l ON l.id = lm.lead_id WHERE lm.id = ? AND lm.business_id = ?`).get(matchId, ctx.business.id);
   if (!row) { res.statusCode = 404; res.end(dashLayout('/dashboard/leads', '<p>Lead not found.</p>', ctx)); return; }
@@ -237,6 +249,7 @@ export async function leadDetailPage(req, res, ctx, matchId) {
       </table>
       <h3>Message</h3>
       <p>${esc(row.message) || '<span class="muted">No message provided.</span>'}</p>
+      ${reviewBlock(row, ctx)}
       <h3>Update status</h3>
       <form method="post" action="/dashboard/leads/${row.match_id}/status">
         <div class="two-col">

@@ -67,6 +67,21 @@ db.exec(`
     created_at TEXT DEFAULT (datetime('now'))
   );
 
+  CREATE TABLE IF NOT EXISTS reviews (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    lead_id INTEGER NOT NULL REFERENCES leads(id) ON DELETE CASCADE,
+    business_id INTEGER NOT NULL REFERENCES businesses(id) ON DELETE CASCADE,
+    token TEXT UNIQUE NOT NULL,
+    status TEXT NOT NULL DEFAULT 'invited',   -- invited | pending | published | rejected
+    rating INTEGER,
+    body TEXT DEFAULT '',
+    reviewer_name TEXT DEFAULT '',
+    invited_at TEXT DEFAULT (datetime('now')),
+    submitted_at TEXT,
+    moderated_at TEXT,
+    UNIQUE (lead_id, business_id)
+  );
+
   CREATE TABLE IF NOT EXISTS posts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     slug TEXT UNIQUE NOT NULL,

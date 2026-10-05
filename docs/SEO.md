@@ -148,7 +148,7 @@ useful*, then close the trust gap with product, not copy.
 
 ### Product roadmap to close the trust gap (in priority order)
 1. ~~Verified credentials~~ **Built.** Admins check HDB/CaseTrust lookups at `/dashboard/verification`; a tick and date appear on the profile and a "Checked by Layered" directory filter. Editing the number voids the mark; marks expire after 365 days.
-2. **Verified reviews:** invite homeowners from the lead record after completion; only reviews tied to a real lead are shown; add `Review` schema only then.
+2. ~~Verified reviews~~ **Built.** A firm marks an enquiry won and asks Layered to invite the homeowner; the one-time link goes only to the enquiry email (the firm never sees it). Reviews are read by an admin at `/dashboard/reviews` before publishing (positive or negative). `Review`/`AggregateRating` schema appears only with 3+ published reviews. Layered does not verify the work itself. Needs `RESEND_API_KEY` and `EMAIL_FROM` for real email; otherwise the link is only written to `data/notifications.log`.
 3. **Deposit protection:** partner for a guarantee, or badge firms with CaseTrust deposit protection as "Protected deposit".
 4. ~~**Cost estimator**~~ **Built:** `/tools/renovation-cost-calculator` (HDB, condo, kitchen and bathrooms, office). Pre-fills the lead form with property type and budget band. Ranges live in `content/estimator.js`, tests in `test/`. Next: measure how many calculator visits become leads, and consider an emailed estimate.
 5. ~~Shortlist and compare view~~ **Built.** Heart button on cards and profiles saves up to 4 firms in the browser (localStorage); `/compare?d=slug,slug` shows them side by side (noindex). Next: measure how many compared firms get enquiries.
