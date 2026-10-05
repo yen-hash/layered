@@ -1,7 +1,17 @@
 // scripts/seed.js — populates a few sample designer businesses & projects so the
 // directory and homepage aren't empty on first run. Safe to re-run (skips if data exists).
 import { db, slugify } from '../db.js';
+import crypto from 'node:crypto';
 import { hashPassword } from '../lib/auth.js';
+
+// Demo firms. In production they must not share a password that is written in the repository:
+// use SEED_PASSWORD if set, otherwise a random one nobody knows. Set SEED_DEMO=0 to skip demo firms entirely.
+const PRODUCTION = process.env.NODE_ENV === 'production';
+const DEMO_PASSWORD = PRODUCTION ? (process.env.SEED_PASSWORD || crypto.randomBytes(24).toString('hex')) : 'password123';
+if (process.env.SEED_DEMO === '0') {
+  console.log('Skipping demo firms (SEED_DEMO=0).');
+  process.exit(0);
+}
 
 // The original Carpenters logo export was blank; point existing databases at the replacement.
 db.prepare("UPDATE businesses SET logo_url = '/uploads/carpenters/logo.png' WHERE logo_url = '/uploads/carpenters/logo.webp'").run();
@@ -78,7 +88,7 @@ const insertProject = db.prepare(`INSERT INTO projects (business_id, title, prop
 
 for (const s of sample) {
   const slug = slugify(s.company_name);
-  const passwordHash = s.passwordHash || hashPassword('password123');
+  const passwordHash = s.passwordHash || hashPassword(DEMO_PASSWORD);
   const info = insertBusiness.run(
     slug, s.company_name, s.email, passwordHash, s.phone, s.contact_name,
     s.property_types, s.styles, s.service_areas, s.bio, s.logoUrl || '', s.featured ? 1 : 0, s.phone
@@ -86,7 +96,7 @@ for (const s of sample) {
   for (const p of s.projects) {
     insertProject.run(info.lastInsertRowid, p.title, p.property_type, p.style, p.description, p.cover_image || null);
   }
-  console.log(`Seeded ${s.company_name} (login: ${s.email}${s.passwordHash ? '' : ' / password123'})`);
+  console.log(`Seeded ${s.company_name} (login: ${s.email}${s.passwordHash || PRODUCTION ? '' : ' / password123'})`);
 }
 
 console.log('Done.');
