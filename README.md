@@ -190,3 +190,7 @@ Public POST endpoints are rate limited per IP (login 10 per 15 min; signup, lead
 ## Portfolio uploads
 
 Firms add projects at `/dashboard/projects` with up to 12 photos (JPG, PNG, WebP or GIF, 8MB each), an optional photo credit, and a required tick confirming they own or have permission to publish the photos (the time of the confirmation is stored with the project). Photos over 1.2MB are shrunk in the browser (longest side 2400px) before upload, so a portfolio fits in one submission; a request over about 48MB gets a friendly 413 page. Firms can upload a logo in their profile and edit a project later (change details, add or remove photos, choose the cover); removed photos are deleted from disk. Uploads are checked by file signature and extension, so SVG and HTML are rejected, and file parts are ignored on every other form, including the public enquiry form.
+
+## Persistent storage
+
+On Render (paid plan), attach a disk and set `DB_PATH=/var/data/app.db` and `UPLOAD_DIR=/var/data/uploads` (use your disk's mount path). The database and uploaded photos then survive deploys. Files bundled in the repo under `public/uploads` (the Carpenters logo) are still served when `UPLOAD_DIR` points elsewhere.

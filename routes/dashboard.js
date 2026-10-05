@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { db, PROPERTY_TYPES, STYLES } from '../db.js';
+import { uploadFileFor } from '../lib/paths.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
 import { isAdmin } from '../lib/admin.js';
 import { CASETRUST_OPTIONS, normaliseCaseTrust, normaliseHdbLicence } from '../lib/credentials.js';
@@ -183,13 +184,11 @@ export async function projectsPage(req, res, ctx) {
   res.end(dashLayout('/dashboard/projects', inner, ctx));
 }
 
-const UPLOAD_ROOT = path.join(process.cwd(), 'public', 'uploads');
 // Deletes files we stored under /uploads (and nothing else), ignoring any that are still referenced elsewhere.
 export function removeUploads(paths) {
   for (const rel of paths) {
-    if (typeof rel !== 'string' || !rel.startsWith('/uploads/')) continue;
-    const file = path.join(process.cwd(), 'public', rel);
-    if (!file.startsWith(UPLOAD_ROOT + path.sep)) continue;
+    const file = uploadFileFor(rel);
+    if (!file) continue;
     const used = db.prepare("SELECT 1 FROM projects WHERE cover_image = ? OR images LIKE ? UNION SELECT 1 FROM businesses WHERE logo_url = ?").get(rel, `%${rel}%`, rel);
     if (used) continue;
     try { fs.unlinkSync(file); } catch { /* already gone */ }
