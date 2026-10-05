@@ -485,3 +485,10 @@ a.eyebrow { padding: 6px 0; }
 .photo-credit { margin: 6px 0 0; }
 /* The enquiry form sits in a narrow sidebar on profiles: stack its fields */
 .profile-grid .two-col { grid-template-columns: 1fr; }
+
+/* Project editing */
+.edit-photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin-top: 8px; }
+.edit-photos figure { margin: 0; display: grid; gap: 4px; }
+.edit-photos img { width: 100%; height: 110px; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); background: var(--sand); }
+.project-desc { margin: 6px 0 0; }
+.photo-status { margin-top: 6px; }
