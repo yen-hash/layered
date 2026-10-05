@@ -11,6 +11,7 @@ import { flashFromQuery, layout } from './lib/render.js';
 import { siteUrl } from './lib/seo.js';
 
 import { compareRoute } from './routes/compare.js';
+import { articlesList, articleEditor, articleSave, articleDelete, articleReview } from './routes/articles.js';
 import { reviewInvite, reviewFormPage, reviewSubmit, reviewsAdmin, reviewModerate } from './routes/reviews.js';
 import { homeRoute, directoryRoute, designerProfileRoute, submitLeadRoute } from './routes/public.js';
 import { robotsRoute, sitemapRoute } from './routes/seo.js';
@@ -215,6 +216,23 @@ async function router(req, res) {
         const { fields, files } = await parseForm(req);
         return await projectCreate(req, res, ctx, fields, files);
       }
+      // ----- Firm-written articles -----
+      if (req.method === 'GET' && url.pathname === '/dashboard/articles') return await articlesList(req, res, ctx);
+      if (req.method === 'GET' && url.pathname === '/dashboard/articles/new') return await articleEditor(req, res, ctx, 0);
+      const artEdit = url.pathname.match(/^\/dashboard\/articles\/(\d+)\/edit$/);
+      if (req.method === 'GET' && artEdit) return await articleEditor(req, res, ctx, Number(artEdit[1]));
+      if (req.method === 'POST' && url.pathname === '/dashboard/articles/save') {
+        const { fields } = await parseForm(req);
+        return await articleSave(req, res, ctx, fields);
+      }
+      const artDel = url.pathname.match(/^\/dashboard\/articles\/(\d+)\/delete$/);
+      if (req.method === 'POST' && artDel) return await articleDelete(req, res, ctx, Number(artDel[1]));
+      const artRev = url.pathname.match(/^\/dashboard\/articles\/(\d+)\/(approve|return)$/);
+      if (req.method === 'POST' && artRev) {
+        const { fields } = await parseForm(req);
+        return await articleReview(req, res, ctx, Number(artRev[1]), artRev[2], fields);
+      }
+
       // ----- Reviews -----
       const invMatch = url.pathname.match(/^\/dashboard\/leads\/(\d+)\/review-invite$/);
       if (req.method === 'POST' && invMatch) return await reviewInvite(req, res, ctx, Number(invMatch[1]));

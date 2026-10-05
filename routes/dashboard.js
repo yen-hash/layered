@@ -8,6 +8,7 @@ export function dashLayout(active, inner, ctx) {
     ['/dashboard', 'Overview'],
     ['/dashboard/leads', 'Leads'],
     ['/dashboard/projects', 'Projects'],
+    ['/dashboard/articles', 'Articles'],
     ['/dashboard/profile', 'Business Profile'],
     ...(isAdmin(ctx.business) ? [['/dashboard/blog', 'Blog (admin)'], ['/dashboard/verification', 'Verify credentials'], ['/dashboard/reviews', 'Reviews (admin)']] : []),
   ];

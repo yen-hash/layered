@@ -109,6 +109,10 @@ db.exec(`
 
 // Lightweight migrations for databases created before a column existed.
 const businessCols = db.prepare('PRAGMA table_info(businesses)').all().map((c) => c.name);
+const postCols = db.prepare('PRAGMA table_info(posts)').all().map((c) => c.name);
+for (const [col, ddl] of [['author_business_id', 'INTEGER DEFAULT 0'], ['review_note', "TEXT DEFAULT ''"]]) {
+  if (!postCols.includes(col)) db.exec(`ALTER TABLE posts ADD COLUMN ${col} ${ddl}`);
+}
 if (!businessCols.includes('hdb_licence_no')) db.exec("ALTER TABLE businesses ADD COLUMN hdb_licence_no TEXT DEFAULT ''");
 if (!businessCols.includes('casetrust')) db.exec("ALTER TABLE businesses ADD COLUMN casetrust TEXT DEFAULT ''");
 // Admin verification: stores *what* was checked and when, so editing the value later voids the mark.

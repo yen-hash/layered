@@ -152,7 +152,7 @@ useful*, then close the trust gap with product, not copy.
 3. **Deposit protection:** partner for a guarantee, or badge firms with CaseTrust deposit protection as "Protected deposit".
 4. ~~**Cost estimator**~~ **Built:** `/tools/renovation-cost-calculator` (HDB, condo, kitchen and bathrooms, office). Pre-fills the lead form with property type and budget band. Ranges live in `content/estimator.js`, tests in `test/`. Next: measure how many calculator visits become leads, and consider an emailed estimate.
 5. ~~Shortlist and compare view~~ **Built.** Heart button on cards and profiles saves up to 4 firms in the browser (localStorage); `/compare?d=slug,slug` shows them side by side (noindex). Next: measure how many compared firms get enquiries.
-6. **Firm-submitted articles** (review queue) for fresh content and backlinks.
+6. ~~Firm-submitted articles~~ **Built.** Firms draft at `/dashboard/articles` (500+ words, max 3 waiting); admins approve or return with a note from the Blog admin page (or edit first in the editor). Published with the firm byline, a "written by a listed firm" notice, `nofollow ugc` external links and no images. Check the meta description and cover before approving.
 
 ### Keyword queue for the blog (verify volumes in an SEO tool before writing)
 Published so far (19): the original six, batch 2 (seven) and batch 3 (six, below). Remaining queue is open.

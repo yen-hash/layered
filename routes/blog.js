@@ -94,7 +94,8 @@ export async function blogPostRoute(req, res, ctx, slug) {
   const preview = p && p.status !== 'published';
   if (!p || (preview && !ctx.isAdmin)) return notFound(res, ctx);
 
-  const md = renderMarkdown(p.body);
+  const firm = p.author_business_id ? db.prepare('SELECT slug, company_name FROM businesses WHERE id = ?').get(p.author_business_id) : null;
+  const md = renderMarkdown(p.body, { firm: Boolean(firm) });
   const words = wordCount(md.text);
   const path = `/blog/${p.slug}`;
   const cat = categoryByName(p.category);
@@ -114,13 +115,14 @@ export async function blogPostRoute(req, res, ctx, slug) {
       ${cat ? `<a class="eyebrow" href="/blog/category/${cat.slug}">${esc(cat.name)}</a>` : ''}
       <h1>${esc(p.title)}</h1>
       ${p.excerpt ? `<p class="post-dek">${esc(p.excerpt)}</p>` : ''}
-      <p class="byline">By ${esc(p.author_name)} · <time datetime="${published}">${esc(formatDate(published))}</time>${modified && modified !== published ? ` · Updated <time datetime="${modified}">${esc(formatDate(modified))}</time>` : ''} · ${readingMinutes(words)} min read</p>
+      <p class="byline">By ${firm ? `<a href="/designers/${esc(firm.slug)}">${esc(firm.company_name)}</a>` : esc(p.author_name)} · <time datetime="${published}">${esc(formatDate(published))}</time>${modified && modified !== published ? ` · Updated <time datetime="${modified}">${esc(formatDate(modified))}</time>` : ''} · ${readingMinutes(words)} min read</p>
     </header>
     <figure class="post-cover wrap"><img src="${esc(cover)}" alt="${esc(p.cover_alt || '')}" width="1200" height="630" fetchpriority="high"></figure>
     <div class="wrap post-layout">
       <div class="post-main">
         ${md.headings.length >= 3 ? `<nav class="toc" aria-label="In this article"><strong>In this article</strong><ol>${md.headings.map((h) => `<li><a href="#${h.id}">${esc(h.text)}</a></li>`).join('')}</ol></nav>` : ''}
         <div class="prose">${md.html}</div>
+        ${firm ? `<aside class="notice" role="note"><strong>Written by a listed firm.</strong> This article was written by <a href="/designers/${esc(firm.slug)}">${esc(firm.company_name)}</a>, a firm listed on Layered. Layered's editor reads submissions before publishing but does not verify every claim. The views and figures are the firm's own, and Layered does not endorse them.</aside>` : ''}
         ${tags.length ? `<p class="tag-row">${tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</p>` : ''}
         <div class="cta-box">
           <h2>Ready to find a designer?</h2>
@@ -148,7 +150,7 @@ export async function blogPostRoute(req, res, ctx, slug) {
         image: abs(site, cover), wordCount: words,
         keywords: [p.focus_keyword, ...tags].filter(Boolean).join(', ') || undefined,
         articleSection: p.category,
-        author: { '@type': 'Organization', name: p.author_name },
+        author: firm ? { '@type': 'Organization', name: firm.company_name, url: abs(site, `/designers/${firm.slug}`) } : { '@type': 'Organization', name: p.author_name },
         publisher: { '@id': `${site}/#organization` },
       },
     ],
