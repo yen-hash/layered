@@ -109,6 +109,10 @@ db.exec(`
 
 // Lightweight migrations for databases created before a column existed.
 const businessCols = db.prepare('PRAGMA table_info(businesses)').all().map((c) => c.name);
+const projectCols = db.prepare('PRAGMA table_info(projects)').all().map((c) => c.name);
+for (const [col, ddl] of [['photo_credit', "TEXT DEFAULT ''"], ['rights_confirmed_at', 'TEXT']]) {
+  if (!projectCols.includes(col)) db.exec(`ALTER TABLE projects ADD COLUMN ${col} ${ddl}`);
+}
 const postCols = db.prepare('PRAGMA table_info(posts)').all().map((c) => c.name);
 for (const [col, ddl] of [['author_business_id', 'INTEGER DEFAULT 0'], ['review_note', "TEXT DEFAULT ''"]]) {
   if (!postCols.includes(col)) db.exec(`ALTER TABLE posts ADD COLUMN ${col} ${ddl}`);

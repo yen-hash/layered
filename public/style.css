@@ -467,3 +467,14 @@ dialog.lightbox .lb-close { position: absolute; right: -6px; top: -46px; backgro
 .profile-hero .btn-outline:hover { background: rgba(255,255,255,.16); color: #fff; }
 
 a.eyebrow { padding: 6px 0; }
+
+/* Dashboard thumbnails use an inline background image */
+.project-card .thumb[style] { background-size: cover; background-position: center; }
+/* Extra project photos */
+.thumb-strip { display: flex; gap: 6px; padding: 8px 14px 0; flex-wrap: wrap; }
+.thumb-strip button { all: unset; cursor: zoom-in; width: 56px; height: 42px; border-radius: 6px; overflow: hidden; }
+.thumb-strip button:focus-visible { outline: 3px solid var(--brand); outline-offset: 1px; }
+.thumb-strip img { width: 100%; height: 100%; object-fit: cover; }
+.photo-credit { margin: 6px 0 0; }
+/* The enquiry form sits in a narrow sidebar on profiles: stack its fields */
+.profile-grid .two-col { grid-template-columns: 1fr; }

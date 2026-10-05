@@ -4,6 +4,7 @@ import { dispatchLeadNotifications } from '../lib/notify.js';
 import { credentialBadges, credentialsPanel } from '../lib/credentials.js';
 import { abs, breadcrumbSchema, organizationSchema, websiteSchema } from '../lib/seo.js';
 import { breadcrumbNav } from '../lib/components.js';
+import { photoList } from './dashboard.js';
 import { reviewsSection, reviewSchema, ratingBadge, summarise } from '../lib/reviews.js';
 import { PROPERTY_PAGES, STYLE_PAGES } from '../content/landing.js';
 import { GUIDES } from '../content/guides.js';
@@ -273,6 +274,8 @@ export async function designerProfileRoute(req, res, ctx, slug) {
     : `${b.company_name} is an interior design and renovation firm in Singapore${types.length ? ` taking on ${types.join(', ')} projects` : ''}${styles.length ? ` in ${styles.join(', ')} styles` : ''}. View projects and credentials, then request a quote.`
   ).slice(0, 155).replace(/\s+\S*$/, (m) => (bioText.length > 155 ? '…' : m));
 
+  const extra = (p) => photoList(p).filter((u) => u !== p.cover_image).slice(0, 11);
+  const caption = (p) => [p.title, p.photo_credit].filter(Boolean).join(' · ');
   const projectAlt = (p) => [p.title, [p.property_type, p.style].filter(Boolean).join(' '), 'interior design by', b.company_name, 'Singapore'].filter(Boolean).join(' – ').replace(/ – interior design by – /, ' – interior design by ');
 
   const localBusiness = {
@@ -323,11 +326,13 @@ export async function designerProfileRoute(req, res, ctx, slug) {
             return `
           <div class="card project-card">
             <div class="thumb">${p.cover_image
-              ? `<button type="button" class="lb-open" data-src="${esc(src)}" data-caption="${esc(p.title)}" aria-label="View larger: ${esc(p.title)}"><img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" width="600" height="450"></button>`
+              ? `<button type="button" class="lb-open" data-src="${esc(src)}" data-caption="${esc(caption(p))}" aria-label="View larger: ${esc(p.title)}"><img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" width="600" height="450" onerror="this.onerror=null;this.src='${esc(placeholderIllustration(p.id))}'"></button>`
               : `<img src="${esc(src)}" alt="" loading="lazy" width="600" height="450">`}</div>
+            ${extra(p).length ? `<div class="thumb-strip">${extra(p).map((u, i) => `<button type="button" class="lb-open" data-src="${esc(u)}" data-caption="${esc(caption(p))}" aria-label="View photo ${i + 2} of ${esc(p.title)}"><img src="${esc(u)}" alt="${esc(`${projectAlt(p)} – photo ${i + 2}`)}" loading="lazy" width="120" height="90"></button>`).join('')}</div>` : ''}
             <div class="body">
               <h3>${esc(p.title)}</h3>
               <div class="tag-row">${[p.property_type, p.style].filter(Boolean).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+              ${p.photo_credit ? `<p class="muted small photo-credit">${esc(p.photo_credit)}</p>` : ''}
             </div>
           </div>`;
           }).join('') || '<p class="muted">No projects uploaded yet.</p>'}

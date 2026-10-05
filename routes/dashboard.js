@@ -146,8 +146,10 @@ export async function projectsPage(req, res, ctx) {
           <select name="style"><option value="">-</option>${STYLES.map((s) => `<option value="${esc(s)}">${esc(s)}</option>`).join('')}</select>
         </div>
         <div class="field"><label>Description</label><textarea name="description"></textarea></div>
-        <div class="field"><label>Cover photo</label><input type="file" name="cover_image" accept="image/*"><p class="hint">Or paste an image URL below instead of uploading.</p></div>
-        <div class="field"><input type="url" name="cover_image_url" placeholder="https://..."></div>
+        <div class="field"><label for="photos">Project photos</label><input id="photos" type="file" name="photos" accept="image/jpeg,image/png,image/webp,image/gif" multiple><p class="hint">Up to 12 photos (JPG, PNG, WebP or GIF, 8MB each). The first is the cover.</p></div>
+        <div class="field"><label for="cover_image_url">Or a cover image URL</label><input id="cover_image_url" type="url" name="cover_image_url" placeholder="https://..."></div>
+        <div class="field"><label for="photo_credit">Photo credit (optional)</label><input id="photo_credit" type="text" name="photo_credit" maxlength="120" placeholder="e.g. Photography by Studio Name"></div>
+        <div class="field checkbox-row"><input type="checkbox" name="rights" id="rights" required><label for="rights" style="margin:0;">I own these photos or have permission to publish them on Layered.</label></div>
         <button class="btn" type="submit">Add project</button>
       </form>
     </div>
@@ -157,6 +159,7 @@ export async function projectsPage(req, res, ctx) {
         <div class="thumb" style="background-image:url('${esc(p.cover_image || placeholderIllustration(p.id))}')"></div>
         <div class="body">
           <h4>${esc(p.title)}</h4>
+          <p class="muted small">${photoCount(p)} photo${photoCount(p) === 1 ? '' : 's'}</p>
           <div class="tag-row">${[p.property_type, p.style].filter(Boolean).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
           <form class="inline" method="post" action="/dashboard/projects/${p.id}/delete" onsubmit="return confirm('Delete this project?')">
             <button class="btn btn-sm btn-outline" type="submit">Delete</button>
@@ -168,21 +171,29 @@ export async function projectsPage(req, res, ctx) {
   res.end(dashLayout('/dashboard/projects', inner, ctx));
 }
 
-export async function projectCreate(req, res, ctx, fields, files) {
-  const title = (fields.title || '').trim();
-  if (!title) {
-    res.writeHead(302, { Location: '/dashboard/projects?err=' + encodeURIComponent('Project title is required.') });
-    res.end();
-    return;
-  }
-  const uploaded = files.cover_image && files.cover_image[0];
-  const coverImage = uploaded ? uploaded.publicPath : (fields.cover_image_url || '');
+export const photoList = (p) => {
+  try { const v = JSON.parse(p.images || '[]'); return Array.isArray(v) ? v.filter((x) => typeof x === 'string') : []; } catch { return []; }
+};
+const photoCount = (p) => (photoList(p).length || (p.cover_image ? 1 : 0));
 
-  db.prepare(`INSERT INTO projects (business_id, title, property_type, style, description, cover_image, images) VALUES (?, ?, ?, ?, ?, ?, ?)`)
-    .run(ctx.business.id, title, fields.property_type || '', fields.style || '', fields.description || '', coverImage, '[]');
+export async function projectCreate(req, res, ctx, fields, files, rejected = []) {
+  const back = (kind, text) => { res.writeHead(302, { Location: `/dashboard/projects?${kind}=` + encodeURIComponent(text) }); res.end(); };
+  const title = (fields.title || '').trim().slice(0, 120);
+  if (!title) return back('err', 'Project title is required.');
+  if (!fields.rights) return back('err', 'Please confirm you own these photos or have permission to publish them.');
+  const uploaded = (files.photos || []).map((f) => f.publicPath);
+  const legacyCover = files.cover_image && files.cover_image[0] ? [files.cover_image[0].publicPath] : [];
+  const photos = [...legacyCover, ...uploaded];
+  const url = String(fields.cover_image_url || '').trim();
+  const urlOk = /^https?:\/\/[^\s]+$/i.test(url) ? url : '';
+  const cover = photos[0] || urlOk;
+  if (!cover && rejected.length) return back('err', `Those files were not accepted (${rejected.slice(0, 3).join(', ')}). Use JPG, PNG, WebP or GIF under 8MB.`);
 
-  res.writeHead(302, { Location: '/dashboard/projects?ok=' + encodeURIComponent('Project added.') });
-  res.end();
+  db.prepare(`INSERT INTO projects (business_id, title, property_type, style, description, cover_image, images, photo_credit, rights_confirmed_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`)
+    .run(ctx.business.id, title, fields.property_type || '', fields.style || '', String(fields.description || '').slice(0, 2000), cover, JSON.stringify(photos), String(fields.photo_credit || '').trim().slice(0, 120));
+
+  const note = rejected.length ? ` ${rejected.length} file${rejected.length === 1 ? ' was' : 's were'} skipped (JPG, PNG, WebP or GIF under 8MB only).` : '';
+  back('ok', 'Project added.' + note);
 }
 
 export async function projectDelete(req, res, ctx, projectId) {
