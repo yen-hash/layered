@@ -20,7 +20,7 @@ import { robotsRoute, sitemapRoute } from './routes/seo.js';
 import { blogIndexRoute, blogCategoryRoute, blogPostRoute, rssRoute } from './routes/blog.js';
 import { blogAdminList, blogAdminEditor, blogAdminSave, blogAdminDelete } from './routes/blogAdmin.js';
 import { isAdmin } from './lib/admin.js';
-import { calculatorRoute } from './routes/tools.js';
+import { calculatorRoute, estimatorRoute } from './routes/tools.js';
 import { verificationList, verificationAction } from './routes/verification.js';
 import { infoPageRoute } from './routes/pages.js';
 import { propertyLandingRoute, styleLandingRoute, guidesIndexRoute, guideRoute, checklistRoute } from './routes/content.js';
@@ -181,6 +181,7 @@ async function router(req, res) {
     }
     if (req.method === 'GET' && url.pathname === '/compare') return await compareRoute(req, res, ctx, url);
     if (req.method === 'GET' && url.pathname === '/tools/renovation-cost-calculator') return await calculatorRoute(req, res, ctx);
+    if (req.method === 'GET' && url.pathname === '/tools/renovation-cost-estimator') return await estimatorRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname === '/blog') return await blogIndexRoute(req, res, ctx, url);
     if (req.method === 'GET' && url.pathname === '/blog/rss.xml') return await rssRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname.startsWith('/blog/category/')) return await blogCategoryRoute(req, res, ctx, url, url.pathname.split('/')[3]);

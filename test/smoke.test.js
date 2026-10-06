@@ -37,7 +37,7 @@ before(async () => {
 after(() => { if (server) server.kill(); fs.rmSync(TMP, { recursive: true, force: true }); });
 
 test('public pages return 200', async () => {
-  for (const p of ['/', '/designers', '/designers/warmhaus-living', '/blog', '/blog/qanvast-alternative-singapore', '/guides', '/guides/renovation-checklist-singapore', '/tools/renovation-cost-calculator', '/compare?d=warmhaus-living,northgate-design-studio', '/login', '/signup', '/forgot', '/sitemap.xml', '/robots.txt']) {
+  for (const p of ['/', '/designers', '/designers/warmhaus-living', '/blog', '/blog/qanvast-alternative-singapore', '/guides', '/guides/renovation-checklist-singapore', '/tools/renovation-cost-calculator', '/tools/renovation-cost-estimator', '/about', '/privacy', '/terms', '/compare?d=warmhaus-living,northgate-design-studio', '/login', '/signup', '/forgot', '/sitemap.xml', '/robots.txt']) {
     const r = await get(p);
     assert.equal(r.status, 200, `${p} -> ${r.status}`);
   }
