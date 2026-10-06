@@ -2044,4 +2044,460 @@ Yes. Nothing stops you from comparing quotes from firms found on both. If you wa
 Check its HDB licence and CaseTrust accreditation on the official lookups, ask for its ACRA registration, read the contract and keep the deposit small.
 `,
   },
+  {
+    slug: 'interior-designer-fees-singapore',
+    title: 'Interior Designer Fees in Singapore: How Designers Charge',
+    category: 'Costs & Budgeting',
+    focus_keyword: 'interior designer fees',
+    tags: 'interior designer fees, design fee, renovation cost, quotation, hdb',
+    meta_title: 'Interior Designer Fees in Singapore: What to Expect',
+    meta_description: 'Interior designer fees in Singapore explained: design fee vs bundled pricing, what is usually included, red flags, and questions to ask before you sign.',
+    excerpt: 'Some Singapore designers charge a separate design fee, others fold it into the renovation price. Here is how each model works, what to look for in a quote and what to ask.',
+    cover_image: '/images/cover-costs.jpg',
+    cover_alt: 'Bright living room with a sectional sofa and pendant lights',
+    body: `Ask three firms how they charge and you may get three different answers. Understanding **interior designer fees in Singapore** helps you compare quotes fairly, because a firm that looks cheaper may simply be charging for design in a different place. This guide explains the common pricing models, what a fee usually covers and what to ask before you sign.
+
+*Pricing practices differ between firms and change over time. Treat this as a guide to the questions to ask, and rely on each firm's written quotation for actual figures.*
+
+## How interior designer fees work in Singapore
+
+Most Singapore firms use one of three models:
+
+| Model | How you pay for design | Worth knowing |
+|---|---|---|
+| **Bundled** | No separate line. Design is built into the renovation price | Common for HDB and condo packages. Ask what the design service includes |
+| **Separate design fee** | A fixed sum or a percentage of the project, listed on the quote | Often for larger or custom projects. Sometimes credited if you proceed |
+| **Design-only** | You pay for drawings and design, then hire any contractor | Gives you the freedom to compare contractors, but you manage the build |
+
+None of these is automatically better. The question is what you get for the money, and whether it is written down.
+
+## What a design fee usually covers
+
+When a quote includes design, it commonly covers some or all of these:
+
+- Site visit, measurements and a discussion of your brief
+- Space planning and layout options
+- 3D views or perspective drawings
+- Carpentry and electrical plan drawings
+- Material and finish selection
+- Site supervision during the works
+
+Ask for the list in writing. A fee that covers drawings only is different from one that also covers supervision and defect follow-up.
+
+## Why a lower quote is not always cheaper
+
+Two quotes for the same flat can differ for reasons that have nothing to do with value. One firm may bundle design while another itemises it. One may price carpentry per foot run, another as a lump sum. To compare fairly, lay the quotes side by side and match them item by item. Our guide to [reading a renovation quotation](/blog/how-to-read-a-renovation-quotation-singapore) shows how.
+
+## Questions to ask about fees
+
+1. Is there a separate design fee, and is it credited if I go ahead?
+2. What exactly do the drawings include?
+3. Is site supervision included, and how often will someone visit?
+4. How many rounds of design revisions are covered?
+5. What happens to the fee if I decide not to proceed?
+6. Are there charges for variation orders after I sign?
+
+Put the answers in the contract. Our [contract checklist](/blog/renovation-contract-singapore-what-to-check) lists the clauses to check, including variations and payment stages.
+
+## Red flags
+
+- A large fee requested before any written scope.
+- Refusal to say what the fee covers.
+- Pressure to sign on the spot for a one-day discount.
+- A quote with a single lump sum and no breakdown.
+
+Check that the firm is genuine too. See [how to check an HDB licensed contractor](/blog/how-to-check-hdb-licensed-contractor) before paying anything.
+
+## How to keep costs in check
+
+Be clear on scope and budget before you meet designers. Use our [renovation cost calculator](/tools/renovation-cost-calculator) to get an indicative range for your flat, then compare it with the quotes you receive. If a quote is far above or below the range, ask why.
+
+When you are ready to compare firms, [browse interior designers](/designers) and shortlist two or three to quote on the same brief.
+
+## Frequently asked questions
+
+### Do interior designers in Singapore charge a design fee?
+Some do and some do not. Many firms bundle design into the renovation price, while others list a separate fee, particularly on larger or custom projects. Ask each firm and get it in writing.
+
+### Is a design fee refundable?
+It depends on the firm. Some credit the fee against the renovation contract if you proceed, and some do not. Ask before you pay.
+
+### Should I pay the design fee before signing the contract?
+Only if the scope of what you are paying for is written down. Keep any upfront payment small and get a receipt.
+
+### Can I hire a designer for design only?
+Yes. Some firms offer design-only packages, after which you can invite contractors to quote. You then manage the build, so make sure you are comfortable with that.
+`,
+  },
+  {
+    slug: 'interior-designer-vs-renovation-contractor-singapore',
+    title: 'Interior Designer vs Renovation Contractor in Singapore',
+    category: 'Choosing a Designer',
+    focus_keyword: 'interior designer vs renovation contractor',
+    tags: 'interior designer, renovation contractor, design and build, hdb, choosing',
+    meta_title: 'Interior Designer vs Renovation Contractor: Which to Hire',
+    meta_description: 'Interior designer vs renovation contractor in Singapore: what each does, how pricing differs, when to hire one, the other or a design-and-build firm.',
+    excerpt: 'Should you hire an interior designer, a contractor or a firm that does both? Here is what each does, how they differ on cost and risk, and how to choose.',
+    cover_image: '/images/cover-choose.jpg',
+    cover_alt: 'Bright living room with a sectional sofa, round coffee tables and pendant lights',
+    body: `The terms get mixed up in Singapore, which is why the **interior designer vs renovation contractor** question trips up first-time owners. A designer plans how your home should look and work, and a contractor builds it. Many firms do both. This guide explains the difference, the cost trade-offs and how to choose for an HDB, condo or landed home.
+
+*Roles overlap and every firm works differently. Always check what a specific firm provides in its written quotation.*
+
+## Interior designer vs renovation contractor: the core difference
+
+| | Interior designer | Renovation contractor |
+|---|---|---|
+| **Main job** | Plans the layout, look and materials | Carries out the works on site |
+| **You get** | Drawings, 3D views, material selection, coordination | Labour, materials and workmanship |
+| **Best at** | Making the space work for how you live | Pricing and executing a defined scope |
+| **Watch for** | Design that outruns the budget | Gaps in design when you have not planned the details |
+
+## What an interior designer does
+
+A designer starts with your brief and budget, plans the space, prepares drawings and selects finishes. Good designers also coordinate trades and visit the site. For complex layouts, custom carpentry or a tight budget, that planning pays for itself in fewer mistakes.
+
+## What a renovation contractor does
+
+A contractor focuses on execution: hacking, wet works, carpentry, electrical, painting. If you already know what you want, such as a straight repaint, flooring replacement or a bathroom refresh, a contractor can be the faster and cheaper route. You supply the plan and manage the details.
+
+## The third option: design and build
+
+Many Singapore firms are design-and-build. One company handles design, permits, works and handover, with a designer as your main contact. It is convenient, because there is one party to hold responsible. Check the contract for what is included, and compare it as you would any other quote. Our guide to [package vs custom design](/blog/renovation-package-vs-custom-design-singapore) covers how packages differ from bespoke work.
+
+## Which should you hire?
+
+- **Hire a designer or design-and-build firm** if you are moving into a new BTO or resale flat, want custom carpentry, are changing the layout or want one point of contact.
+- **Hire a contractor** if the scope is small and well defined and you are happy to manage it yourself.
+- **Hire a designer for design only** if you want to take the drawings and invite several contractors to quote.
+
+## What to check whichever you choose
+
+1. **Licence.** For HDB works the contractor must be HDB-registered. See [how to check an HDB licensed contractor](/blog/how-to-check-hdb-licensed-contractor).
+2. **Credentials.** CaseTrust accreditation signals a standard contract and deposit protection. Our [CaseTrust and HDB licence guide](/guides/casetrust-and-hdb-licence-explained) explains both.
+3. **Contract.** Scope, payment stages, variations and warranty in writing.
+4. **Track record.** Visit a completed project if you can, and read recent reviews.
+
+## Costs: who is cheaper?
+
+A contractor-only route can be cheaper on paper because you pay for execution and not for design. But if design is poor or incomplete, rework costs more. A designer's fee, or the design built into a package, buys planning that reduces errors. Use our [renovation cost calculator](/tools/renovation-cost-calculator) for a baseline, then compare quotes line by line.
+
+Ready to compare firms? [Browse interior designers](/designers) and request quotes for the same brief.
+
+## Frequently asked questions
+
+### Is an interior designer more expensive than a contractor?
+Often the design cost is either a separate fee or built into the price, so the headline figure may be higher. The comparison should be on the total outcome, including rework risk and your own time.
+
+### Do I need an interior designer for an HDB flat?
+No, but it helps if you are changing the layout, want custom carpentry or are renovating a new BTO and want coordination. A contractor can handle simple, defined works.
+
+### Can a designer do the construction?
+Many design-and-build firms do. Check that the firm or its contractor holds the licences needed for your type of home.
+
+### Who applies for the HDB permit?
+For HDB flats the registered contractor files the renovation permit. See our [HDB renovation permit and rules guide](/guides/hdb-renovation-permit-and-rules).
+`,
+  },
+  {
+    slug: 'questions-to-ask-interior-designer-singapore',
+    title: '20 Questions to Ask an Interior Designer Before You Sign',
+    category: 'Choosing a Designer',
+    focus_keyword: 'questions to ask an interior designer',
+    tags: 'interior designer, questions, meeting, hiring, checklist',
+    meta_title: '20 Questions to Ask an Interior Designer Before Signing',
+    meta_description: 'The questions to ask an interior designer in Singapore before you sign: credentials, scope, pricing, timeline, warranty and the red flags worth catching.',
+    excerpt: 'Twenty practical questions to ask an interior designer in Singapore, grouped by credentials, scope, money, timeline and warranty, plus the answers that should worry you.',
+    cover_image: '/images/cover-choose.jpg',
+    cover_alt: 'Bright living room with a sectional sofa, round coffee tables and pendant lights',
+    body: `A first meeting with a designer is easy to waste. Bring a list. These are the **questions to ask an interior designer** in Singapore, grouped so you can work through them quickly and compare the answers across firms. Take notes, ask for answers in writing and do not feel rushed.
+
+*Good firms are glad to answer. Hesitation on basics is useful information in itself.*
+
+## Questions to ask an interior designer about credentials
+
+1. **Is the firm HDB-licensed?** For HDB works, the contractor needs to be registered. Check it yourself with our guide to [checking an HDB licensed contractor](/blog/how-to-check-hdb-licensed-contractor).
+2. **Is it CaseTrust-accredited?** Ask which tier, and verify on the official lookup.
+3. **How long has the firm been operating, and under what registered name?**
+4. **Can I see completed projects like mine?** A similar flat type and budget is the most useful comparison.
+5. **Can I speak to a past client?**
+
+## Questions about scope and design
+
+6. **Who will be my main contact, and who is on site day to day?**
+7. **What do the drawings include, and how many revisions are covered?**
+8. **Is site supervision included, and how often will someone visit?**
+9. **Which works are done by your own team and which are subcontracted?**
+10. **What materials and brands are specified, and can I request alternatives?**
+
+## Questions about money
+
+11. **Is there a design fee, and is it credited if I proceed?** Our guide to [interior designer fees](/blog/interior-designer-fees-singapore) explains the models.
+12. **Can I have an itemised quotation?** Compare it using our guide to [reading a renovation quotation](/blog/how-to-read-a-renovation-quotation-singapore).
+13. **What is the payment schedule?** Payments should follow progress, with a small deposit.
+14. **How are variations priced and approved?**
+15. **What is not included in the quote?** Appliances, curtains and furniture are common exclusions.
+
+## Questions about time and warranty
+
+16. **What is the realistic timeline, and what happens if it slips?** See the [BTO renovation timeline](/blog/bto-renovation-timeline-singapore) for typical stage lengths.
+17. **Is there a clause for delay compensation?**
+18. **What is the defects liability period, and how do I report defects?** Read about the [defects liability period](/blog/defects-liability-period-singapore).
+19. **Who handles permits and condo management approvals?**
+20. **What happens if the firm cannot complete the project?** This is where deposit protection matters.
+
+## Answers that should worry you
+
+- Vague or no itemised quote.
+- A demand for a large deposit before any signed contract.
+- No written scope or drawings.
+- Reluctance to share licence or registration details.
+- Pressure to sign today for a special price.
+
+## How to use the answers
+
+Ask the same questions of two or three firms and put the answers in a simple table, with one column per firm. Score each answer for clarity and for whether the firm offered to put it in writing. A firm that answers plainly, shows its paperwork and does not rush you is usually the safer choice, even when its quote is not the lowest. Keep your notes, because they help when you compare the contracts later. Then read the contract against what was promised. Our [contract checklist](/blog/renovation-contract-singapore-what-to-check) shows what to look for. When you are ready to compare, [browse interior designers](/designers) and shortlist a few.
+
+## Frequently asked questions
+
+### How many designers should I meet?
+Two to four is usually enough to compare approach and pricing without losing months.
+
+### Should I bring a budget to the first meeting?
+Yes. A clear range helps the designer propose realistic options. Use our [cost calculator](/tools/renovation-cost-calculator) to set one.
+
+### Is it rude to ask for references?
+No. Reputable firms expect it.
+
+### Should I get the answers in writing?
+Yes. Anything important should be in the quotation or contract, not only said in a meeting.
+`,
+  },
+  {
+    slug: 'renovation-payment-schedule-singapore',
+    title: 'Renovation Payment Schedule in Singapore: How Much and When',
+    category: 'Rules & Permits',
+    focus_keyword: 'renovation payment schedule',
+    tags: 'payment schedule, deposit, progress payment, contract, retention',
+    meta_title: 'Renovation Payment Schedule in Singapore: How It Works',
+    meta_description: 'How a renovation payment schedule works in Singapore: typical deposit and progress stages, retention, CaseTrust deposit limits and what to avoid paying early.',
+    excerpt: 'How much to pay and when matters as much as the price itself. Here is how renovation payments are usually staged in Singapore and how to protect yourself.',
+    cover_image: '/images/cover-contract.jpg',
+    cover_alt: 'Renovation contract and plans on a table',
+    body: `How you pay can protect you as much as what you pay. A sensible **renovation payment schedule in Singapore** ties each payment to progress, keeps the deposit modest and holds back a final sum until defects are fixed. This guide explains the usual stages, what to watch for and how to keep your money safe.
+
+*Payment terms vary by firm and project. The figures here are commonly described ranges, so use your contract and the firm's current standard terms as the final word.*
+
+## A typical renovation payment schedule
+
+Guides commonly describe four to five stages. An example for a mid-sized flat might look like this:
+
+| Stage | Typical share | Trigger |
+|---|---|---|
+| Deposit | 10 to 20% | On signing the contract |
+| Progress 1 | 20 to 30% | After hacking and wet works start or finish |
+| Progress 2 | 20 to 30% | After carpentry is in progress or delivered |
+| Progress 3 | 20 to 30% | After carpentry installation or major completion |
+| Final payment | 10 to 20% | After handover and defects are fixed |
+
+The exact split matters less than the principle: each payment follows work that you can see.
+
+## How much deposit is reasonable
+
+Keep it small. Guides commonly cite 10 to 20% on signing, and CaseTrust-accredited firms are reported to cap deposits, so check the current standard contract. A large upfront payment leaves you exposed if the firm slows down or fails. Our [CaseTrust and HDB licence guide](/guides/casetrust-and-hdb-licence-explained) explains deposit protection.
+
+## Tie payments to milestones, not dates
+
+A payment due on a calendar date is a payment due whether or not the work is done. Ask for milestones such as "upon completion of hacking and plumbing" and write them in. Take photos at each stage as a record.
+
+## Retention: hold back the last payment
+
+The final payment gives you leverage to get defects fixed. Keep it until the handover walk-through is done and the defects list is cleared. Read about the [defects liability period](/blog/defects-liability-period-singapore) for what your warranty covers.
+
+## Variation orders and extra payments
+
+Changes after signing are priced as variation orders. Agree each one in writing, with the cost and effect on the timeline, before the work happens. Otherwise the final bill can drift. Our [contract checklist](/blog/renovation-contract-singapore-what-to-check) covers variations and other clauses.
+
+## How to pay safely
+
+1. **Pay the company, not an individual.** Use a bank transfer or cheque in the registered company's name.
+2. **Get a receipt for every payment.**
+3. **Check the firm first.** See [how to check an HDB licensed contractor](/blog/how-to-check-hdb-licensed-contractor).
+4. **Do not pay ahead of the work.** Say no to requests to pay the next stage early for a discount.
+5. **Keep copies** of the contract, quotation and all receipts.
+
+## Financing the payments
+
+If you plan to fund the renovation with a loan, see how [renovation loans work in Singapore](/blog/renovation-loan-singapore-how-it-works) so you can match drawdowns to your payment stages.
+
+Use our [renovation cost calculator](/tools/renovation-cost-calculator) to set your total budget first, then [browse interior designers](/designers) to compare how each firm structures payments.
+
+## Frequently asked questions
+
+### How much deposit should I pay a renovation contractor?
+Keep it modest. A figure of 10 to 20% on signing is commonly described, and accredited firms may be limited by their standard contract. Ask for the schedule in writing.
+
+### When should I make the final payment?
+After handover, once the defects list has been fixed and signed off.
+
+### Is it safe to pay in cash?
+Avoid it. Use a traceable bank transfer or cheque to the company and keep receipts.
+
+### What if the contractor asks for payment ahead of schedule?
+Refuse unless the contract says so. Ask the firm to point to the milestone that has been reached.
+`,
+  },
+  {
+    slug: 'bto-renovation-cost-singapore',
+    title: 'BTO Renovation Cost in Singapore: 2026 Budget Guide',
+    category: 'Costs & Budgeting',
+    focus_keyword: 'bto renovation cost',
+    tags: 'bto, renovation cost, budget, new flat, hdb',
+    meta_title: 'BTO Renovation Cost in Singapore: 2026 Budget Guide',
+    meta_description: 'BTO renovation cost in Singapore for 2026: ranges by flat type, what a new flat usually needs, where costs creep and how to build a realistic budget.',
+    excerpt: 'A new BTO flat is a blank slate, but it is rarely a cheap one. Here are the 2026 cost ranges by flat type, what is usually included and where budgets creep.',
+    cover_image: '/images/cover-costs.jpg',
+    cover_alt: 'Bright living room with a sectional sofa and pendant lights',
+    body: `A BTO flat arrives with bare floors, no built-in storage and a kitchen that needs fitting out, so the renovation bill is a large part of your move-in cost. This guide sets out the **BTO renovation cost** ranges quoted in Singapore for 2026, explains what drives them and shows how to plan a budget that holds.
+
+*These are indicative ranges for a standard specification, drawn from the ranges Singapore renovation guides quote. Quotes vary by firm, scope and finishes, so use them to sanity-check, not as a quote.*
+
+## BTO renovation cost by flat type
+
+| Flat | Typical BTO renovation range |
+|---|---|
+| 3-room | S$30,000 to S$45,000 |
+| 4-room | S$40,000 to S$55,000 |
+| 5-room | S$45,000 to S$67,000 |
+
+Our detailed guides show how these numbers break down for the [3-room](/blog/3-room-hdb-renovation-cost-singapore) and for [4-room versus 5-room](/blog/4-room-vs-5-room-hdb-renovation-cost) flats. Resale flats usually cost more because of hacking and replacement work. See [resale HDB hidden costs](/blog/resale-hdb-renovation-hidden-costs).
+
+## What a new BTO usually needs
+
+- **Flooring:** BTOs come without finished floors in living and bedroom areas
+- **Carpentry:** wardrobes, TV console, shoe cabinet, kitchen cabinets
+- **Electrical:** additional points, lighting and wiring changes
+- **Painting:** the whole flat
+- **Doors:** the main door gate and internal doors in some cases
+- **Kitchen and bathrooms:** fittings, tiling and waterproofing where required
+
+Your scope depends on the BTO handover condition, so check what is already done before you quote.
+
+## Where the money goes
+
+Carpentry is usually the biggest line, followed by flooring, then the kitchen and bathrooms. Electrical and painting are smaller, but they add up. For kitchen-specific numbers, see the [HDB kitchen renovation cost](/blog/hdb-kitchen-renovation-cost-singapore) and [HDB bathroom renovation cost](/blog/hdb-bathroom-renovation-cost-singapore) guides.
+
+## Why a BTO is a good time to plan carefully
+
+A new flat has no old finishes to work around, so most of the budget goes into things you choose rather than things you must fix. That makes it easier to control, and also easier to overspend on extras. Decide your priorities before the showflat and sample visits, because attractive displays make upgrades feel small. A written budget that you check each time you approve a change keeps the total honest.
+
+## Where BTO budgets creep
+
+1. **Custom carpentry.** Floor-to-ceiling units look good and add up fast.
+2. **Upgrading finishes midway.** Each upgrade seems small.
+3. **Appliances and furniture** that were not in the quote.
+4. **Timeline slips** that mean paying rent while waiting.
+5. **Variation orders** after works start.
+
+Hold back a buffer of about 10 to 15% for changes you did not plan.
+
+## How to build a realistic BTO budget
+
+1. List must-haves first, then nice-to-haves.
+2. Get an indicative range from our [renovation cost calculator](/tools/renovation-cost-calculator).
+3. Ask for quotes from two or three firms on the same brief.
+4. Compare line by line, as explained in [reading a renovation quotation](/blog/how-to-read-a-renovation-quotation-singapore).
+5. Plan the timing with the [BTO renovation timeline](/blog/bto-renovation-timeline-singapore).
+
+## Check the rules and the firm
+
+A registered contractor must file the HDB renovation permit, and there are rules on what you can remove and when work can happen. Read our [HDB renovation permit and rules guide](/guides/hdb-renovation-permit-and-rules) and check the firm's credentials before you pay. Then [browse HDB interior designers](/interior-designers/hdb) to start comparing quotes.
+
+## Frequently asked questions
+
+### How much does it cost to renovate a BTO flat?
+Ranges commonly quoted for 2026 run from about S$30,000 for a 3-room to S$67,000 for a 5-room on a standard specification. Your own cost depends on scope and finishes.
+
+### Is renovating a BTO cheaper than a resale flat?
+Usually yes, because a BTO needs less hacking and replacement work. A BTO still needs flooring, carpentry and fittings.
+
+### What should I do first after collecting the keys?
+Check the handover condition, set a budget and start collecting quotes. Many owners start planning before key collection, so check the timing rules for your flat.
+
+### How much buffer should I keep?
+About 10 to 15% of the budget is a common guide for changes and surprises.
+`,
+  },
+  {
+    slug: 'hdb-living-room-design-ideas-singapore',
+    title: 'HDB Living Room Design Ideas: Make a Small Space Work',
+    category: 'Design Ideas',
+    focus_keyword: 'hdb living room design',
+    tags: 'living room, hdb, small space, layout, design ideas',
+    meta_title: 'HDB Living Room Design Ideas for Small Spaces',
+    meta_description: 'HDB living room design ideas for Singapore homes: layouts, storage, lighting, colour and materials that make a compact living room feel bigger and calmer.',
+    excerpt: 'A compact HDB living room can still feel open and calm. These layout, storage, lighting and colour ideas help a small space do more.',
+    cover_image: '/images/cover-design.jpg',
+    cover_alt: 'Bright living room with a sofa, coffee tables and pendant lights',
+    body: `An HDB living room is often the busiest room in the flat: a lounge, a dining area, a place for guests and sometimes a workspace. Good **HDB living room design** makes that work without crowding. These ideas focus on layout, storage, light and materials, and they apply to a BTO or resale flat of any size.
+
+*Design is personal. Use these as starting points and ask your designer how they fit your floor plan and budget.*
+
+## Start with how you use the room
+
+Before choosing a style, list what the room must do. Do you entertain often? Does anyone work from home? Is there a TV and how big? A layout that serves your habits beats a pretty one that does not. Bring this list to your first meeting with a designer.
+
+## HDB living room design layouts that work
+
+- **Sofa against the wall, open floor.** A simple arrangement keeps the walkway clear.
+- **Sofa as a divider.** A low-back sofa can separate the lounge from the dining area in an open plan.
+- **Wall-hung TV unit.** Floating cabinets keep the floor visible, which makes the room feel larger.
+- **Round coffee table.** Soft edges are easier to walk around in tight spaces.
+
+Measure first. A sofa that is 10 cm too long can spoil the whole layout.
+
+## Storage that does not shrink the room
+
+Built-in storage can use awkward corners well, and it keeps clutter off the floor. Options include a slim shoe cabinet, a TV wall unit with closed doors, and a bench with storage underneath. For more ideas that suit compact flats, read our guide to [small HDB storage ideas](/blog/small-hdb-storage-ideas).
+
+## Lighting and colour for a brighter room
+
+Light colours reflect more light and make a room feel bigger. Use layers of light: a main ceiling light, warm accent lighting, and a floor or table lamp for the evenings. Pendant lights over a dining table or a feature wall add character without taking up floor space.
+
+If you like a light, calm palette, our guide to [Scandinavian, Japandi and minimalist styles](/blog/scandinavian-vs-japandi-vs-minimalist-interior-design) compares three popular looks, and the [Japandi guide](/blog/japandi-interior-design-singapore) goes deeper into one.
+
+## Materials that last in Singapore's climate
+
+Humidity and daily use are hard on finishes. Choose flooring and carpentry that you can wipe clean and that cope with moisture. Our guides on [flooring options](/blog/hdb-flooring-options-vinyl-tiles-timber) and [laminate, veneer and solid wood](/blog/laminate-vs-veneer-vs-solid-wood-carpentry-singapore) explain how each material behaves and what it costs.
+
+## Plan the budget early
+
+Custom carpentry for the living room can be one of the larger items in a renovation. Get an indicative range from our [renovation cost calculator](/tools/renovation-cost-calculator), then ask for itemised quotes so you can see the cost of each feature.
+
+## Pull the plan together
+
+1. Write down how you use the room.
+2. Measure the space and your furniture.
+3. Pick a layout, then a storage plan.
+4. Choose a colour palette and layered lighting.
+5. Select materials that suit your lifestyle.
+6. Get itemised quotes and compare.
+
+Find firms that match your style by [browsing HDB interior designers](/interior-designers/hdb), and look at their portfolios for living rooms like yours.
+
+## Frequently asked questions
+
+### How can I make a small HDB living room look bigger?
+Use light colours, keep the floor visible with wall-hung furniture, choose a round coffee table and add layered lighting. Avoid bulky pieces that block the walkway.
+
+### Should I remove the wall between the living and dining areas?
+Some owners do to open the space, but HDB has rules on which walls can be removed. Check the [HDB renovation permit and rules guide](/guides/hdb-renovation-permit-and-rules) and ask your contractor.
+
+### What is the best TV wall setup for a small living room?
+A wall-hung TV with closed storage below keeps the floor clear and hides cables. Measure the viewing distance before you decide on the size.
+
+### How much does a living room renovation cost?
+It depends on carpentry, flooring and lighting. Ask for an itemised quote, and use our [cost calculator](/tools/renovation-cost-calculator) for a baseline.
+`,
+  },
 ];

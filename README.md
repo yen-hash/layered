@@ -113,6 +113,7 @@ Environment variables to set in production:
 ```
 SESSION_SECRET=<long random string>   # required — signs login sessions
 SITE_URL=https://www.example.sg       # required for SEO — canonical URLs, sitemap, structured data
+GA_MEASUREMENT_ID=G-XXXXXXXXXX       # optional — Google Analytics 4; nothing loads if unset
 ADMIN_EMAILS=you@example.com          # who may use /dashboard/blog (comma-separated; required in production)
 NODE_ENV=production                   # marks cookies Secure
 PORT=3000                             # or whatever your host expects
