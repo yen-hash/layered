@@ -27,6 +27,8 @@ services:
         sync: false   # prompted: https://<your-service>.onrender.com (edit later if you add a domain)
       - key: GA_MEASUREMENT_ID
         sync: false   # optional: Google Analytics 4 ID (G-XXXXXXXXXX); analytics stays off if blank
+      - key: CONTACT_EMAIL
+        sync: false   # public contact address shown on About/Privacy/Terms
     # For real use, uncomment the plan, disk and the two env vars below so the database AND uploaded photos
     # survive deploys (both must live under the disk's mountPath):
     # plan: starter
