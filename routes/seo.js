@@ -35,6 +35,9 @@ export function sitemapRoute(req, res, ctx) {
     { loc: '/guides/renovation-checklist-singapore', changefreq: 'monthly', priority: '0.9', lastmod: REVIEWED },
     ...GUIDES.map((g) => ({ loc: `/guides/${g.slug}`, changefreq: 'monthly', priority: '0.8', lastmod: REVIEWED })),
     { loc: '/tools/renovation-cost-calculator', changefreq: 'monthly', priority: '0.9', lastmod: DATA_REVIEWED },
+    { loc: '/about', changefreq: 'yearly', priority: '0.3' },
+    { loc: '/privacy', changefreq: 'yearly', priority: '0.2' },
+    { loc: '/terms', changefreq: 'yearly', priority: '0.2' },
     { loc: '/blog', changefreq: 'daily', priority: '0.8' },
     ...BLOG_CATEGORIES.map((c) => ({ loc: `/blog/category/${c.slug}`, changefreq: 'weekly', priority: '0.6' })),
     ...db.prepare("SELECT slug, COALESCE(updated_at, published_at) AS m FROM posts WHERE status = 'published' ORDER BY published_at DESC").all()

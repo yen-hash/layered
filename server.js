@@ -22,6 +22,7 @@ import { blogAdminList, blogAdminEditor, blogAdminSave, blogAdminDelete } from '
 import { isAdmin } from './lib/admin.js';
 import { calculatorRoute } from './routes/tools.js';
 import { verificationList, verificationAction } from './routes/verification.js';
+import { infoPageRoute } from './routes/pages.js';
 import { propertyLandingRoute, styleLandingRoute, guidesIndexRoute, guideRoute, checklistRoute } from './routes/content.js';
 import { signupPage, signupSubmit, loginPage, loginSubmit, logoutRoute, forgotPage, forgotSubmit, resetPage, resetSubmit } from './routes/auth.js';
 import {
@@ -184,6 +185,7 @@ async function router(req, res) {
     if (req.method === 'GET' && url.pathname === '/blog/rss.xml') return await rssRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname.startsWith('/blog/category/')) return await blogCategoryRoute(req, res, ctx, url, url.pathname.split('/')[3]);
     if (req.method === 'GET' && url.pathname.startsWith('/blog/')) return await blogPostRoute(req, res, ctx, url.pathname.split('/')[2]);
+    if (req.method === 'GET' && ['/about', '/privacy', '/terms'].includes(url.pathname)) return infoPageRoute(req, res, ctx, url.pathname.slice(1));
     if (req.method === 'GET' && url.pathname === '/guides') return await guidesIndexRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname === '/guides/renovation-checklist-singapore') return await checklistRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname.startsWith('/guides/')) return await guideRoute(req, res, ctx, url.pathname.split('/')[2]);
