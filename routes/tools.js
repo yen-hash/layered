@@ -1,8 +1,9 @@
-// routes/tools.js — interactive tools. Currently: the renovation cost calculator.
+// routes/tools.js — interactive tools: the renovation cost calculator and the itemised cost estimator.
 import { esc, layout } from '../lib/render.js';
 import { abs, breadcrumbSchema, faqSchema } from '../lib/seo.js';
 import { breadcrumbNav, faqHtml, formatDate } from '../lib/components.js';
 import { DATA, DATA_REVIEWED, estimate, budgetBand } from '../content/estimator.js';
+import { HOMES, ITEMS, PRESETS, CONTINGENCY, GST, SOURCES, ITEMS_REVIEWED, itemisedEstimate } from '../content/itemised.js';
 
 const money = (n) => `S$${Math.round(n).toLocaleString('en-SG')}`;
 const range = ([a, b], open) => (b === null ? `from ${money(a)}` : `${money(a)} - ${money(b)}${open ? '+' : ''}`);
@@ -111,6 +112,7 @@ export async function calculatorRoute(req, res, ctx) {
     </div>
 
     <section class="related"><h2>Read the detail behind the numbers</h2><ul>
+      <li><a href="/tools/renovation-cost-estimator">Itemised renovation cost estimator</a>: price item by item</li>
       <li><a href="/guides/hdb-renovation-cost-singapore">HDB renovation cost guide</a></li>
       <li><a href="/blog/3-room-hdb-renovation-cost-singapore">3-room</a> and <a href="/blog/4-room-vs-5-room-hdb-renovation-cost">4-room vs 5-room</a> costs</li>
       <li><a href="/guides/condo-renovation-cost-and-rules">Condo renovation cost and rules</a></li>
@@ -173,5 +175,145 @@ ${budgetBand.toString()}
       +'<p class="muted small">An indicative estimate from published 2026 ranges, not a quote.</p>';
   }
   root.addEventListener('input',render); root.addEventListener('change',render); render();
+})();`;
+}
+
+// ----- /tools/renovation-cost-estimator -----
+const EST_FAQS = [
+  { q: 'How is the itemised estimate worked out?', a: 'Each line multiplies your quantity by a low and high unit rate (per square foot, per foot run, per point or per item) published by Singapore contractors and cost guides in 2026. The lines are added up, and a 10% to 15% contingency is shown on top.' },
+  { q: 'Why is my itemised total lower than a firm\'s package price?', a: 'The estimate covers the works only. A firm\'s quote also includes design, project management, supervision, overheads and often GST, and it may include items you have not listed. Use the itemised total to understand where the money goes, and the whole-home calculator for a typical all-in range.' },
+  { q: 'What is a foot run?', a: 'Carpentry is usually priced per foot run: the length of the unit measured along the wall, in feet. A 6-foot-wide wardrobe is 6 foot run, whatever its height. Kitchen top and bottom cabinets are counted separately.' },
+  { q: 'Are the typical quantities right for my home?', a: 'They are a starting point we chose for a common scope, not measurements of your home. Change any quantity, set an item to zero to remove it, and ask your designer to measure on site.' },
+  { q: 'Does it include GST?', a: 'Not by default. GST-registered firms charge 9% GST, and you can tick the box to add it.' },
+];
+
+const rateText = (it) => {
+  if (it.rangeBy) return 'Depends on home size';
+  const f = (n) => `S$${n.toLocaleString('en-SG', { maximumFractionDigits: 1 })}`;
+  return `${f(it.range[0])} – ${f(it.range[1])} per ${it.unit}`;
+};
+
+export async function estimatorRoute(req, res, ctx) {
+  const site = ctx.site;
+  const path = '/tools/renovation-cost-estimator';
+  const crumbs = [{ name: 'Home', path: '/' }, { name: 'Renovation cost estimator', path }];
+  const homeOpts = Object.entries(HOMES).map(([k, v]) => `<option value="${k}"${k === 'hdb4' ? ' selected' : ''}>${esc(v.label)}</option>`).join('');
+  const groups = ITEMS.map((g) => `
+    <tbody>
+      <tr class="est-group"><th colspan="3" scope="colgroup">${esc(g.group)}</th></tr>
+      ${g.items.map((it) => `<tr>
+        <td><label for="q-${it.key}">${esc(it.label)}</label><span class="est-rate" data-rate="${it.key}">${esc(rateText(it))}</span></td>
+        <td class="est-qty"><input id="q-${it.key}" data-key="${it.key}" type="number" inputmode="decimal" min="0" step="1" value="0" aria-describedby="u-${it.key}"> <span class="muted small" id="u-${it.key}">${esc(it.unit)}</span></td>
+        <td class="est-line" data-line="${it.key}">–</td>
+      </tr>`).join('')}
+    </tbody>`).join('');
+  const rateRows = ITEMS.flatMap((g) => g.items.map((it) => [g.group, it.label, it.rangeBy
+    ? Object.entries(it.rangeBy).map(([h, r]) => `${HOMES[h].label}: ${range(r)}`).join('; ')
+    : rateText(it)]));
+
+  const body = `
+  <section class="wrap page-head">
+    ${breadcrumbNav(crumbs)}
+    <span class="eyebrow">Free tool</span>
+    <h1>Itemised renovation cost estimator</h1>
+    <p class="section-sub">Price your renovation item by item, the way a quotation is written: flooring per square foot, carpentry per foot run, electrical points, bathrooms and more. Unit rates are from Singapore contractors and cost guides published in 2026. It is an estimate to plan with, not a quote.</p>
+  </section>
+
+  <section class="wrap calc-section">
+    <div class="calc est" id="est">
+      <form class="est-setup" onsubmit="return false" novalidate>
+        <div class="field"><label for="e-home">Type of home</label><select id="e-home">${homeOpts}</select></div>
+        <div class="field"><label for="e-cond">New or resale?</label><select id="e-cond"><option value="bto">New (BTO or new condo)</option><option value="resale">Resale</option></select></div>
+        <div class="field est-buttons"><button type="button" class="btn btn-sm" id="e-preset">Fill in a typical scope</button> <button type="button" class="btn btn-sm btn-outline" id="e-clear">Clear all</button></div>
+      </form>
+      <div class="est-body">
+        <div class="table-scroll"><table class="data-table est-table">
+          <thead><tr><th scope="col">Item and unit rate</th><th scope="col">Quantity</th><th scope="col">Estimate</th></tr></thead>
+          ${groups}
+        </table></div>
+        <aside class="calc-result est-result" id="est-result" aria-live="polite"><p class="muted">Fill in a typical scope or enter quantities to see an estimate.</p></aside>
+        <a class="est-mini" id="est-mini" href="#est-result" hidden></a>
+      </div>
+    </div>
+    <noscript><p class="muted">The estimator needs JavaScript. All the unit rates are listed below, so you can work out an estimate by hand.</p></noscript>
+  </section>
+
+  <section class="wrap prose-section">
+    <h2>How the estimator works</h2>
+    <div class="prose">
+      <p>Each line multiplies your quantity by a low and a high unit rate, and the lines are added up. A <strong>10% to 15% contingency</strong> is shown on top, and you can add 9% GST. Rates were collected from published Singapore price guides and reviewed on ${esc(formatDate(ITEMS_REVIEWED))}.</p>
+      <p>The total covers the <strong>works only</strong>. Firms also charge for design, project management and supervision, so package quotes are usually higher. For a typical all-in range by home type, use the <a href="/tools/renovation-cost-calculator">renovation cost calculator</a>. Then compare <a href="/blog/how-to-read-a-renovation-quotation-singapore">itemised quotations</a> from two or three firms.</p>
+    </div>
+
+    <h2>All unit rates</h2>
+    ${table(['Category', 'Item', 'Rate'], rateRows)}
+
+    <h2>Where the rates come from</h2>
+    <ul class="sources">${SOURCES.map(([l, u]) => `<li>${esc(l)}: <a href="${esc(u)}" rel="nofollow noopener" target="_blank">${esc(new URL(u).hostname.replace(/^www\./, ''))}</a></li>`).join('')}</ul>
+    <p class="muted small">Typical quantities are our own assumptions for a common scope. Prices change, so treat every figure as indicative and rely on written quotes.</p>
+
+    ${faqHtml(EST_FAQS)}
+
+    <div class="cta-box">
+      <h2>Turn your estimate into quotes</h2>
+      <p>Compare Singapore interior designers, check their HDB licence and CaseTrust credentials, then get matched for free.</p>
+      <p><a class="btn btn-sm" href="/designers">Browse designers</a> <a class="btn btn-sm btn-outline" href="/guides/renovation-checklist-singapore">Renovation checklist</a></p>
+    </div>
+  </section>
+  <script>${EST_JS()}</script>`;
+
+  res.end(layout({
+    title: 'Itemised Renovation Cost Estimator Singapore',
+    description: 'Estimate your Singapore renovation item by item: flooring per sq ft, carpentry per foot run, bathrooms, electrical points and painting, using 2026 unit rates.',
+    path, site, body, business: ctx.business, flash: ctx.flash,
+    jsonLd: [
+      breadcrumbSchema(site, crumbs),
+      faqSchema(EST_FAQS),
+      { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Itemised renovation cost estimator', url: abs(site, path), applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', inLanguage: 'en-SG', offers: { '@type': 'Offer', price: '0', priceCurrency: 'SGD' } },
+    ],
+  }));
+}
+
+function EST_JS() {
+  return `
+var ITEMS=${JSON.stringify(ITEMS)}, PRESETS=${JSON.stringify(PRESETS)}, CONTINGENCY=${JSON.stringify(CONTINGENCY)}, GST=${GST}, HOMES=${JSON.stringify(HOMES)};
+${itemisedEstimate.toString()}
+${budgetBand.toString()}
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var root=$('est'), out=$('est-result'), gst=false;
+  var inputs=[].slice.call(root.querySelectorAll('input[data-key]'));
+  function fmt(n){return 'S$'+(Math.round(n/10)*10).toLocaleString('en-SG')}
+  function money(n){return 'S$'+n.toLocaleString('en-SG',{maximumFractionDigits:1})}
+  function find(k){for(var g=0;g<ITEMS.length;g++)for(var i=0;i<ITEMS[g].items.length;i++)if(ITEMS[g].items[i].key===k)return ITEMS[g].items[i]}
+  function render(){
+    var home=$('e-home').value, qty={};
+    inputs.forEach(function(el){qty[el.getAttribute('data-key')]=el.value});
+    [].forEach.call(root.querySelectorAll('[data-rate]'),function(el){var it=find(el.getAttribute('data-rate'));if(it.rangeBy){var r=it.rangeBy[home];el.textContent=r?money(r[0])+' – '+money(r[1])+' per '+it.unit:'Ask for a quote for this home type'}});
+    [].forEach.call(root.querySelectorAll('[data-line]'),function(el){el.textContent='–'});
+    var r=itemisedEstimate({home:home,qty:qty},ITEMS,CONTINGENCY);
+    var mini=$('est-mini');
+    if(!r.ok){out.innerHTML='<p class="calc-error">'+r.error+'</p>';mini.hidden=true;return}
+    r.lines.forEach(function(l){var c=root.querySelector('[data-line="'+l.key+'"]');if(c)c.textContent=fmt(l.low)+' – '+fmt(l.high)});
+    var m=gst?1+GST:1, lo=r.low*m, hi=r.high*m, sl=r.suggestedLow*m, sh=r.suggestedHigh*m;
+    var groups={};r.lines.forEach(function(l){groups[l.group]=groups[l.group]||[0,0];groups[l.group][0]+=l.low*m;groups[l.group][1]+=l.high*m});
+    var type=home==='condo'?'Condo':'HDB';
+    var cta='/?type='+type+'&budget='+encodeURIComponent(budgetBand((sl+sh)/2))+'#get-recommendations';
+    out.innerHTML='<p class="calc-label">Estimated cost of the works'+(gst?' incl. GST':'')+'</p><p class="calc-big">'+fmt(lo)+' – '+fmt(hi)+'</p>'
+      +'<p class="calc-label">Suggested budget with a 10–15% buffer</p><p class="calc-sub">'+fmt(sl)+' – '+fmt(sh)+'</p>'
+      +'<label class="est-gst"><input type="checkbox" id="e-gst"'+(gst?' checked':'')+'> Add 9% GST</label>'
+      +'<ul class="est-summary">'+Object.keys(groups).map(function(g){return '<li><span>'+g+'</span><span>'+fmt(groups[g][0])+' – '+fmt(groups[g][1])+'</span></li>'}).join('')+'</ul>'
+      +(r.skipped.length?'<p class="muted small">Not priced for this home type: '+r.skipped.join(', ')+'.</p>':'')
+      +'<p class="muted small">Works only. Design, project management and supervision are usually extra.</p>'
+      +'<p class="calc-actions"><a class="btn" href="'+cta+'">Get matched with designers</a></p>';
+    mini.hidden=false;mini.innerHTML='<span>Estimate'+(gst?' incl. GST':'')+'</span><strong>'+fmt(lo)+' – '+fmt(hi)+'</strong>';
+    $('e-gst').addEventListener('change',function(e){gst=e.target.checked;render()});
+  }
+  function preset(){var p=PRESETS[$('e-cond').value][$('e-home').value]||{};inputs.forEach(function(el){el.value=p[el.getAttribute('data-key')]||0});render()}
+  $('e-preset').addEventListener('click',preset);
+  $('e-clear').addEventListener('click',function(){inputs.forEach(function(el){el.value=0});render()});
+  root.addEventListener('input',function(e){if(e.target.id!=='e-gst')render()});
+  $('e-home').addEventListener('change',render);
+  preset();
 })();`;
 }
