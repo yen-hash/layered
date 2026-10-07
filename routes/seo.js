@@ -2,6 +2,7 @@
 import { db } from '../db.js';
 import { esc } from '../lib/render.js';
 import { GUIDES, REVIEWED } from '../content/guides.js';
+import { TRADES } from '../content/trades.js';
 import { PROPERTY_PAGES, STYLE_PAGES } from '../content/landing.js';
 import { BLOG_CATEGORIES } from '../content/blog-meta.js';
 import { DATA_REVIEWED } from '../content/estimator.js';
@@ -37,6 +38,9 @@ export function sitemapRoute(req, res, ctx) {
     { loc: '/tools/renovation-cost-calculator', changefreq: 'monthly', priority: '0.9', lastmod: DATA_REVIEWED },
     { loc: '/tools/renovation-cost-estimator', changefreq: 'monthly', priority: '0.9' },
     { loc: '/tools/room-planner', changefreq: 'monthly', priority: '0.8' },
+    { loc: '/landed', changefreq: 'weekly', priority: '0.9' },
+    { loc: '/services', changefreq: 'weekly', priority: '0.8' },
+    ...TRADES.map((t) => ({ loc: `/services/${t.slug}`, changefreq: 'weekly', priority: '0.7' })),
     { loc: '/about', changefreq: 'yearly', priority: '0.3' },
     { loc: '/privacy', changefreq: 'yearly', priority: '0.2' },
     { loc: '/terms', changefreq: 'yearly', priority: '0.2' },

@@ -117,6 +117,11 @@ const postCols = db.prepare('PRAGMA table_info(posts)').all().map((c) => c.name)
 for (const [col, ddl] of [['author_business_id', 'INTEGER DEFAULT 0'], ['review_note', "TEXT DEFAULT ''"]]) {
   if (!postCols.includes(col)) db.exec(`ALTER TABLE posts ADD COLUMN ${col} ${ddl}`);
 }
+// Business category (interior design, a renovation trade or a landed specialist) and the category a lead was for.
+if (!businessCols.includes('category')) db.exec("ALTER TABLE businesses ADD COLUMN category TEXT NOT NULL DEFAULT 'interior-design'");
+const leadCols = db.prepare('PRAGMA table_info(leads)').all().map((c) => c.name);
+if (!leadCols.includes('category')) db.exec("ALTER TABLE leads ADD COLUMN category TEXT NOT NULL DEFAULT 'interior-design'");
+db.exec('CREATE INDEX IF NOT EXISTS idx_businesses_category ON businesses(category)');
 if (!businessCols.includes('hdb_licence_no')) db.exec("ALTER TABLE businesses ADD COLUMN hdb_licence_no TEXT DEFAULT ''");
 if (!businessCols.includes('casetrust')) db.exec("ALTER TABLE businesses ADD COLUMN casetrust TEXT DEFAULT ''");
 // Admin verification: stores *what* was checked and when, so editing the value later voids the mark.
