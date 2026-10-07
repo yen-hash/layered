@@ -4,6 +4,8 @@ export const BLOG_CATEGORIES = [
   { slug: 'rules-and-permits', name: 'Rules & Permits', blurb: 'HDB permits, condo approvals, working hours and the checks to make before work starts.' },
   { slug: 'choosing-a-designer', name: 'Choosing a Designer', blurb: 'How to compare interior designers, platforms and quotes, and avoid the common traps.' },
   { slug: 'design-ideas', name: 'Design Ideas', blurb: 'Styles, layouts and inspiration for HDB, condo and landed homes in Singapore.' },
+  { slug: 'landed-homes', name: 'Landed Homes', blurb: 'A&A and rebuild for landed owners: approvals, the professional team, timelines and what each stage costs.' },
+  { slug: 'trades-and-moving-in', name: 'Trades & Moving In', blurb: 'Choosing and briefing the trades behind a renovation, and everything to plan before and after you move in.' },
 ];
 export const categoryByName = (name) => BLOG_CATEGORIES.find((c) => c.name === name) || null;
 export const categoryBySlug = (slug) => BLOG_CATEGORIES.find((c) => c.slug === slug) || null;
@@ -13,4 +15,6 @@ export const CATEGORY_COVERS = {
   'Rules & Permits': '/images/cover-rules.jpg',
   'Choosing a Designer': '/images/cover-choose.jpg',
   'Design Ideas': '/images/cover-design.jpg',
+  'Landed Homes': '/images/cover-landed.jpg',
+  'Trades & Moving In': '/images/cover-storage.jpg',
 };

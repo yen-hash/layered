@@ -45,7 +45,7 @@ export function sitemapRoute(req, res, ctx) {
     { loc: '/privacy', changefreq: 'yearly', priority: '0.2' },
     { loc: '/terms', changefreq: 'yearly', priority: '0.2' },
     { loc: '/blog', changefreq: 'daily', priority: '0.8' },
-    ...BLOG_CATEGORIES.map((c) => ({ loc: `/blog/category/${c.slug}`, changefreq: 'weekly', priority: '0.6' })),
+    ...BLOG_CATEGORIES.filter((c) => db.prepare("SELECT 1 FROM posts WHERE status = 'published' AND category = ?").get(c.name)).map((c) => ({ loc: `/blog/category/${c.slug}`, changefreq: 'weekly', priority: '0.6' })),
     ...db.prepare("SELECT slug, COALESCE(updated_at, published_at) AS m FROM posts WHERE status = 'published' ORDER BY published_at DESC").all()
       .map((p) => ({ loc: `/blog/${p.slug}`, changefreq: 'monthly', priority: '0.7', lastmod: String(p.m || '').slice(0, 10) || undefined })),
     { loc: '/signup', changefreq: 'monthly', priority: '0.4' },
