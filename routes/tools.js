@@ -3,7 +3,7 @@ import { esc, layout } from '../lib/render.js';
 import { abs, breadcrumbSchema, faqSchema } from '../lib/seo.js';
 import { breadcrumbNav, faqHtml, formatDate } from '../lib/components.js';
 import { DATA, DATA_REVIEWED, estimate, budgetBand } from '../content/estimator.js';
-import { ROOM_TYPES, CATALOG, LAYOUTS, planQuantities } from '../content/planner.js';
+import { ROOM_TYPES, CATALOG, LAYOUTS, WALL, planQuantities } from '../content/planner.js';
 import { HOMES, ITEMS, PRESETS, CONTINGENCY, GST, SOURCES, ITEMS_REVIEWED, itemisedEstimate } from '../content/itemised.js';
 
 const money = (n) => `S$${Math.round(n).toLocaleString('en-SG')}`;
@@ -338,7 +338,7 @@ const PLAN_FAQS = [
   { q: 'Can a designer use my plan?', a: 'Yes. Download it as an image or print it, and send the summary with an enquiry so firms see your layout and built-ins before they quote.' },
 ];
 
-const PLAN_SVG_CSS = 'text{font-family:system-ui,sans-serif;font-size:.26px;fill:#231e19}.pl-dim{font-size:.2px;fill:#6b6159}.pl-room rect{fill:#fbf6ee;stroke:#231e19;stroke-width:.06}.pl-bathroom rect,.pl-kitchen rect,.pl-yard rect{fill:#e8eef0}.pl-item rect{fill:#fff;stroke:#8a7f75;stroke-width:.025}.pl-item.is-built rect{fill:#f3dccb;stroke:#a85a32}.pl-item.is-wall rect{fill:none;stroke-dasharray:.08 .05}.pl-itemlabel{font-size:.16px}.pl-gridline{stroke:#eee;stroke-width:.01}';
+const PLAN_SVG_CSS = 'text{font-family:system-ui,sans-serif;font-size:.26px;fill:#231e19}.pl-dim{font-size:.2px;fill:#6b6159}.pl-room rect{fill:#fbf6ee;stroke:#231e19;stroke-width:.15}.pl-gap{fill:#fff}.pl-hit{fill:transparent}.pl-grab{stroke:none}.pl-leaf{stroke:#231e19;stroke-width:.04}.pl-main{stroke-width:.07}.pl-swing{fill:none;stroke:#8a7f75;stroke-width:.02;stroke-dasharray:.06 .04}.pl-win{fill:#fff;stroke:#231e19;stroke-width:.025}.pl-glass{stroke:#4a90b8;stroke-width:.03}.pl-panel{stroke:#231e19;stroke-width:.035}.pl-bathroom rect,.pl-kitchen rect,.pl-yard rect{fill:#e8eef0}.pl-item rect{fill:#fff;stroke:#8a7f75;stroke-width:.025}.pl-item.is-built rect{fill:#f3dccb;stroke:#a85a32}.pl-item.is-wall rect{fill:none;stroke-dasharray:.08 .05}.pl-itemlabel{font-size:.16px}.pl-gridline{stroke:#eee;stroke-width:.01}';
 
 export async function plannerRoute(req, res, ctx) {
   const site = ctx.site;
@@ -347,10 +347,11 @@ export async function plannerRoute(req, res, ctx) {
   const qtyLabels = {};
   ITEMS.forEach((g) => g.items.forEach((it) => { qtyLabels[it.key] = it.label; }));
   const builtIns = Object.entries(CATALOG).filter(([, c]) => c.built);
-  const loose = Object.entries(CATALOG).filter(([, c]) => !c.built);
+  const loose = Object.entries(CATALOG).filter(([, c]) => !c.built && !c.opening);
+  const openings = Object.entries(CATALOG).filter(([, c]) => c.opening);
   const addBtns = (list) => list.map(([k, c]) => `<button type="button" class="pl-add" data-add="${k}">${esc(c.label)}</button>`).join('');
   const layoutOpts = Object.entries(LAYOUTS).map(([k, l]) => `<option value="${k}"${k === 'hdb4' ? ' selected' : ''}>${esc(l.label)}</option>`).join('');
-  const data = { roomTypes: ROOM_TYPES, catalog: CATALOG, layouts: LAYOUTS, qtyLabels, svgCss: PLAN_SVG_CSS };
+  const data = { roomTypes: ROOM_TYPES, catalog: CATALOG, layouts: LAYOUTS, qtyLabels, wall: WALL, svgCss: PLAN_SVG_CSS };
 
   const body = `
   <section class="wrap page-head">
@@ -371,11 +372,13 @@ export async function plannerRoute(req, res, ctx) {
       <div class="pl-body">
         <div class="pl-canvas">
           <svg id="pl-svg" role="img" aria-label="Floor plan drawing" xmlns="http://www.w3.org/2000/svg"></svg>
-          <p class="muted small">Drag rooms and items to move them, drag the corner square to resize, drag empty space to pan. Arrow keys nudge the selection; Delete removes it.</p>
+          <p class="muted small">Drag rooms and items to move them, drag the corner square to resize, drag empty space to pan. Doors and windows snap onto the nearest wall. Arrow keys nudge the selection; Delete removes it.</p>
         </div>
         <aside class="pl-side">
           <h2 class="pl-h">Selected</h2>
           <div id="pl-panel"></div>
+          <h2 class="pl-h">Add doors &amp; windows <span class="muted small">(snap to walls)</span></h2>
+          <div class="pl-adds">${addBtns(openings)}</div>
           <h2 class="pl-h">Add built-ins <span class="muted small">(priced)</span></h2>
           <div class="pl-adds">${addBtns(builtIns)}</div>
           <h2 class="pl-h">Add furniture <span class="muted small">(for layout only)</span></h2>
@@ -405,6 +408,7 @@ export async function plannerRoute(req, res, ctx) {
     <div class="prose">
       <ol>
         <li><strong>Start from a typical layout</strong> for a 3-, 4- or 5-room HDB flat or a condo, or a blank plan. The layouts are approximate, so adjust the room sizes to match your floor plan, or trace over a picture of it.</li>
+        <li><strong>Add doors and windows</strong>. The starter layouts include them; drag one near a wall and it snaps into place. Use "Swing other side" and "Flip hinge" to set which way a door opens.</li>
         <li><strong>Place your built-ins</strong>: wardrobes, kitchen cabinets, TV console, shoe cabinet, study table and platform beds. Set each one's width to the length you want.</li>
         <li><strong>Check the summary</strong>: dry floor area for flooring and the foot runs of carpentry, the units Singapore firms quote in.</li>
         <li><strong>Price it</strong> in the <a href="/tools/renovation-cost-estimator">itemised cost estimator</a>, then add bathrooms, electrical and painting. For a quick all-in range, see the <a href="/tools/renovation-cost-calculator">cost calculator</a>.</li>

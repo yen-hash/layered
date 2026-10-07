@@ -552,3 +552,18 @@ a.eyebrow { padding: 6px 0; }
   .pl-body { display: block; } .pl-canvas svg { height: 18cm; border: 0; }
 }
 .pl-dims input, .pl-side .field input[type=text], .pl-side select { width: 100%; }
+#pl-svg .pl-room rect { stroke-width: .15; }
+#pl-svg .pl-gap { fill: #fff; }
+#pl-svg .pl-hit { fill: transparent; }
+#pl-svg .pl-leaf { stroke: var(--ink); stroke-width: .04; }
+#pl-svg .pl-swing { fill: none; stroke: #8a7f75; stroke-width: .02; stroke-dasharray: .06 .04; }
+#pl-svg .pl-win { fill: #fff; stroke: var(--ink); stroke-width: .025; }
+#pl-svg .pl-glass { stroke: #4a90b8; stroke-width: .03; }
+#pl-svg .pl-panel { stroke: var(--ink); stroke-width: .035; }
+#pl-svg .pl-open { cursor: move; }
+#pl-svg .pl-open.is-sel .pl-hit, #pl-svg .pl-open.is-sel .pl-win { stroke: #2b6cb0; stroke-width: .05; }
+#pl-svg .pl-leaf.pl-main { stroke-width: .07; }
+#pl-svg .pl-open { pointer-events: none; }
+#pl-svg .pl-open .pl-gap, #pl-svg .pl-open .pl-win, #pl-svg .pl-open .pl-hit, #pl-svg .pl-open .pl-grab, #pl-svg .pl-open .pl-handle { pointer-events: all; }
+#pl-svg .pl-grab { stroke: transparent; stroke-width: .3; }
+#pl-svg .pl-open.is-sel .pl-gap { stroke: #2b6cb0; stroke-width: .04; }

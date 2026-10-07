@@ -43,3 +43,28 @@ test('starter layouts use known room types and items, and give plausible sizes',
     assert.ok(r.bathrooms >= 2);
   }
 });
+
+test('doors and windows are counted but never priced', () => {
+  const r = q({ rooms: [{ type: 'living', w: 4, h: 4 }], items: [{ kind: 'door', w: 0.85, h: 0.85 }, { kind: 'mainDoor', w: 1, h: 1 }, { kind: 'slidingDoor', w: 1.6, h: 0.15 }, { kind: 'window', w: 1.2, h: 0.15 }] });
+  assert.deepEqual([r.doors, r.windows], [3, 1]);
+  assert.deepEqual(Object.keys(r.qty), ['vinyl']);
+});
+
+test('starter layouts put every door and window on a room wall', () => {
+  const onWall = (rooms, x, y) => rooms.some((r) => (
+    (Math.abs(y - r.y) < 0.02 || Math.abs(y - (r.y + r.h)) < 0.02) && x >= r.x - 0.01 && x <= r.x + r.w + 0.01)
+    || ((Math.abs(x - r.x) < 0.02 || Math.abs(x - (r.x + r.w)) < 0.02) && y >= r.y - 0.01 && y <= r.y + r.h + 0.01));
+  for (const [k, l] of Object.entries(LAYOUTS)) {
+    const ops = l.items.filter((i) => CATALOG[i.kind].opening);
+    if (k !== 'blank') assert.ok(ops.some((i) => i.kind === 'mainDoor'), `${k}: no main door`);
+    for (const o of ops) {
+      if (CATALOG[o.kind].opening === 'door') {
+        // The hinge sits on the wall: top edge (r 0), right (90), bottom (180) or left (270) of its square.
+        const hinge = { 0: [o.x + o.w / 2, o.y], 90: [o.x + o.w, o.y + o.h / 2], 180: [o.x + o.w / 2, o.y + o.h], 270: [o.x, o.y + o.h / 2] }[o.r];
+        assert.ok(hinge && onWall(l.rooms, hinge[0], hinge[1]), `${k}: door off-wall ${JSON.stringify(o)}`);
+      } else {
+        assert.ok(onWall(l.rooms, o.x + o.w / 2, o.y + o.h / 2), `${k}: window off-wall ${JSON.stringify(o)}`);
+      }
+    }
+  }
+});

@@ -28,10 +28,78 @@ export const CATALOG = {
   singleBed: { label: 'Single bed', w: 1.0, h: 2.0 },
   fridge: { label: 'Fridge', w: 0.7, h: 0.7 },
   washer: { label: 'Washing machine', w: 0.6, h: 0.6 },
+  // Openings snap onto room walls. Layout only: they are not priced from the plan.
+  door: { label: 'Door', w: 0.85, h: 0.85, opening: 'door' },
+  mainDoor: { label: 'Main door', w: 1.0, h: 1.0, opening: 'door' },
+  slidingDoor: { label: 'Sliding door', w: 1.6, h: 0.15, opening: 'sliding' },
+  window: { label: 'Window', w: 1.2, h: 0.15, opening: 'window' },
 };
+
+export const WALL = 0.15; // drawn wall and opening thickness, metres
 
 const R = (name, type, x, y, w, h) => ({ name, type, x, y, w, h });
 const I = (kind, x, y, w, h) => ({ kind, x, y, w, h });
+
+// Adds doors and windows to a starter layout: one window on each living room, bedroom and kitchen's
+// longest outside wall, a door from each other room into the room it shares the longest wall with
+// (preferring the living room), and a main door on an outside wall of the living room.
+function edges(r) {
+  return [
+    { o: 'h', at: r.y, from: r.x, to: r.x + r.w, rot: 0 },          // top wall, swing down into room
+    { o: 'h', at: r.y + r.h, from: r.x, to: r.x + r.w, rot: 180 },  // bottom wall
+    { o: 'v', at: r.x, from: r.y, to: r.y + r.h, rot: 270 },        // left wall
+    { o: 'v', at: r.x + r.w, from: r.y, to: r.y + r.h, rot: 90 },   // right wall
+  ];
+}
+// Which neighbour a door should open onto: corridor first, then living room, never a bedroom if avoidable.
+const RANK = { Corridor: 6, living: 5, kitchen: 2, other: 1, yard: 0, bedroom: -2, bathroom: -3 };
+function shared(e, rooms, self) {
+  let best = null;
+  for (const o of rooms) {
+    if (o === self) continue;
+    for (const f of edges(o)) {
+      if (f.o !== e.o || Math.abs(f.at - e.at) > 0.01) continue;
+      const a = Math.max(e.from, f.from), b = Math.min(e.to, f.to);
+      // An en-suite opens from its bedroom.
+      const ensuite = self.name === 'Master bath' && o.name === 'Master bedroom';
+      const score = (ensuite ? 10 : RANK[o.name] ?? RANK[o.type] ?? 0) * 100 + (b - a);
+      if (b - a > 0.7 && (!best || score > best.score)) best = { room: o, from: a, to: b, len: b - a, score };
+    }
+  }
+  return best;
+}
+const r2 = (v) => Math.round(v * 100) / 100;
+function doorOn(kind, e, from, size) {
+  if (e.o === 'h') return { kind, x: r2(from), y: r2(e.rot === 0 ? e.at : e.at - size), w: size, h: size, r: e.rot, m: 0 };
+  return { kind, x: r2(e.rot === 270 ? e.at : e.at - size), y: r2(from), w: size, h: size, r: e.rot, m: 0 };
+}
+function windowOn(e) {
+  const len = r2(Math.min(1.8, (e.to - e.from) * 0.5));
+  const mid = (e.from + e.to) / 2;
+  return e.o === 'h'
+    ? { kind: 'window', x: r2(mid - len / 2), y: r2(e.at - 0.075), w: len, h: 0.15 }
+    : { kind: 'window', x: r2(e.at - 0.075), y: r2(mid - len / 2), w: 0.15, h: len };
+}
+function withOpenings(layout) {
+  const out = [];
+  for (const room of layout.rooms) {
+    const es = edges(room).map((e) => ({ ...e, share: shared(e, layout.rooms, room) }));
+    const outside = es.filter((e) => !e.share).sort((a, b) => (b.to - b.from) - (a.to - a.from));
+    if (['living', 'bedroom', 'kitchen'].includes(room.type) && outside[0]) out.push(windowOn(outside[0]));
+    if (room.type === 'living') {
+      const wall = outside[1] || outside[0];
+      if (wall) out.push(doorOn('mainDoor', wall, wall.to - 1.3, 1.0));
+      continue;
+    }
+    if (room.type === 'yard' || room.name === 'Corridor') continue;
+    const inner = es.filter((e) => e.share).sort((a, b) => b.share.score - a.share.score)[0];
+    if (!inner) continue;
+    // Doors go at the far end of the shared wall, clear of the wardrobes the layouts place at the near end.
+    const size = room.type === 'bathroom' ? 0.7 : 0.85;
+    out.push(doorOn('door', inner, inner.share.to - size - 0.15, size));
+  }
+  return { ...layout, items: layout.items.concat(out) };
+}
 
 export const LAYOUTS = {
   hdb3: {
@@ -72,15 +140,25 @@ export const LAYOUTS = {
   },
   blank: { label: 'Blank plan', rooms: [], items: [] },
 };
+// HDB starter layouts get a 1 m corridor between the living area and the bedrooms, so doors have
+// somewhere sensible to open onto.
+function withCorridor(layout, splitY, width) {
+  const shift = (o) => (o.y >= splitY - 0.001 ? { ...o, y: r2(o.y + 1) } : o);
+  return { ...layout, rooms: [R('Corridor', 'other', 0, splitY, width, 1)].concat(layout.rooms.map(shift)), items: layout.items.map(shift) };
+}
+LAYOUTS.hdb3 = withCorridor(LAYOUTS.hdb3, 4, 7.9);
+LAYOUTS.hdb4 = withCorridor(LAYOUTS.hdb4, 4.4, 11);
+LAYOUTS.hdb5 = withCorridor(LAYOUTS.hdb5, 4.6, 11.7);
+for (const k of Object.keys(LAYOUTS)) LAYOUTS[k] = withOpenings(LAYOUTS[k]);
 
 export const SQFT_PER_M2 = 10.7639;
 export const FT_PER_M = 3.28084;
 
 // plan: { rooms: [{ type, w, h }], items: [{ kind, w, h }] }
-// returns { totalM2, dryM2, drySqft, bathrooms, rooms, qty: { estimatorKey: number } }
+// returns { totalM2, dryM2, drySqft, bathrooms, rooms, doors, windows, qty: { estimatorKey: number } }
 export function planQuantities(plan, ROOM_TYPES, CATALOG) {
   var SQFT = 10.7639, FT = 3.28084;
-  var totalM2 = 0, dryM2 = 0, bathrooms = 0, rooms = 0, runs = {}, qty = {};
+  var totalM2 = 0, dryM2 = 0, bathrooms = 0, rooms = 0, doors = 0, windows = 0, runs = {}, qty = {};
   var num = function (v) { var x = Number(v); return isFinite(x) && x > 0 ? x : 0; };
   (plan.rooms || []).forEach(function (r) {
     var t = ROOM_TYPES[r.type]; if (!t) return;
@@ -90,12 +168,15 @@ export function planQuantities(plan, ROOM_TYPES, CATALOG) {
     if (r.type === 'bathroom') bathrooms++;
   });
   (plan.items || []).forEach(function (it) {
-    var c = CATALOG[it.kind]; if (!c || !c.qty) return;
+    var c = CATALOG[it.kind]; if (!c) return;
+    if (c.opening === 'window') { windows++; return; }
+    if (c.opening) { doors++; return; }
+    if (!c.qty) return;
     if (c.measure === 'count') { qty[c.qty] = (qty[c.qty] || 0) + 1; return; }
     runs[c.qty] = (runs[c.qty] || 0) + Math.max(num(it.w), num(it.h)) * FT;
   });
   Object.keys(runs).forEach(function (k) { if (runs[k] > 0) qty[k] = Math.ceil(runs[k]); });
   var drySqft = Math.round(dryM2 * SQFT);
   if (drySqft > 0) qty.vinyl = drySqft;
-  return { totalM2: Math.round(totalM2 * 10) / 10, dryM2: Math.round(dryM2 * 10) / 10, drySqft: drySqft, bathrooms: bathrooms, rooms: rooms, qty: qty };
+  return { totalM2: Math.round(totalM2 * 10) / 10, dryM2: Math.round(dryM2 * 10) / 10, drySqft: drySqft, bathrooms: bathrooms, rooms: rooms, doors: doors, windows: windows, qty: qty };
 }
