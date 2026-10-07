@@ -1,3 +1,4 @@
+import { heroPlanSvg } from '../lib/planSvg.js';
 import { TRADE_BY_SLUG, LANDED_PROS, LANDED_COSTS, CATEGORY_BY_SLUG, DEFAULT_CATEGORY, validCategory } from '../content/trades.js';
 import { db, PROPERTY_TYPES, STYLES, BUDGET_RANGES } from '../db.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
@@ -154,28 +155,38 @@ export async function homeRoute(req, res, ctx) {
   <section class="hero">
     <div class="wrap hero-inner">
       <div class="hero-copy">
-        <span class="eyebrow">Interior design &amp; renovation in Singapore</span>
-        <h1>Find the <em>right</em> interior designer for your home</h1>
-        <p class="lead">Compare Singapore interior designers and renovation firms for your HDB, condo, landed or commercial project. Check their HDB licence and CaseTrust credentials, then tell us about your renovation and we'll match you with firms that take on projects like yours.</p>
+        <h1>Find an interior designer for your Singapore home</h1>
+        <p class="lead">Compare firms by property type and style, check their HDB licence and CaseTrust credentials, and price your plan before you ask for a quote.</p>
         <div class="hero-cta">
           <a class="btn" href="#get-recommendations">Get matched</a>
-          <a class="btn btn-outline" href="/guides/renovation-checklist-singapore">Free renovation checklist</a>
-          <a class="btn btn-outline" href="/guides/renovation-for-beginners-singapore">First time renovating?</a>
+          <a class="btn btn-outline" href="/tools/room-planner">Draw your layout</a>
         </div>
-        <div class="stats">
-          <div class="stat"><b>${counts.businesses}</b><span>Designers listed</span></div>
-          <div class="stat"><b>${counts.projects}</b><span>Projects to browse</span></div>
-          <div class="stat"><b>${GUIDES.length + 1 + counts.posts}</b><span>Free guides &amp; articles</span></div>
+        <p class="hero-note">Free for homeowners. Credentials are self-declared unless a profile shows our checked mark and date. <a href="/guides/renovation-for-beginners-singapore">First time renovating?</a></p>
+      </div>
+      <div class="sheet">
+        ${heroPlanSvg('hdb4')}
+        <div class="sheet-bar">
+          <div class="layer-toggles" role="group" aria-label="Show or hide drawing layers">
+            <button type="button" data-layer="structure" aria-pressed="true" style="--key:#fbfdfb">Structure</button>
+            <button type="button" data-layer="built" aria-pressed="true">Built-ins</button>
+            <button type="button" data-layer="loose" aria-pressed="true" style="--key:#cfe0d8">Furniture</button>
+          </div>
+          <a class="sheet-link" href="/tools/room-planner">Plan your own flat</a>
         </div>
       </div>
-      <div class="hero-art">
-        <div class="arch"><img src="/images/hero-1280.jpg" alt="Bright, modern living room interior with a sofa and pendant lights" width="1280" height="960" fetchpriority="high"></div>
-        <div class="float-card"><span class="float-dot" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><b>HDB &amp; CaseTrust</b><span>Credentials shown on every profile, with links to check them</span></div></div>
-      </div>
+    </div>
+    <script>document.querySelectorAll('.layer-toggles button').forEach(function(b){b.addEventListener('click',function(){var on=b.getAttribute('aria-pressed')==='true';b.setAttribute('aria-pressed',String(!on));document.querySelectorAll('.plan-layer[data-layer="'+b.dataset.layer+'"]').forEach(function(l){l.toggleAttribute('hidden',on);});});});</script>
+  </section>
+  <section class="wrap">
+    <h2>From first sketch to a shortlist</h2>
+    <p class="section-sub">The tools are free and work together, so what you draw and price becomes a clear brief.</p>
+    <div class="steps">
+      <div class="step"><b>1</b><h3>Draw your layout</h3><p>Place rooms, wardrobes and kitchen cabinets to scale. Layered works out the floor area and carpentry foot runs.</p><a href="/tools/room-planner">Open the room planner</a></div>
+      <div class="step"><b>2</b><h3>Price the plan</h3><p>See an itemised range from 2026 unit rates, with a buffer, before any firm has quoted.</p><a href="/tools/renovation-cost-estimator">Open the cost estimator</a></div>
+      <div class="step"><b>3</b><h3>Compare and request quotes</h3><p>Shortlist designers who do your kind of home, check their credentials, and send one brief to several.</p><a href="/designers">Browse designers</a></div>
     </div>
   </section>
   <section class="wrap">
-    <span class="eyebrow">Start with your home</span>
     <h2>Interior designers in Singapore by property type</h2>
     <p class="section-sub">Whether you are renovating a new BTO, a resale flat, a condo or a landed home, start with firms that do your kind of project.</p>
     <div class="grid grid-4">
@@ -183,14 +194,12 @@ export async function homeRoute(req, res, ctx) {
     </div>
   </section>
   <section class="wrap">
-    <span class="eyebrow">The directory</span>
     <h2>Featured designers</h2>
     <p class="section-sub">A snapshot of firms on Layered right now.</p>
     <div class="grid grid-3">${featured.map(designerCard).join('') || '<p class="muted">No designers listed yet.</p>'}</div>
     <p style="margin-top:20px"><a href="/designers">Browse the full directory →</a></p>
   </section>
   <section class="wrap">
-    <span class="eyebrow">Beyond interior design</span>
     <h2>Everything else your renovation needs</h2>
     <div class="grid grid-2 home-beyond">
       <a class="card landed-feature" href="/landed"><div class="body"><span class="eyebrow">Premium</span><h3>Landed A&amp;A and rebuild</h3><p>Architects, structural engineers and landed builders, with 2026 costs, approvals and timelines.</p><span class="more">Explore landed →</span></div></a>
@@ -198,7 +207,6 @@ export async function homeRoute(req, res, ctx) {
     </div>
   </section>
   <section class="wrap">
-    <span class="eyebrow">Learn before you spend</span>
     <h2>Renovation guides for Singapore homeowners</h2>
     <p class="section-sub">Costs, permits and how to pick the right firm, explained in plain English.</p>
     <div class="grid grid-3">
