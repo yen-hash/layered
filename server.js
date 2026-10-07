@@ -23,6 +23,7 @@ import { isAdmin } from './lib/admin.js';
 import { calculatorRoute, estimatorRoute, plannerRoute } from './routes/tools.js';
 import { verificationList, verificationAction } from './routes/verification.js';
 import { infoPageRoute } from './routes/pages.js';
+import { startPublisher } from './lib/schedule.js';
 import { servicesIndexRoute, tradeRoute, landedRoute } from './routes/services.js';
 import { propertyLandingRoute, styleLandingRoute, guidesIndexRoute, guideRoute, checklistRoute } from './routes/content.js';
 import { signupPage, signupSubmit, loginPage, loginSubmit, logoutRoute, forgotPage, forgotSubmit, resetPage, resetSubmit } from './routes/auth.js';
@@ -339,4 +340,5 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Layered running at http://localhost:${PORT}`);
+  startPublisher();
 });

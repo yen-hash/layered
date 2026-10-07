@@ -71,7 +71,7 @@ async function listing(req, res, ctx, url, { category = null } = {}) {
       ? `${category.blurb} Articles for Singapore homeowners.`
       : 'Renovation costs, HDB and condo rules, designer comparisons and interior design ideas for Singapore homeowners.',
     path, site, body, business: ctx.business, flash: ctx.flash,
-    robots: page > 1 ? 'noindex,follow' : undefined,
+    robots: page > 1 || total === 0 ? 'noindex,follow' : undefined,
     jsonLd: breadcrumbSchema(site, trail),
   }));
 }
