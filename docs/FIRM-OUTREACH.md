@@ -1,6 +1,6 @@
 # Inviting real firms onto Layered
 
-Use this when replacing the demo firms with real ones. Do not copy photos from a firm's website or social media:
+Use this when replacing the demo firms with real ones. For renovation trades and landed specialists, see `TRADE-OUTREACH.md`. Do not copy photos from a firm's website or social media:
 a credit line does not give Layered the right to publish them. Ask, get a yes in writing, and keep it.
 
 ## Email 1: invitation
