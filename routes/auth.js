@@ -1,9 +1,17 @@
 import { db, slugify, PROPERTY_TYPES, STYLES } from '../db.js';
+import { CATEGORIES, DEFAULT_CATEGORY, validCategory } from '../content/trades.js';
 import { esc, layout } from '../lib/render.js';
 import { abs } from '../lib/seo.js';
 import { sendEmail } from '../lib/notify.js';
 import { createResetToken, findValidToken, consumeToken, passwordProblem, RESET_TTL_MINUTES, MIN_PASSWORD } from '../lib/passwordReset.js';
 import { hashPassword, verifyPassword, createSessionToken, setCookie, clearCookie } from '../lib/auth.js';
+
+// The business type picker, grouped into interior design, landed specialists and trades.
+export function categorySelect(selected = DEFAULT_CATEGORY) {
+  const groups = [...new Set(CATEGORIES.map((c) => c.group))];
+  return `<select id="category" name="category">${groups.map((g) => `<optgroup label="${esc(g)}">${CATEGORIES.filter((c) => c.group === g)
+    .map((c) => `<option value="${esc(c.slug)}"${c.slug === selected ? ' selected' : ''}>${esc(c.name)}</option>`).join('')}</optgroup>`).join('')}</select>`;
+}
 
 function chipGroup(name, options) {
   return `<div class="chip-group">${options.map((o) => `
@@ -15,8 +23,9 @@ export async function signupPage(req, res, ctx) {
   const body = `
   <div class="wrap split-auth">
     <form class="panel" method="post" action="/signup">
-      <h1>List your interior design business on Layered</h1>
-      <p class="section-sub">Get a free profile, a project gallery, and inbound leads sent straight to your dashboard.</p>
+      <h1>List your business on Layered</h1>
+      <p class="section-sub">Interior designers, renovation trades and landed specialists: get a free profile, a project gallery, and inbound leads sent straight to your dashboard.</p>
+      <div class="field"><label for="category">Type of business</label>${categorySelect(new URL(req.url, 'http://x').searchParams.get('category') || DEFAULT_CATEGORY)}</div>
       <div class="two-col">
         <div class="field"><label>Company name</label><input type="text" name="company_name" required></div>
         <div class="field"><label>Your name</label><input type="text" name="contact_name"></div>
@@ -30,14 +39,14 @@ export async function signupPage(req, res, ctx) {
         <div class="field"><label>Service areas</label><input type="text" name="service_areas" placeholder="e.g. Islandwide"></div>
       </div>
       <div class="field"><label>Property types you take on</label>${chipGroup('property_types', PROPERTY_TYPES)}</div>
-      <div class="field"><label>Styles you specialize in</label>${chipGroup('styles', STYLES)}</div>
+      <div class="field"><label>Styles you specialize in <span class="muted small">(interior designers)</span></label>${chipGroup('styles', STYLES)}</div>
       <button class="btn btn-block" type="submit">Create business account</button>
       <p class="hint" style="margin-top:14px;text-align:center;">Already have an account? <a href="/login">Log in</a></p>
     </form>
   </div>`;
   res.end(layout({
-    title: 'List Your Interior Design Business in Singapore',
-    description: 'List your interior design or renovation firm on Layered to showcase projects, add your HDB licence and CaseTrust credentials, and receive homeowner leads.',
+    title: 'List Your Renovation Business in Singapore',
+    description: 'List your interior design firm, renovation trade or landed practice on Layered to showcase projects and credentials and receive homeowner leads.',
     path: '/signup', site: ctx.site, body, business: ctx.business, flash: ctx.flash,
   }));
 }
@@ -65,10 +74,10 @@ export async function signupSubmit(req, res, fields) {
 
   const slug = slugify(companyName);
   const passwordHash = hashPassword(password);
-  const info = db.prepare(`INSERT INTO businesses (slug, company_name, email, password_hash, phone, contact_name, property_types, styles, service_areas, notify_phone)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(
+  const info = db.prepare(`INSERT INTO businesses (slug, company_name, email, password_hash, phone, contact_name, property_types, styles, service_areas, notify_phone, category)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(
     slug, companyName, email, passwordHash, fields.phone || '', fields.contact_name || '',
-    propertyTypes.join(','), styles.join(','), fields.service_areas || 'Islandwide', fields.phone || ''
+    propertyTypes.join(','), styles.join(','), fields.service_areas || 'Islandwide', fields.phone || '', validCategory(fields.category)
   );
 
   const token = createSessionToken(info.lastInsertRowid);

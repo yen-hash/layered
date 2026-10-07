@@ -1,4 +1,6 @@
 import fs from 'node:fs';
+import { validCategory } from '../content/trades.js';
+import { categorySelect } from './auth.js';
 import path from 'node:path';
 import { db, PROPERTY_TYPES, STYLES } from '../db.js';
 import { uploadFileFor } from '../lib/paths.js';
@@ -88,9 +90,10 @@ export async function profilePage(req, res, ctx) {
         ${b.logo_url ? `<p><img src="${esc(b.logo_url)}" alt="Current logo" width="72" height="72" style="object-fit:contain;border:1px solid var(--line);border-radius:12px;background:#fff;"></p>` : ''}
         <input id="logo_file" type="file" name="logo_file" accept="image/jpeg,image/png,image/webp,image/gif"><p class="hint">JPG, PNG, WebP or GIF under 8MB. A square image works best.</p></div>
       <div class="field"><label for="logo_url">Or a logo image URL</label><input id="logo_url" type="url" name="logo_url" value="${esc(b.logo_url || '')}" placeholder="https://..."></div>
+      <div class="field"><label for="category">Type of business</label>${categorySelect(b.category)}<p class="hint">Decides where your profile is listed and which enquiries you receive.</p></div>
       <div class="field"><label>Bio</label><textarea name="bio">${esc(b.bio || '')}</textarea></div>
       <div class="field"><label>Property types you take on</label>${chipGroup('property_types', PROPERTY_TYPES, propertyTypes)}</div>
-      <div class="field"><label>Styles you specialize in</label>${chipGroup('styles', STYLES, styles)}</div>
+      <div class="field"><label>Styles you specialize in <span class="muted small">(interior designers)</span></label>${chipGroup('styles', STYLES, styles)}</div>
       <h3>Credentials</h3>
       <p class="muted small" style="margin-top:-6px;">Shown as badges on your public profile. They are labelled self-declared until Layered has checked them against the official HDB and CaseTrust lookups, so only list what you currently hold. If you change a number or tier that was verified, the verified mark is removed until it is checked again.</p>
       <div class="two-col">
@@ -124,13 +127,13 @@ export async function profileSubmit(req, res, ctx, fields, files = {}) {
   const typedUrl = String(fields.logo_url || '').trim();
   const logoUrl = logoFile ? logoFile.publicPath : (/^https?:\/\/\S+$/i.test(typedUrl) || typedUrl.startsWith('/uploads/') ? typedUrl : '');
   const oldLogo = ctx.business.logo_url;
-  db.prepare(`UPDATE businesses SET company_name=?, contact_name=?, phone=?, service_areas=?, logo_url=?, bio=?, property_types=?, styles=?, notify_email=?, notify_sms=?, notify_phone=?, hdb_licence_no=?, casetrust=? WHERE id=?`)
+  db.prepare(`UPDATE businesses SET company_name=?, contact_name=?, phone=?, service_areas=?, logo_url=?, bio=?, property_types=?, styles=?, notify_email=?, notify_sms=?, notify_phone=?, hdb_licence_no=?, casetrust=?, category=? WHERE id=?`)
     .run(
       fields.company_name || ctx.business.company_name,
       fields.contact_name || '', fields.phone || '', fields.service_areas || '', logoUrl, fields.bio || '',
       propertyTypes.join(','), styles.join(','),
       fields.notify_email ? 1 : 0, fields.notify_sms ? 1 : 0, fields.notify_phone || '',
-      hdb.value, normaliseCaseTrust(fields.casetrust),
+      hdb.value, normaliseCaseTrust(fields.casetrust), validCategory(fields.category),
       ctx.business.id
     );
   if (logoFile && oldLogo !== logoUrl) removeUploads([oldLogo]);

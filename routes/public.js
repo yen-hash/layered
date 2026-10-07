@@ -1,3 +1,4 @@
+import { TRADE_BY_SLUG, LANDED_PROS, LANDED_COSTS, CATEGORY_BY_SLUG, DEFAULT_CATEGORY, validCategory } from '../content/trades.js';
 import { db, PROPERTY_TYPES, STYLES, BUDGET_RANGES } from '../db.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
 import { dispatchLeadNotifications } from '../lib/notify.js';
@@ -35,11 +36,14 @@ function publishedReviews(businessId) {
   return db.prepare("SELECT rating, body, reviewer_name, submitted_at FROM reviews WHERE business_id = ? AND status = 'published' ORDER BY moderated_at DESC").all(businessId);
 }
 
+// The category record for a business (interior design when unset or unknown).
+export const categoryOf = (b) => CATEGORY_BY_SLUG[b.category] || CATEGORY_BY_SLUG[DEFAULT_CATEGORY];
+
 export function designerCard(b) {
   const tags = [...(b.property_types || '').split(',').filter(Boolean), ...(b.styles || '').split(',').filter(Boolean)];
   const logo = usableLogo(b.logo_url);
   const img = logo
-    ? `<img src="${esc(logo)}" alt="${esc(b.company_name)} interior design" loading="lazy" width="600" height="300">`
+    ? `<img src="${esc(logo)}" alt="${esc(b.company_name)} ${esc(categoryOf(b).name.toLowerCase())}" loading="lazy" width="600" height="300">`
     : `<img src="${esc(placeholderIllustration(b.id))}" alt="" loading="lazy" width="600" height="300">`;
   return `
   <div class="dcard">
@@ -70,6 +74,7 @@ export function leadFormHtml(prefill = {}) {
     <h2>Get matched with the right interior designer</h2>
     <p class="section-sub">Tell us about your project. We'll send your brief straight to designers who fit — you'll hear back directly from them.</p>
     <form class="panel wide" method="post" action="/leads">
+      <input type="hidden" name="category" value="interior-design">
       <div class="two-col">
         <div class="field"><label for="lf-name">Your name</label><input id="lf-name" type="text" name="name" autocomplete="name" required></div>
         <div class="field"><label for="lf-email">Email</label><input id="lf-email" type="email" name="email" autocomplete="email" required></div>
@@ -110,9 +115,32 @@ export function leadFormHtml(prefill = {}) {
   </div>`;
 }
 
+// A short quote request for a renovation trade (or the landed team), routed by category.
+export function quoteFormHtml(category, heading, intro = '') {
+  return `
+  <div class="lead-form-section" id="request">
+    <h2>${esc(heading)}</h2>
+    ${intro ? `<p class="section-sub">${esc(intro)}</p>` : ''}
+    <form class="panel wide" method="post" action="/leads">
+      <input type="hidden" name="category" value="${esc(category)}">
+      <div class="two-col">
+        <div class="field"><label for="qf-name">Your name</label><input id="qf-name" type="text" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="qf-email">Email</label><input id="qf-email" type="email" name="email" autocomplete="email" required></div>
+      </div>
+      <div class="two-col">
+        <div class="field"><label for="qf-phone">Phone</label><input id="qf-phone" type="tel" name="phone" autocomplete="tel"></div>
+        <div class="field"><label for="qf-location">Location / estate</label><input id="qf-location" type="text" name="location" placeholder="e.g. Punggol, Tampines"></div>
+      </div>
+      <div class="field"><label for="qf-type">Property type</label><select id="qf-type" name="property_type"><option value="">Select</option>${PROPERTY_TYPES.map((p) => `<option value="${esc(p)}">${esc(p)}</option>`).join('')}</select></div>
+      <div class="field"><label for="qf-message">What do you need?</label><textarea id="qf-message" name="message" placeholder="Describe the job, sizes or quantities, and when you need it done"></textarea></div>
+      <button class="btn btn-block" type="submit">Request quotes</button>
+    </form>
+  </div>`;
+}
+
 export async function homeRoute(req, res, ctx) {
-  const featured = db.prepare('SELECT * FROM businesses ORDER BY featured DESC, created_at DESC LIMIT 6').all();
-  const counts = db.prepare('SELECT (SELECT COUNT(*) FROM businesses) AS businesses, (SELECT COUNT(*) FROM projects) AS projects, (SELECT COUNT(*) FROM leads) AS leads, (SELECT COUNT(*) FROM posts WHERE status = \'published\') AS posts').get();
+  const featured = db.prepare("SELECT * FROM businesses WHERE category = 'interior-design' ORDER BY featured DESC, created_at DESC LIMIT 6").all();
+  const counts = db.prepare('SELECT (SELECT COUNT(*) FROM businesses WHERE category = \'interior-design\') AS businesses, (SELECT COUNT(*) FROM projects) AS projects, (SELECT COUNT(*) FROM leads) AS leads, (SELECT COUNT(*) FROM posts WHERE status = \'published\') AS posts').get();
   const site = ctx.site;
   // The cost tools link here with ?type=...&budget=... (and the room planner with &brief=...) so the brief form starts filled in.
   const q = new URL(req.url, 'http://x').searchParams;
@@ -162,6 +190,14 @@ export async function homeRoute(req, res, ctx) {
     <p style="margin-top:20px"><a href="/designers">Browse the full directory →</a></p>
   </section>
   <section class="wrap">
+    <span class="eyebrow">Beyond interior design</span>
+    <h2>Everything else your renovation needs</h2>
+    <div class="grid grid-2 home-beyond">
+      <a class="card landed-feature" href="/landed"><div class="body"><span class="eyebrow">Premium</span><h3>Landed A&amp;A and rebuild</h3><p>Architects, structural engineers and landed builders, with 2026 costs, approvals and timelines.</p><span class="more">Explore landed →</span></div></a>
+      <a class="card" href="/services"><div class="body"><h3>Renovation services</h3><p>Lighting, curtains and blinds, movers, aircon, flooring, electricians, plumbers and post-renovation cleaning.</p><span class="more">Find a trade →</span></div></a>
+    </div>
+  </section>
+  <section class="wrap">
     <span class="eyebrow">Learn before you spend</span>
     <h2>Renovation guides for Singapore homeowners</h2>
     <p class="section-sub">Costs, permits and how to pick the right firm, explained in plain English.</p>
@@ -186,7 +222,7 @@ export async function directoryRoute(req, res, ctx, url) {
   const propertyType = url.searchParams.get('property_type') || '';
   const style = url.searchParams.get('style') || '';
   const credential = url.searchParams.get('credential') || '';
-  let sql = 'SELECT * FROM businesses WHERE 1=1';
+  let sql = "SELECT * FROM businesses WHERE category = 'interior-design'";
   const params = [];
   if (propertyType) { sql += " AND (',' || property_types || ',') LIKE ?"; params.push(`%,${propertyType},%`); }
   if (style) { sql += " AND (',' || styles || ',') LIKE ?"; params.push(`%,${style},%`); }
@@ -267,13 +303,21 @@ export async function designerProfileRoute(req, res, ctx, slug) {
   const styles = (b.styles || '').split(',').filter(Boolean);
   const tags = [...types, ...styles];
   const path = `/designers/${b.slug}`;
-  const trail = [{ name: 'Home', path: '/' }, { name: 'Interior designers', path: '/designers' }, { name: b.company_name, path }];
+  const cat = categoryOf(b);
+  const isDesigner = cat.slug === DEFAULT_CATEGORY;
+  const trail = isDesigner
+    ? [{ name: 'Home', path: '/' }, { name: 'Interior designers', path: '/designers' }, { name: b.company_name, path }]
+    : cat.path === '/landed'
+      ? [{ name: 'Home', path: '/' }, { name: 'Landed A&A and rebuild', path: '/landed' }, { name: b.company_name, path }]
+      : [{ name: 'Home', path: '/' }, { name: 'Renovation services', path: '/services' }, { name: cat.plural, path: cat.path }, { name: b.company_name, path }];
 
   const logo = usableLogo(b.logo_url);
   const bioText = (b.bio || '').replace(/\s+/g, ' ').trim();
   const description = (bioText.length >= 60
     ? bioText
-    : `${b.company_name} is an interior design and renovation firm in Singapore${types.length ? ` taking on ${types.join(', ')} projects` : ''}${styles.length ? ` in ${styles.join(', ')} styles` : ''}. View projects and credentials, then request a quote.`
+    : isDesigner
+      ? `${b.company_name} is an interior design and renovation firm in Singapore${types.length ? ` taking on ${types.join(', ')} projects` : ''}${styles.length ? ` in ${styles.join(', ')} styles` : ''}. View projects and credentials, then request a quote.`
+      : `${b.company_name}: ${cat.name.toLowerCase()} in Singapore${b.service_areas ? `, serving ${b.service_areas}` : ''}. View their work and details, then request a quote on Layered.`
   ).slice(0, 155).replace(/\s+\S*$/, (m) => (bioText.length > 155 ? '…' : m));
 
   const extra = (p) => photoList(p).filter((u) => u !== p.cover_image).slice(0, 11);
@@ -289,7 +333,7 @@ export async function designerProfileRoute(req, res, ctx, slug) {
     description,
     areaServed: { '@type': 'Country', name: 'Singapore' },
     address: { '@type': 'PostalAddress', addressCountry: 'SG' },
-    knowsAbout: [...types.map((t) => `${t} interior design`), ...styles.map((t) => `${t} interior design`)],
+    knowsAbout: isDesigner ? [...types.map((t) => `${t} interior design`), ...styles.map((t) => `${t} interior design`)] : [cat.name],
     image: [logo, ...projects.slice(0, 5).map((p) => p.cover_image)].filter(Boolean).map((u) => abs(site, u)),
   };
   // Credentials are deliberately left out of structured data: they are self-declared and
@@ -306,7 +350,7 @@ export async function designerProfileRoute(req, res, ctx, slug) {
       <div>
         ${b.featured ? '<span class="pill-featured">Featured</span>' : ''}
         <h1>${esc(b.company_name)}</h1>
-        <p class="muted" style="margin:0 0 8px;">Interior design &amp; renovation · ${esc(b.service_areas || 'Singapore')}</p>
+        <p class="muted" style="margin:0 0 8px;">${isDesigner ? 'Interior design &amp; renovation' : esc(cat.name)} · ${esc(b.service_areas || 'Singapore')}</p>
         ${credentialBadges(b)}
         <p><button type="button" class="btn btn-outline btn-sm" data-save="${esc(b.slug)}" aria-pressed="false">Save to shortlist</button></p>
         <div class="tag-row">${tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
@@ -319,7 +363,7 @@ export async function designerProfileRoute(req, res, ctx, slug) {
       <div>
         ${credentialsPanel(b)}
         <h2>About ${esc(b.company_name)}</h2>
-        <p>${esc(b.bio) || '<span class="muted">This designer hasn\'t added a bio yet.</span>'}</p>
+        <p>${esc(b.bio) || '<span class="muted">This business hasn\'t added a bio yet.</span>'}</p>
         <h2>Projects (${projects.length})</h2>
         <div class="project-grid${projects.length >= 3 ? ' gallery' : ''}">
           ${projects.map((p) => {
@@ -341,7 +385,7 @@ export async function designerProfileRoute(req, res, ctx, slug) {
           }).join('') || '<p class="muted">No projects uploaded yet.</p>'}
         </div>
       </div>
-      <div>${leadFormHtml({})}</div>
+      <div>${isDesigner ? leadFormHtml({}) : quoteFormHtml(cat.path === '/landed' ? 'landed' : cat.slug, cat.path === '/landed' ? 'Send a landed project brief' : `Request quotes from ${cat.plural.toLowerCase()}`)}</div>
     </div>
   </section>
   <section class="wrap" id="reviews">${reviewsSection(b, reviews)}</section>
@@ -358,35 +402,62 @@ export async function designerProfileRoute(req, res, ctx, slug) {
   }));
 }
 
+// Where a submitted brief goes: interior design briefs match on property type, landed briefs go to up
+// to two each of architects, engineers and builders, and trade requests go to firms in that trade.
+export function matchLead(category, propertyType) {
+  if (category === 'landed') {
+    return LANDED_PROS.flatMap((p) => db.prepare('SELECT * FROM businesses WHERE category = ? ORDER BY featured DESC, created_at DESC LIMIT 2').all(p.slug));
+  }
+  if (category !== DEFAULT_CATEGORY) {
+    return db.prepare('SELECT * FROM businesses WHERE category = ? ORDER BY featured DESC, created_at DESC LIMIT 6').all(category);
+  }
+  let matches = [];
+  if (propertyType) {
+    matches = db.prepare(`SELECT * FROM businesses WHERE category = ? AND (',' || property_types || ',') LIKE ? ORDER BY featured DESC, created_at DESC LIMIT 6`)
+      .all(DEFAULT_CATEGORY, `%,${propertyType},%`);
+  }
+  if (matches.length === 0) {
+    matches = db.prepare('SELECT * FROM businesses WHERE category = ? ORDER BY featured DESC, created_at DESC LIMIT 6').all(DEFAULT_CATEGORY);
+  }
+  return matches;
+}
+
 export async function submitLeadRoute(req, res, ctx, fields) {
+  const category = fields.category === 'landed' ? 'landed' : validCategory(fields.category);
+  const back = category === 'landed' ? '/landed' : category === DEFAULT_CATEGORY ? '/' : `/services/${category}`;
   const name = (fields.name || '').trim();
   const email = (fields.email || '').trim();
   if (!name || !email) {
-    res.writeHead(302, { Location: '/?err=' + encodeURIComponent('Please provide at least your name and email.') });
+    res.writeHead(302, { Location: back + '?err=' + encodeURIComponent('Please provide at least your name and email.') });
     res.end();
     return;
   }
 
-  const insertLead = db.prepare(`INSERT INTO leads (name, email, phone, property_type, style, budget_range, location, message)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`);
-  const info = insertLead.run(name, email, fields.phone || '', fields.property_type || '', fields.style || '', fields.budget_range || '', fields.location || '', fields.message || '');
+  let message = String(fields.message || '');
+  let propertyType = fields.property_type || '';
+  if (category === 'landed') {
+    const scope = { aa: 'Addition and alteration (A&A)', rebuild: 'Reconstruction / rebuild', new: 'New erection' }[fields.scope] || '';
+    const house = (LANDED_COSTS.rebuild[fields.house_type] || {}).label || '';
+    message = [scope && `Scope: ${scope}.`, house && `House: ${house}.`, message].filter(Boolean).join(' ');
+    propertyType = 'Landed';
+  }
+
+  const insertLead = db.prepare(`INSERT INTO leads (name, email, phone, property_type, style, budget_range, location, message, category)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+  const info = insertLead.run(name, email, fields.phone || '', propertyType, fields.style || '', fields.budget_range || '', fields.location || '', message.slice(0, 5000), category);
   const lead = db.prepare('SELECT * FROM leads WHERE id = ?').get(info.lastInsertRowid);
 
-  let matches = [];
-  if (fields.property_type) {
-    matches = db.prepare(`SELECT * FROM businesses WHERE (',' || property_types || ',') LIKE ? ORDER BY featured DESC, created_at DESC LIMIT 6`)
-      .all(`%,${fields.property_type},%`);
-  }
-  if (matches.length === 0) {
-    matches = db.prepare('SELECT * FROM businesses ORDER BY featured DESC, created_at DESC LIMIT 6').all();
-  }
-
+  const matches = matchLead(category, propertyType);
   const insertMatch = db.prepare('INSERT INTO lead_matches (lead_id, business_id) VALUES (?, ?)');
   for (const business of matches) {
     insertMatch.run(lead.id, business.id);
     dispatchLeadNotifications(business, lead).catch((err) => console.error('notify error', err));
   }
 
-  res.writeHead(302, { Location: '/?ok=' + encodeURIComponent(`Thanks ${name}! We've sent your project to ${matches.length} matching designer${matches.length === 1 ? '' : 's'}. Expect replies by email/phone shortly.`) });
+  const noun = category === DEFAULT_CATEGORY ? 'designer' : category === 'landed' ? 'professional' : 'firm';
+  const msg = matches.length
+    ? `Thanks ${name}! We've sent your request to ${matches.length} matching ${noun}${matches.length === 1 ? '' : 's'}. Expect replies by email or phone shortly.`
+    : `Thanks ${name}! We've received your request. No firms in this category are listed yet, so we'll pass it on as soon as suitable firms join.`;
+  res.writeHead(302, { Location: back + '?ok=' + encodeURIComponent(msg) });
   res.end();
 }

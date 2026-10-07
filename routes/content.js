@@ -34,7 +34,7 @@ export async function propertyLandingRoute(req, res, ctx, key) {
   const site = ctx.site;
   if (!page) return notFound(res, ctx, site);
   const path = `/interior-designers/${key}`;
-  const firms = db.prepare("SELECT * FROM businesses WHERE (',' || property_types || ',') LIKE ? ORDER BY featured DESC, created_at DESC").all(`%,${page.propertyType},%`);
+  const firms = db.prepare("SELECT * FROM businesses WHERE category = 'interior-design' AND (',' || property_types || ',') LIKE ? ORDER BY featured DESC, created_at DESC").all(`%,${page.propertyType},%`);
   const trail = [{ name: 'Home', path: '/' }, { name: 'Interior designers', path: '/designers' }, { name: page.title.replace(' in Singapore', ''), path }];
   const others = Object.entries(PROPERTY_PAGES).filter(([k]) => k !== key)
     .map(([k, p]) => `<li><a href="/interior-designers/${k}">${esc(p.title)}</a></li>`).join('');
@@ -87,7 +87,7 @@ export async function styleLandingRoute(req, res, ctx, key) {
   if (!page) return notFound(res, ctx, site);
   const path = `/interior-designers/style/${key}`;
   const title = `${page.style} Interior Designers in Singapore`;
-  const firms = db.prepare("SELECT * FROM businesses WHERE (',' || styles || ',') LIKE ? ORDER BY featured DESC, created_at DESC").all(`%,${page.style},%`);
+  const firms = db.prepare("SELECT * FROM businesses WHERE category = 'interior-design' AND (',' || styles || ',') LIKE ? ORDER BY featured DESC, created_at DESC").all(`%,${page.style},%`);
   const trail = [{ name: 'Home', path: '/' }, { name: 'Interior designers', path: '/designers' }, { name: `${page.style} style`, path }];
   const otherStyles = Object.entries(STYLE_PAGES).filter(([k]) => k !== key).map(([k, s]) => `<li><a href="/interior-designers/style/${k}">${esc(s.style)} interior designers</a></li>`).join('');
   const types = Object.entries(PROPERTY_PAGES).map(([k, p]) => `<li><a href="/interior-designers/${k}">${esc(p.title)}</a></li>`).join('');

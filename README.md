@@ -21,6 +21,10 @@ no dependency updates to chase, and it runs anywhere with Node ≥ 22.5.
   `property_types` overlap the homeowner's request (falls back to featured/
   recent designers if nothing matches), inserted into each matched business's
   dashboard, and a notification is dispatched per business.
+- **Business categories**: interior designers, 12 renovation trades (`/services/<trade>`) and landed
+  specialists (architects, engineers/QPs, landed builders) in the premium `/landed` section. A business picks
+  its category at signup (`content/trades.js`); designer pages list interior designers only, and each
+  enquiry is routed only to firms in its category.
 - **Notifications**: email and WhatsApp/SMS dispatch, each with a working
   no-config "log driver" (writes to `data/notifications.log` and stdout) and
   a real-provider path that activates the moment you set env vars — no code
