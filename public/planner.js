@@ -95,6 +95,7 @@
     });
     plan.items.forEach(function (it) {
       var c = P.catalog[it.kind];
+      if (c.opening) return;
       var g = el('g', { class: 'pl-item' + (c.built ? ' is-built' : '') + (c.wall ? ' is-wall' : '') + (sel === it.id ? ' is-sel' : ''), 'data-id': it.id }, svg);
       el('rect', { x: it.x, y: it.y, width: it.w, height: it.h }, g);
       var vertical = it.h > it.w;
@@ -103,7 +104,70 @@
       t.textContent = c.label;
       if (sel === it.id) el('rect', { x: it.x + it.w - 0.16, y: it.y + it.h - 0.16, width: 0.16, height: 0.16, class: 'pl-handle', 'data-handle': it.id }, g);
     });
+    plan.items.forEach(function (it) { if (P.catalog[it.kind].opening) drawOpening(it); });
     panel(); summary();
+  }
+
+  // Doors are drawn for a wall along the top of their square, swinging down, then mirrored (m) and
+  // rotated (r) into place. Sliding doors and windows sit in the wall along their long side.
+  function drawOpening(it) {
+    var c = P.catalog[it.kind];
+    var g = el('g', { class: 'pl-open pl-' + c.opening + (sel === it.id ? ' is-sel' : ''), 'data-id': it.id }, svg);
+    var x = it.x, y = it.y, w = it.w, h = it.h, t = P.wall;
+    if (c.opening === 'door') {
+      var cx = x + w / 2, cy = y + w / 2, tf = 'rotate(' + (it.r || 0) + ' ' + fix(cx) + ' ' + fix(cy) + ')';
+      if (it.m) tf += ' translate(' + fix(2 * cx) + ' 0) scale(-1 1)';
+      g.setAttribute('transform', tf);
+      el('rect', { x: x, y: y - t / 2 - 0.02, width: w, height: t + 0.04, class: 'pl-gap' }, g);
+      el('line', { x1: x, y1: y, x2: x, y2: y + w, class: 'pl-grab' }, g);
+      el('line', { x1: x, y1: y, x2: x, y2: y + w, class: 'pl-leaf' + (it.kind === 'mainDoor' ? ' pl-main' : '') }, g);
+      el('path', { d: 'M ' + fix(x + w) + ' ' + fix(y) + ' A ' + fix(w) + ' ' + fix(w) + ' 0 0 1 ' + fix(x) + ' ' + fix(y + w), class: 'pl-swing' }, g);
+    } else {
+      var horiz = w >= h;
+      el('rect', horiz ? { x: x, y: y - 0.02, width: w, height: h + 0.04, class: 'pl-gap' } : { x: x - 0.02, y: y, width: w + 0.04, height: h, class: 'pl-gap' }, g);
+      el('rect', { x: x, y: y, width: w, height: h, class: c.opening === 'window' ? 'pl-win' : 'pl-hit' }, g);
+      if (c.opening === 'window') {
+        el('line', horiz ? { x1: x, y1: y + h / 2, x2: x + w, y2: y + h / 2 } : { x1: x + w / 2, y1: y, x2: x + w / 2, y2: y + h }, g).setAttribute('class', 'pl-glass');
+      } else {
+        var a = horiz
+          ? [{ x1: x, y1: y + h * 0.3, x2: x + w * 0.55, y2: y + h * 0.3 }, { x1: x + w * 0.45, y1: y + h * 0.7, x2: x + w, y2: y + h * 0.7 }]
+          : [{ x1: x + w * 0.3, y1: y, x2: x + w * 0.3, y2: y + h * 0.55 }, { x1: x + w * 0.7, y1: y + h * 0.45, x2: x + w * 0.7, y2: y + h }];
+        a.forEach(function (l) { el('line', l, g).setAttribute('class', 'pl-panel'); });
+      }
+    }
+    if (sel === it.id && c.opening !== 'door') el('rect', { x: it.x + it.w - 0.14, y: it.y + it.h - 0.14, width: 0.14, height: 0.14, class: 'pl-handle', 'data-handle': it.id }, g);
+  }
+
+  // Put a door or window onto the nearest room wall within reach, facing into that room.
+  function snapOpening(it) {
+    var c = P.catalog[it.kind];
+    if (!c || !c.opening) return;
+    var door = c.opening === 'door', len = door ? it.w : Math.max(it.w, it.h), t = P.wall;
+    var cx = it.x + it.w / 2, cy = it.y + it.h / 2, best = null;
+    plan.rooms.forEach(function (r) {
+      [
+        { o: 'h', at: r.y, a: r.x, b: r.x + r.w, rot: 0 },
+        { o: 'h', at: r.y + r.h, a: r.x, b: r.x + r.w, rot: 180 },
+        { o: 'v', at: r.x, a: r.y, b: r.y + r.h, rot: 270 },
+        { o: 'v', at: r.x + r.w, a: r.y, b: r.y + r.h, rot: 90 },
+      ].forEach(function (e) {
+        if (e.b - e.a < len) return;
+        var along = e.o === 'h' ? cx : cy, across = e.o === 'h' ? cy : cx;
+        if (along < e.a - 0.3 || along > e.b + 0.3) return;
+        // A door's square sits inside the room, so measure from where its centre would be.
+        var target = door ? e.at + (e.rot === 0 || e.rot === 270 ? 1 : -1) * len / 2 : e.at;
+        var d = Math.abs(across - target);
+        if (d < (door ? 0.6 : 0.45) && (!best || d < best.d)) best = { e: e, d: d, along: along };
+      });
+    });
+    if (!best) return;
+    var e = best.e, start = fix(round(Math.min(Math.max(best.along - len / 2, e.a), e.b - len)));
+    if (door) {
+      it.r = e.rot;
+      if (e.o === 'h') { it.x = start; it.y = fix(e.rot === 0 ? e.at : e.at - len); }
+      else { it.y = start; it.x = fix(e.rot === 270 ? e.at : e.at - len); }
+    } else if (e.o === 'h') { it.w = fix(len); it.h = t; it.x = start; it.y = fix(e.at - t / 2); }
+    else { it.h = fix(len); it.w = t; it.y = start; it.x = fix(e.at - t / 2); }
   }
 
   // ----- selection panel -----
@@ -117,6 +181,34 @@
       html += '<div class="field"><label for="pl-type">Room type</label><select id="pl-type">' + Object.keys(P.roomTypes).map(function (k) { return '<option value="' + k + '"' + (k === o.type ? ' selected' : '') + '>' + esc(P.roomTypes[k].label) + '</option>'; }).join('') + '</select></div>';
     } else {
       html += '<p><strong>' + esc(P.catalog[o.kind].label) + '</strong>' + (P.catalog[o.kind].built ? ' <span class="muted small">(built-in, priced)</span>' : '') + '</p>';
+    }
+    var op = !isRoom && P.catalog[o.kind].opening;
+    if (op) {
+      html += '<div class="field"><label for="pl-len">Width (m)</label><input id="pl-len" type="number" min="0.5" max="6" step="0.05" value="' + fix(op === 'door' ? o.w : Math.max(o.w, o.h)) + '"></div>';
+      html += '<p class="pl-actions">' + (op === 'door' ? '<button type="button" class="btn btn-sm btn-outline" id="pl-swing">Swing other side</button> <button type="button" class="btn btn-sm btn-outline" id="pl-flip">Flip hinge</button> ' : '<button type="button" class="btn btn-sm btn-outline" id="pl-rot">Rotate</button> ')
+        + '<button type="button" class="btn btn-sm btn-outline" id="pl-dup">Duplicate</button> <button type="button" class="btn btn-sm btn-outline pl-del" id="pl-del">Delete</button></p>'
+        + '<p class="muted small">Drag it near a wall and it snaps into place, facing into the room.</p>';
+      box.innerHTML = html;
+      $('pl-len').addEventListener('input', function (e) {
+        var v = Number(e.target.value); if (!(v >= 0.5 && v <= 6)) return;
+        if (op === 'door') { o.w = o.h = fix(v); } else if (o.w >= o.h) { o.w = fix(v); } else { o.h = fix(v); }
+        save(); redrawKeepPanel();
+      });
+      if (op === 'door') {
+        // Swing into the room on the other side of the same wall: the door's square moves across the wall line.
+        $('pl-swing').addEventListener('click', function () {
+          var r = o.r || 0;
+          if (r === 0) o.y = fix(o.y - o.w); else if (r === 180) o.y = fix(o.y + o.w);
+          else if (r === 270) o.x = fix(o.x - o.w); else o.x = fix(o.x + o.w);
+          o.r = (r + 180) % 360; save(); draw();
+        });
+        $('pl-flip').addEventListener('click', function () { o.m = o.m ? 0 : 1; save(); draw(); });
+      } else {
+        $('pl-rot').addEventListener('click', function () { var w = o.w; o.w = o.h; o.h = w; save(); draw(); });
+      }
+      $('pl-dup').addEventListener('click', function () { var c = clone(o); c.id = 'i' + nextId++; c.x = fix(c.x + 0.4); (plan.items).push(c); sel = c.id; snapOpening(c); save(); draw(); });
+      $('pl-del').addEventListener('click', remove);
+      return;
     }
     html += '<div class="pl-dims"><div class="field"><label for="pl-w">Width (m)</label><input id="pl-w" type="number" min="0.2" max="30" step="0.05" value="' + fix(o.w) + '"></div>'
       + '<div class="field"><label for="pl-h">' + (isRoom ? 'Length' : 'Depth') + ' (m)</label><input id="pl-h" type="number" min="0.2" max="30" step="0.05" value="' + fix(o.h) + '"></div></div>';
@@ -153,6 +245,7 @@
     $('pl-summary').innerHTML = '<ul class="est-summary">'
       + '<li><span>Rooms</span><span>' + q.rooms + ' (' + q.bathrooms + ' bathroom' + (q.bathrooms === 1 ? '' : 's') + ')</span></li>'
       + '<li><span>Total room area</span><span>' + q.totalM2 + ' m²</span></li>'
+      + '<li><span>Doors and windows</span><span>' + q.doors + ' door' + (q.doors === 1 ? '' : 's') + ', ' + q.windows + ' window' + (q.windows === 1 ? '' : 's') + '</span></li>'
       + '<li><span>Dry floor area (for flooring)</span><span>' + q.drySqft + ' sq ft</span></li>'
       + lines.join('') + '</ul>';
     var home = P.layouts[plan.home] && plan.home !== 'blank' ? plan.home : 'hdb4';
@@ -198,7 +291,10 @@
     drag.moved = true;
     draw();
   });
-  var end = function () { if (drag && drag.moved) save(); drag = null; };
+  var end = function () {
+    if (drag && drag.moved) { if (drag.o) snapOpening(drag.o); save(); draw(); }
+    drag = null;
+  };
   svg.addEventListener('pointerup', end);
   svg.addEventListener('pointercancel', end);
   svg.addEventListener('wheel', function (e) { e.preventDefault(); zoom(e.deltaY > 0 ? 1.1 : 0.9); }, { passive: false });
@@ -228,7 +324,8 @@
     b.addEventListener('click', function () {
       var k = b.getAttribute('data-add'), c = P.catalog[k];
       var it = { id: 'i' + nextId++, kind: k, x: fix(round(view.x + view.w / 2 - c.w / 2)), y: fix(round(view.y + view.h / 2 - c.h / 2)), w: c.w, h: c.h };
-      plan.items.push(it); sel = it.id; save(); draw();
+      if (c.opening === 'door') { it.r = 0; it.m = 0; }
+      plan.items.push(it); sel = it.id; snapOpening(it); save(); draw();
     });
   });
   $('pl-zin').addEventListener('click', function () { zoom(0.8); });
