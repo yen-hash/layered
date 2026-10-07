@@ -1,8 +1,9 @@
-// routes/tools.js — interactive tools: the renovation cost calculator and the itemised cost estimator.
+// routes/tools.js — interactive tools: the renovation cost calculator, the itemised cost estimator and the room planner.
 import { esc, layout } from '../lib/render.js';
 import { abs, breadcrumbSchema, faqSchema } from '../lib/seo.js';
 import { breadcrumbNav, faqHtml, formatDate } from '../lib/components.js';
 import { DATA, DATA_REVIEWED, estimate, budgetBand } from '../content/estimator.js';
+import { ROOM_TYPES, CATALOG, LAYOUTS, planQuantities } from '../content/planner.js';
 import { HOMES, ITEMS, PRESETS, CONTINGENCY, GST, SOURCES, ITEMS_REVIEWED, itemisedEstimate } from '../content/itemised.js';
 
 const money = (n) => `S$${Math.round(n).toLocaleString('en-SG')}`;
@@ -113,6 +114,7 @@ export async function calculatorRoute(req, res, ctx) {
 
     <section class="related"><h2>Read the detail behind the numbers</h2><ul>
       <li><a href="/tools/renovation-cost-estimator">Itemised renovation cost estimator</a>: price item by item</li>
+      <li><a href="/tools/room-planner">Room planner</a>: draw your layout and price it</li>
       <li><a href="/guides/hdb-renovation-cost-singapore">HDB renovation cost guide</a></li>
       <li><a href="/blog/3-room-hdb-renovation-cost-singapore">3-room</a> and <a href="/blog/4-room-vs-5-room-hdb-renovation-cost">4-room vs 5-room</a> costs</li>
       <li><a href="/guides/condo-renovation-cost-and-rules">Condo renovation cost and rules</a></li>
@@ -226,6 +228,7 @@ export async function estimatorRoute(req, res, ctx) {
         <div class="field"><label for="e-cond">New or resale?</label><select id="e-cond"><option value="bto">New (BTO or new condo)</option><option value="resale">Resale</option></select></div>
         <div class="field est-buttons"><button type="button" class="btn btn-sm" id="e-preset">Fill in a typical scope</button> <button type="button" class="btn btn-sm btn-outline" id="e-clear">Clear all</button></div>
       </form>
+      <p class="est-fromplan" id="e-fromplan" hidden>Quantities filled in from your <a href="/tools/room-planner">room plan</a>. Add bathroom works, electrical points and painting to complete the picture.</p>
       <div class="est-body">
         <div class="table-scroll"><table class="data-table est-table">
           <thead><tr><th scope="col">Item and unit rate</th><th scope="col">Quantity</th><th scope="col">Estimate</th></tr></thead>
@@ -242,6 +245,7 @@ export async function estimatorRoute(req, res, ctx) {
     <h2>How the estimator works</h2>
     <div class="prose">
       <p>Each line multiplies your quantity by a low and a high unit rate, and the lines are added up. A <strong>10% to 15% contingency</strong> is shown on top, and you can add 9% GST. Rates were collected from published Singapore price guides and reviewed on ${esc(formatDate(ITEMS_REVIEWED))}.</p>
+      <p>Want the quantities worked out for you? Draw your home in the <a href="/tools/room-planner">room planner</a> and send it here in one click.</p>
       <p>The total covers the <strong>works only</strong>. Firms also charge for design, project management and supervision, so package quotes are usually higher. For a typical all-in range by home type, use the <a href="/tools/renovation-cost-calculator">renovation cost calculator</a>. Then compare <a href="/blog/how-to-read-a-renovation-quotation-singapore">itemised quotations</a> from two or three firms.</p>
     </div>
 
@@ -314,6 +318,113 @@ ${budgetBand.toString()}
   $('e-clear').addEventListener('click',function(){inputs.forEach(function(el){el.value=0});render()});
   root.addEventListener('input',function(e){if(e.target.id!=='e-gst')render()});
   $('e-home').addEventListener('change',render);
-  preset();
+  var h=new URLSearchParams(location.hash.slice(1)), fromPlan=h.get('q');
+  if(fromPlan){
+    if(HOMES[h.get('home')]) $('e-home').value=h.get('home');
+    var got={};fromPlan.split(',').forEach(function(p){var kv=p.split(':');var v=Number(kv[1]);if(kv[0]&&v>0&&v<100000)got[kv[0]]=v});
+    inputs.forEach(function(el){el.value=got[el.getAttribute('data-key')]||0});
+    var n=$('e-fromplan');if(n)n.hidden=false;
+    render();
+  } else preset();
 })();`;
+}
+
+// ----- /tools/room-planner -----
+const PLAN_FAQS = [
+  { q: 'Is the room planner free?', a: 'Yes. It runs in your browser and your plan is saved on this device only. Nothing is uploaded unless you choose to send a summary with an enquiry.' },
+  { q: 'Are the starter layouts real HDB floor plans?', a: 'No. They are our own approximate arrangements of a typical flat of each type, to save you drawing from scratch. Change the room sizes to match your own floor plan, or trace over a picture of it.' },
+  { q: 'How do I trace my own floor plan?', a: 'Use "Trace a floor plan" to show a photo or screenshot of your plan behind the drawing, set its width in metres so it is to scale, then move and resize the rooms over it. The picture stays on your device.' },
+  { q: 'How are the quantities worked out?', a: 'Flooring is the area of the dry rooms (living, bedrooms, study) in square feet. Carpentry is the length of each built-in in feet, which is how Singapore carpentry is usually priced (per foot run). Platform beds are counted per bed.' },
+  { q: 'Can a designer use my plan?', a: 'Yes. Download it as an image or print it, and send the summary with an enquiry so firms see your layout and built-ins before they quote.' },
+];
+
+const PLAN_SVG_CSS = 'text{font-family:system-ui,sans-serif;font-size:.26px;fill:#231e19}.pl-dim{font-size:.2px;fill:#6b6159}.pl-room rect{fill:#fbf6ee;stroke:#231e19;stroke-width:.06}.pl-bathroom rect,.pl-kitchen rect,.pl-yard rect{fill:#e8eef0}.pl-item rect{fill:#fff;stroke:#8a7f75;stroke-width:.025}.pl-item.is-built rect{fill:#f3dccb;stroke:#a85a32}.pl-item.is-wall rect{fill:none;stroke-dasharray:.08 .05}.pl-itemlabel{font-size:.16px}.pl-gridline{stroke:#eee;stroke-width:.01}';
+
+export async function plannerRoute(req, res, ctx) {
+  const site = ctx.site;
+  const path = '/tools/room-planner';
+  const crumbs = [{ name: 'Home', path: '/' }, { name: 'Room planner', path }];
+  const qtyLabels = {};
+  ITEMS.forEach((g) => g.items.forEach((it) => { qtyLabels[it.key] = it.label; }));
+  const builtIns = Object.entries(CATALOG).filter(([, c]) => c.built);
+  const loose = Object.entries(CATALOG).filter(([, c]) => !c.built);
+  const addBtns = (list) => list.map(([k, c]) => `<button type="button" class="pl-add" data-add="${k}">${esc(c.label)}</button>`).join('');
+  const layoutOpts = Object.entries(LAYOUTS).map(([k, l]) => `<option value="${k}"${k === 'hdb4' ? ' selected' : ''}>${esc(l.label)}</option>`).join('');
+  const data = { roomTypes: ROOM_TYPES, catalog: CATALOG, layouts: LAYOUTS, qtyLabels, svgCss: PLAN_SVG_CSS };
+
+  const body = `
+  <section class="wrap page-head">
+    ${breadcrumbNav(crumbs)}
+    <span class="eyebrow">Free tool</span>
+    <h1>Room planner: draw your home and price it</h1>
+    <p class="section-sub">Lay out your rooms to scale, place wardrobes, kitchen cabinets and other built-ins, and see the flooring area and carpentry foot runs worked out for you. Then price the plan in one click, or send it to designers with your enquiry.</p>
+  </section>
+
+  <section class="wrap calc-section">
+    <div class="calc planner" id="planner">
+      <div class="pl-toolbar">
+        <div class="field"><label for="pl-home">Starting layout</label><select id="pl-home">${layoutOpts}</select></div>
+        <button type="button" class="btn btn-sm" id="pl-load">Use this layout</button>
+        <button type="button" class="btn btn-sm btn-outline" id="pl-addroom">Add a room</button>
+        <span class="pl-zoom"><button type="button" class="btn btn-sm btn-outline" id="pl-zout" aria-label="Zoom out">−</button><button type="button" class="btn btn-sm btn-outline" id="pl-zin" aria-label="Zoom in">+</button><button type="button" class="btn btn-sm btn-outline" id="pl-fit">Fit</button></span>
+      </div>
+      <div class="pl-body">
+        <div class="pl-canvas">
+          <svg id="pl-svg" role="img" aria-label="Floor plan drawing" xmlns="http://www.w3.org/2000/svg"></svg>
+          <p class="muted small">Drag rooms and items to move them, drag the corner square to resize, drag empty space to pan. Arrow keys nudge the selection; Delete removes it.</p>
+        </div>
+        <aside class="pl-side">
+          <h2 class="pl-h">Selected</h2>
+          <div id="pl-panel"></div>
+          <h2 class="pl-h">Add built-ins <span class="muted small">(priced)</span></h2>
+          <div class="pl-adds">${addBtns(builtIns)}</div>
+          <h2 class="pl-h">Add furniture <span class="muted small">(for layout only)</span></h2>
+          <div class="pl-adds">${addBtns(loose)}</div>
+          <h2 class="pl-h">Your plan</h2>
+          <div id="pl-summary"></div>
+          <p class="pl-cta"><a class="btn" id="pl-price" href="/tools/renovation-cost-estimator">Price this plan</a> <a class="btn btn-outline" id="pl-enquire" href="/#get-recommendations">Send to designers</a></p>
+          <p class="pl-actions"><button type="button" class="btn btn-sm btn-outline" id="pl-download">Download image</button> <button type="button" class="btn btn-sm btn-outline" id="pl-print">Print</button></p>
+          <details class="pl-trace">
+            <summary>Trace a floor plan</summary>
+            <div class="field"><label for="pl-bg">Picture of your floor plan</label><input id="pl-bg" type="file" accept="image/*"></div>
+            <div id="pl-bgopts" hidden>
+              <div class="field"><label for="pl-bgw">Width of the picture in metres</label><input id="pl-bgw" type="number" min="2" max="60" step="0.1" value="10"></div>
+              <div class="field"><label for="pl-bgo">Transparency</label><input id="pl-bgo" type="range" min="0.1" max="1" step="0.05" value="0.5"></div>
+              <button type="button" class="btn btn-sm btn-outline" id="pl-bgclear">Remove picture</button>
+            </div>
+            <p class="muted small">The picture stays on your device and is not uploaded.</p>
+          </details>
+        </aside>
+      </div>
+    </div>
+    <noscript><p class="muted">The room planner needs JavaScript.</p></noscript>
+  </section>
+
+  <section class="wrap prose-section">
+    <h2>How to use the room planner</h2>
+    <div class="prose">
+      <ol>
+        <li><strong>Start from a typical layout</strong> for a 3-, 4- or 5-room HDB flat or a condo, or a blank plan. The layouts are approximate, so adjust the room sizes to match your floor plan, or trace over a picture of it.</li>
+        <li><strong>Place your built-ins</strong>: wardrobes, kitchen cabinets, TV console, shoe cabinet, study table and platform beds. Set each one's width to the length you want.</li>
+        <li><strong>Check the summary</strong>: dry floor area for flooring and the foot runs of carpentry, the units Singapore firms quote in.</li>
+        <li><strong>Price it</strong> in the <a href="/tools/renovation-cost-estimator">itemised cost estimator</a>, then add bathrooms, electrical and painting. For a quick all-in range, see the <a href="/tools/renovation-cost-calculator">cost calculator</a>.</li>
+        <li><strong>Send it to designers</strong> with your enquiry, or download and print it to bring to meetings.</li>
+      </ol>
+      <p>Your plan is saved in this browser only. Check HDB's rules before planning to remove walls: see our <a href="/guides/hdb-renovation-permit-and-rules">HDB renovation permit and rules guide</a>.</p>
+    </div>
+    ${faqHtml(PLAN_FAQS)}
+  </section>
+  <script>window.PLANNER=${JSON.stringify(data).replace(/</g, '\\u003c')};${planQuantities.toString()}</script>
+  <script src="/planner.js" defer></script>`;
+
+  res.end(layout({
+    title: 'Room Planner: Draw Your Floor Plan and Price It',
+    description: 'Free room planner for Singapore homes: draw your HDB or condo layout to scale, place built-in carpentry, and price flooring and foot runs in one click.',
+    path, site, body, business: ctx.business, flash: ctx.flash,
+    jsonLd: [
+      breadcrumbSchema(site, crumbs),
+      faqSchema(PLAN_FAQS),
+      { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Room planner', url: abs(site, path), applicationCategory: 'DesignApplication', operatingSystem: 'Any', inLanguage: 'en-SG', offers: { '@type': 'Offer', price: '0', priceCurrency: 'SGD' } },
+    ],
+  }));
 }

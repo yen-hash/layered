@@ -136,6 +136,9 @@ export async function guidesIndexRoute(req, res, ctx) {
     <a class="card guide-feature" href="/tools/renovation-cost-estimator">
       <div class="body"><span class="eyebrow">Free tool</span><h2>Itemised renovation cost estimator</h2><p>Price your renovation item by item: flooring per square foot, carpentry per foot run, bathrooms, electrical points and painting.</p><span class="more">Open the estimator →</span></div>
     </a>
+    <a class="card guide-feature" href="/tools/room-planner">
+      <div class="body"><span class="eyebrow">Free tool</span><h2>Room planner</h2><p>Draw your home to scale, place wardrobes and kitchen cabinets, and price the plan in one click.</p><span class="more">Open the room planner →</span></div>
+    </a>
     <div class="grid grid-2">
       ${GUIDES.map((g) => `
       <a class="card guide-card" href="/guides/${g.slug}">
