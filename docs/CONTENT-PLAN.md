@@ -70,7 +70,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] renovation-budget-4-room-bto | Sample Budget for a 4-Room BTO | 4 room bto renovation budget
 - [x] renovation-budget-5-room-bto | Sample Budget for a 5-Room BTO | 5 room bto renovation budget
 - [ ] renovation-budget-condo | Sample Renovation Budget for a Condo | condo renovation budget
-- [ ] cheap-renovation-ideas-singapore | Low-Cost Renovation Ideas | cheap renovation singapore
+- [x] cheap-renovation-ideas-singapore | Low-Cost Renovation Ideas | cheap renovation singapore
 - [ ] renovation-quote-comparison-template | How to Compare Three Renovation Quotes | compare renovation quotes
 - [x] hidden-renovation-costs-singapore | Hidden Renovation Costs | hidden renovation costs singapore
 - [ ] diy-vs-contractor-singapore | DIY vs Hiring a Contractor | diy renovation singapore
@@ -87,7 +87,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 
 ## Rules & Permits (50)
 
-- [ ] hdb-renovation-permit-how-to-apply | How the HDB Renovation Permit Works | hdb renovation permit
+- [x] hdb-renovation-permit-how-to-apply | How the HDB Renovation Permit Works | hdb renovation permit
 - [ ] hdb-renovation-rules-working-hours | HDB Renovation Working Hours and Noise | hdb renovation working hours
 - [ ] hdb-walls-can-remove | Which HDB Walls Can You Hack? | hdb hacking walls
 - [ ] hdb-bay-window-rules | HDB Bay Window Rules | hdb bay window
@@ -117,7 +117,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] condo-defects-checking-singapore | Checking a New Condo for Defects | condo defects checking
 - [ ] condo-defects-liability-singapore | Condo Defects Liability Period | condo defects liability
 - [ ] strata-title-renovation-singapore | Strata Title Renovation Basics | strata renovation singapore
-- [ ] mcst-renovation-approval-documents | Documents for MCST Renovation Approval | mcst renovation approval
+- [x] mcst-renovation-approval-documents | Documents for MCST Renovation Approval | mcst renovation approval
 - [ ] renovation-working-hours-public-holidays | Renovating on Public Holidays and Sundays | renovation public holiday singapore
 - [ ] licensed-electrician-singapore-ema | EMA-Licensed Electrical Workers | licensed electrician singapore
 - [ ] licensed-plumber-singapore-pub | PUB-Licensed Plumbers | licensed plumber singapore
@@ -193,7 +193,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] wet-and-dry-kitchen-singapore | Wet and Dry Kitchen Layouts | wet and dry kitchen
 - [ ] hdb-bathroom-design-ideas-singapore | HDB Bathroom Design Ideas | hdb bathroom design
 - [x] small-bathroom-design-singapore | Small Bathroom Ideas | small bathroom design
-- [ ] hdb-dining-area-ideas-singapore | HDB Dining Area Ideas | hdb dining area
+- [x] hdb-dining-area-ideas-singapore | HDB Dining Area Ideas | hdb dining area
 - [x] hdb-entryway-ideas-singapore | Entryway and Shoe Cabinet Ideas | hdb entryway
 - [x] hdb-study-corner-ideas-singapore | Study Corner Ideas | study corner design
 - [x] hdb-balcony-ideas-singapore | Balcony and Service Yard Ideas | balcony design singapore
@@ -251,7 +251,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] elderly-bathroom-safety-singapore | Safer Bathrooms | elderly bathroom safety
 - [ ] home-office-hdb-singapore | Home Office in HDB | home office hdb
 - [ ] gaming-room-design-singapore | Gaming Room Design | gaming room design
-- [ ] reading-nook-ideas-singapore | Reading Nooks | reading nook ideas
+- [x] reading-nook-ideas-singapore | Reading Nooks | reading nook ideas
 - [ ] wardrobe-design-ideas-singapore | Wardrobe Design Ideas | wardrobe design ideas
 - [ ] walk-in-wardrobe-hdb-singapore | Walk-In Wardrobe in HDB | walk in wardrobe hdb
 - [ ] vanity-and-dressing-table-ideas-singapore | Dressing Table Ideas | dressing table ideas
@@ -270,7 +270,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] landed-architect-vs-id-singapore | Architect vs Interior Designer for Landed | landed architect vs interior designer
 - [x] landed-structural-engineer-role-singapore | Role of the Structural Engineer | structural engineer landed
 - [ ] landed-builder-licence-bca-singapore | BCA Builder Licensing | bca licensed builder
-- [ ] landed-ura-planning-permission-explained | URA Planning Permission | ura planning permission landed
+- [x] landed-ura-planning-permission-explained | URA Planning Permission | ura planning permission landed
 - [ ] landed-bca-approval-explained | BCA Building Plan Approval | bca building plan approval
 - [ ] landed-permit-to-commence-works-singapore | Permit to Commence Works | permit to commence building works
 - [ ] landed-top-and-csc-singapore | TOP and CSC for Landed | top csc landed
@@ -297,7 +297,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] landed-design-brief-singapore | Writing a Brief for Your Architect | architect design brief
 - [x] landed-architect-selection-singapore | Choosing an Architect | choose architect singapore
 - [x] landed-builder-selection-singapore | Choosing a Builder | choose landed builder
-- [ ] landed-contract-types-singapore | Contract Types | landed construction contract
+- [x] landed-contract-types-singapore | Contract Types | landed construction contract
 - [ ] landed-defects-liability-singapore | Defects After Completion | landed defects liability
 - [ ] landed-interior-after-completion-singapore | Planning Interiors | landed interior design
 - [ ] landed-terrace-vs-semid-vs-bungalow-singapore | Terrace vs Semi-D vs Bungalow | terrace vs semi detached
@@ -341,7 +341,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] washer-dryer-placement-singapore | Washer and Dryer Placement | washer dryer placement
 - [ ] fridge-size-guide-singapore | Fridge Size Guide | fridge size guide
 - [ ] new-home-first-week-checklist-singapore | First Week in a New Home | new home checklist
-- [ ] renovation-order-of-works-singapore | Order of Works | renovation order of works
+- [x] renovation-order-of-works-singapore | Order of Works | renovation order of works
 - [ ] living-in-flat-during-renovation | Living Through a Renovation | living during renovation
 - [ ] temporary-housing-during-renovation | Temporary Housing | temporary housing renovation
 - [ ] renovation-project-tracker-singapore | Tracking Your Renovation | renovation project tracker
