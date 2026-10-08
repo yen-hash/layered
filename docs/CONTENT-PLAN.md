@@ -50,7 +50,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] toilet-renovation-cost-singapore | Toilet Renovation Cost in Singapore | toilet renovation cost singapore
 - [x] bathroom-waterproofing-cost-singapore | Bathroom Waterproofing Cost | bathroom waterproofing cost
 - [x] shower-screen-cost-singapore | Shower Screen Cost | shower screen cost singapore
-- [ ] aircon-installation-cost-singapore | Aircon Installation Cost | aircon installation cost singapore
+- [x] aircon-installation-cost-singapore | Aircon Installation Cost | aircon installation cost singapore
 - [ ] digital-lock-cost-singapore | Digital Lock Cost for HDB Doors | digital lock cost singapore
 - [ ] curtain-cost-singapore | Curtain Cost in Singapore | curtain cost singapore
 - [ ] blinds-cost-singapore | Blinds Cost: Roller, Zebra and Venetian | blinds cost singapore
@@ -80,8 +80,8 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] retail-shop-renovation-cost-singapore | Retail Shop Fit-Out Cost | shop renovation cost singapore
 - [ ] cafe-renovation-cost-singapore | Cafe Renovation Cost | cafe renovation cost singapore
 - [ ] clinic-renovation-cost-singapore | Clinic Renovation Cost | clinic renovation cost singapore
-- [ ] renovation-price-negotiation-singapore | How to Negotiate Renovation Prices | negotiate renovation price
-- [ ] renovation-cost-checklist-singapore | Renovation Cost Checklist | renovation cost checklist
+- [x] renovation-price-negotiation-singapore | How to Negotiate Renovation Prices | negotiate renovation price
+- [x] renovation-cost-checklist-singapore | Renovation Cost Checklist | renovation cost checklist
 - [ ] renovation-cost-2027-outlook-singapore | Renovation Cost Trends | renovation cost trends singapore
 - [ ] cost-of-moving-into-new-home-singapore | Total Cost of Moving Into a New Home | cost of moving into new home
 
@@ -149,13 +149,13 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] interior-designer-reviews-how-to-read | How to Read Designer Reviews | interior designer reviews singapore
 - [x] interior-designer-red-flags-singapore | Interior Designer Red Flags | interior designer red flags
 - [ ] boutique-vs-large-id-firm-singapore | Boutique vs Large Firms | boutique interior design firm
-- [ ] freelance-interior-designer-singapore | Freelance Interior Designers | freelance interior designer singapore
+- [x] freelance-interior-designer-singapore | Freelance Interior Designers | freelance interior designer singapore
 - [x] design-and-build-singapore-explained | Design-and-Build Explained | design and build singapore
 - [ ] renovation-contractor-vs-id-firm | Contractor vs ID Firm | contractor vs interior designer
 - [x] how-many-quotes-to-get-renovation | How Many Quotes Should You Get? | how many renovation quotes
 - [x] interior-designer-commission-explained | How Designers Earn: Commission, Fees and Markups | interior designer commission
 - [ ] interior-designer-3d-drawings-what-included | 3D Drawings: What Is Included | interior designer 3d drawings
-- [ ] interior-designer-site-supervision | Site Supervision: What Designers Do | site supervision interior designer
+- [x] interior-designer-site-supervision | Site Supervision: What Designers Do | site supervision interior designer
 - [ ] id-project-manager-vs-designer | Designer vs Project Manager | project manager interior design
 - [ ] working-with-id-on-a-budget | Working With a Designer on a Tight Budget | designer on a budget
 - [ ] interior-designer-for-small-flat | Choosing a Designer for a Small Flat | interior designer small flat
@@ -290,11 +290,11 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] landed-electrical-load-singapore | Electrical Load | landed electrical load
 - [ ] landed-solar-considerations-singapore | Solar Panels | solar landed singapore
 - [ ] landed-landscape-considerations-singapore | Landscaping | landed landscaping
-- [ ] landed-living-during-rebuild-singapore | Where to Live During a Rebuild | living during rebuild
+- [x] landed-living-during-rebuild-singapore | Where to Live During a Rebuild | living during rebuild
 - [x] landed-rebuild-budget-checklist-singapore | Rebuild Budget Checklist | landed rebuild budget
 - [ ] landed-construction-loan-singapore | Financing a Rebuild | landed construction loan
-- [ ] landed-aa-hidden-costs-singapore | Hidden Costs in A&A | landed aa hidden costs
-- [ ] landed-design-brief-singapore | Writing a Brief for Your Architect | architect design brief
+- [x] landed-aa-hidden-costs-singapore | Hidden Costs in A&A | landed aa hidden costs
+- [x] landed-design-brief-singapore | Writing a Brief for Your Architect | architect design brief
 - [x] landed-architect-selection-singapore | Choosing an Architect | choose architect singapore
 - [x] landed-builder-selection-singapore | Choosing a Builder | choose landed builder
 - [ ] landed-contract-types-singapore | Contract Types | landed construction contract
@@ -324,9 +324,9 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] how-to-choose-a-carpenter-singapore | Choosing a Carpenter | choose carpenter singapore
 - [ ] carpentry-materials-compared-singapore | Carpentry Materials Compared | carpentry materials
 - [ ] soft-close-hardware-singapore | Soft-Close Hardware | soft close hardware
-- [ ] how-to-choose-a-painter-singapore | Choosing a Painter | choose painter singapore
+- [x] how-to-choose-a-painter-singapore | Choosing a Painter | choose painter singapore
 - [ ] paint-types-hdb-singapore | Paint Types | paint types hdb
-- [ ] how-to-choose-an-electrician-singapore | Choosing an Electrician | choose electrician singapore
+- [x] how-to-choose-an-electrician-singapore | Choosing an Electrician | choose electrician singapore
 - [ ] how-many-power-points-hdb-singapore | How Many Power Points? | power points hdb
 - [ ] how-to-choose-a-plumber-singapore | Choosing a Plumber | choose plumber singapore
 - [ ] water-heater-types-singapore | Water Heater Types | water heater types singapore
