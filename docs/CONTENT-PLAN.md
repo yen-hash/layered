@@ -185,22 +185,22 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 
 ## Design Ideas (70)
 
-- [ ] hdb-bedroom-design-ideas-singapore | HDB Bedroom Design Ideas | hdb bedroom design
+- [x] hdb-bedroom-design-ideas-singapore | HDB Bedroom Design Ideas | hdb bedroom design
 - [ ] master-bedroom-layout-ideas-singapore | Master Bedroom Layout Ideas | master bedroom layout
 - [ ] kids-bedroom-design-singapore | Kids Bedroom Design | kids bedroom design singapore
 - [ ] hdb-kitchen-design-ideas-singapore | HDB Kitchen Design Ideas | hdb kitchen design
-- [ ] open-kitchen-vs-closed-kitchen-singapore | Open vs Closed Kitchen | open vs closed kitchen
-- [ ] wet-and-dry-kitchen-singapore | Wet and Dry Kitchen Layouts | wet and dry kitchen
+- [x] open-kitchen-vs-closed-kitchen-singapore | Open vs Closed Kitchen | open vs closed kitchen
+- [x] wet-and-dry-kitchen-singapore | Wet and Dry Kitchen Layouts | wet and dry kitchen
 - [ ] hdb-bathroom-design-ideas-singapore | HDB Bathroom Design Ideas | hdb bathroom design
-- [ ] small-bathroom-design-singapore | Small Bathroom Ideas | small bathroom design
+- [x] small-bathroom-design-singapore | Small Bathroom Ideas | small bathroom design
 - [ ] hdb-dining-area-ideas-singapore | HDB Dining Area Ideas | hdb dining area
-- [ ] hdb-entryway-ideas-singapore | Entryway and Shoe Cabinet Ideas | hdb entryway
-- [ ] hdb-study-corner-ideas-singapore | Study Corner Ideas | study corner design
+- [x] hdb-entryway-ideas-singapore | Entryway and Shoe Cabinet Ideas | hdb entryway
+- [x] hdb-study-corner-ideas-singapore | Study Corner Ideas | study corner design
 - [ ] hdb-balcony-ideas-singapore | Balcony and Service Yard Ideas | balcony design singapore
 - [ ] living-room-lighting-ideas-singapore | Living Room Lighting | living room lighting ideas
-- [ ] cove-lighting-ideas-singapore | Cove Lighting Ideas | cove lighting ideas
+- [x] cove-lighting-ideas-singapore | Cove Lighting Ideas | cove lighting ideas
 - [ ] pendant-lights-dining-singapore | Pendant Lights Over a Dining Table | pendant lights dining
-- [ ] colour-schemes-hdb-singapore | Colour Schemes for HDB Homes | hdb colour scheme
+- [x] colour-schemes-hdb-singapore | Colour Schemes for HDB Homes | hdb colour scheme
 - [ ] small-space-colour-tricks-singapore | Colour Tricks for Small Spaces | small space colours
 - [ ] white-interior-singapore | White Interiors That Stay Warm | white interior design
 - [ ] earth-tone-interior-singapore | Earth Tone Interiors | earth tone interior
@@ -225,11 +225,11 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] tv-feature-wall-ideas-singapore | TV Wall Ideas | tv feature wall
 - [ ] sliding-door-ideas-singapore | Sliding Door Ideas | sliding door ideas
 - [ ] glass-partition-ideas-singapore | Glass Partition Ideas | glass partition hdb
-- [ ] curtain-vs-blinds-singapore | Curtains vs Blinds | curtain vs blinds
+- [x] curtain-vs-blinds-singapore | Curtains vs Blinds | curtain vs blinds
 - [ ] day-night-curtains-singapore | Day and Night Curtains | day and night curtains
 - [ ] roller-blinds-vs-zebra-blinds-singapore | Roller vs Zebra Blinds | roller vs zebra blinds
 - [ ] flooring-options-bedroom-singapore | Bedroom Flooring | bedroom flooring singapore
-- [ ] timber-vs-vinyl-flooring-singapore | Timber vs Vinyl | timber vs vinyl flooring
+- [x] timber-vs-vinyl-flooring-singapore | Timber vs Vinyl | timber vs vinyl flooring
 - [ ] marble-look-tiles-singapore | Marble-Look Tiles | marble look tiles singapore
 - [ ] terrazzo-design-singapore | Terrazzo in Singapore Homes | terrazzo singapore
 - [ ] kitchen-countertop-material-singapore | Choosing a Countertop | kitchen countertop material
