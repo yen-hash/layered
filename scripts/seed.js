@@ -8,23 +8,15 @@ import { hashPassword } from '../lib/auth.js';
 // use SEED_PASSWORD if set, otherwise a random one nobody knows. Set SEED_DEMO=0 to skip demo firms entirely.
 const PRODUCTION = process.env.NODE_ENV === 'production';
 const DEMO_PASSWORD = PRODUCTION ? (process.env.SEED_PASSWORD || crypto.randomBytes(24).toString('hex')) : 'password123';
-if (process.env.SEED_DEMO === '0') {
-  console.log('Skipping demo firms (SEED_DEMO=0).');
-  process.exit(0);
-}
 
 // The original Carpenters logo export was blank; point existing databases at the replacement.
 db.prepare("UPDATE businesses SET logo_url = '/uploads/carpenters/logo.png' WHERE logo_url = '/uploads/carpenters/logo.webp'").run();
 
 const existing = db.prepare('SELECT COUNT(*) c FROM businesses').get().c;
-if (existing > 0) {
-  console.log(`Skipping seed — ${existing} business(es) already in the database.`);
-  process.exit(0);
-}
 
 const sample = [
   {
-    company_name: 'Carpenters 匠', email: 'yenlauzengbin@gmail.com', contact_name: 'Carpenters Team',
+    real: true, company_name: 'Carpenters 匠', email: 'yenlauzengbin@gmail.com', contact_name: 'Carpenters Team',
     phone: '+65 8774 8495', property_types: 'HDB,Condo,Landed,Commercial', styles: 'Minimalist,Industrial,Contemporary',
     service_areas: 'Islandwide (East & West showrooms)', featured: 1,
     bio: 'Carpenters blends generations of carpentry knowledge with a contemporary design practice — we have renovated over 3,500 homes since the 1950s, working out of our own in-house carpentry facility. We take on HDB, condo, landed and commercial projects, with a focus on bespoke joinery, Japandi and minimalist-industrial interiors, and considered detailing from concept through completion.',
@@ -86,7 +78,7 @@ const insertBusiness = db.prepare(`INSERT INTO businesses (slug, company_name, e
   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
 const insertProject = db.prepare(`INSERT INTO projects (business_id, title, property_type, style, description, cover_image) VALUES (?, ?, ?, ?, ?, ?)`);
 
-for (const s of sample) {
+function seedFirm(s) {
   const slug = slugify(s.company_name);
   const passwordHash = s.passwordHash || hashPassword(DEMO_PASSWORD);
   const info = insertBusiness.run(
@@ -97,6 +89,21 @@ for (const s of sample) {
     insertProject.run(info.lastInsertRowid, p.title, p.property_type, p.style, p.description, p.cover_image || null);
   }
   console.log(`Seeded ${s.company_name} (login: ${s.email}${s.passwordHash || PRODUCTION ? '' : ' / password123'})`);
+}
+
+// Real firms (marked `real`) are always present, whatever SEED_DEMO says, and are added if they are missing
+// even when other businesses already exist. Their data lives in this file, so a database that is reset on
+// deploy gets them back.
+for (const s of sample.filter((f) => f.real)) {
+  if (!db.prepare('SELECT 1 FROM businesses WHERE email = ?').get(s.email)) seedFirm(s);
+}
+
+if (process.env.SEED_DEMO === '0') {
+  console.log('Skipping sample firms (SEED_DEMO=0).');
+} else if (existing > 0) {
+  console.log(`Skipping sample firms: ${existing} business(es) already in the database.`);
+} else {
+  for (const s of sample.filter((f) => !f.real)) seedFirm(s);
 }
 
 console.log('Done.');
