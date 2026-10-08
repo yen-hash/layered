@@ -114,7 +114,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] condo-balcony-enclosure-rules | Condo Balcony Enclosure Rules | condo balcony enclosure
 - [ ] condo-flooring-rules-singapore | Condo Flooring Rules | condo flooring rules
 - [ ] condo-aircon-rules-singapore | Condo Aircon Rules | condo aircon rules
-- [ ] condo-defects-checking-singapore | Checking a New Condo for Defects | condo defects checking
+- [x] condo-defects-checking-singapore | Checking a New Condo for Defects | condo defects checking
 - [ ] condo-defects-liability-singapore | Condo Defects Liability Period | condo defects liability
 - [ ] strata-title-renovation-singapore | Strata Title Renovation Basics | strata renovation singapore
 - [ ] mcst-renovation-approval-documents | Documents for MCST Renovation Approval | mcst renovation approval
@@ -221,7 +221,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] storage-ideas-living-room-singapore | Living Room Storage | living room storage
 - [ ] platform-bed-storage-singapore | Platform Beds With Storage | platform bed storage
 - [ ] hidden-storage-hdb-singapore | Hidden Storage Ideas | hidden storage ideas
-- [ ] feature-wall-ideas-singapore | Feature Wall Ideas | feature wall ideas singapore
+- [x] feature-wall-ideas-singapore | Feature Wall Ideas | feature wall ideas singapore
 - [ ] tv-feature-wall-ideas-singapore | TV Wall Ideas | tv feature wall
 - [x] sliding-door-ideas-singapore | Sliding Door Ideas | sliding door ideas
 - [x] glass-partition-ideas-singapore | Glass Partition Ideas | glass partition hdb
@@ -242,7 +242,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] aircon-placement-design-singapore | Aircon Placement | aircon placement design
 - [ ] ceiling-fan-vs-aircon-singapore | Ceiling Fans and Airflow | ceiling fan singapore
 - [ ] natural-light-hdb-singapore | Maximising Natural Light | natural light hdb
-- [ ] privacy-ideas-hdb-singapore | Privacy Ideas | privacy hdb
+- [x] privacy-ideas-hdb-singapore | Privacy Ideas | privacy hdb
 - [x] soundproofing-hdb-singapore | Soundproofing Ideas | soundproofing hdb
 - [x] humidity-proofing-home-singapore | Designing for Humidity | humidity home singapore
 - [ ] easy-clean-materials-singapore | Easy-Clean Materials | easy clean materials home
@@ -321,14 +321,14 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] how-to-choose-flooring-specialist-singapore | Choosing a Flooring Specialist | flooring specialist singapore
 - [ ] overlay-vs-hack-tiles-singapore | Overlay vs Hack Floor Tiles | overlay vs hacking
 - [ ] floor-tile-sizes-singapore | Floor Tile Sizes | floor tile size
-- [ ] how-to-choose-a-carpenter-singapore | Choosing a Carpenter | choose carpenter singapore
+- [x] how-to-choose-a-carpenter-singapore | Choosing a Carpenter | choose carpenter singapore
 - [ ] carpentry-materials-compared-singapore | Carpentry Materials Compared | carpentry materials
 - [ ] soft-close-hardware-singapore | Soft-Close Hardware | soft close hardware
 - [x] how-to-choose-a-painter-singapore | Choosing a Painter | choose painter singapore
 - [ ] paint-types-hdb-singapore | Paint Types | paint types hdb
 - [x] how-to-choose-an-electrician-singapore | Choosing an Electrician | choose electrician singapore
 - [ ] how-many-power-points-hdb-singapore | How Many Power Points? | power points hdb
-- [ ] how-to-choose-a-plumber-singapore | Choosing a Plumber | choose plumber singapore
+- [x] how-to-choose-a-plumber-singapore | Choosing a Plumber | choose plumber singapore
 - [ ] water-heater-types-singapore | Water Heater Types | water heater types singapore
 - [ ] how-to-choose-digital-lock-singapore | Choosing a Digital Lock | choose digital lock
 - [ ] smart-switches-hdb-singapore | Smart Switches | smart switches hdb
