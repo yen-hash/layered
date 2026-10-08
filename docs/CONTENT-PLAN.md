@@ -36,17 +36,17 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] hdb-flooring-cost-singapore | HDB Flooring Cost by Material | hdb flooring cost
 - [x] vinyl-flooring-cost-singapore | Vinyl Flooring Cost in Singapore | vinyl flooring cost singapore
 - [x] hdb-painting-cost-singapore | HDB Painting Cost | hdb painting cost
-- [ ] hdb-hacking-cost-singapore | Hacking Cost for HDB Renovation | hdb hacking cost
+- [x] hdb-hacking-cost-singapore | Hacking Cost for HDB Renovation | hdb hacking cost
 - [x] hdb-rewiring-cost-singapore | HDB Rewiring Cost | hdb rewiring cost
 - [x] carpentry-cost-per-foot-run-singapore | Carpentry Cost Per Foot Run | carpentry cost per foot run
-- [ ] wardrobe-cost-singapore | Built-in Wardrobe Cost in Singapore | built in wardrobe cost singapore
-- [ ] kitchen-cabinet-cost-singapore | Kitchen Cabinet Cost in Singapore | kitchen cabinet cost singapore
-- [ ] countertop-cost-singapore | Kitchen Countertop Cost: Quartz, Granite, Sintered Stone | kitchen countertop cost singapore
-- [ ] false-ceiling-cost-singapore | False Ceiling Cost in Singapore | false ceiling cost singapore
+- [x] wardrobe-cost-singapore | Built-in Wardrobe Cost in Singapore | built in wardrobe cost singapore
+- [x] kitchen-cabinet-cost-singapore | Kitchen Cabinet Cost in Singapore | kitchen cabinet cost singapore
+- [x] countertop-cost-singapore | Kitchen Countertop Cost: Quartz, Granite, Sintered Stone | kitchen countertop cost singapore
+- [x] false-ceiling-cost-singapore | False Ceiling Cost in Singapore | false ceiling cost singapore
 - [ ] cove-lighting-cost-singapore | Cove Lighting Cost | cove lighting cost singapore
-- [ ] main-door-cost-singapore | HDB Main Door and Gate Cost | hdb main door cost
+- [x] main-door-cost-singapore | HDB Main Door and Gate Cost | hdb main door cost
 - [ ] bedroom-door-cost-singapore | Bedroom Door Cost for HDB | bedroom door cost singapore
-- [ ] window-grille-cost-singapore | Window Grille Cost | window grille cost singapore
+- [x] window-grille-cost-singapore | Window Grille Cost | window grille cost singapore
 - [ ] toilet-renovation-cost-singapore | Toilet Renovation Cost in Singapore | toilet renovation cost singapore
 - [ ] bathroom-waterproofing-cost-singapore | Bathroom Waterproofing Cost | bathroom waterproofing cost
 - [ ] shower-screen-cost-singapore | Shower Screen Cost | shower screen cost singapore
@@ -58,11 +58,11 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] moving-cost-singapore | Moving Cost in Singapore | moving cost singapore
 - [ ] post-renovation-cleaning-cost-singapore | Post-Renovation Cleaning Cost | post renovation cleaning cost
 - [ ] renovation-insurance-singapore | Renovation Insurance in Singapore | renovation insurance singapore
-- [ ] renovation-gst-singapore | GST on Renovation in Singapore | renovation gst singapore
+- [x] renovation-gst-singapore | GST on Renovation in Singapore | renovation gst singapore
 - [ ] interior-design-package-cost-singapore | Interior Design Package Cost | interior design package singapore
-- [ ] renovation-cost-bto-vs-resale-singapore | BTO vs Resale Renovation Cost | bto vs resale renovation cost
+- [x] renovation-cost-bto-vs-resale-singapore | BTO vs Resale Renovation Cost | bto vs resale renovation cost
 - [ ] renovation-cost-increase-singapore | Why Renovation Costs Rise and How to Control Them | renovation cost increase singapore
-- [ ] renovation-payment-mistakes-singapore | Payment Mistakes to Avoid During Renovation | renovation payment mistakes
+- [x] renovation-payment-mistakes-singapore | Payment Mistakes to Avoid During Renovation | renovation payment mistakes
 - [ ] renovation-loan-vs-cash-singapore | Renovation Loan vs Cash | renovation loan vs cash
 - [ ] cpf-renovation-singapore | Can You Use CPF for Renovation? | cpf renovation singapore
 - [ ] home-improvement-programme-singapore | HDB Home Improvement Programme Explained | home improvement programme singapore
