@@ -142,18 +142,18 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 
 ## Choosing a Designer (40)
 
-- [ ] interior-designer-vs-architect-singapore | Interior Designer vs Architect | interior designer vs architect
-- [ ] how-to-brief-an-interior-designer | How to Brief an Interior Designer | brief interior designer
-- [ ] first-meeting-with-interior-designer | What to Expect at a First Meeting | first meeting interior designer
-- [ ] interior-designer-portfolio-what-to-look-for | Reading a Designer's Portfolio | interior designer portfolio
+- [x] interior-designer-vs-architect-singapore | Interior Designer vs Architect | interior designer vs architect
+- [x] how-to-brief-an-interior-designer | How to Brief an Interior Designer | brief interior designer
+- [x] first-meeting-with-interior-designer | What to Expect at a First Meeting | first meeting interior designer
+- [x] interior-designer-portfolio-what-to-look-for | Reading a Designer's Portfolio | interior designer portfolio
 - [ ] interior-designer-reviews-how-to-read | How to Read Designer Reviews | interior designer reviews singapore
-- [ ] interior-designer-red-flags-singapore | Interior Designer Red Flags | interior designer red flags
+- [x] interior-designer-red-flags-singapore | Interior Designer Red Flags | interior designer red flags
 - [ ] boutique-vs-large-id-firm-singapore | Boutique vs Large Firms | boutique interior design firm
 - [ ] freelance-interior-designer-singapore | Freelance Interior Designers | freelance interior designer singapore
-- [ ] design-and-build-singapore-explained | Design-and-Build Explained | design and build singapore
+- [x] design-and-build-singapore-explained | Design-and-Build Explained | design and build singapore
 - [ ] renovation-contractor-vs-id-firm | Contractor vs ID Firm | contractor vs interior designer
-- [ ] how-many-quotes-to-get-renovation | How Many Quotes Should You Get? | how many renovation quotes
-- [ ] interior-designer-commission-explained | How Designers Earn: Commission, Fees and Markups | interior designer commission
+- [x] how-many-quotes-to-get-renovation | How Many Quotes Should You Get? | how many renovation quotes
+- [x] interior-designer-commission-explained | How Designers Earn: Commission, Fees and Markups | interior designer commission
 - [ ] interior-designer-3d-drawings-what-included | 3D Drawings: What Is Included | interior designer 3d drawings
 - [ ] interior-designer-site-supervision | Site Supervision: What Designers Do | site supervision interior designer
 - [ ] id-project-manager-vs-designer | Designer vs Project Manager | project manager interior design
@@ -170,9 +170,9 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] interior-designer-for-wfh | Designing a Home Office | home office design singapore
 - [ ] how-to-change-designer-midway | Changing Designer Midway | change interior designer
 - [ ] id-meeting-questions-checklist | Meeting Checklist | interior designer meeting checklist
-- [ ] reference-check-interior-designer | How to Check References | interior designer references
+- [x] reference-check-interior-designer | How to Check References | interior designer references
 - [ ] show-flat-visit-with-designer | Visiting Completed Projects | visit completed renovation project
-- [ ] interior-design-contract-sign-checklist | Before You Sign: A Checklist | sign interior design contract
+- [x] interior-design-contract-sign-checklist | Before You Sign: A Checklist | sign interior design contract
 - [ ] interior-design-timeline-expectations | Realistic Timeline Expectations | interior design timeline
 - [ ] interior-design-communication-tips | Working Well With Your Designer | work with interior designer
 - [ ] designer-recommendation-platforms-compared | Recommendation Platforms Compared | interior designer platforms singapore
