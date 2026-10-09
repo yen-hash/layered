@@ -66,7 +66,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] renovation-loan-vs-cash-singapore | Renovation Loan vs Cash | renovation loan vs cash
 - [ ] cpf-renovation-singapore | Can You Use CPF for Renovation? | cpf renovation singapore
 - [ ] home-improvement-programme-singapore | HDB Home Improvement Programme Explained | home improvement programme singapore
-- [ ] renovation-subsidies-singapore | Renovation Grants and Subsidies | renovation grant singapore
+- [x] renovation-subsidies-singapore | Renovation Grants and Subsidies | renovation grant singapore
 - [x] renovation-budget-4-room-bto | Sample Budget for a 4-Room BTO | 4 room bto renovation budget
 - [x] renovation-budget-5-room-bto | Sample Budget for a 5-Room BTO | 5 room bto renovation budget
 - [x] renovation-budget-condo | Sample Renovation Budget for a Condo | condo renovation budget
@@ -110,7 +110,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] condo-renovation-rules-working-hours | Condo Renovation Working Hours | condo renovation working hours
 - [ ] condo-renovation-deposit-refund | Condo Renovation Deposit | condo renovation deposit
 - [ ] condo-lift-booking-renovation | Lift Booking and Delivery Rules in Condos | condo lift booking
-- [ ] condo-move-in-rules-singapore | Condo Move-In Rules | condo move in rules
+- [x] condo-move-in-rules-singapore | Condo Move-In Rules | condo move in rules
 - [ ] condo-balcony-enclosure-rules | Condo Balcony Enclosure Rules | condo balcony enclosure
 - [ ] condo-flooring-rules-singapore | Condo Flooring Rules | condo flooring rules
 - [ ] condo-aircon-rules-singapore | Condo Aircon Rules | condo aircon rules
@@ -119,7 +119,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] strata-title-renovation-singapore | Strata Title Renovation Basics | strata renovation singapore
 - [x] mcst-renovation-approval-documents | Documents for MCST Renovation Approval | mcst renovation approval
 - [ ] renovation-working-hours-public-holidays | Renovating on Public Holidays and Sundays | renovation public holiday singapore
-- [ ] licensed-electrician-singapore-ema | EMA-Licensed Electrical Workers | licensed electrician singapore
+- [x] licensed-electrician-singapore-ema | EMA-Licensed Electrical Workers | licensed electrician singapore
 - [ ] licensed-plumber-singapore-pub | PUB-Licensed Plumbers | licensed plumber singapore
 - [ ] hdb-registered-renovation-contractor-list | HDB Registered Renovation Contractors | hdb registered contractor
 - [x] casetrust-accreditation-explained-2 | What CaseTrust Accreditation Means | casetrust accreditation
@@ -163,7 +163,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] interior-designer-for-resale-hdb | Designer for a Resale HDB | interior designer resale hdb
 - [ ] interior-designer-for-condo | Designer for a Condo | interior designer condo
 - [ ] interior-designer-for-landed | Designer for a Landed Home | interior designer landed
-- [ ] interior-designer-for-commercial | Designer for Offices and Shops | commercial interior designer
+- [x] interior-designer-for-commercial | Designer for Offices and Shops | commercial interior designer
 - [ ] interior-designer-for-elderly-home | Designing for Elderly Family Members | elderly friendly home design
 - [ ] interior-designer-for-young-family | Designing for Young Children | child friendly home design
 - [ ] interior-designer-for-pets | Designing a Home for Pets | pet friendly home design
@@ -203,7 +203,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] colour-schemes-hdb-singapore | Colour Schemes for HDB Homes | hdb colour scheme
 - [ ] small-space-colour-tricks-singapore | Colour Tricks for Small Spaces | small space colours
 - [ ] white-interior-singapore | White Interiors That Stay Warm | white interior design
-- [ ] earth-tone-interior-singapore | Earth Tone Interiors | earth tone interior
+- [x] earth-tone-interior-singapore | Earth Tone Interiors | earth tone interior
 - [ ] wood-tone-interior-singapore | Using Wood Tones | wood tone interior
 - [ ] modern-minimalist-hdb-singapore | Modern Minimalist HDB | minimalist hdb design
 - [x] industrial-style-home-singapore | Industrial Style at Home | industrial style home singapore
@@ -253,7 +253,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] gaming-room-design-singapore | Gaming Room Design | gaming room design
 - [x] reading-nook-ideas-singapore | Reading Nooks | reading nook ideas
 - [x] wardrobe-design-ideas-singapore | Wardrobe Design Ideas | wardrobe design ideas
-- [ ] walk-in-wardrobe-hdb-singapore | Walk-In Wardrobe in HDB | walk in wardrobe hdb
+- [x] walk-in-wardrobe-hdb-singapore | Walk-In Wardrobe in HDB | walk in wardrobe hdb
 - [ ] vanity-and-dressing-table-ideas-singapore | Dressing Table Ideas | dressing table ideas
 - [ ] house-warming-prep-singapore | Housewarming Preparation | housewarming singapore
 - [ ] feng-shui-layout-hdb-singapore | Feng Shui Layout Considerations | feng shui hdb layout
@@ -283,8 +283,8 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] landed-swimming-pool-considerations-singapore | Pools at Home | landed swimming pool
 - [ ] landed-lift-considerations-singapore | Home Lifts | home lift singapore
 - [x] landed-party-wall-neighbours-singapore | Party Walls and Neighbours | party wall singapore
-- [ ] landed-soil-investigation-singapore | Soil Investigation | soil investigation landed
-- [ ] landed-demolition-process-singapore | Demolition Process | landed demolition singapore
+- [x] landed-soil-investigation-singapore | Soil Investigation | soil investigation landed
+- [x] landed-demolition-process-singapore | Demolition Process | landed demolition singapore
 - [ ] landed-foundation-considerations-singapore | Foundations | landed foundation
 - [ ] landed-waterproofing-roof-singapore | Roof Waterproofing | landed roof waterproofing
 - [ ] landed-electrical-load-singapore | Electrical Load | landed electrical load
@@ -314,7 +314,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] motorised-curtains-singapore | Motorised Curtains | motorised curtains singapore
 - [x] how-to-choose-movers-singapore | Choosing Movers | choose movers singapore
 - [x] moving-checklist-singapore | Moving Checklist | moving checklist singapore
-- [ ] protect-new-floors-moving-singapore | Protecting New Floors | protect floors moving
+- [x] protect-new-floors-moving-singapore | Protecting New Floors | protect floors moving
 - [ ] how-to-choose-aircon-installer-singapore | Choosing an Aircon Installer | aircon installer singapore
 - [ ] aircon-system-types-singapore | System 1 vs Multi-Split | aircon system types
 - [ ] aircon-piping-planning-singapore | Aircon Piping Planning | aircon piping
