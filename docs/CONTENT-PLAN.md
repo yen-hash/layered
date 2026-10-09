@@ -188,7 +188,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] hdb-bedroom-design-ideas-singapore | HDB Bedroom Design Ideas | hdb bedroom design
 - [x] master-bedroom-layout-ideas-singapore | Master Bedroom Layout Ideas | master bedroom layout
 - [x] kids-bedroom-design-singapore | Kids Bedroom Design | kids bedroom design singapore
-- [ ] hdb-kitchen-design-ideas-singapore | HDB Kitchen Design Ideas | hdb kitchen design
+- [x] hdb-kitchen-design-ideas-singapore | HDB Kitchen Design Ideas | hdb kitchen design
 - [x] open-kitchen-vs-closed-kitchen-singapore | Open vs Closed Kitchen | open vs closed kitchen
 - [x] wet-and-dry-kitchen-singapore | Wet and Dry Kitchen Layouts | wet and dry kitchen
 - [ ] hdb-bathroom-design-ideas-singapore | HDB Bathroom Design Ideas | hdb bathroom design
@@ -219,7 +219,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] storage-ideas-bedroom-singapore | Bedroom Storage Ideas | bedroom storage singapore
 - [ ] storage-ideas-kitchen-singapore | Kitchen Storage Ideas | kitchen storage singapore
 - [x] storage-ideas-living-room-singapore | Living Room Storage | living room storage
-- [ ] platform-bed-storage-singapore | Platform Beds With Storage | platform bed storage
+- [x] platform-bed-storage-singapore | Platform Beds With Storage | platform bed storage
 - [ ] hidden-storage-hdb-singapore | Hidden Storage Ideas | hidden storage ideas
 - [x] feature-wall-ideas-singapore | Feature Wall Ideas | feature wall ideas singapore
 - [ ] tv-feature-wall-ideas-singapore | TV Wall Ideas | tv feature wall
@@ -287,8 +287,8 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] landed-demolition-process-singapore | Demolition Process | landed demolition singapore
 - [ ] landed-foundation-considerations-singapore | Foundations | landed foundation
 - [ ] landed-waterproofing-roof-singapore | Roof Waterproofing | landed roof waterproofing
-- [ ] landed-electrical-load-singapore | Electrical Load | landed electrical load
-- [ ] landed-solar-considerations-singapore | Solar Panels | solar landed singapore
+- [x] landed-electrical-load-singapore | Electrical Load | landed electrical load
+- [x] landed-solar-considerations-singapore | Solar Panels | solar landed singapore
 - [ ] landed-landscape-considerations-singapore | Landscaping | landed landscaping
 - [x] landed-living-during-rebuild-singapore | Where to Live During a Rebuild | living during rebuild
 - [x] landed-rebuild-budget-checklist-singapore | Rebuild Budget Checklist | landed rebuild budget
@@ -327,7 +327,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] how-to-choose-a-painter-singapore | Choosing a Painter | choose painter singapore
 - [ ] paint-types-hdb-singapore | Paint Types | paint types hdb
 - [x] how-to-choose-an-electrician-singapore | Choosing an Electrician | choose electrician singapore
-- [ ] how-many-power-points-hdb-singapore | How Many Power Points? | power points hdb
+- [x] how-many-power-points-hdb-singapore | How Many Power Points? | power points hdb
 - [x] how-to-choose-a-plumber-singapore | Choosing a Plumber | choose plumber singapore
 - [ ] water-heater-types-singapore | Water Heater Types | water heater types singapore
 - [ ] how-to-choose-digital-lock-singapore | Choosing a Digital Lock | choose digital lock
