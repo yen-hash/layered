@@ -43,21 +43,21 @@ const PAGES = {
     </ul>
     <h2>How we use it</h2>
     <ul>
-      <li>To pass your enquiry to the firms that match it. Matched firms receive the details you submitted so they can contact you.</li>
+      <li>To pass your enquiry to the firms that match it, or to the one firm you sent it to. A firm sees your project details straight away, but your name, phone number and email stay hidden until that firm unlocks your enquiry, for example by holding a paid plan or a trial, or by unlocking that single enquiry. Firms that do not unlock it never receive your contact details.</li>
       <li>To run accounts, send service emails such as password resets and review invitations, and keep the site secure.</li>
       <li>To understand which pages are useful and improve the site.</li>
     </ul>
     <p>We do not sell your personal data.</p>
     <h2>Who we share it with</h2>
     <ul>
-      <li><strong>Matched firms</strong>, for homeowner enquiries.</li>
+      <li><strong>Firms that unlock your enquiry</strong>, which then receive the contact details you submitted.</li>
       <li><strong>Service providers</strong> that host the site and send email on our behalf, and Google if analytics is switched on.</li>
       <li>Authorities, where the law requires it.</li>
     </ul>
     <h2>Cookies</h2>
     <p>We use a session cookie to keep firms logged in, and a small cookie or local storage to remember your shortlist. If analytics is enabled, Google Analytics sets cookies to measure traffic. You can block cookies in your browser settings, though logging in will not work without the session cookie.</p>
     <h2>Keeping and deleting data</h2>
-    <p>We keep personal data only as long as we need it for the purposes above or the law requires. You can ask us to delete your enquiry or account.</p>
+    <p>We keep personal data only as long as we need it for the purposes above or the law requires. If no firm unlocks your enquiry, we delete your name, phone number, email and message 90 days after you send it. You can also ask us to delete your enquiry or account at any time.</p>
     <h2>Your choices</h2>
     <p>You can ask to access or correct the personal data we hold about you, or withdraw your consent to our using it. To do so, ${contact()}. Firms can edit their own profile and photos from their dashboard.</p>
     <h2>Changes</h2>

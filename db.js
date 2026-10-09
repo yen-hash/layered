@@ -129,6 +129,20 @@ for (const col of ['hdb_verified_value', 'hdb_verified_at', 'casetrust_verified_
   if (!businessCols.includes(col)) db.exec(`ALTER TABLE businesses ADD COLUMN ${col} TEXT DEFAULT ''`);
 }
 
+// Lead access: free vs paid plan, a trial end date, and per-lead unlocks (see lib/leadAccess.js).
+// Existing firms and the leads they already received are grandfathered: they get a fresh 3-month trial and keep what they have.
+if (!businessCols.includes('plan')) {
+  db.exec("ALTER TABLE businesses ADD COLUMN plan TEXT NOT NULL DEFAULT 'free'");
+  db.exec("ALTER TABLE businesses ADD COLUMN trial_ends_at TEXT DEFAULT ''");
+  db.exec("UPDATE businesses SET trial_ends_at = datetime('now', '+3 months')");
+}
+const matchCols = db.prepare('PRAGMA table_info(lead_matches)').all().map((c) => c.name);
+if (!matchCols.includes('unlocked_at')) {
+  db.exec("ALTER TABLE lead_matches ADD COLUMN unlocked_at TEXT DEFAULT ''");
+  db.exec("UPDATE lead_matches SET unlocked_at = created_at");
+}
+if (!leadCols.includes('purged_at')) db.exec('ALTER TABLE leads ADD COLUMN purged_at TEXT');
+
 export const PROPERTY_TYPES = ['HDB', 'Condo', 'Landed', 'Commercial'];
 export const STYLES = ['Minimalist', 'Scandinavian', 'Industrial', 'Modern', 'Contemporary', 'Classic'];
 export const BUDGET_RANGES = ['Below $20k', '$20k - $50k', '$50k - $100k', 'Above $100k'];

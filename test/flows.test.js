@@ -173,3 +173,23 @@ test('blog editor: admin writes and publishes, non-admin is refused', async () =
   const refused = await post('/dashboard/blog/save', firm, { title: 'Nope', body: 'x', intent: 'publish' });
   assert.equal(refused.status, 403);
 });
+
+test('masked leads: free plan hides contact details until admin unlocks', async () => {
+  const accts = await (await req('GET', '/dashboard/accounts', { cookie: admin })).text();
+  const row = accts.split('<tr>').find((r) => r.includes(`Flow Studio ${tag}`));
+  const id = /\/dashboard\/accounts\/(\d+)\/access/.exec(row)[1];
+  assert.match(loc(await post(`/dashboard/accounts/${id}/access`, admin, { plan: 'free', trial_ends: '2020-01-01' })), /saved/i);
+  const secret = `masked-${tag}@flows.test`;
+  const sent = await post('/leads', '', { name: 'Mask Tester', email: secret, phone: '81234567', property_type: 'HDB', business: `flow-studio-${tag}`, message: `Please WhatsApp 8123 4567 or email ${secret}` });
+  assert.match(loc(sent), /unlock it/);
+  const list = await (await req('GET', '/dashboard/leads', { cookie: firm })).text();
+  const matchId = [...list.matchAll(/\/dashboard\/leads\/(\d+)"/g)].map((m) => m[1]).pop();
+  const page = await (await req('GET', `/dashboard/leads/${matchId}`, { cookie: firm })).text();
+  assert.ok(!page.includes(secret) && !page.includes('81234567') && !page.includes('8123 4567') && !page.includes('Mask Tester'), 'no contact details in the page');
+  assert.match(page, /Contact details are hidden/);
+  assert.ok(!fs.readFileSync(LOG, 'utf8').includes(secret), 'notification email must not carry the contact details');
+  assert.match(loc(await post(`/dashboard/leads/${matchId}/review-invite`, firm, {})), /unlock/i);
+  await post(`/dashboard/accounts/${id}/leads/${matchId}/unlock`, admin, {});
+  const open = await (await req('GET', `/dashboard/leads/${matchId}`, { cookie: firm })).text();
+  assert.ok(open.includes(secret), 'unlocked lead shows the contact details');
+});

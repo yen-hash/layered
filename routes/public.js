@@ -3,6 +3,7 @@ import { TRADE_BY_SLUG, LANDED_PROS, LANDED_COSTS, CATEGORY_BY_SLUG, DEFAULT_CAT
 import { db, PROPERTY_TYPES, STYLES, BUDGET_RANGES } from '../db.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
 import { dispatchLeadNotifications } from '../lib/notify.js';
+import { hasAccountAccess, maskLead } from '../lib/leadAccess.js';
 import { credentialBadges, credentialsPanel } from '../lib/credentials.js';
 import { abs, breadcrumbSchema, organizationSchema, websiteSchema } from '../lib/seo.js';
 import { breadcrumbNav } from '../lib/components.js';
@@ -74,14 +75,15 @@ function chipGroup(name, options, checkedList = []) {
   `).join('')}</div>`;
 }
 
-export function leadFormHtml(prefill = {}) {
+export function leadFormHtml(prefill = {}, toBusiness = null) {
   const sel = (v, want) => (v === want ? ' selected' : '');
   return `
   <div class="lead-form-section" id="get-recommendations">
-    <h2>Get matched with the right interior designer</h2>
-    <p class="section-sub">Tell us about your project. We'll send your brief straight to designers who fit — you'll hear back directly from them.</p>
+    <h2>${toBusiness ? `Send an enquiry to ${esc(toBusiness.company_name)}` : 'Get matched with the right interior designer'}</h2>
+    <p class="section-sub">${toBusiness ? 'Tell them about your project. Your enquiry goes to this firm only.' : "Tell us about your project. We'll send your brief to designers who fit."}</p>
     <form class="panel wide" method="post" action="/leads">
       <input type="hidden" name="category" value="interior-design">
+      ${toBusiness ? `<input type="hidden" name="business" value="${esc(toBusiness.slug)}">` : ''}
       <div class="two-col">
         <div class="field"><label for="lf-name">Your name</label><input id="lf-name" type="text" name="name" autocomplete="name" required></div>
         <div class="field"><label for="lf-email">Email</label><input id="lf-email" type="email" name="email" autocomplete="email" required></div>
@@ -117,19 +119,21 @@ export function leadFormHtml(prefill = {}) {
         <label for="lf-message">Tell us about your project</label>
         <textarea id="lf-message" name="message" placeholder="e.g. 4-room HDB resale, looking to renovate kitchen and living room, hoping to start in 2 months">${esc(prefill.message || '')}</textarea>
       </div>
+      <p class="muted small">Your phone number and email stay hidden from a firm until that firm unlocks your enquiry. If no firm unlocks it, we delete your contact details after 90 days. See our <a href="/privacy">privacy policy</a>.</p>
       <button class="btn btn-block" type="submit">Get My Recommendations</button>
     </form>
   </div>`;
 }
 
 // A short quote request for a renovation trade (or the landed team), routed by category.
-export function quoteFormHtml(category, heading, intro = '') {
+export function quoteFormHtml(category, heading, intro = '', toBusiness = null) {
   return `
   <div class="lead-form-section" id="request">
     <h2>${esc(heading)}</h2>
     ${intro ? `<p class="section-sub">${esc(intro)}</p>` : ''}
     <form class="panel wide" method="post" action="/leads">
       <input type="hidden" name="category" value="${esc(category)}">
+      ${toBusiness ? `<input type="hidden" name="business" value="${esc(toBusiness.slug)}">` : ''}
       <div class="two-col">
         <div class="field"><label for="qf-name">Your name</label><input id="qf-name" type="text" name="name" autocomplete="name" required></div>
         <div class="field"><label for="qf-email">Email</label><input id="qf-email" type="email" name="email" autocomplete="email" required></div>
@@ -140,6 +144,7 @@ export function quoteFormHtml(category, heading, intro = '') {
       </div>
       <div class="field"><label for="qf-type">Property type</label><select id="qf-type" name="property_type"><option value="">Select</option>${PROPERTY_TYPES.map((p) => `<option value="${esc(p)}">${esc(p)}</option>`).join('')}</select></div>
       <div class="field"><label for="qf-message">What do you need?</label><textarea id="qf-message" name="message" placeholder="Describe the job, sizes or quantities, and when you need it done"></textarea></div>
+      <p class="muted small">Your phone number and email stay hidden from a firm until that firm unlocks your enquiry. If no firm unlocks it, we delete your contact details after 90 days. See our <a href="/privacy">privacy policy</a>.</p>
       <button class="btn btn-block" type="submit">Request quotes</button>
     </form>
   </div>`;
@@ -399,7 +404,7 @@ export async function designerProfileRoute(req, res, ctx, slug) {
           }).join('') || '<p class="muted">No projects uploaded yet.</p>'}
         </div>
       </div>
-      <div>${isDesigner ? leadFormHtml({}) : quoteFormHtml(cat.path === '/landed' ? 'landed' : cat.slug, cat.path === '/landed' ? 'Send a landed project brief' : `Request quotes from ${cat.plural.toLowerCase()}`)}</div>
+      <div>${isDesigner ? leadFormHtml({}, b) : quoteFormHtml(cat.path === '/landed' ? 'landed' : cat.slug, cat.path === '/landed' ? 'Send a landed project brief' : `Request quotes from ${cat.plural.toLowerCase()}`, '', b)}</div>
     </div>
   </section>
   <section class="wrap" id="reviews">${reviewsSection(b, reviews)}</section>
@@ -461,16 +466,22 @@ export async function submitLeadRoute(req, res, ctx, fields) {
   const info = insertLead.run(name, email, fields.phone || '', propertyType, fields.style || '', fields.budget_range || '', fields.location || '', message.slice(0, 5000), category);
   const lead = db.prepare('SELECT * FROM leads WHERE id = ?').get(info.lastInsertRowid);
 
-  const matches = matchLead(category, propertyType);
-  const insertMatch = db.prepare('INSERT INTO lead_matches (lead_id, business_id) VALUES (?, ?)');
+  // An enquiry sent from one firm's profile goes to that firm only; otherwise it goes to the matching firms.
+  const direct = fields.business ? db.prepare('SELECT * FROM businesses WHERE slug = ?').get(String(fields.business)) : null;
+  const matches = direct ? [direct] : matchLead(category, propertyType);
+  const insertMatch = db.prepare('INSERT INTO lead_matches (lead_id, business_id, unlocked_at) VALUES (?, ?, ?)');
   for (const business of matches) {
-    insertMatch.run(lead.id, business.id);
-    dispatchLeadNotifications(business, lead).catch((err) => console.error('notify error', err));
+    // Firms with a paid plan or a running trial receive the full details; everyone else gets a masked copy.
+    const open = hasAccountAccess(business);
+    insertMatch.run(lead.id, business.id, open ? new Date().toISOString().replace('T', ' ').slice(0, 19) : '');
+    dispatchLeadNotifications(business, open ? lead : maskLead(lead), { locked: !open }).catch((err) => console.error('notify error', err));
   }
 
   const noun = category === DEFAULT_CATEGORY ? 'designer' : category === 'landed' ? 'professional' : 'firm';
   const msg = matches.length
-    ? `Thanks ${name}! We've sent your request to ${matches.length} matching ${noun}${matches.length === 1 ? '' : 's'}. Expect replies by email or phone shortly.`
+    ? (direct
+      ? `Thanks ${name}! Your enquiry has been sent to ${direct.company_name}. Your contact details are shared with them only once they unlock it.`
+      : `Thanks ${name}! We've sent your request to ${matches.length} matching ${noun}${matches.length === 1 ? '' : 's'}. Your contact details are shared with a firm only once it unlocks your enquiry.`)
     : `Thanks ${name}! We've received your request. No firms in this category are listed yet, so we'll pass it on as soon as suitable firms join.`;
   res.writeHead(302, { Location: back + '?ok=' + encodeURIComponent(msg) });
   res.end();
