@@ -28,7 +28,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] renovation-contingency-budget-singapore | How Much Contingency to Keep for a Renovation | renovation contingency budget
 - [x] 2-room-hdb-renovation-cost-singapore | 2-Room HDB Renovation Cost in Singapore | 2 room hdb renovation cost
 - [x] executive-flat-renovation-cost-singapore | Executive Flat Renovation Cost in Singapore | executive flat renovation cost
-- [ ] hdb-maisonette-renovation-cost-singapore | HDB Maisonette Renovation Cost | hdb maisonette renovation cost
+- [x] hdb-maisonette-renovation-cost-singapore | HDB Maisonette Renovation Cost | hdb maisonette renovation cost
 - [ ] condo-renovation-cost-per-sqft-singapore | Condo Renovation Cost Per Square Foot | condo renovation cost per sqft
 - [ ] new-launch-condo-renovation-cost-singapore | New Launch Condo Renovation Cost | new condo renovation cost
 - [ ] resale-condo-renovation-cost-singapore | Resale Condo Renovation Cost | resale condo renovation cost
@@ -138,7 +138,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] fire-safety-hdb-main-door | Fire-Rated Main Doors | fire rated main door hdb
 - [ ] asbestos-old-flat-renovation | Renovating an Old Flat Safely | old flat renovation safety
 - [ ] renovation-noise-complaints | Handling Noise Complaints | renovation noise complaint
-- [ ] renovation-permit-timeline-singapore | How Long Do Permits Take? | renovation permit timeline
+- [x] renovation-permit-timeline-singapore | How Long Do Permits Take? | renovation permit timeline
 
 ## Choosing a Designer (40)
 
@@ -209,7 +209,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] industrial-style-home-singapore | Industrial Style at Home | industrial style home singapore
 - [ ] contemporary-interior-design-singapore | Contemporary Style | contemporary interior design
 - [x] classic-interior-design-singapore | Classic and Traditional Style | classic interior design
-- [ ] modern-luxury-interior-singapore | Modern Luxury Style | modern luxury interior
+- [x] modern-luxury-interior-singapore | Modern Luxury Style | modern luxury interior
 - [ ] scandinavian-interior-hdb-singapore | Scandinavian HDB | scandinavian hdb
 - [x] muji-style-home-singapore | Muji-Style Homes | muji style home
 - [x] resort-style-home-singapore | Resort-Style Homes | resort style home
@@ -250,7 +250,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] pet-friendly-flooring-singapore | Pet-Friendly Flooring | pet friendly flooring
 - [ ] elderly-bathroom-safety-singapore | Safer Bathrooms | elderly bathroom safety
 - [ ] home-office-hdb-singapore | Home Office in HDB | home office hdb
-- [ ] gaming-room-design-singapore | Gaming Room Design | gaming room design
+- [x] gaming-room-design-singapore | Gaming Room Design | gaming room design
 - [x] reading-nook-ideas-singapore | Reading Nooks | reading nook ideas
 - [x] wardrobe-design-ideas-singapore | Wardrobe Design Ideas | wardrobe design ideas
 - [x] walk-in-wardrobe-hdb-singapore | Walk-In Wardrobe in HDB | walk in wardrobe hdb
@@ -269,7 +269,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] landed-qp-explained-singapore | Qualified Person Explained | qualified person singapore
 - [x] landed-architect-vs-id-singapore | Architect vs Interior Designer for Landed | landed architect vs interior designer
 - [x] landed-structural-engineer-role-singapore | Role of the Structural Engineer | structural engineer landed
-- [ ] landed-builder-licence-bca-singapore | BCA Builder Licensing | bca licensed builder
+- [x] landed-builder-licence-bca-singapore | BCA Builder Licensing | bca licensed builder
 - [x] landed-ura-planning-permission-explained | URA Planning Permission | ura planning permission landed
 - [ ] landed-bca-approval-explained | BCA Building Plan Approval | bca building plan approval
 - [x] landed-permit-to-commence-works-singapore | Permit to Commence Works | permit to commence building works
@@ -281,7 +281,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] landed-basement-considerations-singapore | Basements | landed basement
 - [x] landed-roof-terrace-considerations-singapore | Roof Terraces | landed roof terrace
 - [x] landed-swimming-pool-considerations-singapore | Pools at Home | landed swimming pool
-- [ ] landed-lift-considerations-singapore | Home Lifts | home lift singapore
+- [x] landed-lift-considerations-singapore | Home Lifts | home lift singapore
 - [x] landed-party-wall-neighbours-singapore | Party Walls and Neighbours | party wall singapore
 - [x] landed-soil-investigation-singapore | Soil Investigation | soil investigation landed
 - [x] landed-demolition-process-singapore | Demolition Process | landed demolition singapore
@@ -337,7 +337,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] furniture-shopping-order-singapore | Order for Buying Furniture | furniture shopping order
 - [ ] how-to-choose-sofa-singapore | Choosing a Sofa | choose sofa singapore
 - [ ] mattress-buying-guide-singapore | Mattress Buying Guide | mattress buying guide
-- [ ] kitchen-appliances-order-singapore | Choosing Kitchen Appliances | kitchen appliances singapore
+- [x] kitchen-appliances-order-singapore | Choosing Kitchen Appliances | kitchen appliances singapore
 - [x] washer-dryer-placement-singapore | Washer and Dryer Placement | washer dryer placement
 - [ ] fridge-size-guide-singapore | Fridge Size Guide | fridge size guide
 - [x] new-home-first-week-checklist-singapore | First Week in a New Home | new home checklist
