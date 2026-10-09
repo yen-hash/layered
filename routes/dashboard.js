@@ -15,7 +15,7 @@ export function dashLayout(active, inner, ctx) {
     ['/dashboard/projects', 'Projects'],
     ['/dashboard/articles', 'Articles'],
     ['/dashboard/profile', 'Business Profile'],
-    ...(isAdmin(ctx.business) ? [['/dashboard/blog', 'Blog (admin)'], ['/dashboard/verification', 'Verify credentials'], ['/dashboard/reviews', 'Reviews (admin)']] : []),
+    ...(isAdmin(ctx.business) ? [['/dashboard/blog', 'Blog (admin)'], ['/dashboard/verification', 'Verify credentials'], ['/dashboard/accounts', 'Accounts (admin)'], ['/dashboard/reviews', 'Reviews (admin)']] : []),
   ];
   const nav = links.map(([href, label]) => `<a href="${href}" class="${active === href ? 'active' : ''}">${esc(label)}</a>`).join('');
   const body = `

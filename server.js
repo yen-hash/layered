@@ -22,6 +22,7 @@ import { blogAdminList, blogAdminEditor, blogAdminSave, blogAdminDelete } from '
 import { isAdmin } from './lib/admin.js';
 import { calculatorRoute, estimatorRoute, plannerRoute } from './routes/tools.js';
 import { verificationList, verificationAction } from './routes/verification.js';
+import { accountsList, accountReset } from './routes/accounts.js';
 import { infoPageRoute } from './routes/pages.js';
 import { startPublisher } from './lib/schedule.js';
 import { servicesIndexRoute, tradeRoute, landedRoute } from './routes/services.js';
@@ -283,6 +284,11 @@ async function router(req, res) {
       if (req.method === 'GET' && url.pathname === '/dashboard/verification') return await verificationList(req, res, ctx);
       const verMatch = url.pathname.match(/^\/dashboard\/verification\/(\d+)\/(hdb|casetrust)\/(verify|clear)$/);
       if (req.method === 'POST' && verMatch) return await verificationAction(req, res, ctx, Number(verMatch[1]), verMatch[2], verMatch[3]);
+
+      // ----- Account tools (admin) -----
+      if (req.method === 'GET' && url.pathname === '/dashboard/accounts') return await accountsList(req, res, ctx);
+      const acctReset = url.pathname.match(/^\/dashboard\/accounts\/(\d+)\/reset$/);
+      if (req.method === 'POST' && acctReset) return await accountReset(req, res, ctx, Number(acctReset[1]));
 
       // ----- Blog admin -----
       if (req.method === 'GET' && url.pathname === '/dashboard/blog') return await blogAdminList(req, res, ctx);
