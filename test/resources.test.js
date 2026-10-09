@@ -40,3 +40,16 @@ test('the contract checklist never presents itself as the CaseTrust contract or 
   assert.match(text, /not the CaseTrust standard contract/i);
   assert.doesNotMatch(text, /\d+\s?%/);
 });
+
+import { budgetSummary } from '../content/budgetPlanner.js';
+test('budget planner maths: buffer, GST and ceiling', () => {
+  const s = budgetSummary({ ceiling: 50000, bufferPct: 10, gstPct: 9, gstIncluded: false, rows: { a: { planned: 20000, chosen: 21000 }, b: { planned: 10000 } }, outside: { f: { planned: 5000 } } });
+  assert.equal(Math.round(s.withBuffer), 33000);
+  assert.equal(Math.round(s.plannedAll), 35970);
+  assert.equal(Math.round(s.everything), 40970);
+  assert.equal(s.over, -9030);
+  const inc = budgetSummary({ ceiling: 30000, bufferPct: 10, gstPct: 9, gstIncluded: true, rows: { a: { planned: 30000 } } });
+  assert.equal(inc.gstAmt, 0);
+  assert.equal(inc.over, 3000);
+  assert.equal(budgetSummary({ rows: { a: { planned: -5, a: 'x' } } }).totals.planned, 0);
+});
