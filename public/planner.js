@@ -9,7 +9,7 @@
   var SNAP = 0.05;
   var $ = function (id) { return document.getElementById(id); };
   var svg = $('pl-svg');
-  var plan = null, sel = null, drag = null, bg = { url: '', width: 10, opacity: 0.5 };
+  var plan = null, sel = null, drag = null, bg = { url: '', width: 10, opacity: 0.5, x: 0, y: 0, rot: 0 }, bgMode = '', cal = [];
   var nextId = 1;
 
   var round = function (v) { return Math.round(v / SNAP) * SNAP; };
@@ -60,7 +60,7 @@
   function bounds() {
     var xs = [0], ys = [0], xe = [6], ye = [4];
     plan.rooms.concat(plan.items).forEach(function (o) { xs.push(o.x); ys.push(o.y); xe.push(o.x + o.w); ye.push(o.y + o.h); });
-    if (bg.url) { xe.push(bg.width); ye.push(bg.width * (bg.ratio || 0.7)); }
+    if (bg.url) { xs.push(bg.x); ys.push(bg.y); xe.push(bg.x + bg.width); ye.push(bg.y + bg.width * (bg.ratio || 0.7)); }
     return { x: Math.min.apply(null, xs), y: Math.min.apply(null, ys), x2: Math.max.apply(null, xe), y2: Math.max.apply(null, ye) };
   }
   var view = null;
@@ -82,7 +82,7 @@
     var pat = el('pattern', { id: 'pl-grid', width: 0.5, height: 0.5, patternUnits: 'userSpaceOnUse' }, defs);
     el('path', { d: 'M 0.5 0 L 0 0 0 0.5', fill: 'none', class: 'pl-gridline' }, pat);
     el('rect', { x: -50, y: -50, width: 100, height: 100, fill: 'url(#pl-grid)' }, svg);
-    if (bg.url) el('image', { href: bg.url, x: 0, y: 0, width: bg.width, opacity: bg.opacity, preserveAspectRatio: 'xMinYMin meet' }, svg);
+    if (bg.url) el('image', { href: bg.url, x: 0, y: 0, width: bg.width, opacity: bg.opacity, preserveAspectRatio: 'xMinYMin meet', transform: 'translate(' + fix(bg.x) + ' ' + fix(bg.y) + ') rotate(' + bg.rot + ')', class: 'pl-bgimg' }, svg);
 
     plan.rooms.forEach(function (r) {
       var g = el('g', { class: 'pl-room pl-' + r.type + (sel === r.id ? ' is-sel' : ''), 'data-id': r.id }, svg);
@@ -105,6 +105,8 @@
       if (sel === it.id) el('rect', { x: it.x + it.w - 0.16, y: it.y + it.h - 0.16, width: 0.16, height: 0.16, class: 'pl-handle', 'data-handle': it.id }, g);
     });
     plan.items.forEach(function (it) { if (P.catalog[it.kind].opening) drawOpening(it); });
+    cal.forEach(function (c) { el('circle', { cx: c.x, cy: c.y, r: 0.1, class: 'pl-calpt' }, svg); });
+    if (cal.length === 2) el('line', { x1: cal[0].x, y1: cal[0].y, x2: cal[1].x, y2: cal[1].y, class: 'pl-calline' }, svg);
     panel(); summary();
   }
 
@@ -270,6 +272,14 @@
     var h = e.target.getAttribute && e.target.getAttribute('data-handle');
     var g = e.target.closest && e.target.closest('[data-id]');
     var p = pt(e);
+    if (bgMode === 'cal' && bg.url) {
+      if (cal.length >= 2) cal = [];
+      cal.push({ x: p.x, y: p.y });
+      if (cal.length === 1) bgMsg('Now click the other end of that wall.');
+      else { bgMsg('Type the real length of that wall in metres, then press Apply.'); $('pl-bgcalbox').hidden = false; $('pl-bgcallen').focus(); }
+      draw(); e.preventDefault(); return;
+    }
+    if (bgMode === 'move' && bg.url) { drag = { mode: 'bgmove', sx: p.x, sy: p.y, x: bg.x, y: bg.y }; svg.setPointerCapture(e.pointerId); e.preventDefault(); return; }
     if (h) { var o = find(h); drag = { mode: 'size', o: o, sx: p.x, sy: p.y, w: o.w, h: o.h }; }
     else if (g) {
       sel = g.getAttribute('data-id'); var o2 = find(sel);
@@ -286,6 +296,7 @@
       view.x = drag.vx - (e.clientX - drag.sx) * s; view.y = drag.vy - (e.clientY - drag.sy) * s; applyView(); return;
     }
     var p = pt(e), dx = p.x - drag.sx, dy = p.y - drag.sy;
+    if (drag.mode === 'bgmove') { bg.x = fix(drag.x + dx); bg.y = fix(drag.y + dy); drag.moved = true; draw(); return; }
     if (drag.mode === 'move') { drag.o.x = fix(round(drag.x + dx)); drag.o.y = fix(round(drag.y + dy)); }
     else { drag.o.w = fix(Math.max(0.2, round(drag.w + dx))); drag.o.h = fix(Math.max(0.2, round(drag.h + dy))); }
     drag.moved = true;
@@ -357,7 +368,38 @@
   });
   $('pl-bgw').addEventListener('input', function (e) { var v = Number(e.target.value); if (v >= 2 && v <= 60) { bg.width = v; draw(); } });
   $('pl-bgo').addEventListener('input', function (e) { bg.opacity = Number(e.target.value); draw(); });
-  $('pl-bgclear').addEventListener('click', function () { if (bg.url) URL.revokeObjectURL(bg.url); bg.url = ''; $('pl-bg').value = ''; $('pl-bgopts').hidden = true; draw(); });
+  function bgMsg(t) { $('pl-bgmsg').textContent = t; }
+  function setMode(m) {
+    bgMode = bgMode === m ? '' : m;
+    if (bgMode !== 'cal') { cal = []; $('pl-bgcalbox').hidden = true; }
+    $('pl-bgcal').setAttribute('aria-pressed', String(bgMode === 'cal'));
+    $('pl-bgmove').setAttribute('aria-pressed', String(bgMode === 'move'));
+    svg.style.cursor = bgMode ? 'crosshair' : '';
+    bgMsg(bgMode === 'cal' ? 'Click one end of a wall whose real length you know.' : bgMode === 'move' ? 'Drag to slide the picture. Press the button again to go back to editing rooms.' : '');
+    draw();
+  }
+  $('pl-bgcal').addEventListener('click', function () { setMode('cal'); });
+  $('pl-bgmove').addEventListener('click', function () { setMode('move'); });
+  $('pl-bgrot').addEventListener('input', function (e) { bg.rot = Number(e.target.value) || 0; draw(); });
+  $('pl-bgcalok').addEventListener('click', function () {
+    var len = Number($('pl-bgcallen').value);
+    if (cal.length !== 2 || !(len > 0.2 && len < 100)) { bgMsg('Click two points, then type a length between 0.2 and 100 metres.'); return; }
+    var d = Math.sqrt(Math.pow(cal[1].x - cal[0].x, 2) + Math.pow(cal[1].y - cal[0].y, 2));
+    if (d < 0.05) { bgMsg('Those points are too close together. Click two points further apart.'); return; }
+    var k = len / d, p0 = cal[0];
+    // Scale the picture about the first point so that point stays put.
+    bg.x = fix(p0.x + k * (bg.x - p0.x)); bg.y = fix(p0.y + k * (bg.y - p0.y)); bg.width = fix(bg.width * k);
+    $('pl-bgw').value = Math.min(60, Math.max(2, bg.width));
+    cal = []; $('pl-bgcalbox').hidden = true; $('pl-bgcallen').value = '';
+    bgMode = ''; $('pl-bgcal').setAttribute('aria-pressed', 'false'); svg.style.cursor = '';
+    bgMsg('Scale set. Rooms you draw now match the real size. Use "Move picture" to line it up, then trace over it.');
+    draw(); fit();
+  });
+  $('pl-bgclear').addEventListener('click', function () {
+    if (bg.url) URL.revokeObjectURL(bg.url);
+    bg.url = ''; bg.x = 0; bg.y = 0; bg.rot = 0; $('pl-bgrot').value = 0; cal = []; bgMode = ''; svg.style.cursor = '';
+    $('pl-bg').value = ''; $('pl-bgopts').hidden = true; bgMsg(''); draw();
+  });
 
   if (!restore()) load('hdb4');
   else { $('pl-home').value = P.layouts[plan.home] ? plan.home : 'hdb4'; draw(); fit(); }
