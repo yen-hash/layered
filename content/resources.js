@@ -12,7 +12,16 @@ export const RESOURCES = [
     file: '/downloads/layered-renovation-budget-planner.xlsx',
     label: 'Download the Excel planner',
     type: 'XLSX',
-    also: [['/tools/renovation-cost-calculator', 'Cost calculator'], ['/tools/renovation-cost-estimator', 'Itemised estimator']],
+    also: [['/tools/renovation-budget-planner', 'Use it online'], ['/tools/renovation-cost-calculator', 'Cost calculator'], ['/tools/renovation-cost-estimator', 'Itemised estimator']],
+  },
+  {
+    id: 'budget-online',
+    title: 'Online renovation budget planner',
+    summary: 'The same planner in your browser: category budget, three quotes side by side, buffer, GST and an instant check against your ceiling. Saved on your device only, nothing is sent to us.',
+    href: '/tools/renovation-budget-planner',
+    label: 'Open the online planner',
+    type: 'Online',
+    also: [['/tools/renovation-cost-estimator', 'Itemised estimator']],
   },
   {
     id: 'checklist',

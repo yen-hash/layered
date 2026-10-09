@@ -37,6 +37,7 @@ export function sitemapRoute(req, res, ctx) {
     ...GUIDES.map((g) => ({ loc: `/guides/${g.slug}`, changefreq: 'monthly', priority: '0.8', lastmod: REVIEWED })),
     { loc: '/tools/renovation-cost-calculator', changefreq: 'monthly', priority: '0.9', lastmod: DATA_REVIEWED },
     { loc: '/tools/renovation-cost-estimator', changefreq: 'monthly', priority: '0.9' },
+    { loc: '/tools/renovation-budget-planner', changefreq: 'monthly', priority: '0.8' },
     { loc: '/tools/room-planner', changefreq: 'monthly', priority: '0.8' },
     { loc: '/resources', changefreq: 'monthly', priority: '0.8' },
     { loc: '/tools/design-style-quiz', changefreq: 'monthly', priority: '0.7' },
