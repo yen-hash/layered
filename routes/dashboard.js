@@ -6,6 +6,7 @@ import { db, PROPERTY_TYPES, STYLES } from '../db.js';
 import { uploadFileFor } from '../lib/paths.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
 import { isAdmin } from '../lib/admin.js';
+import { visibleLead, trialEnd } from '../lib/leadAccess.js';
 import { CASETRUST_OPTIONS, normaliseCaseTrust, normaliseHdbLicence } from '../lib/credentials.js';
 
 export function dashLayout(active, inner, ctx) {
@@ -33,10 +34,12 @@ export async function dashboardHome(req, res, ctx) {
   const leadCount = db.prepare('SELECT COUNT(*) c FROM lead_matches WHERE business_id = ?').get(b.id).c;
   const newCount = db.prepare("SELECT COUNT(*) c FROM lead_matches WHERE business_id = ? AND status = 'new'").get(b.id).c;
   const projectCount = db.prepare('SELECT COUNT(*) c FROM projects WHERE business_id = ?').get(b.id).c;
-  const recentLeads = db.prepare(`SELECT l.*, lm.status, lm.id as match_id FROM lead_matches lm JOIN leads l ON l.id = lm.lead_id WHERE lm.business_id = ? ORDER BY lm.created_at DESC LIMIT 5`).all(b.id);
+  const recentLeadsRaw = db.prepare(`SELECT l.*, lm.status, lm.unlocked_at, lm.id as match_id FROM lead_matches lm JOIN leads l ON l.id = lm.lead_id WHERE lm.business_id = ? ORDER BY lm.created_at DESC LIMIT 5`).all(b.id);
 
+  const recentLeads = recentLeadsRaw.map((l) => visibleLead(l, b, l));
   const inner = `
     <h1>Welcome back, ${esc(b.company_name)}</h1>
+    ${accessBanner(b)}
     <div class="kpi-row">
       <div class="kpi"><b>${leadCount}</b><span>Total leads received</span></div>
       <div class="kpi"><b>${newCount}</b><span>New / unread leads</span></div>
@@ -290,10 +293,24 @@ export async function projectDelete(req, res, ctx, projectId) {
 
 // ---------- Leads ----------
 
+const contactMail = () => process.env.CONTACT_EMAIL || '';
+function lockedBox() {
+  const m = contactMail();
+  return `<div class="dash-card" style="border-left:4px solid var(--accent,#c58a00);"><h2 style="margin-top:0;">Contact details are hidden</h2>
+    <p>You can see this homeowner's project, but their name, phone and email are hidden on your current plan. Take a subscription to see every lead, or ask us to unlock just this one${m ? `: email <a href="mailto:${esc(m)}?subject=Unlock%20a%20lead">${esc(m)}</a>` : ''}.</p></div>`;
+}
+function accessBanner(b) {
+  if (b.plan === 'paid') return '';
+  const end = trialEnd(b);
+  if (end.getTime() > Date.now()) return `<div class="dash-card"><p style="margin:0;"><strong>Free trial:</strong> you see homeowners' full contact details until ${esc(end.toISOString().slice(0, 10))}. After that, contact details are hidden unless you subscribe or unlock a lead.</p></div>`;
+  return lockedBox();
+}
+
 export async function leadsPage(req, res, ctx) {
-  const leads = db.prepare(`SELECT l.*, lm.status, lm.id as match_id FROM lead_matches lm JOIN leads l ON l.id = lm.lead_id WHERE lm.business_id = ? ORDER BY lm.created_at DESC`).all(ctx.business.id);
+  const leads = db.prepare(`SELECT l.*, lm.status, lm.unlocked_at, lm.id as match_id FROM lead_matches lm JOIN leads l ON l.id = lm.lead_id WHERE lm.business_id = ? ORDER BY lm.created_at DESC`).all(ctx.business.id).map((l) => visibleLead(l, ctx.business, l));
   const inner = `
     <h1>Leads</h1>
+    ${accessBanner(ctx.business)}
     ${leads.length ? `
     <table class="data-table">
       <thead><tr><th>Date</th><th>Homeowner</th><th>Property</th><th>Budget</th><th>Status</th><th></th></tr></thead>
@@ -325,19 +342,21 @@ function reviewBlock(row, ctx) {
 }
 
 export async function leadDetailPage(req, res, ctx, matchId) {
-  const row = db.prepare(`SELECT l.*, lm.status, lm.id as match_id, lm.lead_id AS lead_id FROM lead_matches lm JOIN leads l ON l.id = lm.lead_id WHERE lm.id = ? AND lm.business_id = ?`).get(matchId, ctx.business.id);
+  const raw = db.prepare(`SELECT l.*, lm.status, lm.unlocked_at, lm.id as match_id, lm.lead_id AS lead_id FROM lead_matches lm JOIN leads l ON l.id = lm.lead_id WHERE lm.id = ? AND lm.business_id = ?`).get(matchId, ctx.business.id);
+  const row = raw && visibleLead(raw, ctx.business, raw);
   if (!row) { res.statusCode = 404; res.end(dashLayout('/dashboard/leads', '<p>Lead not found.</p>', ctx)); return; }
 
   const statuses = ['new', 'contacted', 'won', 'lost'];
   const inner = `
     <p><a href="/dashboard/leads">← Back to leads</a></p>
+    ${row.masked ? lockedBox() : ''}
     <div class="dash-card">
       <h1 style="margin-top:0;">${esc(row.name)}</h1>
       <span class="status-pill status-${esc(row.status)}">${esc(row.status)}</span>
       <table class="data-table" style="margin-top:16px;">
         <tbody>
-          <tr><th>Email</th><td><a href="mailto:${esc(row.email)}">${esc(row.email)}</a></td></tr>
-          <tr><th>Phone</th><td>${row.phone ? `<a href="tel:${esc(row.phone)}">${esc(row.phone)}</a>` : '-'}</td></tr>
+          <tr><th>Email</th><td>${row.masked ? esc(row.email) : `<a href="mailto:${esc(row.email)}">${esc(row.email)}</a>`}</td></tr>
+          <tr><th>Phone</th><td>${row.masked ? esc(row.phone || '-') : row.phone ? `<a href="tel:${esc(row.phone)}">${esc(row.phone)}</a>` : '-'}</td></tr>
           <tr><th>Property type</th><td>${esc(row.property_type || '-')}</td></tr>
           <tr><th>Style</th><td>${esc(row.style || '-')}</td></tr>
           <tr><th>Budget</th><td>${esc(row.budget_range || '-')}</td></tr>

@@ -23,7 +23,7 @@ import { isAdmin } from './lib/admin.js';
 import { calculatorRoute, estimatorRoute, plannerRoute } from './routes/tools.js';
 import { resourcesRoute, quizRoute, budgetPlannerRoute } from './routes/resources.js';
 import { verificationList, verificationAction } from './routes/verification.js';
-import { accountsList, accountReset } from './routes/accounts.js';
+import { accountsList, accountReset, accountAccess, accountLeads, accountLeadToggle } from './routes/accounts.js';
 import { infoPageRoute } from './routes/pages.js';
 import { startPublisher } from './lib/schedule.js';
 import { servicesIndexRoute, tradeRoute, landedRoute } from './routes/services.js';
@@ -301,6 +301,15 @@ async function router(req, res) {
       if (req.method === 'GET' && url.pathname === '/dashboard/accounts') return await accountsList(req, res, ctx);
       const acctReset = url.pathname.match(/^\/dashboard\/accounts\/(\d+)\/reset$/);
       if (req.method === 'POST' && acctReset) return await accountReset(req, res, ctx, Number(acctReset[1]));
+      const acctAccess = url.pathname.match(/^\/dashboard\/accounts\/(\d+)\/access$/);
+      if (req.method === 'POST' && acctAccess) {
+        const { fields } = await parseForm(req);
+        return await accountAccess(req, res, ctx, Number(acctAccess[1]), fields);
+      }
+      const acctLeads = url.pathname.match(/^\/dashboard\/accounts\/(\d+)\/leads$/);
+      if (req.method === 'GET' && acctLeads) return await accountLeads(req, res, ctx, Number(acctLeads[1]));
+      const acctLeadTog = url.pathname.match(/^\/dashboard\/accounts\/(\d+)\/leads\/(\d+)\/(lock|unlock)$/);
+      if (req.method === 'POST' && acctLeadTog) return await accountLeadToggle(req, res, ctx, Number(acctLeadTog[1]), Number(acctLeadTog[2]), acctLeadTog[3] === 'unlock');
 
       // ----- Blog admin -----
       if (req.method === 'GET' && url.pathname === '/dashboard/blog') return await blogAdminList(req, res, ctx);

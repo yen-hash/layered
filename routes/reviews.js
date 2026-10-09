@@ -4,6 +4,7 @@ import { esc, layout } from '../lib/render.js';
 import { isAdmin } from '../lib/admin.js';
 import { abs } from '../lib/seo.js';
 import { sendEmail } from '../lib/notify.js';
+import { canSeeContact } from '../lib/leadAccess.js';
 import { newToken, firstName, parseReview, MAX_BODY } from '../lib/reviews.js';
 import { dashLayout } from './dashboard.js';
 
@@ -12,9 +13,10 @@ const flashTo = (path, msg) => `${path}?ok=${encodeURIComponent(msg)}`;
 
 // Firm: ask Layered to email a review invitation for a won enquiry.
 export async function reviewInvite(req, res, ctx, matchId) {
-  const row = db.prepare(`SELECT l.*, lm.status, lm.id AS match_id, lm.lead_id FROM lead_matches lm JOIN leads l ON l.id = lm.lead_id WHERE lm.id = ? AND lm.business_id = ?`).get(matchId, ctx.business.id);
+  const row = db.prepare(`SELECT l.*, lm.status, lm.unlocked_at, lm.id AS match_id, lm.lead_id FROM lead_matches lm JOIN leads l ON l.id = lm.lead_id WHERE lm.id = ? AND lm.business_id = ?`).get(matchId, ctx.business.id);
   const back = `/dashboard/leads/${matchId}`;
   if (!row) return redirect(res, '/dashboard/leads');
+  if (!canSeeContact(ctx.business, row) || !row.email) return redirect(res, `${back}?err=${encodeURIComponent('Unlock this lead to invite the homeowner to review.')}`);
   if (row.status !== 'won') return redirect(res, `${back}?err=${encodeURIComponent('Mark the enquiry as won before inviting a review.')}`);
   const exists = db.prepare('SELECT id FROM reviews WHERE lead_id = ? AND business_id = ?').get(row.lead_id, ctx.business.id);
   if (exists) return redirect(res, `${back}?err=${encodeURIComponent('A review invitation was already sent for this enquiry.')}`);

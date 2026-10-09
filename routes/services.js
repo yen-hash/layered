@@ -216,6 +216,7 @@ export async function landedRoute(req, res, ctx) {
           </div>
           <div class="field"><label for="lb-budget">Budget</label><select id="lb-budget" name="budget_range"><option value="">Not sure yet</option><option>Below $500k</option><option>$500k - $1M</option><option>$1M - $2M</option><option>Above $2M</option></select></div>
           <div class="field"><label for="lb-message">About your project</label><textarea id="lb-message" name="message" placeholder="Plot size, current house, what you want to change, target timeline"></textarea></div>
+          <p class="muted small">Your phone number and email stay hidden from a firm until that firm unlocks your enquiry. If no firm unlocks it, we delete your contact details after 90 days. See our <a href="/privacy">privacy policy</a>.</p>
           <button class="btn btn-block" type="submit">Send my brief</button>
         </form>
       </div>
