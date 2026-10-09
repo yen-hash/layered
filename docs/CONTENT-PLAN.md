@@ -112,7 +112,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] condo-lift-booking-renovation | Lift Booking and Delivery Rules in Condos | condo lift booking
 - [x] condo-move-in-rules-singapore | Condo Move-In Rules | condo move in rules
 - [ ] condo-balcony-enclosure-rules | Condo Balcony Enclosure Rules | condo balcony enclosure
-- [ ] condo-flooring-rules-singapore | Condo Flooring Rules | condo flooring rules
+- [x] condo-flooring-rules-singapore | Condo Flooring Rules | condo flooring rules
 - [ ] condo-aircon-rules-singapore | Condo Aircon Rules | condo aircon rules
 - [x] condo-defects-checking-singapore | Checking a New Condo for Defects | condo defects checking
 - [ ] condo-defects-liability-singapore | Condo Defects Liability Period | condo defects liability
@@ -231,10 +231,10 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] flooring-options-bedroom-singapore | Bedroom Flooring | bedroom flooring singapore
 - [x] timber-vs-vinyl-flooring-singapore | Timber vs Vinyl | timber vs vinyl flooring
 - [x] marble-look-tiles-singapore | Marble-Look Tiles | marble look tiles singapore
-- [ ] terrazzo-design-singapore | Terrazzo in Singapore Homes | terrazzo singapore
+- [x] terrazzo-design-singapore | Terrazzo in Singapore Homes | terrazzo singapore
 - [ ] kitchen-countertop-material-singapore | Choosing a Countertop | kitchen countertop material
 - [ ] laminate-finishes-guide-singapore | Laminate Finishes | laminate finish guide
-- [ ] open-concept-living-singapore | Open-Concept Living | open concept living singapore
+- [x] open-concept-living-singapore | Open-Concept Living | open concept living singapore
 - [x] small-living-room-layout-singapore | Small Living Room Layouts | small living room layout
 - [ ] sofa-size-guide-singapore | Choosing Sofa Size | sofa size guide
 - [ ] dining-table-size-guide-singapore | Dining Table Size Guide | dining table size
@@ -273,12 +273,12 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] landed-ura-planning-permission-explained | URA Planning Permission | ura planning permission landed
 - [ ] landed-bca-approval-explained | BCA Building Plan Approval | bca building plan approval
 - [x] landed-permit-to-commence-works-singapore | Permit to Commence Works | permit to commence building works
-- [ ] landed-top-and-csc-singapore | TOP and CSC for Landed | top csc landed
+- [x] landed-top-and-csc-singapore | TOP and CSC for Landed | top csc landed
 - [x] landed-gfa-explained-singapore | GFA Explained | gross floor area landed
 - [x] landed-setback-rules-singapore | Setbacks Explained | landed setback rules
 - [ ] landed-building-height-rules-singapore | Height Controls | landed height control
 - [x] landed-attic-rules-singapore | Attic Rules | landed attic
-- [ ] landed-basement-considerations-singapore | Basements | landed basement
+- [x] landed-basement-considerations-singapore | Basements | landed basement
 - [x] landed-roof-terrace-considerations-singapore | Roof Terraces | landed roof terrace
 - [x] landed-swimming-pool-considerations-singapore | Pools at Home | landed swimming pool
 - [ ] landed-lift-considerations-singapore | Home Lifts | home lift singapore
@@ -338,7 +338,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] how-to-choose-sofa-singapore | Choosing a Sofa | choose sofa singapore
 - [ ] mattress-buying-guide-singapore | Mattress Buying Guide | mattress buying guide
 - [ ] kitchen-appliances-order-singapore | Choosing Kitchen Appliances | kitchen appliances singapore
-- [ ] washer-dryer-placement-singapore | Washer and Dryer Placement | washer dryer placement
+- [x] washer-dryer-placement-singapore | Washer and Dryer Placement | washer dryer placement
 - [ ] fridge-size-guide-singapore | Fridge Size Guide | fridge size guide
 - [x] new-home-first-week-checklist-singapore | First Week in a New Home | new home checklist
 - [x] renovation-order-of-works-singapore | Order of Works | renovation order of works
