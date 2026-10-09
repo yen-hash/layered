@@ -40,12 +40,18 @@ function publishedReviews(businessId) {
 // The category record for a business (interior design when unset or unknown).
 export const categoryOf = (b) => CATEGORY_BY_SLUG[b.category] || CATEGORY_BY_SLUG[DEFAULT_CATEGORY];
 
+const coverStmt = db.prepare("SELECT title, property_type, style, cover_image FROM projects WHERE business_id = ? AND cover_image != '' ORDER BY created_at DESC LIMIT 1");
+
 export function designerCard(b) {
   const tags = [...(b.property_types || '').split(',').filter(Boolean), ...(b.styles || '').split(',').filter(Boolean)];
   const logo = usableLogo(b.logo_url);
-  const img = logo
-    ? `<img src="${esc(logo)}" alt="${esc(b.company_name)} ${esc(categoryOf(b).name.toLowerCase())}" loading="lazy" width="600" height="300">`
-    : `<img src="${esc(placeholderIllustration(b.id))}" alt="" loading="lazy" width="600" height="300">`;
+  // Lead with a real project photo; the firm's logo sits small in the corner. Falls back to the illustration.
+  const project = coverStmt.get(b.id);
+  const cover = project
+    ? `<img class="cover" src="${esc(project.cover_image)}" alt="${esc([project.title, [project.property_type, project.style].filter(Boolean).join(' '), 'by', b.company_name].filter(Boolean).join(' – '))}" loading="lazy" width="600" height="450">`
+    : `<img class="cover" src="${esc(placeholderIllustration(b.id))}" alt="" loading="lazy" width="600" height="450">`;
+  const badge = logo ? `<span class="logo-badge"><img src="${esc(logo)}" alt="${esc(b.company_name)} logo" loading="lazy" width="48" height="48"></span>` : '';
+  const img = cover + badge;
   return `
   <div class="dcard">
   <button type="button" class="save-btn" data-save="${esc(b.slug)}" aria-pressed="false" aria-label="Save ${esc(b.company_name)} to shortlist" title="Save to shortlist"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7-4.6-9.3-9A5.4 5.4 0 0 1 12 6.3 5.4 5.4 0 0 1 21.3 12C19 16.4 12 21 12 21z"/></svg></button>

@@ -760,3 +760,8 @@ svg.plan .plan-room { paint-order: stroke; stroke: #fbfdfb; stroke-width: .16px;
 .shortlist-bar { border-radius: 6px; }
 .calc-big { font-family: var(--sans); font-weight: 700; letter-spacing: -.03em; }
 .stat b, .hero-art .float-card b { font-family: var(--sans); }
+
+/* Designer cards: project photo leads, logo sits small in the corner */
+.designer-card .thumb img.cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.designer-card .thumb .logo-badge { position: absolute; right: 12px; bottom: 12px; width: 48px; height: 48px; border-radius: 12px; overflow: hidden; background: #fff; border: 2px solid #fff; box-shadow: 0 2px 10px rgba(11, 58, 50, .28); z-index: 2; }
+.designer-card .thumb .logo-badge img { position: static; width: 100%; height: 100%; object-fit: cover; transform: none !important; transition: none; }
