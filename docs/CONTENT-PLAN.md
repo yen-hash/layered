@@ -120,7 +120,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] mcst-renovation-approval-documents | Documents for MCST Renovation Approval | mcst renovation approval
 - [x] renovation-working-hours-public-holidays | Renovating on Public Holidays and Sundays | renovation public holiday singapore
 - [x] licensed-electrician-singapore-ema | EMA-Licensed Electrical Workers | licensed electrician singapore
-- [ ] licensed-plumber-singapore-pub | PUB-Licensed Plumbers | licensed plumber singapore
+- [x] licensed-plumber-singapore-pub | PUB-Licensed Plumbers | licensed plumber singapore
 - [ ] hdb-registered-renovation-contractor-list | HDB Registered Renovation Contractors | hdb registered contractor
 - [x] casetrust-accreditation-explained-2 | What CaseTrust Accreditation Means | casetrust accreditation
 - [ ] casetrust-deposit-protection | CaseTrust Deposit Protection | casetrust deposit protection
@@ -292,7 +292,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] landed-landscape-considerations-singapore | Landscaping | landed landscaping
 - [x] landed-living-during-rebuild-singapore | Where to Live During a Rebuild | living during rebuild
 - [x] landed-rebuild-budget-checklist-singapore | Rebuild Budget Checklist | landed rebuild budget
-- [ ] landed-construction-loan-singapore | Financing a Rebuild | landed construction loan
+- [x] landed-construction-loan-singapore | Financing a Rebuild | landed construction loan
 - [x] landed-aa-hidden-costs-singapore | Hidden Costs in A&A | landed aa hidden costs
 - [x] landed-design-brief-singapore | Writing a Brief for Your Architect | architect design brief
 - [x] landed-architect-selection-singapore | Choosing an Architect | choose architect singapore
@@ -332,7 +332,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] water-heater-types-singapore | Water Heater Types | water heater types singapore
 - [ ] how-to-choose-digital-lock-singapore | Choosing a Digital Lock | choose digital lock
 - [ ] smart-switches-hdb-singapore | Smart Switches | smart switches hdb
-- [ ] wifi-planning-hdb-singapore | Wi-Fi Planning | wifi hdb planning
+- [x] wifi-planning-hdb-singapore | Wi-Fi Planning | wifi hdb planning
 - [x] post-renovation-cleaning-checklist-singapore | Post-Renovation Cleaning Checklist | post renovation cleaning
 - [x] furniture-shopping-order-singapore | Order for Buying Furniture | furniture shopping order
 - [ ] how-to-choose-sofa-singapore | Choosing a Sofa | choose sofa singapore
