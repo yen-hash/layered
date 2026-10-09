@@ -218,7 +218,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] smart-home-ideas-hdb-singapore | Smart Home Ideas | smart home hdb
 - [x] storage-ideas-bedroom-singapore | Bedroom Storage Ideas | bedroom storage singapore
 - [ ] storage-ideas-kitchen-singapore | Kitchen Storage Ideas | kitchen storage singapore
-- [ ] storage-ideas-living-room-singapore | Living Room Storage | living room storage
+- [x] storage-ideas-living-room-singapore | Living Room Storage | living room storage
 - [ ] platform-bed-storage-singapore | Platform Beds With Storage | platform bed storage
 - [ ] hidden-storage-hdb-singapore | Hidden Storage Ideas | hidden storage ideas
 - [x] feature-wall-ideas-singapore | Feature Wall Ideas | feature wall ideas singapore
@@ -275,7 +275,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] landed-permit-to-commence-works-singapore | Permit to Commence Works | permit to commence building works
 - [ ] landed-top-and-csc-singapore | TOP and CSC for Landed | top csc landed
 - [ ] landed-gfa-explained-singapore | GFA Explained | gross floor area landed
-- [ ] landed-setback-rules-singapore | Setbacks Explained | landed setback rules
+- [x] landed-setback-rules-singapore | Setbacks Explained | landed setback rules
 - [ ] landed-building-height-rules-singapore | Height Controls | landed height control
 - [ ] landed-attic-rules-singapore | Attic Rules | landed attic
 - [ ] landed-basement-considerations-singapore | Basements | landed basement
@@ -315,7 +315,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] how-to-choose-movers-singapore | Choosing Movers | choose movers singapore
 - [x] moving-checklist-singapore | Moving Checklist | moving checklist singapore
 - [x] protect-new-floors-moving-singapore | Protecting New Floors | protect floors moving
-- [ ] how-to-choose-aircon-installer-singapore | Choosing an Aircon Installer | aircon installer singapore
+- [x] how-to-choose-aircon-installer-singapore | Choosing an Aircon Installer | aircon installer singapore
 - [ ] aircon-system-types-singapore | System 1 vs Multi-Split | aircon system types
 - [ ] aircon-piping-planning-singapore | Aircon Piping Planning | aircon piping
 - [ ] how-to-choose-flooring-specialist-singapore | Choosing a Flooring Specialist | flooring specialist singapore
