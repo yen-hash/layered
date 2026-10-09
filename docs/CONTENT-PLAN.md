@@ -118,7 +118,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] condo-defects-liability-singapore | Condo Defects Liability Period | condo defects liability
 - [x] strata-title-renovation-singapore | Strata Title Renovation Basics | strata renovation singapore
 - [x] mcst-renovation-approval-documents | Documents for MCST Renovation Approval | mcst renovation approval
-- [ ] renovation-working-hours-public-holidays | Renovating on Public Holidays and Sundays | renovation public holiday singapore
+- [x] renovation-working-hours-public-holidays | Renovating on Public Holidays and Sundays | renovation public holiday singapore
 - [x] licensed-electrician-singapore-ema | EMA-Licensed Electrical Workers | licensed electrician singapore
 - [ ] licensed-plumber-singapore-pub | PUB-Licensed Plumbers | licensed plumber singapore
 - [ ] hdb-registered-renovation-contractor-list | HDB Registered Renovation Contractors | hdb registered contractor
@@ -148,7 +148,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] interior-designer-portfolio-what-to-look-for | Reading a Designer's Portfolio | interior designer portfolio
 - [ ] interior-designer-reviews-how-to-read | How to Read Designer Reviews | interior designer reviews singapore
 - [x] interior-designer-red-flags-singapore | Interior Designer Red Flags | interior designer red flags
-- [ ] boutique-vs-large-id-firm-singapore | Boutique vs Large Firms | boutique interior design firm
+- [x] boutique-vs-large-id-firm-singapore | Boutique vs Large Firms | boutique interior design firm
 - [x] freelance-interior-designer-singapore | Freelance Interior Designers | freelance interior designer singapore
 - [x] design-and-build-singapore-explained | Design-and-Build Explained | design and build singapore
 - [ ] renovation-contractor-vs-id-firm | Contractor vs ID Firm | contractor vs interior designer
@@ -204,14 +204,14 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] small-space-colour-tricks-singapore | Colour Tricks for Small Spaces | small space colours
 - [ ] white-interior-singapore | White Interiors That Stay Warm | white interior design
 - [x] earth-tone-interior-singapore | Earth Tone Interiors | earth tone interior
-- [ ] wood-tone-interior-singapore | Using Wood Tones | wood tone interior
+- [x] wood-tone-interior-singapore | Using Wood Tones | wood tone interior
 - [ ] modern-minimalist-hdb-singapore | Modern Minimalist HDB | minimalist hdb design
 - [x] industrial-style-home-singapore | Industrial Style at Home | industrial style home singapore
 - [ ] contemporary-interior-design-singapore | Contemporary Style | contemporary interior design
 - [ ] classic-interior-design-singapore | Classic and Traditional Style | classic interior design
 - [ ] modern-luxury-interior-singapore | Modern Luxury Style | modern luxury interior
 - [ ] scandinavian-interior-hdb-singapore | Scandinavian HDB | scandinavian hdb
-- [ ] muji-style-home-singapore | Muji-Style Homes | muji style home
+- [x] muji-style-home-singapore | Muji-Style Homes | muji style home
 - [x] resort-style-home-singapore | Resort-Style Homes | resort style home
 - [x] biophilic-design-singapore | Biophilic Design | biophilic design singapore
 - [x] plants-for-hdb-singapore | Indoor Plants That Work in HDB | indoor plants singapore
@@ -272,14 +272,14 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] landed-builder-licence-bca-singapore | BCA Builder Licensing | bca licensed builder
 - [x] landed-ura-planning-permission-explained | URA Planning Permission | ura planning permission landed
 - [ ] landed-bca-approval-explained | BCA Building Plan Approval | bca building plan approval
-- [ ] landed-permit-to-commence-works-singapore | Permit to Commence Works | permit to commence building works
+- [x] landed-permit-to-commence-works-singapore | Permit to Commence Works | permit to commence building works
 - [ ] landed-top-and-csc-singapore | TOP and CSC for Landed | top csc landed
 - [x] landed-gfa-explained-singapore | GFA Explained | gross floor area landed
 - [x] landed-setback-rules-singapore | Setbacks Explained | landed setback rules
 - [ ] landed-building-height-rules-singapore | Height Controls | landed height control
 - [ ] landed-attic-rules-singapore | Attic Rules | landed attic
 - [ ] landed-basement-considerations-singapore | Basements | landed basement
-- [ ] landed-roof-terrace-considerations-singapore | Roof Terraces | landed roof terrace
+- [x] landed-roof-terrace-considerations-singapore | Roof Terraces | landed roof terrace
 - [ ] landed-swimming-pool-considerations-singapore | Pools at Home | landed swimming pool
 - [ ] landed-lift-considerations-singapore | Home Lifts | home lift singapore
 - [x] landed-party-wall-neighbours-singapore | Party Walls and Neighbours | party wall singapore
@@ -329,7 +329,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] how-to-choose-an-electrician-singapore | Choosing an Electrician | choose electrician singapore
 - [x] how-many-power-points-hdb-singapore | How Many Power Points? | power points hdb
 - [x] how-to-choose-a-plumber-singapore | Choosing a Plumber | choose plumber singapore
-- [ ] water-heater-types-singapore | Water Heater Types | water heater types singapore
+- [x] water-heater-types-singapore | Water Heater Types | water heater types singapore
 - [ ] how-to-choose-digital-lock-singapore | Choosing a Digital Lock | choose digital lock
 - [ ] smart-switches-hdb-singapore | Smart Switches | smart switches hdb
 - [ ] wifi-planning-hdb-singapore | Wi-Fi Planning | wifi hdb planning
