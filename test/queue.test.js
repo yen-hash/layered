@@ -16,7 +16,7 @@ const categories = new Set(BLOG_CATEGORIES.map((c) => c.name));
 const guideSlugs = new Set([...GUIDES.map((g) => g.slug), 'renovation-checklist-singapore']);
 const tradeSlugs = new Set(TRADES.map((t) => t.slug));
 const fixedPages = new Set(['/', '/designers', '/landed', '/services', '/guides', '/blog', '/about', '/compare',
-  '/tools/renovation-cost-calculator', '/tools/renovation-cost-estimator', '/tools/room-planner',
+  '/tools/renovation-cost-calculator', '/tools/renovation-cost-estimator', '/tools/room-planner', '/resources', '/tools/design-style-quiz',
   '/interior-designers/hdb', '/interior-designers/condo', '/interior-designers/landed', '/interior-designers/commercial']);
 
 const plain = (md) => md.replace(/[#*_`>|-]/g, ' ').replace(/\[([^\]]*)\]\([^)]*\)/g, '$1');
