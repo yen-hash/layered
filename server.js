@@ -41,7 +41,7 @@ const PORT = process.env.PORT || 3000;
 const MIME = {
   '.css': 'text/css', '.js': 'text/javascript', '.png': 'image/png', '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.webp': 'image/webp', '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon', '.woff2': 'font/woff2',
+  '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.webmanifest': 'application/manifest+json',
 };
 
 const COMPRESSIBLE = new Set(['.css', '.js', '.svg']);
@@ -141,6 +141,12 @@ async function router(req, res) {
     url.pathname === '/photos.js' ||
     url.pathname === '/planner.js' ||
     url.pathname === '/favicon.svg' ||
+    url.pathname === '/favicon.ico' ||
+    url.pathname === '/favicon-48.png' ||
+    url.pathname === '/apple-touch-icon.png' ||
+    url.pathname === '/icon-192.png' ||
+    url.pathname === '/icon-512.png' ||
+    url.pathname === '/site.webmanifest' ||
     url.pathname === '/logo-mark.svg' ||
     url.pathname === '/og-default.jpg' ||
     url.pathname.startsWith('/uploads/') ||
