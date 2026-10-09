@@ -21,6 +21,7 @@ import { blogIndexRoute, blogCategoryRoute, blogPostRoute, rssRoute } from './ro
 import { blogAdminList, blogAdminEditor, blogAdminSave, blogAdminDelete } from './routes/blogAdmin.js';
 import { isAdmin } from './lib/admin.js';
 import { calculatorRoute, estimatorRoute, plannerRoute } from './routes/tools.js';
+import { resourcesRoute, quizRoute } from './routes/resources.js';
 import { verificationList, verificationAction } from './routes/verification.js';
 import { accountsList, accountReset } from './routes/accounts.js';
 import { infoPageRoute } from './routes/pages.js';
@@ -42,6 +43,7 @@ const MIME = {
   '.css': 'text/css', '.js': 'text/javascript', '.png': 'image/png', '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.webp': 'image/webp', '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.webmanifest': 'application/manifest+json',
+  '.pdf': 'application/pdf', '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 };
 
 const COMPRESSIBLE = new Set(['.css', '.js', '.svg']);
@@ -152,6 +154,7 @@ async function router(req, res) {
     url.pathname.startsWith('/uploads/') ||
     url.pathname.startsWith('/illustrations/') ||
     url.pathname.startsWith('/images/') ||
+    url.pathname.startsWith('/downloads/') ||
     url.pathname.startsWith('/fonts/')
   )) {
     if (serveStatic(req, res, url)) return;
@@ -194,6 +197,8 @@ async function router(req, res) {
     if (req.method === 'GET' && url.pathname === '/tools/renovation-cost-calculator') return await calculatorRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname === '/tools/renovation-cost-estimator') return await estimatorRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname === '/tools/room-planner') return await plannerRoute(req, res, ctx);
+    if (req.method === 'GET' && url.pathname === '/resources') return await resourcesRoute(req, res, ctx);
+    if (req.method === 'GET' && url.pathname === '/tools/design-style-quiz') return await quizRoute(req, res, ctx, url);
     if (req.method === 'GET' && url.pathname === '/blog') return await blogIndexRoute(req, res, ctx, url);
     if (req.method === 'GET' && url.pathname === '/blog/rss.xml') return await rssRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname.startsWith('/blog/category/')) return await blogCategoryRoute(req, res, ctx, url, url.pathname.split('/')[3]);
