@@ -27,7 +27,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] how-to-save-on-renovation-singapore | 15 Ways to Save on Your Renovation in Singapore | save on renovation singapore
 - [x] renovation-contingency-budget-singapore | How Much Contingency to Keep for a Renovation | renovation contingency budget
 - [ ] 2-room-hdb-renovation-cost-singapore | 2-Room HDB Renovation Cost in Singapore | 2 room hdb renovation cost
-- [ ] executive-flat-renovation-cost-singapore | Executive Flat Renovation Cost in Singapore | executive flat renovation cost
+- [x] executive-flat-renovation-cost-singapore | Executive Flat Renovation Cost in Singapore | executive flat renovation cost
 - [ ] hdb-maisonette-renovation-cost-singapore | HDB Maisonette Renovation Cost | hdb maisonette renovation cost
 - [ ] condo-renovation-cost-per-sqft-singapore | Condo Renovation Cost Per Square Foot | condo renovation cost per sqft
 - [ ] new-launch-condo-renovation-cost-singapore | New Launch Condo Renovation Cost | new condo renovation cost
@@ -116,7 +116,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] condo-aircon-rules-singapore | Condo Aircon Rules | condo aircon rules
 - [x] condo-defects-checking-singapore | Checking a New Condo for Defects | condo defects checking
 - [ ] condo-defects-liability-singapore | Condo Defects Liability Period | condo defects liability
-- [ ] strata-title-renovation-singapore | Strata Title Renovation Basics | strata renovation singapore
+- [x] strata-title-renovation-singapore | Strata Title Renovation Basics | strata renovation singapore
 - [x] mcst-renovation-approval-documents | Documents for MCST Renovation Approval | mcst renovation approval
 - [ ] renovation-working-hours-public-holidays | Renovating on Public Holidays and Sundays | renovation public holiday singapore
 - [x] licensed-electrician-singapore-ema | EMA-Licensed Electrical Workers | licensed electrician singapore
@@ -212,7 +212,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] modern-luxury-interior-singapore | Modern Luxury Style | modern luxury interior
 - [ ] scandinavian-interior-hdb-singapore | Scandinavian HDB | scandinavian hdb
 - [ ] muji-style-home-singapore | Muji-Style Homes | muji style home
-- [ ] resort-style-home-singapore | Resort-Style Homes | resort style home
+- [x] resort-style-home-singapore | Resort-Style Homes | resort style home
 - [x] biophilic-design-singapore | Biophilic Design | biophilic design singapore
 - [x] plants-for-hdb-singapore | Indoor Plants That Work in HDB | indoor plants singapore
 - [ ] smart-home-ideas-hdb-singapore | Smart Home Ideas | smart home hdb
@@ -274,7 +274,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] landed-bca-approval-explained | BCA Building Plan Approval | bca building plan approval
 - [ ] landed-permit-to-commence-works-singapore | Permit to Commence Works | permit to commence building works
 - [ ] landed-top-and-csc-singapore | TOP and CSC for Landed | top csc landed
-- [ ] landed-gfa-explained-singapore | GFA Explained | gross floor area landed
+- [x] landed-gfa-explained-singapore | GFA Explained | gross floor area landed
 - [x] landed-setback-rules-singapore | Setbacks Explained | landed setback rules
 - [ ] landed-building-height-rules-singapore | Height Controls | landed height control
 - [ ] landed-attic-rules-singapore | Attic Rules | landed attic
@@ -318,7 +318,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] how-to-choose-aircon-installer-singapore | Choosing an Aircon Installer | aircon installer singapore
 - [ ] aircon-system-types-singapore | System 1 vs Multi-Split | aircon system types
 - [ ] aircon-piping-planning-singapore | Aircon Piping Planning | aircon piping
-- [ ] how-to-choose-flooring-specialist-singapore | Choosing a Flooring Specialist | flooring specialist singapore
+- [x] how-to-choose-flooring-specialist-singapore | Choosing a Flooring Specialist | flooring specialist singapore
 - [x] overlay-vs-hack-tiles-singapore | Overlay vs Hack Floor Tiles | overlay vs hacking
 - [ ] floor-tile-sizes-singapore | Floor Tile Sizes | floor tile size
 - [x] how-to-choose-a-carpenter-singapore | Choosing a Carpenter | choose carpenter singapore
