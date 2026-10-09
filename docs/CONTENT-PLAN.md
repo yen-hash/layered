@@ -26,7 +26,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] renovation-cost-per-sqft-singapore | Renovation Cost Per Square Foot in Singapore | renovation cost per sqft singapore
 - [x] how-to-save-on-renovation-singapore | 15 Ways to Save on Your Renovation in Singapore | save on renovation singapore
 - [x] renovation-contingency-budget-singapore | How Much Contingency to Keep for a Renovation | renovation contingency budget
-- [ ] 2-room-hdb-renovation-cost-singapore | 2-Room HDB Renovation Cost in Singapore | 2 room hdb renovation cost
+- [x] 2-room-hdb-renovation-cost-singapore | 2-Room HDB Renovation Cost in Singapore | 2 room hdb renovation cost
 - [x] executive-flat-renovation-cost-singapore | Executive Flat Renovation Cost in Singapore | executive flat renovation cost
 - [ ] hdb-maisonette-renovation-cost-singapore | HDB Maisonette Renovation Cost | hdb maisonette renovation cost
 - [ ] condo-renovation-cost-per-sqft-singapore | Condo Renovation Cost Per Square Foot | condo renovation cost per sqft
@@ -146,7 +146,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] how-to-brief-an-interior-designer | How to Brief an Interior Designer | brief interior designer
 - [x] first-meeting-with-interior-designer | What to Expect at a First Meeting | first meeting interior designer
 - [x] interior-designer-portfolio-what-to-look-for | Reading a Designer's Portfolio | interior designer portfolio
-- [ ] interior-designer-reviews-how-to-read | How to Read Designer Reviews | interior designer reviews singapore
+- [x] interior-designer-reviews-how-to-read | How to Read Designer Reviews | interior designer reviews singapore
 - [x] interior-designer-red-flags-singapore | Interior Designer Red Flags | interior designer red flags
 - [x] boutique-vs-large-id-firm-singapore | Boutique vs Large Firms | boutique interior design firm
 - [x] freelance-interior-designer-singapore | Freelance Interior Designers | freelance interior designer singapore
@@ -208,7 +208,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] modern-minimalist-hdb-singapore | Modern Minimalist HDB | minimalist hdb design
 - [x] industrial-style-home-singapore | Industrial Style at Home | industrial style home singapore
 - [ ] contemporary-interior-design-singapore | Contemporary Style | contemporary interior design
-- [ ] classic-interior-design-singapore | Classic and Traditional Style | classic interior design
+- [x] classic-interior-design-singapore | Classic and Traditional Style | classic interior design
 - [ ] modern-luxury-interior-singapore | Modern Luxury Style | modern luxury interior
 - [ ] scandinavian-interior-hdb-singapore | Scandinavian HDB | scandinavian hdb
 - [x] muji-style-home-singapore | Muji-Style Homes | muji style home
@@ -230,7 +230,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] roller-blinds-vs-zebra-blinds-singapore | Roller vs Zebra Blinds | roller vs zebra blinds
 - [ ] flooring-options-bedroom-singapore | Bedroom Flooring | bedroom flooring singapore
 - [x] timber-vs-vinyl-flooring-singapore | Timber vs Vinyl | timber vs vinyl flooring
-- [ ] marble-look-tiles-singapore | Marble-Look Tiles | marble look tiles singapore
+- [x] marble-look-tiles-singapore | Marble-Look Tiles | marble look tiles singapore
 - [ ] terrazzo-design-singapore | Terrazzo in Singapore Homes | terrazzo singapore
 - [ ] kitchen-countertop-material-singapore | Choosing a Countertop | kitchen countertop material
 - [ ] laminate-finishes-guide-singapore | Laminate Finishes | laminate finish guide
@@ -277,10 +277,10 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] landed-gfa-explained-singapore | GFA Explained | gross floor area landed
 - [x] landed-setback-rules-singapore | Setbacks Explained | landed setback rules
 - [ ] landed-building-height-rules-singapore | Height Controls | landed height control
-- [ ] landed-attic-rules-singapore | Attic Rules | landed attic
+- [x] landed-attic-rules-singapore | Attic Rules | landed attic
 - [ ] landed-basement-considerations-singapore | Basements | landed basement
 - [x] landed-roof-terrace-considerations-singapore | Roof Terraces | landed roof terrace
-- [ ] landed-swimming-pool-considerations-singapore | Pools at Home | landed swimming pool
+- [x] landed-swimming-pool-considerations-singapore | Pools at Home | landed swimming pool
 - [ ] landed-lift-considerations-singapore | Home Lifts | home lift singapore
 - [x] landed-party-wall-neighbours-singapore | Party Walls and Neighbours | party wall singapore
 - [x] landed-soil-investigation-singapore | Soil Investigation | soil investigation landed
