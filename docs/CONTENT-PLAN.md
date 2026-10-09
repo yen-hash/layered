@@ -69,7 +69,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] renovation-subsidies-singapore | Renovation Grants and Subsidies | renovation grant singapore
 - [x] renovation-budget-4-room-bto | Sample Budget for a 4-Room BTO | 4 room bto renovation budget
 - [x] renovation-budget-5-room-bto | Sample Budget for a 5-Room BTO | 5 room bto renovation budget
-- [ ] renovation-budget-condo | Sample Renovation Budget for a Condo | condo renovation budget
+- [x] renovation-budget-condo | Sample Renovation Budget for a Condo | condo renovation budget
 - [x] cheap-renovation-ideas-singapore | Low-Cost Renovation Ideas | cheap renovation singapore
 - [ ] renovation-quote-comparison-template | How to Compare Three Renovation Quotes | compare renovation quotes
 - [x] hidden-renovation-costs-singapore | Hidden Renovation Costs | hidden renovation costs singapore
@@ -83,7 +83,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] renovation-price-negotiation-singapore | How to Negotiate Renovation Prices | negotiate renovation price
 - [x] renovation-cost-checklist-singapore | Renovation Cost Checklist | renovation cost checklist
 - [ ] renovation-cost-2027-outlook-singapore | Renovation Cost Trends | renovation cost trends singapore
-- [ ] cost-of-moving-into-new-home-singapore | Total Cost of Moving Into a New Home | cost of moving into new home
+- [x] cost-of-moving-into-new-home-singapore | Total Cost of Moving Into a New Home | cost of moving into new home
 
 ## Rules & Permits (50)
 
@@ -99,8 +99,8 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] hdb-balcony-rules | HDB Balcony and Service Yard Rules | hdb service yard
 - [ ] hdb-ceiling-rules | HDB Ceiling Works Rules | hdb false ceiling rules
 - [ ] hdb-electrical-works-rules | HDB Electrical Works Rules | hdb electrical rules
-- [ ] hdb-debris-disposal-rules | Renovation Debris Disposal Rules | renovation debris disposal
-- [ ] hdb-neighbour-courtesy-renovation | Renovation Etiquette With Neighbours | renovation neighbours
+- [x] hdb-debris-disposal-rules | Renovation Debris Disposal Rules | renovation debris disposal
+- [x] hdb-neighbour-courtesy-renovation | Renovation Etiquette With Neighbours | renovation neighbours
 - [ ] hdb-renovation-deposit-refund | Is There a Renovation Deposit for HDB? | hdb renovation deposit
 - [ ] hdb-minimum-occupation-period-renovation | Renovating Before the Minimum Occupation Period | hdb mop renovation
 - [x] hdb-resale-flat-renovation-checks | Checks Before Renovating a Resale HDB | resale hdb renovation checks
@@ -216,7 +216,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] biophilic-design-singapore | Biophilic Design | biophilic design singapore
 - [x] plants-for-hdb-singapore | Indoor Plants That Work in HDB | indoor plants singapore
 - [ ] smart-home-ideas-hdb-singapore | Smart Home Ideas | smart home hdb
-- [ ] storage-ideas-bedroom-singapore | Bedroom Storage Ideas | bedroom storage singapore
+- [x] storage-ideas-bedroom-singapore | Bedroom Storage Ideas | bedroom storage singapore
 - [ ] storage-ideas-kitchen-singapore | Kitchen Storage Ideas | kitchen storage singapore
 - [ ] storage-ideas-living-room-singapore | Living Room Storage | living room storage
 - [ ] platform-bed-storage-singapore | Platform Beds With Storage | platform bed storage
@@ -241,7 +241,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] tv-size-viewing-distance-singapore | TV Size and Distance | tv size viewing distance
 - [ ] aircon-placement-design-singapore | Aircon Placement | aircon placement design
 - [ ] ceiling-fan-vs-aircon-singapore | Ceiling Fans and Airflow | ceiling fan singapore
-- [ ] natural-light-hdb-singapore | Maximising Natural Light | natural light hdb
+- [x] natural-light-hdb-singapore | Maximising Natural Light | natural light hdb
 - [x] privacy-ideas-hdb-singapore | Privacy Ideas | privacy hdb
 - [x] soundproofing-hdb-singapore | Soundproofing Ideas | soundproofing hdb
 - [x] humidity-proofing-home-singapore | Designing for Humidity | humidity home singapore
@@ -298,8 +298,8 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] landed-architect-selection-singapore | Choosing an Architect | choose architect singapore
 - [x] landed-builder-selection-singapore | Choosing a Builder | choose landed builder
 - [x] landed-contract-types-singapore | Contract Types | landed construction contract
-- [ ] landed-defects-liability-singapore | Defects After Completion | landed defects liability
-- [ ] landed-interior-after-completion-singapore | Planning Interiors | landed interior design
+- [x] landed-defects-liability-singapore | Defects After Completion | landed defects liability
+- [x] landed-interior-after-completion-singapore | Planning Interiors | landed interior design
 - [ ] landed-terrace-vs-semid-vs-bungalow-singapore | Terrace vs Semi-D vs Bungalow | terrace vs semi detached
 - [ ] gcb-landed-considerations-singapore | Good Class Bungalow Considerations | good class bungalow
 
@@ -340,7 +340,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] kitchen-appliances-order-singapore | Choosing Kitchen Appliances | kitchen appliances singapore
 - [ ] washer-dryer-placement-singapore | Washer and Dryer Placement | washer dryer placement
 - [ ] fridge-size-guide-singapore | Fridge Size Guide | fridge size guide
-- [ ] new-home-first-week-checklist-singapore | First Week in a New Home | new home checklist
+- [x] new-home-first-week-checklist-singapore | First Week in a New Home | new home checklist
 - [x] renovation-order-of-works-singapore | Order of Works | renovation order of works
 - [ ] living-in-flat-during-renovation | Living Through a Renovation | living during renovation
 - [ ] temporary-housing-during-renovation | Temporary Housing | temporary housing renovation
