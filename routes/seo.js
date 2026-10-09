@@ -38,6 +38,8 @@ export function sitemapRoute(req, res, ctx) {
     { loc: '/tools/renovation-cost-calculator', changefreq: 'monthly', priority: '0.9', lastmod: DATA_REVIEWED },
     { loc: '/tools/renovation-cost-estimator', changefreq: 'monthly', priority: '0.9' },
     { loc: '/tools/room-planner', changefreq: 'monthly', priority: '0.8' },
+    { loc: '/resources', changefreq: 'monthly', priority: '0.8' },
+    { loc: '/tools/design-style-quiz', changefreq: 'monthly', priority: '0.7' },
     { loc: '/landed', changefreq: 'weekly', priority: '0.9' },
     { loc: '/services', changefreq: 'weekly', priority: '0.8' },
     ...TRADES.map((t) => ({ loc: `/services/${t.slug}`, changefreq: 'weekly', priority: '0.7' })),

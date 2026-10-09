@@ -37,7 +37,7 @@ before(async () => {
 after(() => { if (server) server.kill(); fs.rmSync(TMP, { recursive: true, force: true }); });
 
 test('public pages return 200', async () => {
-  for (const p of ['/', '/designers', '/designers/warmhaus-living', '/blog', '/blog/qanvast-alternative-singapore', '/guides', '/guides/renovation-checklist-singapore', '/tools/renovation-cost-calculator', '/tools/renovation-cost-estimator', '/tools/room-planner', '/services', '/services/lighting', '/services/electrician', '/landed', '/planner.js', '/fonts/familjen-grotesk-normal.woff2', '/fonts/literata-normal.woff2', '/about', '/privacy', '/terms', '/compare?d=warmhaus-living,northgate-design-studio', '/login', '/signup', '/forgot', '/sitemap.xml', '/robots.txt']) {
+  for (const p of ['/', '/designers', '/designers/warmhaus-living', '/blog', '/blog/qanvast-alternative-singapore', '/guides', '/guides/renovation-checklist-singapore', '/tools/renovation-cost-calculator', '/tools/renovation-cost-estimator', '/tools/room-planner', '/resources', '/tools/design-style-quiz', '/downloads/layered-renovation-budget-planner.xlsx', '/downloads/layered-renovation-checklist.pdf', '/downloads/layered-renovation-contract-checklist.pdf', '/favicon.ico', '/site.webmanifest', '/services', '/services/lighting', '/services/electrician', '/landed', '/planner.js', '/fonts/familjen-grotesk-normal.woff2', '/fonts/literata-normal.woff2', '/about', '/privacy', '/terms', '/compare?d=warmhaus-living,northgate-design-studio', '/login', '/signup', '/forgot', '/sitemap.xml', '/robots.txt']) {
     const r = await get(p);
     assert.equal(r.status, 200, `${p} -> ${r.status}`);
   }
