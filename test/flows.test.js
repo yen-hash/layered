@@ -193,3 +193,21 @@ test('masked leads: free plan hides contact details until admin unlocks', async 
   const open = await (await req('GET', `/dashboard/leads/${matchId}`, { cookie: firm })).text();
   assert.ok(open.includes(secret), 'unlocked lead shows the contact details');
 });
+
+test('admin can delete a duplicate firm; name must match; self-delete refused', async () => {
+  const dupEmail = `dup-${tag}@flows.test`;
+  const dupName = `Dup Studio ${tag}`;
+  await post('/signup', '', { company_name: dupName, email: dupEmail, password: 'Passw0rd!dup1' });
+  const accts = await (await req('GET', '/dashboard/accounts', { cookie: admin })).text();
+  const row = accts.split('<tr>').find((r) => r.includes(dupName));
+  const id = /\/dashboard\/accounts\/(\d+)\/delete/.exec(row)[1];
+  const slug = /\/designers\/([a-z0-9-]+)"/.exec(row)[1];
+  assert.equal((await req('GET', `/designers/${slug}`)).status, 200);
+  assert.equal((await req('GET', `/dashboard/accounts/${id}/delete`, { cookie: firm })).status, 403, 'non-admin refused');
+  assert.match(loc(await post(`/dashboard/accounts/${id}/delete`, admin, { confirm: 'wrong' })), /did not match/);
+  assert.equal((await req('GET', `/designers/${slug}`)).status, 200, 'still there after a wrong name');
+  assert.match(loc(await post(`/dashboard/accounts/${id}/delete`, admin, { confirm: dupName })), /was deleted/);
+  assert.equal((await req('GET', `/designers/${slug}`)).status, 404);
+  const adminRow = accts.split('<tr>').find((r) => r.includes(`Admin Studio ${tag}`));
+  assert.ok(!/\/delete"/.test(adminRow), 'no delete link for your own account');
+});

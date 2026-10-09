@@ -388,14 +388,24 @@ export async function plannerRoute(req, res, ctx) {
           <p class="pl-cta"><a class="btn" id="pl-price" href="/tools/renovation-cost-estimator">Price this plan</a> <a class="btn btn-outline" id="pl-enquire" href="/#get-recommendations">Send to designers</a></p>
           <p class="pl-actions"><button type="button" class="btn btn-sm btn-outline" id="pl-download">Download image</button> <button type="button" class="btn btn-sm btn-outline" id="pl-print">Print</button></p>
           <details class="pl-trace">
-            <summary>Trace a floor plan</summary>
-            <div class="field"><label for="pl-bg">Picture of your floor plan</label><input id="pl-bg" type="file" accept="image/*"></div>
+            <summary>Trace over your own floor plan</summary>
+            <p class="muted small">Upload a picture of your floor plan (a screenshot or photo; for a PDF, take a screenshot of the page). Set its scale from one wall you know the length of, then draw rooms over it.</p>
+            <div class="field"><label for="pl-bg">1. Choose the picture</label><input id="pl-bg" type="file" accept="image/*"></div>
             <div id="pl-bgopts" hidden>
-              <div class="field"><label for="pl-bgw">Width of the picture in metres</label><input id="pl-bgw" type="number" min="2" max="60" step="0.1" value="10"></div>
+              <div class="field"><span class="pl-step">2. Set the scale</span>
+                <button type="button" class="btn btn-sm" id="pl-bgcal" aria-pressed="false">Set scale from a wall</button>
+                <div id="pl-bgcalbox" hidden><label for="pl-bgcallen">Real length of that wall (metres)</label><input id="pl-bgcallen" type="number" min="0.2" max="100" step="0.01"> <button type="button" class="btn btn-sm" id="pl-bgcalok">Apply</button></div>
+              </div>
+              <div class="field"><span class="pl-step">3. Line it up</span>
+                <button type="button" class="btn btn-sm btn-outline" id="pl-bgmove" aria-pressed="false">Move picture</button>
+                <label for="pl-bgrot">Straighten (rotate)</label><input id="pl-bgrot" type="range" min="-180" max="180" step="0.5" value="0">
+              </div>
+              <div class="field"><label for="pl-bgw">Picture width in metres (set automatically)</label><input id="pl-bgw" type="number" min="2" max="60" step="0.1" value="10"></div>
               <div class="field"><label for="pl-bgo">Transparency</label><input id="pl-bgo" type="range" min="0.1" max="1" step="0.05" value="0.5"></div>
+              <p id="pl-bgmsg" class="muted small" role="status" aria-live="polite"></p>
               <button type="button" class="btn btn-sm btn-outline" id="pl-bgclear">Remove picture</button>
             </div>
-            <p class="muted small">The picture stays on your device and is not uploaded.</p>
+            <p class="muted small">The picture stays on your device and is not uploaded. It is not saved with your plan or included in the downloaded image.</p>
           </details>
         </aside>
       </div>
@@ -407,7 +417,7 @@ export async function plannerRoute(req, res, ctx) {
     <h2>How to use the room planner</h2>
     <div class="prose">
       <ol>
-        <li><strong>Start from a typical layout</strong> for a 3-, 4- or 5-room HDB flat or a condo, or a blank plan. The layouts are approximate, so adjust the room sizes to match your floor plan, or trace over a picture of it.</li>
+        <li><strong>Start from a typical layout</strong> for a 3-, 4- or 5-room HDB flat or a condo, or a blank plan. The layouts are approximate, so adjust the room sizes to match your floor plan, or open <strong>Trace over your own floor plan</strong>, upload a picture of it, set the scale from one wall you know the length of, and draw the rooms over it.</li>
         <li><strong>Add doors and windows</strong>. The starter layouts include them; drag one near a wall and it snaps into place. Use "Swing other side" and "Flip hinge" to set which way a door opens.</li>
         <li><strong>Place your built-ins</strong>: wardrobes, kitchen cabinets, TV console, shoe cabinet, study table and platform beds. Set each one's width to the length you want.</li>
         <li><strong>Check the summary</strong>: dry floor area for flooring and the foot runs of carpentry, the units Singapore firms quote in.</li>

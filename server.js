@@ -23,7 +23,7 @@ import { isAdmin } from './lib/admin.js';
 import { calculatorRoute, estimatorRoute, plannerRoute } from './routes/tools.js';
 import { resourcesRoute, quizRoute, budgetPlannerRoute } from './routes/resources.js';
 import { verificationList, verificationAction } from './routes/verification.js';
-import { accountsList, accountReset, accountAccess, accountLeads, accountLeadToggle } from './routes/accounts.js';
+import { accountsList, accountReset, accountAccess, accountLeads, accountLeadToggle, accountDeletePage, accountDelete } from './routes/accounts.js';
 import { infoPageRoute } from './routes/pages.js';
 import { startPublisher } from './lib/schedule.js';
 import { servicesIndexRoute, tradeRoute, landedRoute } from './routes/services.js';
@@ -305,6 +305,12 @@ async function router(req, res) {
       if (req.method === 'POST' && acctAccess) {
         const { fields } = await parseForm(req);
         return await accountAccess(req, res, ctx, Number(acctAccess[1]), fields);
+      }
+      const acctDel = url.pathname.match(/^\/dashboard\/accounts\/(\d+)\/delete$/);
+      if (req.method === 'GET' && acctDel) return await accountDeletePage(req, res, ctx, Number(acctDel[1]));
+      if (req.method === 'POST' && acctDel) {
+        const { fields } = await parseForm(req);
+        return await accountDelete(req, res, ctx, Number(acctDel[1]), fields);
       }
       const acctLeads = url.pathname.match(/^\/dashboard\/accounts\/(\d+)\/leads$/);
       if (req.method === 'GET' && acctLeads) return await accountLeads(req, res, ctx, Number(acctLeads[1]));

@@ -776,3 +776,9 @@ svg.plan .plan-room { paint-order: stroke; stroke: #fbfdfb; stroke-width: .16px;
 .bp-over { background: #fde8e4; color: #8a2a18; }
 .bp-ok { background: #e3f3e8; color: #1d5a33; }
 @media print { .est-setup .est-buttons, .site-header, .site-footer { display: none; } .est-body { display: block; } .est-result { position: static; } }
+
+/* Room planner: trace-over controls */
+.pl-trace .pl-step { display: block; font-weight: 600; margin-bottom: 4px; }
+.pl-trace [aria-pressed="true"] { background: var(--brand, #1d5a33); color: #fff; }
+#pl-svg .pl-calpt { fill: #d63b2f; stroke: #fff; stroke-width: .03; pointer-events: none; }
+#pl-svg .pl-calline { stroke: #d63b2f; stroke-width: .05; stroke-dasharray: .12 .08; pointer-events: none; }
