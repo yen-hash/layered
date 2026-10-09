@@ -147,6 +147,24 @@ test('password reset: link works once and the new password logs in', async () =>
   assert.equal(new URL(ok.headers.get('location'), BASE).pathname, '/dashboard');
 });
 
+test('admin reset link: admin only, works once, new password logs in', async () => {
+  assert.equal((await req('GET', '/dashboard/accounts', { cookie: firm })).status, 403);
+  const list = await (await req('GET', '/dashboard/accounts', { cookie: admin })).text();
+  const row = list.split('<tr>').find((r) => r.includes(firmEmail));
+  const id = Number(row.match(/\/dashboard\/accounts\/(\d+)\/reset/)[1]);
+  assert.ok(id > 0, 'firm row should have a reset form');
+  assert.equal((await post(`/dashboard/accounts/${id}/reset`, firm, {})).status, 403);
+  const made = await post(`/dashboard/accounts/${id}/reset`, admin, {});
+  assert.equal(made.status, 200);
+  const token = (await made.text()).match(/\/reset\/([0-9a-f]{64})/)[1];
+  assert.equal((await req('GET', `/reset/${token}`)).status, 200);
+  assert.equal((await post(`/reset/${token}`, '', { password: 'AdminSetPassw0rd!', confirm: 'AdminSetPassw0rd!' })).status, 302);
+  assert.equal((await req('GET', `/reset/${token}`)).status, 410);
+  const ok = await post('/login', '', { email: firmEmail, password: 'AdminSetPassw0rd!' });
+  assert.equal(new URL(ok.headers.get('location'), BASE).pathname, '/dashboard');
+  assert.equal((await post('/dashboard/accounts/999999/reset', admin, {})).status, 302);
+});
+
 test('blog editor: admin writes and publishes, non-admin is refused', async () => {
   assert.equal((await req('GET', '/dashboard/blog/new', { cookie: admin })).status, 200);
   const save = await post('/dashboard/blog/save', admin, { title: `Editor post ${tag}`, category: 'Guides', body: '## Heading\n\nSome text for the post.', excerpt: 'Short intro', intent: 'publish' });
