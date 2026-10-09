@@ -73,8 +73,8 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] cheap-renovation-ideas-singapore | Low-Cost Renovation Ideas | cheap renovation singapore
 - [ ] renovation-quote-comparison-template | How to Compare Three Renovation Quotes | compare renovation quotes
 - [x] hidden-renovation-costs-singapore | Hidden Renovation Costs | hidden renovation costs singapore
-- [ ] diy-vs-contractor-singapore | DIY vs Hiring a Contractor | diy renovation singapore
-- [ ] renovation-cost-small-flat-singapore | Renovating a Small Flat on a Budget | small flat renovation cost
+- [x] diy-vs-contractor-singapore | DIY vs Hiring a Contractor | diy renovation singapore
+- [x] renovation-cost-small-flat-singapore | Renovating a Small Flat on a Budget | small flat renovation cost
 - [ ] hdb-lift-lobby-upgrade-singapore | Lift Upgrading Programme Costs for Owners | hdb lift upgrading
 - [ ] renovation-cost-office-per-sqft-singapore | Office Fit-Out Cost Per Square Foot | office fit out cost singapore
 - [ ] retail-shop-renovation-cost-singapore | Retail Shop Fit-Out Cost | shop renovation cost singapore
@@ -186,7 +186,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 ## Design Ideas (70)
 
 - [x] hdb-bedroom-design-ideas-singapore | HDB Bedroom Design Ideas | hdb bedroom design
-- [ ] master-bedroom-layout-ideas-singapore | Master Bedroom Layout Ideas | master bedroom layout
+- [x] master-bedroom-layout-ideas-singapore | Master Bedroom Layout Ideas | master bedroom layout
 - [x] kids-bedroom-design-singapore | Kids Bedroom Design | kids bedroom design singapore
 - [ ] hdb-kitchen-design-ideas-singapore | HDB Kitchen Design Ideas | hdb kitchen design
 - [x] open-kitchen-vs-closed-kitchen-singapore | Open vs Closed Kitchen | open vs closed kitchen
@@ -214,7 +214,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] muji-style-home-singapore | Muji-Style Homes | muji style home
 - [ ] resort-style-home-singapore | Resort-Style Homes | resort style home
 - [x] biophilic-design-singapore | Biophilic Design | biophilic design singapore
-- [ ] plants-for-hdb-singapore | Indoor Plants That Work in HDB | indoor plants singapore
+- [x] plants-for-hdb-singapore | Indoor Plants That Work in HDB | indoor plants singapore
 - [ ] smart-home-ideas-hdb-singapore | Smart Home Ideas | smart home hdb
 - [ ] storage-ideas-bedroom-singapore | Bedroom Storage Ideas | bedroom storage singapore
 - [ ] storage-ideas-kitchen-singapore | Kitchen Storage Ideas | kitchen storage singapore
@@ -252,7 +252,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] home-office-hdb-singapore | Home Office in HDB | home office hdb
 - [ ] gaming-room-design-singapore | Gaming Room Design | gaming room design
 - [x] reading-nook-ideas-singapore | Reading Nooks | reading nook ideas
-- [ ] wardrobe-design-ideas-singapore | Wardrobe Design Ideas | wardrobe design ideas
+- [x] wardrobe-design-ideas-singapore | Wardrobe Design Ideas | wardrobe design ideas
 - [ ] walk-in-wardrobe-hdb-singapore | Walk-In Wardrobe in HDB | walk in wardrobe hdb
 - [ ] vanity-and-dressing-table-ideas-singapore | Dressing Table Ideas | dressing table ideas
 - [ ] house-warming-prep-singapore | Housewarming Preparation | housewarming singapore
@@ -282,7 +282,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] landed-roof-terrace-considerations-singapore | Roof Terraces | landed roof terrace
 - [ ] landed-swimming-pool-considerations-singapore | Pools at Home | landed swimming pool
 - [ ] landed-lift-considerations-singapore | Home Lifts | home lift singapore
-- [ ] landed-party-wall-neighbours-singapore | Party Walls and Neighbours | party wall singapore
+- [x] landed-party-wall-neighbours-singapore | Party Walls and Neighbours | party wall singapore
 - [ ] landed-soil-investigation-singapore | Soil Investigation | soil investigation landed
 - [ ] landed-demolition-process-singapore | Demolition Process | landed demolition singapore
 - [ ] landed-foundation-considerations-singapore | Foundations | landed foundation
@@ -319,7 +319,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] aircon-system-types-singapore | System 1 vs Multi-Split | aircon system types
 - [ ] aircon-piping-planning-singapore | Aircon Piping Planning | aircon piping
 - [ ] how-to-choose-flooring-specialist-singapore | Choosing a Flooring Specialist | flooring specialist singapore
-- [ ] overlay-vs-hack-tiles-singapore | Overlay vs Hack Floor Tiles | overlay vs hacking
+- [x] overlay-vs-hack-tiles-singapore | Overlay vs Hack Floor Tiles | overlay vs hacking
 - [ ] floor-tile-sizes-singapore | Floor Tile Sizes | floor tile size
 - [x] how-to-choose-a-carpenter-singapore | Choosing a Carpenter | choose carpenter singapore
 - [ ] carpentry-materials-compared-singapore | Carpentry Materials Compared | carpentry materials
