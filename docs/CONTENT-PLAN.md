@@ -102,7 +102,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] hdb-debris-disposal-rules | Renovation Debris Disposal Rules | renovation debris disposal
 - [x] hdb-neighbour-courtesy-renovation | Renovation Etiquette With Neighbours | renovation neighbours
 - [ ] hdb-renovation-deposit-refund | Is There a Renovation Deposit for HDB? | hdb renovation deposit
-- [ ] hdb-minimum-occupation-period-renovation | Renovating Before the Minimum Occupation Period | hdb mop renovation
+- [x] hdb-minimum-occupation-period-renovation | Renovating Before the Minimum Occupation Period | hdb mop renovation
 - [x] hdb-resale-flat-renovation-checks | Checks Before Renovating a Resale HDB | resale hdb renovation checks
 - [ ] hdb-key-collection-renovation-timeline | Key Collection to Move-In Timeline | bto key collection renovation
 - [x] hdb-bto-defects-checking | How to Check Your BTO for Defects | bto defects checking
@@ -181,7 +181,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] id-for-renovation-only-vs-full-service | Renovation Only vs Full Service | full service interior design
 - [ ] id-fees-for-design-only-singapore | Design-Only Services | design only interior design
 - [ ] choosing-between-two-id-quotes | Choosing Between Two Quotes | choose between quotes renovation
-- [ ] interior-designer-singapore-faq | Interior Designer FAQ | interior designer singapore faq
+- [x] interior-designer-singapore-faq | Interior Designer FAQ | interior designer singapore faq
 
 ## Design Ideas (70)
 
@@ -239,7 +239,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [ ] sofa-size-guide-singapore | Choosing Sofa Size | sofa size guide
 - [ ] dining-table-size-guide-singapore | Dining Table Size Guide | dining table size
 - [ ] tv-size-viewing-distance-singapore | TV Size and Distance | tv size viewing distance
-- [ ] aircon-placement-design-singapore | Aircon Placement | aircon placement design
+- [x] aircon-placement-design-singapore | Aircon Placement | aircon placement design
 - [ ] ceiling-fan-vs-aircon-singapore | Ceiling Fans and Airflow | ceiling fan singapore
 - [x] natural-light-hdb-singapore | Maximising Natural Light | natural light hdb
 - [x] privacy-ideas-hdb-singapore | Privacy Ideas | privacy hdb
@@ -271,7 +271,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] landed-structural-engineer-role-singapore | Role of the Structural Engineer | structural engineer landed
 - [x] landed-builder-licence-bca-singapore | BCA Builder Licensing | bca licensed builder
 - [x] landed-ura-planning-permission-explained | URA Planning Permission | ura planning permission landed
-- [ ] landed-bca-approval-explained | BCA Building Plan Approval | bca building plan approval
+- [x] landed-bca-approval-explained | BCA Building Plan Approval | bca building plan approval
 - [x] landed-permit-to-commence-works-singapore | Permit to Commence Works | permit to commence building works
 - [x] landed-top-and-csc-singapore | TOP and CSC for Landed | top csc landed
 - [x] landed-gfa-explained-singapore | GFA Explained | gross floor area landed
@@ -285,7 +285,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] landed-party-wall-neighbours-singapore | Party Walls and Neighbours | party wall singapore
 - [x] landed-soil-investigation-singapore | Soil Investigation | soil investigation landed
 - [x] landed-demolition-process-singapore | Demolition Process | landed demolition singapore
-- [ ] landed-foundation-considerations-singapore | Foundations | landed foundation
+- [x] landed-foundation-considerations-singapore | Foundations | landed foundation
 - [ ] landed-waterproofing-roof-singapore | Roof Waterproofing | landed roof waterproofing
 - [x] landed-electrical-load-singapore | Electrical Load | landed electrical load
 - [x] landed-solar-considerations-singapore | Solar Panels | solar landed singapore
@@ -336,7 +336,7 @@ Status is tracked in `content/queue/`: an article exists there once written. Tit
 - [x] post-renovation-cleaning-checklist-singapore | Post-Renovation Cleaning Checklist | post renovation cleaning
 - [x] furniture-shopping-order-singapore | Order for Buying Furniture | furniture shopping order
 - [ ] how-to-choose-sofa-singapore | Choosing a Sofa | choose sofa singapore
-- [ ] mattress-buying-guide-singapore | Mattress Buying Guide | mattress buying guide
+- [x] mattress-buying-guide-singapore | Mattress Buying Guide | mattress buying guide
 - [x] kitchen-appliances-order-singapore | Choosing Kitchen Appliances | kitchen appliances singapore
 - [x] washer-dryer-placement-singapore | Washer and Dryer Placement | washer dryer placement
 - [ ] fridge-size-guide-singapore | Fridge Size Guide | fridge size guide
