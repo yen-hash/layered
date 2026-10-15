@@ -28,3 +28,7 @@ Output goes only to content/claude-drafts/<slug>.json with status needs_editoria
 
 Tests: node --test test/claude-content.test.js. These use synthetic briefs and mocked responses with no credits spent. Full repository/production tests and live generation are still required. Remove this addition to roll back; no existing publisher is changed.
 
+
+## Organisation-scoped API keys
+
+The writer also supports ANTHROPIC_WORKSPACE_ID. For an all-workspaces key, set this to the intended workspace ID (wrkspc_...) in the runtime. In the Carpenters GitHub workflow it is a repository Actions variable, not a secret value. Workspace IDs are available in Claude Console Settings → Workspaces. Never replace the API key with the workspace ID.
