@@ -218,3 +218,20 @@ test('signup refuses a second profile for a firm that already has one', async ()
   const again = await post('/login', '', { email: `second-${tag}@flows.test`, password: 'Passw0rd!second' });
   assert.ok(!cookieOf(again).includes('session='), 'no account was created');
 });
+
+test('google reviews link: only Google hosts, shown on the profile, can be cleared', async () => {
+  const save = (url) => {
+    const fd = new FormData();
+    fd.set('company_name', `Flow Studio ${tag}`); fd.set('bio', 'We design homes.'); fd.set('hdb_licence_no', 'HB12345678'); fd.set('casetrust', 'casetrust');
+    fd.set('google_reviews_url', url); fd.append('property_types', 'HDB');
+    return req('POST', '/dashboard/profile', { cookie: firm, body: fd });
+  };
+  assert.match(loc(await save('https://evil.example/maps')), /Google Maps listing/);
+  assert.match(loc(await save('javascript:alert(1)')), /Google Maps listing|web address/);
+  assert.match(loc(await save('https://maps.app.goo.gl/abc123')), /Profile updated/);
+  const page = await (await req('GET', `/designers/flow-studio-${tag}`)).text();
+  assert.match(page, /href="https:\/\/maps\.app\.goo\.gl\/abc123"[^>]*rel="noopener nofollow"/);
+  assert.match(page, /reviews on Google/);
+  assert.match(loc(await save('')), /Profile updated/);
+  assert.ok(!/reviews on Google/.test(await (await req('GET', `/designers/flow-studio-${tag}`)).text()), 'cleared link disappears');
+});
