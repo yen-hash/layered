@@ -8,6 +8,7 @@ import { credentialBadges, credentialsPanel } from '../lib/credentials.js';
 import { abs, breadcrumbSchema, organizationSchema, websiteSchema } from '../lib/seo.js';
 import { breadcrumbNav } from '../lib/components.js';
 import { photoList } from './dashboard.js';
+import { uploadFileFor } from '../lib/paths.js';
 import { reviewsSection, reviewSchema, ratingBadge, summarise } from '../lib/reviews.js';
 import { PROPERTY_PAGES, STYLE_PAGES } from '../content/landing.js';
 import { GUIDES } from '../content/guides.js';
@@ -28,9 +29,15 @@ function usableLogo(url) {
   if (!url) return '';
   if (/^https?:\/\//i.test(url)) return url;
   try {
-    const file = path.join(PUBLIC_DIR, decodeURIComponent(url.split('?')[0]));
-    if (!file.startsWith(PUBLIC_DIR)) return '';
-    return fs.statSync(file).size >= MIN_LOGO_BYTES ? url : '';
+    // Files firms upload live in UPLOAD_DIR (a persistent disk in production), not in public/. Files bundled with
+    // the repo under public/uploads are still found as a fallback.
+    const bare = decodeURIComponent(url.split('?')[0]);
+    const bundled = path.join(PUBLIC_DIR, bare);
+    const candidates = [uploadFileFor(bare), bundled.startsWith(PUBLIC_DIR) ? bundled : ''].filter(Boolean);
+    for (const file of candidates) {
+      try { if (fs.statSync(file).size >= MIN_LOGO_BYTES) return url; } catch { /* try the next location */ }
+    }
+    return '';
   } catch { return ''; }
 }
 
