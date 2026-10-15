@@ -35,8 +35,8 @@ export async function resourcesRoute(req, res, ctx) {
     ${faqHtml(RES_FAQS)}
   </section>`;
   res.end(layout({
-    title: 'Free Renovation Resources: Budget Planner, Checklist, Contract Checklist',
-    description: 'Free downloads for Singapore homeowners: an Excel renovation budget planner, a printable renovation checklist, a contract checklist with sample clauses, and a design style quiz.',
+    title: 'Free Renovation Budget Planner and Checklists',
+    description: 'Free for Singapore homeowners: an online and Excel renovation budget planner, a printable checklist, a contract checklist with sample clauses and a style quiz.',
     path, site, body, business: ctx.business, flash: ctx.flash,
     jsonLd: [breadcrumbSchema(site, crumbs), faqSchema(RES_FAQS)],
   }));
@@ -109,7 +109,7 @@ export async function quizRoute(req, res, ctx, url) {
   </section>`;
   res.end(layout({
     title: 'Design Style Quiz: Find Your Home Style',
-    description: 'Take a free two-minute quiz to find which popular Singapore home style suits you (minimalist, Scandinavian, industrial, modern, contemporary or classic), then see designers who work in it.',
+    description: 'Take a free two-minute quiz to find which Singapore home style suits you (minimalist, Scandinavian, industrial and more), then see designers who work in it.',
     path, site, body, business: ctx.business, flash: ctx.flash,
     jsonLd: [breadcrumbSchema(site, crumbs), faqSchema(QUIZ_FAQS)],
   }));

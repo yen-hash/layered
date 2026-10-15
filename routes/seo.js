@@ -6,6 +6,8 @@ import { TRADES } from '../content/trades.js';
 import { PROPERTY_PAGES, STYLE_PAGES } from '../content/landing.js';
 import { BLOG_CATEGORIES } from '../content/blog-meta.js';
 import { DATA_REVIEWED } from '../content/estimator.js';
+import { ITEMS_REVIEWED } from '../content/itemised.js';
+import { RESOURCES_REVIEWED } from '../content/resources.js';
 
 export function robotsRoute(req, res, ctx) {
   const lines = [
@@ -36,10 +38,10 @@ export function sitemapRoute(req, res, ctx) {
     { loc: '/guides/renovation-checklist-singapore', changefreq: 'monthly', priority: '0.9', lastmod: REVIEWED },
     ...GUIDES.map((g) => ({ loc: `/guides/${g.slug}`, changefreq: 'monthly', priority: '0.8', lastmod: REVIEWED })),
     { loc: '/tools/renovation-cost-calculator', changefreq: 'monthly', priority: '0.9', lastmod: DATA_REVIEWED },
-    { loc: '/tools/renovation-cost-estimator', changefreq: 'monthly', priority: '0.9' },
+    { loc: '/tools/renovation-cost-estimator', changefreq: 'monthly', priority: '0.9', lastmod: ITEMS_REVIEWED },
     { loc: '/tools/renovation-budget-planner', changefreq: 'monthly', priority: '0.8' },
     { loc: '/tools/room-planner', changefreq: 'monthly', priority: '0.8' },
-    { loc: '/resources', changefreq: 'monthly', priority: '0.8' },
+    { loc: '/resources', changefreq: 'monthly', priority: '0.8', lastmod: RESOURCES_REVIEWED },
     { loc: '/tools/design-style-quiz', changefreq: 'monthly', priority: '0.7' },
     { loc: '/landed', changefreq: 'weekly', priority: '0.9' },
     { loc: '/services', changefreq: 'weekly', priority: '0.8' },
@@ -51,7 +53,6 @@ export function sitemapRoute(req, res, ctx) {
     ...BLOG_CATEGORIES.filter((c) => db.prepare("SELECT 1 FROM posts WHERE status = 'published' AND category = ?").get(c.name)).map((c) => ({ loc: `/blog/category/${c.slug}`, changefreq: 'weekly', priority: '0.6' })),
     ...db.prepare("SELECT slug, COALESCE(updated_at, published_at) AS m FROM posts WHERE status = 'published' ORDER BY published_at DESC").all()
       .map((p) => ({ loc: `/blog/${p.slug}`, changefreq: 'monthly', priority: '0.7', lastmod: String(p.m || '').slice(0, 10) || undefined })),
-    { loc: '/signup', changefreq: 'monthly', priority: '0.4' },
     ...db.prepare('SELECT slug, created_at FROM businesses ORDER BY featured DESC, created_at DESC').all()
       .map((b) => ({ loc: `/designers/${b.slug}`, changefreq: 'weekly', priority: '0.7', lastmod: String(b.created_at || '').slice(0, 10) || undefined })),
   ];

@@ -11,7 +11,7 @@ const contact = () => {
 
 const PAGES = {
   about: {
-    title: 'About Layered',
+    title: 'About Layered: Singapore Renovation Directory',
     description: 'Layered helps Singapore homeowners compare interior designers, check HDB licence and CaseTrust credentials, and plan a renovation with free guides.',
     h1: 'About Layered',
     html: () => `
@@ -29,7 +29,7 @@ const PAGES = {
     <p>Questions, corrections or a firm that wants to be listed: ${contact()}.</p>`,
   },
   privacy: {
-    title: 'Privacy Policy',
+    title: 'Privacy Policy for Homeowners and Firms',
     description: 'How Layered collects, uses and shares personal data from homeowners and renovation firms in Singapore, and the choices you have under the PDPA.',
     h1: 'Privacy Policy',
     html: () => `
@@ -64,7 +64,7 @@ const PAGES = {
     <p>We may update this policy and will change the date below when we do. Last updated: October 2026.</p>`,
   },
   terms: {
-    title: 'Terms of Use',
+    title: 'Terms of Use for Homeowners and Firms',
     description: 'The terms for using Layered: how the directory works, what firms and homeowners are responsible for, and the limits of our role.',
     h1: 'Terms of Use',
     html: () => `
