@@ -176,14 +176,14 @@ test('blog editor: admin writes and publishes, non-admin is refused', async () =
 
 test('masked leads: free plan hides contact details until admin unlocks', async () => {
   const accts = await (await req('GET', '/dashboard/accounts', { cookie: admin })).text();
-  const row = accts.split('<tr>').find((r) => r.includes(`Flow Studio ${tag}`));
+  const row = accts.split('<tr>').find((r) => r.includes(`<strong>Flow Studio ${tag}</strong>`));
   const id = /\/dashboard\/accounts\/(\d+)\/access/.exec(row)[1];
   assert.match(loc(await post(`/dashboard/accounts/${id}/access`, admin, { plan: 'free', trial_ends: '2020-01-01' })), /saved/i);
   const secret = `masked-${tag}@flows.test`;
   const sent = await post('/leads', '', { name: 'Mask Tester', email: secret, phone: '81234567', property_type: 'HDB', business: `flow-studio-${tag}`, message: `Please WhatsApp 8123 4567 or email ${secret}` });
   assert.match(loc(sent), /unlock it/);
   const list = await (await req('GET', '/dashboard/leads', { cookie: firm })).text();
-  const matchId = [...list.matchAll(/\/dashboard\/leads\/(\d+)"/g)].map((m) => m[1]).pop();
+  const matchId = Math.max(...[...list.matchAll(/\/dashboard\/leads\/(\d+)"/g)].map((m) => Number(m[1])));
   const page = await (await req('GET', `/dashboard/leads/${matchId}`, { cookie: firm })).text();
   assert.ok(!page.includes(secret) && !page.includes('81234567') && !page.includes('8123 4567') && !page.includes('Mask Tester'), 'no contact details in the page');
   assert.match(page, /Contact details are hidden/);
@@ -199,7 +199,7 @@ test('admin can delete a duplicate firm; name must match; self-delete refused', 
   const dupName = `Dup Studio ${tag}`;
   await post('/signup', '', { company_name: dupName, email: dupEmail, password: 'Passw0rd!dup1' });
   const accts = await (await req('GET', '/dashboard/accounts', { cookie: admin })).text();
-  const row = accts.split('<tr>').find((r) => r.includes(dupName));
+  const row = accts.split('<tr>').find((r) => r.includes(`<strong>${dupName}</strong>`));
   const id = /\/dashboard\/accounts\/(\d+)\/delete/.exec(row)[1];
   const slug = /\/designers\/([a-z0-9-]+)"/.exec(row)[1];
   assert.equal((await req('GET', `/designers/${slug}`)).status, 200);
@@ -208,6 +208,13 @@ test('admin can delete a duplicate firm; name must match; self-delete refused', 
   assert.equal((await req('GET', `/designers/${slug}`)).status, 200, 'still there after a wrong name');
   assert.match(loc(await post(`/dashboard/accounts/${id}/delete`, admin, { confirm: dupName })), /was deleted/);
   assert.equal((await req('GET', `/designers/${slug}`)).status, 404);
-  const adminRow = accts.split('<tr>').find((r) => r.includes(`Admin Studio ${tag}`));
+  const adminRow = accts.split('<tr>').find((r) => r.includes(`<strong>Admin Studio ${tag}</strong>`));
   assert.ok(!/\/delete"/.test(adminRow), 'no delete link for your own account');
+});
+
+test('signup refuses a second profile for a firm that already has one', async () => {
+  const res = await post('/signup', '', { company_name: `FLOW STUDIO ${tag} Interior Pte Ltd`, email: `second-${tag}@flows.test`, password: 'Passw0rd!second' });
+  assert.match(loc(res), /already exists/);
+  const again = await post('/login', '', { email: `second-${tag}@flows.test`, password: 'Passw0rd!second' });
+  assert.ok(!cookieOf(again).includes('session='), 'no account was created');
 });

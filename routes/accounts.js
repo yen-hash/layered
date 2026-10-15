@@ -7,6 +7,7 @@ import { abs } from '../lib/seo.js';
 import { isAdmin } from '../lib/admin.js';
 import { createResetToken, RESET_TTL_MINUTES } from '../lib/passwordReset.js';
 import { dashLayout, removeUploads, photoList } from './dashboard.js';
+import { duplicateFlags } from '../lib/duplicates.js';
 import { trialEnd, hasAccountAccess, maskName } from '../lib/leadAccess.js';
 
 const forbidden = (res, ctx) => {
@@ -27,16 +28,18 @@ function accessForm(b) {
 
 export async function accountsList(req, res, ctx) {
   if (!isAdmin(ctx.business)) return forbidden(res, ctx);
-  const firms = db.prepare('SELECT b.id, b.slug, b.company_name, b.email, b.category, b.created_at, b.plan, b.trial_ends_at, (SELECT COUNT(*) FROM projects p WHERE p.business_id = b.id) AS projects FROM businesses b ORDER BY b.company_name').all();
+  const firms = db.prepare('SELECT b.id, b.slug, b.company_name, b.email, b.category, b.created_at, b.plan, b.trial_ends_at, b.phone, (SELECT COUNT(*) FROM projects p WHERE p.business_id = b.id) AS projects FROM businesses b ORDER BY b.company_name').all();
+  const dups = duplicateFlags(firms);
   const inner = `
     <div class="head-row"><h1>Accounts</h1></div>
+    ${dups.size ? `<div class="dash-card" style="border-left:4px solid #c58a00;"><h2 style="margin-top:0;">Possible duplicates</h2><p>${dups.size} listings look like the same firm as another one (see the notes under the firm name). Check them, keep the one with the projects and the login the firm uses, and delete the other.</p></div>` : ''}
     <div class="dash-card">
       <p>Create a one-time reset link for a firm that cannot log in, or to give a new firm its first access. Send the link to the firm yourself (WhatsApp or email). It works once and lasts ${RESET_TTL_MINUTES} minutes, and a new link cancels any older one.</p>
       <p class="muted small">Only send a link to the person who owns the account. Anyone holding the link can set that account's password.</p>
     </div>
     <div class="dash-card">
       ${firms.length ? `<table class="data-table"><thead><tr><th>Firm</th><th>Login email</th><th>Projects</th><th>Lead access</th><th></th></tr></thead><tbody>
-      ${firms.map((b) => `<tr><td><a href="/designers/${esc(b.slug)}" target="_blank"><strong>${esc(b.company_name)}</strong></a></td><td>${esc(b.email)}<br><span class="muted small">Joined ${esc(String(b.created_at).slice(0, 10))}</span></td><td>${b.projects}</td>
+      ${firms.map((b) => `<tr><td><a href="/designers/${esc(b.slug)}" target="_blank"><strong>${esc(b.company_name)}</strong></a>${(dups.get(b.id) || []).map((w) => `<br><span class="status-pill" style="background:#fff3cd;color:#7a5b00;">Possible duplicate</span> <span class="muted small">${esc(w)}</span>`).join('')}</td><td>${esc(b.email)}<br><span class="muted small">Joined ${esc(String(b.created_at).slice(0, 10))}</span></td><td>${b.projects}</td>
         <td>${accessForm(b)}</td>
         <td><form method="post" action="/dashboard/accounts/${b.id}/reset" class="inline"><button class="btn btn-sm" type="submit">Create reset link</button></form> <a class="btn btn-sm btn-outline" href="/dashboard/accounts/${b.id}/leads">Leads</a>${b.id === ctx.business.id ? '' : ` <a class="btn btn-sm btn-outline" href="/dashboard/accounts/${b.id}/delete">Delete</a>`}</td></tr>`).join('')}
       </tbody></table>` : '<p class="empty-state">No accounts yet.</p>'}

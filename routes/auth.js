@@ -3,6 +3,7 @@ import { CATEGORIES, DEFAULT_CATEGORY, validCategory } from '../content/trades.j
 import { esc, layout } from '../lib/render.js';
 import { abs } from '../lib/seo.js';
 import { sendEmail } from '../lib/notify.js';
+import { findNameDuplicate } from '../lib/duplicates.js';
 import { createResetToken, findValidToken, consumeToken, passwordProblem, RESET_TTL_MINUTES, MIN_PASSWORD } from '../lib/passwordReset.js';
 import { hashPassword, verifyPassword, createSessionToken, setCookie, clearCookie } from '../lib/auth.js';
 
@@ -65,6 +66,15 @@ export async function signupSubmit(req, res, fields) {
   const existing = db.prepare('SELECT id FROM businesses WHERE email = ?').get(email);
   if (existing) {
     res.writeHead(302, { Location: '/signup?err=' + encodeURIComponent('An account with that email already exists. Try logging in.') });
+    res.end();
+    return;
+  }
+
+  // Stop a firm that already has a profile (for example one Layered created for it) from creating a second one.
+  const dup = findNameDuplicate(db, companyName);
+  if (dup) {
+    const m = process.env.CONTACT_EMAIL || '';
+    res.writeHead(302, { Location: '/signup?err=' + encodeURIComponent(`A profile for "${dup.company_name}" already exists on Layered. Ask the person who set it up for your login, or contact us${m ? ` at ${m}` : ''} and we will give you access to the existing profile.`) });
     res.end();
     return;
   }
