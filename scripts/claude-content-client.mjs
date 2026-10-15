@@ -5,6 +5,7 @@ export const DEFAULT_SEO_MODEL = "claude-haiku-4-5-20251001";
 export async function generateSeoDraft({
   apiKey,
   model = DEFAULT_SEO_MODEL,
+  workspaceId = process.env.ANTHROPIC_WORKSPACE_ID,
   system,
   prompt,
   fetchImpl = globalThis.fetch,
@@ -19,6 +20,7 @@ export async function generateSeoDraft({
         "content-type": "application/json",
         "x-api-key": apiKey,
         "anthropic-version": "2023-06-01",
+        ...(workspaceId ? { "anthropic-workspace-id": workspaceId } : {}),
       },
       body: JSON.stringify({
         model,
