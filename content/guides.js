@@ -230,7 +230,7 @@ export const GUIDES = [
 
   {
     slug: 'casetrust-and-hdb-licence-explained',
-    title: 'CaseTrust & HDB Licence for Renovation, Explained',
+    title: 'CaseTrust and HDB Licence for Renovation',
     h1: 'CaseTrust and HDB licence explained: how to check a renovation firm',
     description: 'What an HDB renovation contractor licence and CaseTrust, CaseTrust-RCMA and CaseTrust Gold accreditation mean, and how to verify them before you sign.',
     summary: 'What each credential means, how they differ and how to verify them yourself.',

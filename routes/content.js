@@ -91,6 +91,7 @@ export async function styleLandingRoute(req, res, ctx, key) {
   const trail = [{ name: 'Home', path: '/' }, { name: 'Interior designers', path: '/designers' }, { name: `${page.style} style`, path }];
   const otherStyles = Object.entries(STYLE_PAGES).filter(([k]) => k !== key).map(([k, s]) => `<li><a href="/interior-designers/style/${k}">${esc(s.style)} interior designers</a></li>`).join('');
   const types = Object.entries(PROPERTY_PAGES).map(([k, p]) => `<li><a href="/interior-designers/${k}">${esc(p.title)}</a></li>`).join('');
+  const reads = page.read.map((slug) => db.prepare("SELECT slug, title FROM posts WHERE slug = ? AND status = 'published'").get(slug)).filter(Boolean);
   const description = `${page.style} interior designers in Singapore: ${page.tagline}. Compare firms for HDB, condo and landed homes.`;
 
   const body = `
@@ -99,7 +100,13 @@ export async function styleLandingRoute(req, res, ctx, key) {
     <h1>${esc(title)}</h1>
     <div class="prose"><p>${esc(page.blurb)}</p>
     <h2>Hallmarks of ${esc(page.style.toLowerCase())} design</h2>
-    <ul class="checklist">${page.traits.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></div>
+    <ul class="checklist">${page.traits.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+    <h2>Who ${esc(page.style.toLowerCase())} style suits</h2><p>${esc(page.suits)}</p>
+    <h2>Typical materials and finishes</h2><p>${esc(page.materials)}</p>
+    <h2>What to watch out for</h2><p>${esc(page.watch)}</p>
+    <h2>Questions to ask your designer</h2><p>${esc(page.ask)}</p>
+    ${reads.length ? `<p>Read more: ${reads.map((r) => `<a href="/blog/${esc(r.slug)}">${esc(r.title)}</a>`).join(' · ')}</p>` : ''}
+    ${faqHtml(page.faq)}</div>
   </section>
   <section class="wrap">
     <h2>${esc(page.style)} interior designers on Layered</h2>
@@ -115,7 +122,7 @@ export async function styleLandingRoute(req, res, ctx, key) {
     </div>
   </section>`;
 
-  res.end(layout({ title, description, path, site, business: ctx.business, flash: ctx.flash, body, jsonLd: [breadcrumbSchema(site, trail), itemListSchema(site, firms)] }));
+  res.end(layout({ title, description, path, site, business: ctx.business, flash: ctx.flash, body, jsonLd: [breadcrumbSchema(site, trail), itemListSchema(site, firms), faqSchema(page.faq)] }));
 }
 
 // ----- /guides -----

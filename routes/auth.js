@@ -48,7 +48,7 @@ export async function signupPage(req, res, ctx) {
   res.end(layout({
     title: 'List Your Renovation Business in Singapore',
     description: 'List your interior design firm, renovation trade or landed practice on Layered to showcase projects and credentials and receive homeowner leads.',
-    path: '/signup', site: ctx.site, body, business: ctx.business, flash: ctx.flash,
+    path: '/signup', site: ctx.site, body, business: ctx.business, flash: ctx.flash, noindex: true,
   }));
 }
 
