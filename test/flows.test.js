@@ -244,3 +244,28 @@ test('conversion events: enquiry and sign-up redirects carry a GA marker', async
   const signup = await post('/signup', '', { company_name: `Event Co ${tag}`, email: `evco-${tag}@flows.test`, password: 'Passw0rd!evco' });
   assert.match(loc(signup), /ga_event=signup&ga_cat=interior-design/);
 });
+
+function bigPng() {
+  const w = 64, h = 64, raw = Buffer.alloc((w * 3 + 1) * h);
+  for (let y = 0; y < h; y++) { raw[y * (w * 3 + 1)] = 0; for (let i = 1; i <= w * 3; i++) raw[y * (w * 3 + 1) + i] = (y * 31 + i * 17 + (i * y) % 251) % 256; }
+  const crc = (buf) => { let c, crcv = 0xffffffff; for (const b of buf) { c = (crcv ^ b) & 0xff; for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; crcv = (crcv >>> 8) ^ c; } return (crcv ^ 0xffffffff) >>> 0; };
+  const chunk = (t, d) => { const len = Buffer.alloc(4); len.writeUInt32BE(d.length); const td = Buffer.concat([Buffer.from(t), d]); const c = Buffer.alloc(4); c.writeUInt32BE(crc(td)); return Buffer.concat([len, td, c]); };
+  const ihdr = Buffer.alloc(13); ihdr.writeUInt32BE(w, 0); ihdr.writeUInt32BE(h, 4); ihdr[8] = 8; ihdr[9] = 2;
+  return Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), chunk('IHDR', ihdr), chunk('IDAT', zlibDeflate(raw)), chunk('IEND', Buffer.alloc(0))]);
+}
+import { deflateSync as zlibDeflate } from 'node:zlib';
+
+test('a firm\'s uploaded logo shows on the directory card (uploads live outside public/)', async () => {
+  const png = bigPng();
+  assert.ok(png.length > 2048, 'test image must be over the minimum logo size');
+  const fd = new FormData();
+  fd.set('company_name', `Flow Studio ${tag}`); fd.set('bio', 'We design homes.'); fd.append('property_types', 'HDB');
+  fd.set('logo_file', new Blob([png], { type: 'image/png' }), 'logo.png');
+  const r = await req('POST', '/dashboard/profile', { cookie: firm, body: fd });
+  assert.match(loc(r), /Profile updated/);
+  const cards = await (await req('GET', '/designers')).text();
+  const mine = cards.split('class="dcard"').find((c) => c.includes(`Flow Studio ${tag}`)) || '';
+  assert.match(mine, /class="logo-badge"><img src="\/uploads\//, 'logo badge appears on the card');
+  const src = /class="logo-badge"><img src="([^"]+)"/.exec(mine)[1];
+  assert.equal((await req('GET', src)).status, 200, 'and the file is served');
+});

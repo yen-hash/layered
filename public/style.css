@@ -782,3 +782,6 @@ svg.plan .plan-room { paint-order: stroke; stroke: #fbfdfb; stroke-width: .16px;
 .pl-trace [aria-pressed="true"] { background: var(--brand, #1d5a33); color: #fff; }
 #pl-svg .pl-calpt { fill: #d63b2f; stroke: #fff; stroke-width: .03; pointer-events: none; }
 #pl-svg .pl-calline { stroke: #d63b2f; stroke-width: .05; stroke-dasharray: .12 .08; pointer-events: none; }
+
+/* Official credential logos on verified badges */
+.badge .badge-logo { height: 16px; width: auto; vertical-align: -3px; margin-right: 4px; }
