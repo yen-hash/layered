@@ -235,3 +235,12 @@ test('google reviews link: only Google hosts, shown on the profile, can be clear
   assert.match(loc(await save('')), /Profile updated/);
   assert.ok(!/reviews on Google/.test(await (await req('GET', `/designers/flow-studio-${tag}`)).text()), 'cleared link disappears');
 });
+
+test('conversion events: enquiry and sign-up redirects carry a GA marker', async () => {
+  const lead = await post('/leads', '', { name: 'Event Tester', email: `ev-${tag}@flows.test`, property_type: 'HDB' });
+  assert.match(loc(lead), /ga_event=lead&ga_cat=interior-design/);
+  const direct = await post('/leads', '', { name: 'Event Tester', email: `ev2-${tag}@flows.test`, business: `flow-studio-${tag}` });
+  assert.match(loc(direct), /ga_direct=1/);
+  const signup = await post('/signup', '', { company_name: `Event Co ${tag}`, email: `evco-${tag}@flows.test`, password: 'Passw0rd!evco' });
+  assert.match(loc(signup), /ga_event=signup&ga_cat=interior-design/);
+});
