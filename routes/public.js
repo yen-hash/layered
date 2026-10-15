@@ -483,6 +483,8 @@ export async function submitLeadRoute(req, res, ctx, fields) {
       ? `Thanks ${name}! Your enquiry has been sent to ${direct.company_name}. Your contact details are shared with them only once they unlock it.`
       : `Thanks ${name}! We've sent your request to ${matches.length} matching ${noun}${matches.length === 1 ? '' : 's'}. Your contact details are shared with a firm only once it unlocks your enquiry.`)
     : `Thanks ${name}! We've received your request. No firms in this category are listed yet, so we'll pass it on as soon as suitable firms join.`;
-  res.writeHead(302, { Location: back + '?ok=' + encodeURIComponent(msg) });
+  // ga_* tell the next page to report one GA4 conversion event (no personal data); see gaSnippet in lib/render.js.
+  const ga = `&ga_event=lead&ga_cat=${encodeURIComponent(category)}${direct ? '&ga_direct=1' : ''}`;
+  res.writeHead(302, { Location: back + '?ok=' + encodeURIComponent(msg) + (matches.length ? ga : '') });
   res.end();
 }

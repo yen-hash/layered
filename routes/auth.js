@@ -92,7 +92,7 @@ export async function signupSubmit(req, res, fields) {
 
   const token = createSessionToken(info.lastInsertRowid);
   setCookie(res, 'session', token, { maxAge: 60 * 60 * 24 * 30 });
-  res.writeHead(302, { Location: '/dashboard?ok=' + encodeURIComponent('Welcome to Layered! Your profile is live — add your first project to start getting leads.') });
+  res.writeHead(302, { Location: '/dashboard?ok=' + encodeURIComponent('Welcome to Layered! Your profile is live — add your first project to start getting leads.') + '&ga_event=signup&ga_cat=' + encodeURIComponent(validCategory(fields.category)) });
   res.end();
 }
 
