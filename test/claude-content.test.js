@@ -136,3 +136,10 @@ test("existing published/queued Markdown is not overwritten or sent to Claude", 
   assert.equal(await fs.readFile(path.join(dir, "content/blog/synthetic-article.md"), "utf8"), "Existing content");
 });
 
+
+test("sends an explicit workspace for an organisation-scoped key", async () => {
+  await generateSeoDraft({ ...params, workspaceId: "wrkspc_synthetic_test", fetchImpl: async (_, options) => {
+    assert.equal(options.headers["anthropic-workspace-id"], "wrkspc_synthetic_test");
+    return Response.json(result());
+  } });
+});
