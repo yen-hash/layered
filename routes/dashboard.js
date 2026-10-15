@@ -7,6 +7,7 @@ import { uploadFileFor } from '../lib/paths.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
 import { isAdmin } from '../lib/admin.js';
 import { visibleLead, trialEnd } from '../lib/leadAccess.js';
+import { normaliseGoogleReviewsUrl } from '../lib/googleLink.js';
 import { CASETRUST_OPTIONS, normaliseCaseTrust, normaliseHdbLicence } from '../lib/credentials.js';
 
 export function dashLayout(active, inner, ctx) {
@@ -107,6 +108,9 @@ export async function profilePage(req, res, ctx) {
           </select>
         </div>
       </div>
+      <h3>Google reviews</h3>
+      <div class="field"><label>Link to your Google reviews <span class="muted small">(optional)</span></label><input type="url" name="google_reviews_url" value="${esc(b.google_reviews_url || '')}" maxlength="500" placeholder="https://maps.app.goo.gl/...">
+        <p class="muted small">Open your business on Google Maps, press Share, then Copy link. Your profile will show a "Read our reviews on Google" button that opens it. Layered does not copy or check Google reviews.</p></div>
       <h3>Lead notifications</h3>
       <div class="field checkbox-row"><input type="checkbox" name="notify_email" id="notify_email" ${b.notify_email ? 'checked' : ''}><label for="notify_email" style="margin:0;">Email me new leads (to ${esc(b.email)})</label></div>
       <div class="field checkbox-row"><input type="checkbox" name="notify_sms" id="notify_sms" ${b.notify_sms ? 'checked' : ''}><label for="notify_sms" style="margin:0;">WhatsApp/SMS me new leads</label></div>
@@ -124,19 +128,25 @@ export async function profileSubmit(req, res, ctx, fields, files = {}) {
     res.end();
     return;
   }
+  const gLink = normaliseGoogleReviewsUrl(fields.google_reviews_url);
+  if (gLink.error) {
+    res.writeHead(302, { Location: '/dashboard/profile?err=' + encodeURIComponent(gLink.error) });
+    res.end();
+    return;
+  }
   const propertyTypes = Array.isArray(fields.property_types) ? fields.property_types : (fields.property_types ? [fields.property_types] : []);
   const styles = Array.isArray(fields.styles) ? fields.styles : (fields.styles ? [fields.styles] : []);
   const logoFile = files.logo_file && files.logo_file[0];
   const typedUrl = String(fields.logo_url || '').trim();
   const logoUrl = logoFile ? logoFile.publicPath : (/^https?:\/\/\S+$/i.test(typedUrl) || typedUrl.startsWith('/uploads/') ? typedUrl : '');
   const oldLogo = ctx.business.logo_url;
-  db.prepare(`UPDATE businesses SET company_name=?, contact_name=?, phone=?, service_areas=?, logo_url=?, bio=?, property_types=?, styles=?, notify_email=?, notify_sms=?, notify_phone=?, hdb_licence_no=?, casetrust=?, category=? WHERE id=?`)
+  db.prepare(`UPDATE businesses SET company_name=?, contact_name=?, phone=?, service_areas=?, logo_url=?, bio=?, property_types=?, styles=?, notify_email=?, notify_sms=?, notify_phone=?, hdb_licence_no=?, casetrust=?, category=?, google_reviews_url=? WHERE id=?`)
     .run(
       fields.company_name || ctx.business.company_name,
       fields.contact_name || '', fields.phone || '', fields.service_areas || '', logoUrl, fields.bio || '',
       propertyTypes.join(','), styles.join(','),
       fields.notify_email ? 1 : 0, fields.notify_sms ? 1 : 0, fields.notify_phone || '',
-      hdb.value, normaliseCaseTrust(fields.casetrust), validCategory(fields.category),
+      hdb.value, normaliseCaseTrust(fields.casetrust), validCategory(fields.category), gLink.value,
       ctx.business.id
     );
   if (logoFile && oldLogo !== logoUrl) removeUploads([oldLogo]);

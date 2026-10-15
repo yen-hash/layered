@@ -143,6 +143,8 @@ if (!matchCols.includes('unlocked_at')) {
 }
 if (!leadCols.includes('purged_at')) db.exec('ALTER TABLE leads ADD COLUMN purged_at TEXT');
 
+if (!businessCols.includes('google_reviews_url')) db.exec("ALTER TABLE businesses ADD COLUMN google_reviews_url TEXT DEFAULT ''");
+
 export const PROPERTY_TYPES = ['HDB', 'Condo', 'Landed', 'Commercial'];
 export const STYLES = ['Minimalist', 'Scandinavian', 'Industrial', 'Modern', 'Contemporary', 'Classic'];
 export const BUDGET_RANGES = ['Below $20k', '$20k - $50k', '$50k - $100k', 'Above $100k'];
