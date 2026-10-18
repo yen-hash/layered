@@ -9,6 +9,14 @@ import { hashPassword } from '../lib/auth.js';
 const PRODUCTION = process.env.NODE_ENV === 'production';
 const DEMO_PASSWORD = PRODUCTION ? (process.env.SEED_PASSWORD || crypto.randomBytes(24).toString('hex')) : 'password123';
 
+// Contact details and the login hash of the real Carpenters listing are NOT kept in this repository (it is public).
+// Set them as environment variables (secret store): CARPENTERS_EMAIL, CARPENTERS_PHONE and, optionally,
+// CARPENTERS_PASSWORD_HASH. In production the real listing is only created when CARPENTERS_EMAIL is set;
+// outside production a placeholder address is used so local runs and tests work.
+const CARPENTERS_EMAIL = process.env.CARPENTERS_EMAIL || (PRODUCTION ? '' : 'carpenters@example.test');
+const CARPENTERS_PHONE = process.env.CARPENTERS_PHONE || '';
+const CARPENTERS_PASSWORD_HASH = process.env.CARPENTERS_PASSWORD_HASH || '';
+
 // The original Carpenters logo export was blank; point existing databases at the replacement.
 db.prepare("UPDATE businesses SET logo_url = '/uploads/carpenters/logo.png' WHERE logo_url = '/uploads/carpenters/logo.webp'").run();
 
@@ -16,11 +24,11 @@ const existing = db.prepare('SELECT COUNT(*) c FROM businesses').get().c;
 
 const sample = [
   {
-    real: true, company_name: 'Carpenters 匠', email: 'yenlauzengbin@gmail.com', contact_name: 'Carpenters Team',
-    phone: '+65 8774 8495', property_types: 'HDB,Condo,Landed,Commercial', styles: 'Minimalist,Industrial,Contemporary',
+    real: true, company_name: 'Carpenters 匠', email: CARPENTERS_EMAIL, contact_name: 'Carpenters Team',
+    phone: CARPENTERS_PHONE, property_types: 'HDB,Condo,Landed,Commercial', styles: 'Minimalist,Industrial,Contemporary',
     service_areas: 'Islandwide (East & West showrooms)', featured: 1,
     bio: 'Carpenters blends generations of carpentry knowledge with a contemporary design practice — we have renovated over 3,500 homes since the 1950s, working out of our own in-house carpentry facility. We take on HDB, condo, landed and commercial projects, with a focus on bespoke joinery, Japandi and minimalist-industrial interiors, and considered detailing from concept through completion.',
-    passwordHash: 'e4e5b6b2019a5758bb26f98c05108672:8b27477472fba69749d96ef39f93ca4d91342dfeeeebde4fe41029adaf866f67843dc9f3382b3bde87a6e64344bdf2c187d4f32651abb24f22c72f4df9259297',
+    passwordHash: CARPENTERS_PASSWORD_HASH,
     logoUrl: '/uploads/carpenters/logo.png',
     projects: [
       { title: 'Tampines North Drive HDB', property_type: 'HDB', style: 'Contemporary', description: 'Full renovation with custom joinery and a warm, minimal palette.', cover_image: '/uploads/carpenters/project1.webp' },
@@ -95,6 +103,7 @@ function seedFirm(s) {
 // even when other businesses already exist. Their data lives in this file, so a database that is reset on
 // deploy gets them back.
 for (const s of sample.filter((f) => f.real)) {
+  if (!s.email) { console.log(`Skipping ${s.company_name}: CARPENTERS_EMAIL is not set.`); continue; }
   if (!db.prepare('SELECT 1 FROM businesses WHERE email = ?').get(s.email)) seedFirm(s);
 }
 
