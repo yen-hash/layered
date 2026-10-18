@@ -19,6 +19,14 @@ services:
         generateValue: true
       - key: ADMIN_EMAILS
         sync: false   # you will be prompted: the login email(s) allowed to use the blog and verification admin
+      # Real Carpenters listing: contact details and login hash are kept out of the public repo.
+      # Without CARPENTERS_EMAIL the listing is not created in production.
+      - key: CARPENTERS_EMAIL
+        sync: false
+      - key: CARPENTERS_PHONE
+        sync: false
+      - key: CARPENTERS_PASSWORD_HASH
+        sync: false
       # Demo firms are seeded on first start. In production they get a random password unless you set
       # SEED_PASSWORD (use it to log in as a seeded firm). Set SEED_DEMO=0 at launch to skip demo firms.
       # - key: SEED_DEMO
