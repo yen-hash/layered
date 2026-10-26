@@ -339,8 +339,14 @@ export async function designerProfileRoute(req, res, ctx, slug) {
 
   const logo = usableLogo(b.logo_url);
   const bioText = (b.bio || '').replace(/\s+/g, ' ').trim();
-  const description = (bioText.length >= 60
+  const fallbackDesc = isDesigner
+    ? `${b.company_name} is an interior design and renovation firm in Singapore${types.length ? ` taking on ${types.join(', ')} projects` : ''}${styles.length ? ` in ${styles.join(', ')} styles` : ''}. View projects and credentials, then request a quote.`
+    : `${b.company_name}: ${cat.name.toLowerCase()} in Singapore${b.service_areas ? `, serving ${b.service_areas}` : ''}. View their work and details, then request a quote on Layered.`;
+  // A short bio makes a too-short meta description, so a short one is extended with the standard sentence.
+  const description = (bioText.length >= 110
     ? bioText
+    : bioText.length >= 60
+      ? `${bioText.replace(/[.\s]+$/, '')}. ${fallbackDesc}`
     : isDesigner
       ? `${b.company_name} is an interior design and renovation firm in Singapore${types.length ? ` taking on ${types.join(', ')} projects` : ''}${styles.length ? ` in ${styles.join(', ')} styles` : ''}. View projects and credentials, then request a quote.`
       : `${b.company_name}: ${cat.name.toLowerCase()} in Singapore${b.service_areas ? `, serving ${b.service_areas}` : ''}. View their work and details, then request a quote on Layered.`
@@ -420,7 +426,7 @@ export async function designerProfileRoute(req, res, ctx, slug) {
   document.querySelectorAll('.lb-open').forEach(function(b){b.addEventListener('click',function(){img.src=b.dataset.src;img.alt=b.querySelector('img').alt;cap.textContent=b.dataset.caption;d.showModal()})});
   d.querySelector('.lb-close').addEventListener('click',function(){d.close()});d.addEventListener('click',function(e){if(e.target===d)d.close()});})();</script>`;
   res.end(layout({
-    fullTitle: `${b.company_name} | Interior Designer in Singapore`.slice(0, 70),
+    fullTitle: (`${b.company_name} | Interior Designer in Singapore`.length <= 62 ? `${b.company_name} | Interior Designer in Singapore` : `${b.company_name} | Interior Designer`).slice(0, 62),
     description, path, site,
     image: projects.find((p) => p.cover_image)?.cover_image || logo || undefined,
     body, business: ctx.business, flash: ctx.flash,

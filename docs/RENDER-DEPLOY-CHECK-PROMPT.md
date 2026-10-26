@@ -18,6 +18,8 @@ What to do:
 5. Open Settings for the service and tell me: the Branch it deploys from (should be main), and the Auto-Deploy setting (On after commit / After CI checks pass / Off). Also tell me the Build Command and Start Command shown.
 6. Open the service Logs for the currently running instance and copy the last 20 lines, masking secrets. Say whether you see lines like "Seeded" or "Queued ... article(s) for daily publishing" and any "Error" lines.
 
+7. Also open Blueprints in the left sidebar (dashboard.render.com/blueprints). Tell me whether any Blueprint exists for the repo yen-hash/layered, its name, the branch, and whether it shows a pending sync, an error, or a message asking for values for new environment variables (for example CARPENTERS_EMAIL, CARPENTERS_PHONE, CARPENTERS_PASSWORD_HASH). Do NOT click Sync, Apply or Manual Sync, and do NOT enter any values: just report exactly what the page says.
+
 Optional actions (ASK ME FIRST, wait for my yes each time):
 - If Auto-Deploy is Off, tell me, and with my yes set it to "On commit".
 - If the newest commit on main is not deployed and nothing is currently building, with my yes click Manual Deploy, then Deploy latest commit. Do not choose "Clear build cache" unless I say so.
