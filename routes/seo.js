@@ -46,6 +46,8 @@ export function sitemapRoute(req, res, ctx) {
     { loc: '/landed', changefreq: 'weekly', priority: '0.9' },
     { loc: '/services', changefreq: 'weekly', priority: '0.8' },
     ...TRADES.map((t) => ({ loc: `/services/${t.slug}`, changefreq: 'weekly', priority: '0.7' })),
+    { loc: '/for-designers', changefreq: 'monthly', priority: '0.8' },
+    { loc: '/how-layered-works', changefreq: 'monthly', priority: '0.7' },
     { loc: '/about', changefreq: 'yearly', priority: '0.3' },
     { loc: '/privacy', changefreq: 'yearly', priority: '0.2' },
     { loc: '/terms', changefreq: 'yearly', priority: '0.2' },

@@ -75,6 +75,8 @@ const PAGES = {
     <p>Guides, cost ranges and estimates are general information and indicative only. They are not professional, legal or financial advice. Check current rules with HDB, your management corporation and the relevant authorities, and get written quotes before you commit.</p>
     <h2>Firm listings and credentials</h2>
     <p>Firms are responsible for the accuracy of their profiles, credentials, photos and project details, and must have the right to publish the photos they upload. Credentials are declared by the firm unless the profile shows a verification mark and date from our team. We may remove or correct a listing, review or photo that is inaccurate, misleading or infringing.</p>
+    <h2>Plans, trials and enquiries (firms)</h2>
+    <p>Listing is free. For an initial period after you sign up (currently three months) you can see the full contact details of homeowners who enquire. After that, a homeowner's name, phone number and email are hidden until you take a plan or unlock an individual enquiry; plans and charges are agreed with you in advance and in writing. We may change a firm's access if these terms are broken. Enquiries you have already received keep their details. You may ask us to remove your profile at any time.</p>
     <h2>Homeowners</h2>
     <p>Enquiries must be genuine and accurate. Do not use the site to send spam or to harass firms. Do your own checks on any firm before you pay a deposit.</p>
     <h2>Reviews</h2>
