@@ -37,7 +37,7 @@ before(async () => {
 after(() => { if (server) server.kill(); fs.rmSync(TMP, { recursive: true, force: true }); });
 
 test('public pages return 200', async () => {
-  for (const p of ['/', '/designers', '/designers/warmhaus-living', '/blog', '/blog/qanvast-alternative-singapore', '/guides', '/guides/renovation-checklist-singapore', '/tools/renovation-cost-calculator', '/tools/renovation-cost-estimator', '/tools/room-planner', '/tools/renovation-budget-planner', '/resources', '/tools/design-style-quiz', '/downloads/layered-renovation-budget-planner.xlsx', '/downloads/layered-renovation-checklist.pdf', '/downloads/layered-renovation-contract-checklist.pdf', '/favicon.ico', '/site.webmanifest', '/services', '/services/lighting', '/services/electrician', '/landed', '/planner.js', '/fonts/familjen-grotesk-normal.woff2', '/fonts/literata-normal.woff2', '/about', '/privacy', '/terms', '/compare?d=warmhaus-living,northgate-design-studio', '/login', '/signup', '/forgot', '/sitemap.xml', '/robots.txt']) {
+  for (const p of ['/', '/designers', '/designers/warmhaus-living', '/blog', '/blog/qanvast-alternative-singapore', '/guides', '/guides/renovation-checklist-singapore', '/tools/renovation-cost-calculator', '/tools/renovation-cost-estimator', '/tools/room-planner', '/tools/renovation-budget-planner', '/resources', '/for-designers', '/how-layered-works', '/tools/design-style-quiz', '/downloads/layered-renovation-budget-planner.xlsx', '/downloads/layered-renovation-checklist.pdf', '/downloads/layered-renovation-contract-checklist.pdf', '/favicon.ico', '/site.webmanifest', '/services', '/services/lighting', '/services/electrician', '/landed', '/planner.js', '/fonts/familjen-grotesk-normal.woff2', '/fonts/literata-normal.woff2', '/about', '/privacy', '/terms', '/compare?d=warmhaus-living,northgate-design-studio', '/login', '/signup', '/forgot', '/sitemap.xml', '/robots.txt']) {
     const r = await get(p);
     assert.equal(r.status, 200, `${p} -> ${r.status}`);
   }
@@ -65,4 +65,15 @@ test('admin-only pages refuse a normal firm', async () => {
 test('private pages redirect visitors to login', async () => {
   const r = await get('/dashboard');
   assert.equal(r.status, 302);
+});
+
+test('trust pages state the real terms', async () => {
+  const firm = await (await fetch(`${BASE}/for-designers`)).text();
+  assert.match(firm, /first 3 months/);
+  assert.match(firm, /hidden unless you take a plan or unlock/);
+  const how = await (await fetch(`${BASE}/how-layered-works`)).text();
+  assert.match(how, /after 90 days/);
+  assert.match(how, /Featured/);
+  const terms = await (await fetch(`${BASE}/terms`)).text();
+  assert.match(terms, /Plans, trials and enquiries/);
 });
