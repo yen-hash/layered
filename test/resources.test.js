@@ -53,3 +53,22 @@ test('budget planner maths: buffer, GST and ceiling', () => {
   assert.equal(inc.over, 3000);
   assert.equal(budgetSummary({ rows: { a: { planned: -5, a: 'x' } } }).totals.planned, 0);
 });
+
+import { compareQuotes } from '../content/quoteCompare.js';
+test('quote comparison: GST is normalised, missing categories and mismatches are flagged', () => {
+  const r = compareQuotes({ gstPct: 9, firms: [
+    { name: 'A', gstIncluded: false, stated: 0, lines: { carpentry: 20000, floor: 10000 }, checks: { itemised: true, gst: true } },
+    { name: 'B', gstIncluded: true, stated: 40000, lines: { carpentry: 25000, floor: 6000, bath: 5000 }, checks: {} },
+    { name: 'C', lines: {} },
+  ] });
+  assert.equal(Math.round(r.firms[0].inclGst), 32700); // 30,000 + 9%
+  assert.equal(Math.round(r.firms[1].exGst), 33028);   // 36,000 / 1.09
+  assert.equal(r.cheapest, 0, 'A at 32,700 incl. GST beats B at 36,000 incl. GST');
+  assert.equal(r.firms[1].vsLowest, 3300);
+  assert.deepEqual(r.firms[0].missing, ['bath']);
+  assert.equal(r.firms[1].statedMismatch, true, 'stated 40,000 vs lines 36,000');
+  assert.equal(r.firms[0].checks, 2);
+  assert.equal(r.comparable, true);
+  assert.equal(compareQuotes({ firms: [{ lines: { a: 5 } }] }).comparable, false);
+  assert.equal(compareQuotes({ gstPct: 9, firms: [{ lines: { a: -5, b: 'x' } }] }).firms[0].sum, 0);
+});

@@ -22,7 +22,7 @@ import { blogAdminList, blogAdminEditor, blogAdminSave, blogAdminDelete } from '
 import { isAdmin } from './lib/admin.js';
 import { calculatorRoute, estimatorRoute, plannerRoute } from './routes/tools.js';
 import { forDesignersRoute, howItWorksRoute } from './routes/trust.js';
-import { resourcesRoute, quizRoute, budgetPlannerRoute } from './routes/resources.js';
+import { resourcesRoute, quizRoute, budgetPlannerRoute, quoteCompareRoute } from './routes/resources.js';
 import { verificationList, verificationAction } from './routes/verification.js';
 import { accountsList, accountReset, accountAccess, accountLeads, accountLeadToggle, accountDeletePage, accountDelete } from './routes/accounts.js';
 import { infoPageRoute } from './routes/pages.js';
@@ -199,6 +199,7 @@ async function router(req, res) {
     if (req.method === 'GET' && url.pathname === '/tools/renovation-cost-estimator') return await estimatorRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname === '/tools/room-planner') return await plannerRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname === '/resources') return await resourcesRoute(req, res, ctx);
+    if (req.method === 'GET' && url.pathname === '/tools/renovation-quote-comparison') return await quoteCompareRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname === '/for-designers') return await forDesignersRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname === '/how-layered-works') return await howItWorksRoute(req, res, ctx);
     if (req.method === 'GET' && url.pathname === '/tools/renovation-budget-planner') return await budgetPlannerRoute(req, res, ctx);
