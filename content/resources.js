@@ -24,6 +24,15 @@ export const RESOURCES = [
     also: [['/tools/renovation-cost-estimator', 'Itemised estimator']],
   },
   {
+    id: 'quotes',
+    title: 'Renovation quote comparison',
+    summary: 'Line up quotes from up to three firms: GST treated the same way, categories a firm did not price, big gaps between quotes, and a checklist of what each quote confirms. Saved on your device only.',
+    href: '/tools/renovation-quote-comparison',
+    label: 'Compare your quotes',
+    type: 'Online',
+    also: [['/blog/how-to-read-a-renovation-quotation-singapore', 'How to read a quotation']],
+  },
+  {
     id: 'checklist',
     title: 'Homeowner renovation checklist (PDF)',
     summary: 'Every step from budget to handover and the defects period, as a printable tick-sheet. The same list as our online checklist, in a form you can keep on the fridge or bring to site visits.',
