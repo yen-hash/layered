@@ -6,6 +6,7 @@ import { STYLE_PAGES } from '../content/landing.js';
 import { RESOURCES, RESOURCES_REVIEWED, QUIZ } from '../content/resources.js';
 import { BUDGET_CATEGORIES, OUTSIDE_ITEMS, BUDGET_GST, budgetSummary } from '../content/budgetPlanner.js';
 import { abs } from '../lib/seo.js';
+import { ON_SITE_OPTIONS, planTimeline } from '../content/timeline.js';
 import { QUOTE_CATEGORIES, QUOTE_CHECKS, compareQuotes } from '../content/quoteCompare.js';
 
 const RES_FAQS = [
@@ -379,6 +380,102 @@ export async function quoteCompareRoute(req, res, ctx) {
       breadcrumbSchema(site, crumbs),
       faqSchema(QC_FAQS),
       { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Renovation quote comparison', url: abs(site, path), applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', inLanguage: 'en-SG', offers: { '@type': 'Offer', price: '0', priceCurrency: 'SGD' } },
+    ],
+  }));
+}
+
+// ----- /tools/renovation-timeline-planner (runs in the browser, saves on this device only) -----
+const TL_FAQS = [
+  { q: 'How are the dates worked out?', a: 'The planner works back from the date you need the home. It subtracts the weeks on site and a buffer for cleaning, curtains and furniture, then applies the usual lead times from our checklist: shortlisting 3 to 6 months before works start, signing the contract 2 to 3 months before, permits and final design 1 to 2 months before, and ordering long-lead items 4 to 8 weeks before.' },
+  { q: 'Are these dates a promise?', a: 'No. They are planning benchmarks. Real schedules depend on the firm, the scope, approvals and delivery times for the items you order. Ask your firm for a written programme and a delay clause.' },
+  { q: 'When can I start renovating a BTO flat?', a: 'After you collect your keys. Enter your key collection date and the planner warns you if the works would start before it. See our BTO renovation timeline article for the usual sequence.' },
+  { q: 'How long does the work itself take?', a: 'Site work often takes about 8 to 12 weeks, with about 10 weeks a common benchmark. A lighter scope can be shorter, and a larger or older home with hacking and rewiring can take longer.' },
+  { q: 'Is my date saved or sent anywhere?', a: 'No. It stays in your browser on this device. Nothing is sent to Layered or to any firm.' },
+];
+
+function TL_JS() {
+  return `
+var KEY='layered-timeline-v1';
+${planTimeline.toString()}
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  function today(){try{return new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Singapore'})}catch(e){return new Date().toISOString().slice(0,10)}}
+  function nice(s){var p=s.split('-');return new Date(Date.UTC(+p[0],+p[1]-1,+p[2])).toLocaleDateString('en-SG',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'})}
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return{}}}
+  function save(d){try{localStorage.setItem(KEY,JSON.stringify(d))}catch(e){}}
+  function read(){return{moveIn:$('t-move').value,keyDate:$('t-key').value,onSiteWeeks:$('t-weeks').value,bufferWeeks:$('t-buffer').value,today:today()}}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function render(){
+    var d=read();save(d);
+    var r=planTimeline(d),h='';
+    if(!r.ok){$('t-result').innerHTML='<p class="muted">'+esc(r.error)+'</p>';return}
+    r.warnings.forEach(function(w){h+='<p class="bp-flag bp-over">'+esc(w)+'</p>'});
+    h+='<h2>Your timeline</h2><div class="table-scroll"><table class="data-table"><thead><tr><th scope="col">Step</th><th scope="col">When</th><th scope="col"></th></tr></thead><tbody>';
+    r.milestones.forEach(function(m){
+      var when=m.from===m.to?nice(m.from):nice(m.from)+' to '+nice(m.to);
+      var st=m.status==='past'?'<span class="status-pill status-lost">Already passed</span>':m.status==='now'?'<span class="status-pill status-contacted">Now</span>':'';
+      h+='<tr><td>'+(m.guide?'<a href="'+m.guide+'">'+esc(m.label)+'</a>':esc(m.label))+'</td><td>'+when+'</td><td>'+st+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
+    h+='<p class="muted">If you started today, the tightest move-in date that keeps two months to sign, get permits and order is about <strong>'+nice(r.tightest)+'</strong>. A more comfortable date, with four months, is about <strong>'+nice(r.comfortable)+'</strong>.</p>';
+    $('t-result').innerHTML=h;
+  }
+  var s=load();
+  if(s.moveIn)$('t-move').value=s.moveIn;if(s.keyDate)$('t-key').value=s.keyDate;if(s.onSiteWeeks)$('t-weeks').value=s.onSiteWeeks;if(s.bufferWeeks!=null&&s.bufferWeeks!=='')$('t-buffer').value=s.bufferWeeks;
+  render();
+  $('tl').addEventListener('input',render);$('tl').addEventListener('change',render);
+  $('t-clear').addEventListener('click',function(){if(confirm('Clear your dates on this device?')){try{localStorage.removeItem(KEY)}catch(e){}location.reload()}});
+  $('t-print').addEventListener('click',function(){window.print()});
+})();`;
+}
+
+export async function timelineRoute(req, res, ctx) {
+  const site = ctx.site;
+  const path = '/tools/renovation-timeline-planner';
+  const crumbs = [{ name: 'Home', path: '/' }, { name: 'Free resources', path: '/resources' }, { name: 'Renovation timeline planner', path }];
+  const opts = ON_SITE_OPTIONS.map(([w, l]) => `<option value="${w}"${w === 10 ? ' selected' : ''}>${esc(l)}</option>`).join('');
+  const body = `
+  <section class="wrap page-head">
+    ${breadcrumbNav(crumbs)}
+    <span class="eyebrow">Free tool</span>
+    <h1>Renovation timeline planner</h1>
+    <p class="section-sub">Tell us when you need the home and we work backwards: when to shortlist designers, sign the contract, get permits, order long-lead items and start the works. The lead times come from our renovation checklist. They are planning benchmarks, not promises. Your dates stay in your browser.</p>
+  </section>
+  <section class="wrap calc-section">
+    <div class="calc est bp" id="tl">
+      <div class="est-setup">
+        <div class="field"><label for="t-move">I need the home by</label><input type="date" id="t-move"></div>
+        <div class="field"><label for="t-key">Key collection date <span class="muted small">(optional, BTO and new flats)</span></label><input type="date" id="t-key"></div>
+        <div class="field"><label for="t-weeks">Works on site</label><select id="t-weeks">${opts}</select></div>
+        <div class="field"><label for="t-buffer">Buffer after works (weeks)</label><input type="number" id="t-buffer" min="0" max="12" step="1" value="2"></div>
+        <div class="field est-buttons"><button type="button" class="btn btn-sm btn-outline" id="t-print">Print or save as PDF</button> <button type="button" class="btn btn-sm btn-outline" id="t-clear">Clear</button></div>
+      </div>
+      <div id="t-result" aria-live="polite"><p class="muted">Enter the date you need the home to see your timeline.</p></div>
+    </div>
+    <noscript><p class="muted">The planner needs JavaScript. The usual sequence is in our <a href="/guides/renovation-checklist-singapore">renovation checklist</a>.</p></noscript>
+  </section>
+  <section class="wrap prose-section">
+    <h2>How to use it</h2>
+    <div class="prose">
+      <p>The buffer is the time between the works finishing and you moving in: cleaning, curtains, furniture and appliance delivery, and fixing the defects list. Two weeks is a common starting point. If you are renovating a new flat, add your key collection date so the planner can warn you if the works would start too early.</p>
+      <p>Read the <a href="/blog/bto-renovation-timeline-singapore">BTO renovation timeline</a> and the <a href="/blog/condo-renovation-timeline-singapore">condo renovation timeline</a> for what happens in each stage, and use the <a href="/guides/renovation-checklist-singapore">checklist</a> to track it. Then set your <a href="/tools/renovation-budget-planner">budget</a> and compare <a href="/tools/renovation-quote-comparison">quotes</a>.</p>
+    </div>
+    ${faqHtml(TL_FAQS)}
+    <div class="cta-box">
+      <h2>Ready to find a firm?</h2>
+      <p>Compare Singapore interior designers, check their HDB licence and CaseTrust credentials, and send one brief to firms that fit.</p>
+      <p><a class="btn btn-sm" href="/designers">Browse designers</a> <a class="btn btn-sm btn-outline" href="/resources">More free resources</a></p>
+    </div>
+  </section>
+  <script>${TL_JS()}</script>`;
+  res.end(layout({
+    title: 'Renovation Timeline Planner Singapore (Free)',
+    description: 'Free renovation timeline planner for Singapore homes: enter the date you need the home and get dates for shortlisting, contract, permits, orders and works.',
+    path, site, body, business: ctx.business, flash: ctx.flash,
+    jsonLd: [
+      breadcrumbSchema(site, crumbs),
+      faqSchema(TL_FAQS),
+      { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Renovation timeline planner', url: abs(site, path), applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', inLanguage: 'en-SG', offers: { '@type': 'Offer', price: '0', priceCurrency: 'SGD' } },
     ],
   }));
 }
