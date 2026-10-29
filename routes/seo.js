@@ -41,6 +41,7 @@ export function sitemapRoute(req, res, ctx) {
     { loc: '/tools/renovation-cost-estimator', changefreq: 'monthly', priority: '0.9', lastmod: ITEMS_REVIEWED },
     { loc: '/tools/renovation-budget-planner', changefreq: 'monthly', priority: '0.8' },
     { loc: '/tools/renovation-quote-comparison', changefreq: 'monthly', priority: '0.8' },
+    { loc: '/tools/renovation-timeline-planner', changefreq: 'monthly', priority: '0.8' },
     { loc: '/tools/room-planner', changefreq: 'monthly', priority: '0.8' },
     { loc: '/resources', changefreq: 'monthly', priority: '0.8', lastmod: RESOURCES_REVIEWED },
     { loc: '/tools/design-style-quiz', changefreq: 'monthly', priority: '0.7' },

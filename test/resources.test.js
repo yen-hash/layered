@@ -72,3 +72,22 @@ test('quote comparison: GST is normalised, missing categories and mismatches are
   assert.equal(compareQuotes({ firms: [{ lines: { a: 5 } }] }).comparable, false);
   assert.equal(compareQuotes({ gstPct: 9, firms: [{ lines: { a: -5, b: 'x' } }] }).firms[0].sum, 0);
 });
+
+import { planTimeline } from '../content/timeline.js';
+test('timeline planner works back from the move-in date and warns correctly', () => {
+  const r = planTimeline({ moveIn: '2027-06-30', onSiteWeeks: 10, bufferWeeks: 2, today: '2026-10-29', keyDate: '2027-01-01' });
+  assert.equal(r.ok, true);
+  assert.equal(r.worksStart, '2027-04-07'); // 12 weeks (84 days) before 30 Jun
+  assert.equal(r.worksEnd, '2027-06-16');   // 10 weeks after the start
+  const keys = r.milestones.map((m) => m.key);
+  assert.deepEqual(keys, ['shortlist', 'sign', 'permit', 'order', 'start', 'end', 'movein', 'dlp']);
+  assert.equal(r.milestones[0].from, '2026-10-07'); // 6 months before the start
+  assert.equal(r.warnings.length, 0);
+  const tight = planTimeline({ moveIn: '2027-01-15', onSiteWeeks: 10, bufferWeeks: 2, today: '2026-10-29', keyDate: '2027-01-01' });
+  assert.ok(tight.warnings.some((w) => /key collection/.test(w)));
+  assert.ok(tight.warnings.some((w) => /lead time|before today/.test(w)));
+  assert.equal(planTimeline({ moveIn: 'nope', onSiteWeeks: 10, today: '2026-10-29' }).ok, false);
+  assert.equal(planTimeline({ moveIn: '2027-02-30', onSiteWeeks: 10, today: '2026-10-29' }).ok, false, 'invalid calendar date');
+  assert.equal(planTimeline({ moveIn: '2027-06-30', onSiteWeeks: 1, today: '2026-10-29' }).ok, false);
+  assert.ok(r.tightest < r.comfortable);
+});

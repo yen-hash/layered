@@ -33,6 +33,15 @@ export const RESOURCES = [
     also: [['/blog/how-to-read-a-renovation-quotation-singapore', 'How to read a quotation']],
   },
   {
+    id: 'timeline',
+    title: 'Renovation timeline planner',
+    summary: 'Enter the date you need the home and get dates, working backwards, for shortlisting, signing, permits, ordering and the works. Warns you if you are inside the usual lead times or the works would start before key collection.',
+    href: '/tools/renovation-timeline-planner',
+    label: 'Plan your timeline',
+    type: 'Online',
+    also: [['/blog/bto-renovation-timeline-singapore', 'BTO renovation timeline']],
+  },
+  {
     id: 'checklist',
     title: 'Homeowner renovation checklist (PDF)',
     summary: 'Every step from budget to handover and the defects period, as a printable tick-sheet. The same list as our online checklist, in a form you can keep on the fridge or bring to site visits.',
