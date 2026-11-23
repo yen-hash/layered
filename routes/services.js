@@ -6,7 +6,7 @@ import { esc, layout } from '../lib/render.js';
 import { abs, breadcrumbSchema, faqSchema } from '../lib/seo.js';
 import { breadcrumbNav, faqHtml, formatDate } from '../lib/components.js';
 import { TRADES, TRADE_BY_SLUG, LANDED_PROS, LANDED_COSTS, LANDED_SOURCES, LANDED_REVIEWED, landedEstimate } from '../content/trades.js';
-import { CONTACT_NOTE, designerCard, quoteFormHtml } from './public.js';
+import { CONTACT_NOTE, antiSpamFields, designerCard, quoteFormHtml } from './public.js';
 
 const firmsIn = (category) => db.prepare('SELECT * FROM businesses WHERE category = ? AND approved = 1 ORDER BY featured DESC, created_at DESC').all(category);
 const countIn = (category) => db.prepare('SELECT COUNT(*) AS n FROM businesses WHERE category = ? AND approved = 1').get(category).n;
@@ -201,6 +201,7 @@ export async function landedRoute(req, res, ctx) {
         <h2>Send a landed project brief</h2>
         <p class="section-sub">One brief, sent to up to two architects, two engineers and two builders listed on Layered. Free for homeowners.</p>
         <form class="panel wide" method="post" action="/leads">
+          ${antiSpamFields()}
           <input type="hidden" name="category" value="landed">
           <div class="two-col">
             <div class="field"><label for="lb-name">Your name</label><input id="lb-name" type="text" name="name" autocomplete="name" required></div>

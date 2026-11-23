@@ -3,6 +3,7 @@ import { TRADE_BY_SLUG, LANDED_PROS, LANDED_COSTS, CATEGORY_BY_SLUG, DEFAULT_CAT
 import { db, PROPERTY_TYPES, STYLES, BUDGET_RANGES } from '../db.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
 import { deliverLead, routeDesignLead, sqlTime } from '../lib/leadRouting.js';
+import { spamCheck } from '../lib/spam.js';
 import { credentialBadges, credentialsPanel } from '../lib/credentials.js';
 import { abs, breadcrumbSchema, organizationSchema, websiteSchema } from '../lib/seo.js';
 import { breadcrumbNav } from '../lib/components.js';
@@ -87,6 +88,9 @@ const ACCESS_NOTE = 'A firm on a plan or trial sees your phone number and email 
 const PRIVACY_LINK = 'See our <a href="/privacy">privacy policy</a>.';
 export const CONTACT_NOTE = `${ACCESS_NOTE} If no firm has had access, we delete your contact details after 90 days. ${PRIVACY_LINK}`;
 
+// Two quiet checks on every enquiry form: a field only a bot fills in, and the time the page was made.
+export const antiSpamFields = () => `<div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="hp_field" tabindex="-1" autocomplete="off"></label></div><input type="hidden" name="shown" value="${Date.now()}">`;
+
 export function leadFormHtml(prefill = {}, toBusiness = null) {
   const sel = (v, want) => (v === want ? ' selected' : '');
   return `
@@ -94,6 +98,7 @@ export function leadFormHtml(prefill = {}, toBusiness = null) {
     <h2>${toBusiness ? `Send an enquiry to ${esc(toBusiness.company_name)}` : 'Tell us about your renovation'}</h2>
     <p class="section-sub">${toBusiness ? 'Tell them about your project. Your enquiry goes to this firm only.' : 'Tell us about your project. Carpenters replies first, and you choose whether other firms may see it.'}</p>
     <form class="panel wide" method="post" action="/leads">
+      ${antiSpamFields()}
       <input type="hidden" name="category" value="interior-design">
       ${toBusiness ? `<input type="hidden" name="business" value="${esc(toBusiness.slug)}">` : ''}
       <div class="two-col">
@@ -146,6 +151,7 @@ export function quoteFormHtml(category, heading, intro = '', toBusiness = null) 
     <h2>${esc(heading)}</h2>
     ${intro ? `<p class="section-sub">${esc(intro)}</p>` : ''}
     <form class="panel wide" method="post" action="/leads">
+      ${antiSpamFields()}
       <input type="hidden" name="category" value="${esc(category)}">
       ${toBusiness ? `<input type="hidden" name="business" value="${esc(toBusiness.slug)}">` : ''}
       <div class="two-col">
@@ -487,6 +493,15 @@ export async function submitLeadRoute(req, res, ctx, fields) {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
   const info = insertLead.run(name, email, fields.phone || '', propertyType, fields.style || '', fields.budget_range || '', fields.location || '', message.slice(0, 5000), category, shareOk ? 1 : 0, shareOk ? sqlTime(new Date()) : null);
   const lead = db.prepare('SELECT * FROM leads WHERE id = ?').get(info.lastInsertRowid);
+
+  // Junk is kept aside for an admin to check. The sender sees the same thank-you, so a bot learns nothing.
+  const verdict = spamCheck({ ...fields, name, message: String(fields.message || '') }, { isLanded: category === 'landed', siteHost: new URL(ctx.site || 'https://layeredsg.com').hostname });
+  if (verdict.spam) {
+    db.prepare('UPDATE leads SET spam = 1, spam_why = ?, spam_route = ? WHERE id = ?').run(`${verdict.why} (score ${verdict.score})`, direct ? `direct:${direct.slug}` : general ? 'house' : category, lead.id);
+    res.writeHead(302, { Location: back + '?ok=' + encodeURIComponent(`Thanks ${name}! We've received your request.`) });
+    res.end();
+    return;
+  }
 
   const matches = direct ? [direct] : general ? [] : matchLead(category);
   for (const business of matches) deliverLead(db, lead, business);

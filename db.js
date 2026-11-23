@@ -159,6 +159,11 @@ for (const [col, ddl] of [['share_ok', 'INTEGER NOT NULL DEFAULT 0'], ['share_ok
   if (!leadCols.includes(col)) db.exec(`ALTER TABLE leads ADD COLUMN ${col} ${ddl}`);
 }
 
+// Junk filter: spam = 1 means held aside (see lib/spam.js); spam_route remembers where it would have gone.
+for (const [col, ddl] of [['spam', 'INTEGER NOT NULL DEFAULT 0'], ['spam_why', "TEXT DEFAULT ''"], ['spam_route', "TEXT DEFAULT ''"]]) {
+  if (!db.prepare('PRAGMA table_info(leads)').all().some((x) => x.name === col)) db.exec(`ALTER TABLE leads ADD COLUMN ${col} ${ddl}`);
+}
+
 if (!businessCols.includes('google_reviews_url')) db.exec("ALTER TABLE businesses ADD COLUMN google_reviews_url TEXT DEFAULT ''");
 
 export const PROPERTY_TYPES = ['HDB', 'Condo', 'Landed', 'Commercial'];
