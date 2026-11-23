@@ -30,9 +30,8 @@ test('existing businesses default to interior design', () => {
   db.prepare("DELETE FROM businesses WHERE slug = 'old'").run();
 });
 
-test('designer briefs only reach interior designers, matching property type first', () => {
-  assert.deepEqual(slugs(matchLead('interior-design', 'HDB')), ['designer-a']);
-  assert.deepEqual(slugs(matchLead('interior-design', 'Commercial')), ['designer-a', 'designer-b']);
+test('general design briefs do not go through matchLead (Carpenters first, see leadrouting.test.js)', () => {
+  assert.deepEqual(slugs(matchLead('interior-design', 'HDB')), []);
 });
 
 test('trade requests only reach that trade', () => {

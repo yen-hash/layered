@@ -26,20 +26,44 @@ function accessForm(b) {
       <button class="btn btn-sm" type="submit">Save</button></form>`;
 }
 
+function approvalCell(b, ctx) {
+  if (b.house_firm) return '<strong>Listed</strong><br><span class="muted small">Gets design enquiries first</span>';
+  const state = b.approved ? '<strong>Listed</strong>' : '<strong>Waiting</strong>';
+  if (b.approved && b.id === ctx.business.id) return state;
+  return `${state}<form method="post" action="/dashboard/accounts/${b.id}/${b.approved ? 'hide' : 'approve'}" style="margin-top:6px;"><button class="btn btn-sm${b.approved ? ' btn-outline' : ''}" type="submit">${b.approved ? 'Hide' : 'Approve'}</button></form>`;
+}
+
+// Admin: list a firm, or hide it again. Hiding also stops its enquiries and its access to contact details.
+export async function accountApprove(req, res, ctx, id, approve) {
+  if (!isAdmin(ctx.business)) return forbidden(res, ctx);
+  const b = db.prepare('SELECT id, company_name, house_firm FROM businesses WHERE id = ?').get(id);
+  if (!b) return back(res, '/dashboard/accounts', 'Firm not found.', 'err');
+  if (!approve && b.house_firm) return back(res, '/dashboard/accounts', 'Carpenters cannot be hidden: its enquiries would be held.', 'err');
+  if (!approve && id === ctx.business.id) return back(res, '/dashboard/accounts', 'You cannot hide the account you are logged in with.', 'err');
+  // The 3-month trial starts when the firm is first listed, not while it waits.
+  if (approve) db.prepare("UPDATE businesses SET approved = 1, trial_ends_at = CASE WHEN COALESCE(trial_ends_at, '') = '' THEN datetime('now', '+3 months') ELSE trial_ends_at END WHERE id = ?").run(id);
+  else db.prepare('UPDATE businesses SET approved = 0 WHERE id = ?').run(id);
+  console.log(`[accounts] business #${id} ${approve ? 'approved' : 'hidden'} by ${ctx.business.email}`);
+  back(res, '/dashboard/accounts', `${b.company_name} is now ${approve ? 'listed' : 'hidden'}.`);
+}
+
 export async function accountsList(req, res, ctx) {
   if (!isAdmin(ctx.business)) return forbidden(res, ctx);
-  const firms = db.prepare('SELECT b.id, b.slug, b.company_name, b.email, b.category, b.created_at, b.plan, b.trial_ends_at, b.phone, (SELECT COUNT(*) FROM projects p WHERE p.business_id = b.id) AS projects FROM businesses b ORDER BY b.company_name').all();
+  const firms = db.prepare('SELECT b.id, b.slug, b.company_name, b.email, b.category, b.created_at, b.plan, b.trial_ends_at, b.phone, b.approved, b.house_firm, (SELECT COUNT(*) FROM projects p WHERE p.business_id = b.id) AS projects FROM businesses b ORDER BY b.approved, b.company_name').all();
+  const waiting = firms.filter((b) => !b.approved).length;
   const dups = duplicateFlags(firms);
   const inner = `
     <div class="head-row"><h1>Accounts</h1></div>
+    ${waiting ? `<div class="dash-card" style="border-left:4px solid #c58a00;"><p style="margin:0;"><strong>${waiting} firm${waiting === 1 ? '' : 's'} waiting for approval.</strong> A waiting firm is not listed, gets no enquiries and cannot see contact details. Check it is a real firm before you approve it.</p></div>` : ''}
     ${dups.size ? `<div class="dash-card" style="border-left:4px solid #c58a00;"><h2 style="margin-top:0;">Possible duplicates</h2><p>${dups.size} listings look like the same firm as another one (see the notes under the firm name). Check them, keep the one with the projects and the login the firm uses, and delete the other.</p></div>` : ''}
     <div class="dash-card">
       <p>Create a one-time reset link for a firm that cannot log in, or to give a new firm its first access. Send the link to the firm yourself (WhatsApp or email). It works once and lasts ${RESET_TTL_MINUTES} minutes, and a new link cancels any older one.</p>
       <p class="muted small">Only send a link to the person who owns the account. Anyone holding the link can set that account's password.</p>
     </div>
     <div class="dash-card">
-      ${firms.length ? `<table class="data-table"><thead><tr><th>Firm</th><th>Login email</th><th>Projects</th><th>Lead access</th><th></th></tr></thead><tbody>
+      ${firms.length ? `<table class="data-table"><thead><tr><th>Firm</th><th>Login email</th><th>Projects</th><th>Listing</th><th>Lead access</th><th></th></tr></thead><tbody>
       ${firms.map((b) => `<tr><td><a href="/designers/${esc(b.slug)}" target="_blank"><strong>${esc(b.company_name)}</strong></a>${(dups.get(b.id) || []).map((w) => `<br><span class="status-pill" style="background:#fff3cd;color:#7a5b00;">Possible duplicate</span> <span class="muted small">${esc(w)}</span>`).join('')}</td><td>${esc(b.email)}<br><span class="muted small">Joined ${esc(String(b.created_at).slice(0, 10))}</span></td><td>${b.projects}</td>
+        <td>${approvalCell(b, ctx)}</td>
         <td>${accessForm(b)}</td>
         <td><form method="post" action="/dashboard/accounts/${b.id}/reset" class="inline"><button class="btn btn-sm" type="submit">Create reset link</button></form> <a class="btn btn-sm btn-outline" href="/dashboard/accounts/${b.id}/leads">Leads</a>${b.id === ctx.business.id ? '' : ` <a class="btn btn-sm btn-outline" href="/dashboard/accounts/${b.id}/delete">Delete</a>`}</td></tr>`).join('')}
       </tbody></table>` : '<p class="empty-state">No accounts yet.</p>'}
@@ -85,7 +109,7 @@ export async function accountAccess(req, res, ctx, id, fields) {
 // Admin: see a firm's leads (names shortened) and unlock or lock single leads.
 export async function accountLeads(req, res, ctx, id) {
   if (!isAdmin(ctx.business)) return forbidden(res, ctx);
-  const b = db.prepare('SELECT id, company_name, plan, trial_ends_at, created_at FROM businesses WHERE id = ?').get(id);
+  const b = db.prepare('SELECT id, company_name, plan, trial_ends_at, created_at, approved, house_firm FROM businesses WHERE id = ?').get(id);
   if (!b) return back(res, '/dashboard/accounts', 'Firm not found.', 'err');
   const rows = db.prepare('SELECT lm.id AS match_id, lm.unlocked_at, lm.created_at, l.name, l.property_type, l.budget_range FROM lead_matches lm JOIN leads l ON l.id = lm.lead_id WHERE lm.business_id = ? ORDER BY lm.created_at DESC').all(id);
   const inner = `
@@ -95,7 +119,7 @@ export async function accountLeads(req, res, ctx, id) {
       <p class="muted small">Unlocking a lead gives this firm the homeowner's full contact details for that one lead. Use it when the firm has paid for that lead.</p>
       ${rows.length ? `<table class="data-table"><thead><tr><th>Date</th><th>Homeowner</th><th>Property</th><th>Budget</th><th>Contact details</th><th></th></tr></thead><tbody>
       ${rows.map((r) => `<tr><td>${esc(r.created_at)}</td><td>${esc(maskName(r.name))}</td><td>${esc(r.property_type || '-')}</td><td>${esc(r.budget_range || '-')}</td>
-        <td>${r.unlocked_at ? 'Unlocked' : hasAccountAccess(b) ? 'Open (plan)' : 'Hidden'}</td>
+        <td>${b.approved === 0 ? 'Hidden (firm not approved)' : r.unlocked_at ? 'Unlocked' : hasAccountAccess(b) ? 'Open (plan)' : 'Hidden'}</td>
         <td><form method="post" action="/dashboard/accounts/${id}/leads/${r.match_id}/${r.unlocked_at ? 'lock' : 'unlock'}" class="inline"><button class="btn btn-sm${r.unlocked_at ? ' btn-outline' : ''}" type="submit">${r.unlocked_at ? 'Lock again' : 'Unlock'}</button></form></td></tr>`).join('')}
       </tbody></table>` : '<p class="empty-state">No leads for this firm yet.</p>'}
     </div>`;

@@ -24,7 +24,9 @@ const PAGES = {
       <li>Read the <a href="/guides/renovation-for-beginners-singapore">beginner's guide</a>, the <a href="/guides/renovation-checklist-singapore">checklist</a> and the <a href="/blog">blog</a>.</li>
     </ul>
     <h2>How we work</h2>
-    <p>Homeowners use Layered for free. Firms list their business and can receive enquiries that match the work they take on. Credentials shown on a profile are declared by the firm unless the profile says our team checked them against the official lookups, with the date. Reviews on Layered come from homeowners who were invited to review a real enquiry.</p>
+    <p>Homeowners use Layered for free. Firms list their business after we have checked them, and can receive enquiries. Credentials shown on a profile are declared by the firm unless the profile says our team checked them against the official lookups, with the date. Reviews on Layered come from homeowners who were invited to review a real enquiry.</p>
+    <h2>Who owns Layered</h2>
+    <p>Layered and Carpenters 匠 have the same owner. Carpenters receives general interior design enquiries first. See <a href="/how-layered-works">how Layered works</a>.</p>
     <h2>Get in touch</h2>
     <p>Questions, corrections or a firm that wants to be listed: ${contact()}.</p>`,
   },
@@ -43,25 +45,27 @@ const PAGES = {
     </ul>
     <h2>How we use it</h2>
     <ul>
-      <li>To pass your enquiry to the firms that match it, or to the one firm you sent it to. A firm sees your project details straight away, but your name, phone number and email stay hidden until that firm unlocks your enquiry, for example by holding a paid plan or a trial, or by unlocking that single enquiry. Firms that do not unlock it never receive your contact details.</li>
+      <li>To pass on your enquiry. Layered and Carpenters 匠 have the same owner. General interior design enquiries go to Carpenters 匠 first, for 24 hours. If you ticked the sharing box, up to 2 other firms that take your kind of project may receive it after that, or sooner if Carpenters cannot take it. If you did not tick it, no other firm receives it. An enquiry sent from a firm's profile goes to that firm only. Trade requests go to up to 3 firms in that trade. Landed project briefs go to up to two architects, two engineers and two builders.</li>
+      <li>A firm on a paid plan or a trial receives your contact details with your enquiry, and so does Carpenters. Any other firm sees only your project details until it unlocks your enquiry. Firms that do not have access never receive your contact details.</li>
+      <li>To keep a record of whether and when you agreed to sharing. You can withdraw that at any time, and we will stop any sharing that has not happened yet.</li>
       <li>To run accounts, send service emails such as password resets and review invitations, and keep the site secure.</li>
       <li>To understand which pages are useful and improve the site.</li>
     </ul>
-    <p>We do not sell your personal data.</p>
+    <p>Firms may pay us for a plan or to unlock an enquiry that reached them in the ways above. Apart from that, we do not sell your personal data.</p>
     <h2>Who we share it with</h2>
     <ul>
-      <li><strong>Firms that unlock your enquiry</strong>, which then receive the contact details you submitted.</li>
+      <li><strong>Firms that receive your enquiry and have access to it</strong>, as explained above. This includes Carpenters.</li>
       <li><strong>Service providers</strong> that host the site and send email on our behalf, and Google if analytics is switched on.</li>
       <li>Authorities, where the law requires it.</li>
     </ul>
     <h2>Cookies</h2>
     <p>We use a session cookie to keep firms logged in, and a small cookie or local storage to remember your shortlist. If analytics is enabled, Google Analytics sets cookies to measure traffic. You can block cookies in your browser settings, though logging in will not work without the session cookie.</p>
     <h2>Keeping and deleting data</h2>
-    <p>We keep personal data only as long as we need it for the purposes above or the law requires. If no firm unlocks your enquiry, we delete your name, phone number, email and message 90 days after you send it. You can also ask us to delete your enquiry or account at any time.</p>
+    <p>We keep personal data only as long as we need it for the purposes above or the law requires. If no firm has had access to your enquiry, we delete your name, phone number, email and message 90 days after you send it. You can also ask us to delete your enquiry or account at any time.</p>
     <h2>Your choices</h2>
     <p>You can ask to access or correct the personal data we hold about you, or withdraw your consent to our using it. To do so, ${contact()}. Firms can edit their own profile and photos from their dashboard.</p>
     <h2>Changes</h2>
-    <p>We may update this policy and will change the date below when we do. Last updated: October 2026.</p>`,
+    <p>We may update this policy and will change the date below when we do. Last updated: November 2026.</p>`,
   },
   terms: {
     title: 'Terms of Use for Homeowners and Firms',
@@ -76,7 +80,7 @@ const PAGES = {
     <h2>Firm listings and credentials</h2>
     <p>Firms are responsible for the accuracy of their profiles, credentials, photos and project details, and must have the right to publish the photos they upload. Credentials are declared by the firm unless the profile shows a verification mark and date from our team. We may remove or correct a listing, review or photo that is inaccurate, misleading or infringing.</p>
     <h2>Plans, trials and enquiries (firms)</h2>
-    <p>Listing is free. For an initial period after you sign up (currently three months) you can see the full contact details of homeowners who enquire. After that, a homeowner's name, phone number and email are hidden until you take a plan or unlock an individual enquiry; plans and charges are agreed with you in advance and in writing. We may change a firm's access if these terms are broken. Enquiries you have already received keep their details. You may ask us to remove your profile at any time.</p>
+    <p>Listing is free. We check each new firm before it is listed. For an initial period after you are listed (currently three months) you can see the full contact details of homeowners whose enquiries reach you. Layered and Carpenters 匠 have the same owner, and Carpenters receives general interior design enquiries first. After that, a homeowner's name, phone number and email are hidden until you take a plan or unlock an individual enquiry; plans and charges are agreed with you in advance and in writing. We may change a firm's access if these terms are broken. Enquiries you have already received keep their details. You may ask us to remove your profile at any time.</p>
     <h2>Homeowners</h2>
     <p>Enquiries must be genuine and accurate. Do not use the site to send spam or to harass firms. Do your own checks on any firm before you pay a deposit.</p>
     <h2>Reviews</h2>
@@ -84,7 +88,7 @@ const PAGES = {
     <h2>Liability</h2>
     <p>The site is provided as is. To the extent the law allows, Layered is not liable for losses arising from your dealings with any firm or from reliance on information on the site.</p>
     <h2>Changes and contact</h2>
-    <p>We may update these terms. Continued use means you accept the updated terms. Questions: ${contact()}. Last updated: October 2026.</p>`,
+    <p>We may update these terms. Continued use means you accept the updated terms. Questions: ${contact()}. Last updated: November 2026.</p>`,
   },
 };
 

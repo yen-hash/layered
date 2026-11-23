@@ -54,7 +54,7 @@ export const GUIDES = [
 <li><strong>Check the payment schedule.</strong> Payments should follow progress, not be front-loaded. See the section on deposits in our guide to <a href="/guides/casetrust-and-hdb-licence-explained">CaseTrust and HDB licences</a>.</li>
 <li><strong>Use an HDB-registered contractor.</strong> Works that need an HDB permit must be done by one. Read the <a href="/guides/hdb-renovation-permit-and-rules">HDB renovation permit and rules guide</a>.</li>
 </ol>
-<p>Ready to compare firms? Browse <a href="/interior-designers/hdb">HDB interior designers on Layered</a> or tell us about your flat and get matched.</p>`,
+<p>Ready to compare firms? Browse <a href="/interior-designers/hdb">HDB interior designers on Layered</a> or tell us about your flat.</p>`,
       },
     ],
     faqs: [

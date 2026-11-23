@@ -13,10 +13,12 @@ const contact = () => {
 };
 
 const FIRM_FAQS = [
-  { q: 'Is it free to list my firm?', a: `Yes. Creating a profile, adding projects and receiving enquiries costs nothing to start. For the first ${TRIAL_MONTHS} months you see the full contact details of every homeowner who enquires.` },
+  { q: 'Is it free to list my firm?', a: `Yes. Creating a profile, adding projects and receiving enquiries costs nothing to start. For the first ${TRIAL_MONTHS} months after you are listed you see the full contact details of every homeowner whose enquiry reaches you.` },
   { q: `What happens after the first ${TRIAL_MONTHS} months?`, a: 'Enquiries still reach your dashboard with the project details: property type, style, budget range, location and the homeowner\'s message. The homeowner\'s name, phone number and email are hidden unless you take a plan or unlock an individual enquiry. Your listing stays up either way, and enquiries you already received keep their details.' },
   { q: 'How much does a plan cost?', a: 'Plans are agreed with you directly and there is no charge to list. Ask us and we will tell you the current terms before you commit to anything.' },
-  { q: 'Who sees a homeowner\'s phone number?', a: `Only firms that have access. Enquirers are told their contact details stay hidden from a firm until it unlocks the enquiry, and that if no firm unlocks it we delete their details after ${PURGE_DAYS} days.` },
+  { q: 'Who sees a homeowner\'s phone number?', a: `Only firms that have access. Enquirers are told which firms see their contact details, and that if no firm has had access we delete their details after ${PURGE_DAYS} days.` },
+  { q: 'Is Layered independent?', a: 'No. Layered and Carpenters 匠 have the same owner. General interior design enquiries go to Carpenters for the first 24 hours. If the homeowner agreed, up to 2 other firms may receive them after that, or sooner if Carpenters passes. Enquiries from your own profile come to you only.' },
+  { q: 'When will my profile appear?', a: 'After we have checked that your firm is real. Until then your profile is hidden and you receive no enquiries. Your first 3 months start when you are listed.' },
   { q: 'Do you rank firms by who pays?', a: 'Directory pages show firms we have marked Featured first, labelled as Featured, and then the newest listings. Reviews and credential checks are never for sale.' },
   { q: 'How do I get the verified HDB licence or CaseTrust mark?', a: 'Add your licence number or CaseTrust tier to your profile. Our team checks it against the official lookups and records the date. If you later change the number or tier, the verified mark is removed until it is checked again. Until then it shows as self-declared.' },
   { q: 'Can I remove my profile?', a: 'Yes, at any time. Ask us and we will delete the profile, its projects and photos.' },
@@ -24,9 +26,11 @@ const FIRM_FAQS = [
 ];
 
 const HOW_FAQS = [
-  { q: 'Does Layered recommend one firm over another?', a: 'No. We show firms that match your search. Firms marked Featured appear first and are labelled. We do not guarantee any firm\'s work, so compare itemised quotations and check credentials yourself.' },
+  { q: 'Who owns Layered?', a: 'Layered and Carpenters 匠 have the same owner. Carpenters is a Featured firm in the directory and receives general interior design enquiries first.' },
+  { q: 'Who receives my enquiry?', a: 'General interior design enquiries go to Carpenters 匠 first, for 24 hours. If you ticked the sharing box, up to 2 other firms that take your kind of project may receive it after that, or sooner if Carpenters cannot take it. If you did not tick it, no other firm receives it. An enquiry sent from a firm\'s profile goes to that firm only. Trade requests go to up to 3 firms in that trade.' },
+  { q: 'Can I change my mind about sharing?', a: 'Yes. Ask us and we will stop your enquiry from being shared. We cannot recall it from a firm that already has it.' },
   { q: 'Can a firm pay to change or remove a review?', a: 'No. Reviews are written by homeowners who enquired through Layered, after a firm marks the enquiry as won and asks us to invite them. We read every review before it appears and publish honest reviews whether they are positive or negative.' },
-  { q: 'Who sees my phone number and email?', a: `A firm sees your project details straight away. Your name, phone number and email stay hidden until that firm has access, for example through a plan or by unlocking your enquiry. If no firm unlocks your enquiry we delete your contact details after ${PURGE_DAYS} days.` },
+  { q: 'Who sees my phone number and email?', a: `A firm on a plan or trial sees them when it receives your enquiry, and so does Carpenters. Other firms see your project details, and your phone number and email only once they unlock your enquiry. If no firm has had access, we delete your contact details after ${PURGE_DAYS} days.` },
   { q: 'How does Layered make money?', a: `Homeowners use Layered for free. Firms can list for free and, after an initial ${TRIAL_MONTHS}-month period, take a plan or unlock individual enquiries to see homeowners' contact details.` },
   { q: 'What does "verified" mean on a badge?', a: 'Our team checked the licence number or CaseTrust tier against the official lookup and recorded the date. Registrations can lapse, so confirm it is still current before signing a contract. Without the mark, the credential is self-declared by the firm.' },
 ];
@@ -51,14 +55,14 @@ export async function forDesignersRoute(req, res, ctx) {
     body: `
     <span class="eyebrow">For interior designers and renovation firms</span>
     <h1>List your firm on Layered, free</h1>
-    <p class="lead">Singapore homeowners use Layered to compare interior designers, check HDB licence and CaseTrust details, and plan a renovation. A profile takes about ten minutes, and enquiries go straight to your dashboard.</p>
+    <p class="lead">Singapore homeowners use Layered to compare interior designers, check HDB licence and CaseTrust details, and plan a renovation. A profile takes about ten minutes, and enquiries sent from your profile go straight to your dashboard.</p>
     <p><a class="btn" href="/signup">Create your free profile</a> <a class="btn btn-outline" href="/designers">See how firms appear</a></p>
 
     <h2>What you get</h2>
     <ul>
       <li><strong>A profile and project gallery</strong> with your own photos, your styles, areas and the property types you take on.</li>
       <li><strong>Credential badges.</strong> Add your HDB licence and CaseTrust details. Once our team checks them against the official lookups, the badge shows the date we checked.</li>
-      <li><strong>Enquiries in your dashboard</strong> from homeowners whose project matches your work, or sent straight from your profile.</li>
+      <li><strong>Enquiries in your dashboard</strong> sent straight from your profile, and general enquiries that homeowners agreed to share with other firms after Carpenters' 24 hours.</li>
       <li><strong>Verified reviews.</strong> After you mark an enquiry as won, we can invite the homeowner to review you. We read every review before it is published.</li>
       <li><strong>Homeowners who are already planning.</strong> They arrive from free tools such as the <a href="/tools/renovation-budget-planner">budget planner</a>, the <a href="/tools/renovation-cost-estimator">cost estimator</a> and the <a href="/tools/room-planner">room planner</a>.</li>
     </ul>
@@ -68,11 +72,12 @@ export async function forDesignersRoute(req, res, ctx) {
       <li><strong>Sign up</strong> with your business email and choose your type of business.</li>
       <li><strong>Add your profile and 3 to 6 projects</strong> with photos you own or have permission to publish.</li>
       <li><strong>Add your credentials</strong> so we can verify them.</li>
+      <li><strong>Wait for our check.</strong> We look at every new firm before it is listed.</li>
       <li><strong>Receive enquiries</strong> and reply to the homeowner directly.</li>
     </ol>
 
     <h2>The terms, in plain language</h2>
-    <p>Listing is free. For the first ${TRIAL_MONTHS} months you see the full contact details of every homeowner who enquires. After that, enquiries still arrive with the project details, but the homeowner's name, phone and email are hidden unless you take a plan or unlock an enquiry. Homeowners are told this when they send an enquiry. You can remove your profile at any time. Questions before you sign up: ${contact()}.</p>
+    <p>Listing is free. Layered and Carpenters 匠 have the same owner, and Carpenters receives general interior design enquiries first. For the first ${TRIAL_MONTHS} months after you are listed you see the full contact details of every homeowner whose enquiry reaches you. After that, enquiries still arrive with the project details, but the homeowner's name, phone and email are hidden unless you take a plan or unlock an enquiry. Homeowners are told this when they send an enquiry. You can remove your profile at any time. Questions before you sign up: ${contact()}.</p>
     <p>Credentials you add are shown as self-declared until we have checked them. We never show a verified mark for something we have not checked. See <a href="/how-layered-works">how Layered works</a> for our rules on credentials, reviews and listing order.</p>`,
   });
 }
@@ -96,10 +101,13 @@ export async function howItWorksRoute(req, res, ctx) {
     <p>Reviews on Layered come only from homeowners who enquired through Layered. After a firm marks an enquiry as won, it can ask us to invite the homeowner, and we email a one-time review link. We read every review before it is published, and we publish honest reviews whether they are positive or negative. Firms cannot see a review before it appears, and cannot pay to change or remove one. Some firms also link to their Google reviews, which are written on Google and are not read or checked by us.</p>
 
     <h2>Your contact details</h2>
-    <p>When you send an enquiry, a firm sees your project details straight away: property type, style, budget range, location and your message. Your name, phone number and email stay hidden until that firm has access, for example through a plan, or by unlocking your enquiry. If no firm unlocks it, we delete your name, phone number, email and message after ${PURGE_DAYS} days. Read our <a href="/privacy">privacy policy</a>.</p>
+    <p>A firm on a plan or trial sees your contact details when it receives your enquiry, and so does Carpenters. Any other firm that receives it sees only your project details (property type, style, budget range, location and your message) until it unlocks your enquiry. If no firm has had access, we delete your name, phone number, email and message after ${PURGE_DAYS} days. Read our <a href="/privacy">privacy policy</a>.</p>
+
+    <h2>Who owns Layered, and who gets your enquiry</h2>
+    <p>Layered and Carpenters 匠 have the same owner. General interior design enquiries go to Carpenters 匠 first, for 24 hours. If you ticked the sharing box, up to 2 other firms that take your kind of project may receive it after that, or sooner if Carpenters cannot take it. If you did not tick it, no other firm receives it. An enquiry sent from a firm's profile goes to that firm only. Trade requests go to up to 3 firms in that trade.</p>
 
     <h2>Order of firms</h2>
-    <p>Directory pages show firms marked <strong>Featured</strong> first, with a label, and then the newest listings. We do not rank firms by quality, and we do not guarantee any firm's work. Compare itemised quotations, ask for references and check credentials yourself. Our <a href="/guides/how-to-choose-an-interior-designer-singapore">guide to choosing a designer</a> shows how.</p>
+    <p>Directory pages show firms marked <strong>Featured</strong> first, with a label, and then the newest listings. Carpenters is marked Featured. We do not rank firms by quality, and we do not guarantee any firm's work. Compare itemised quotations, ask for references and check credentials yourself. Our <a href="/guides/how-to-choose-an-interior-designer-singapore">guide to choosing a designer</a> shows how.</p>
 
     <h2>How Layered makes money</h2>
     <p>Homeowners use Layered for free. Firms list for free, and after an initial ${TRIAL_MONTHS}-month period they can take a plan or unlock individual enquiries to see homeowners' contact details. Read more on the <a href="/for-designers">page for designers</a>.</p>

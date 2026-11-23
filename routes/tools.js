@@ -108,7 +108,7 @@ export async function calculatorRoute(req, res, ctx) {
 
     <div class="cta-box">
       <h2>Turn your estimate into quotes</h2>
-      <p>Compare Singapore interior designers and renovation firms, check their HDB licence and CaseTrust credentials, then get matched for free.</p>
+      <p>Compare Singapore interior designers and renovation firms, check their HDB licence and CaseTrust credentials, then send an enquiry for free.</p>
       <p><a class="btn btn-sm" href="/designers">Browse designers</a> <a class="btn btn-sm btn-outline" href="/guides/renovation-checklist-singapore">Renovation checklist</a></p>
     </div>
 
@@ -172,7 +172,7 @@ ${budgetBand.toString()}
     result.innerHTML='<p class="calc-label">Estimated renovation cost</p><p class="calc-big">'+rangeTxt+'</p>'
       +'<p class="calc-label">Suggested budget with a 10–15% buffer</p><p class="calc-sub">'+sugTxt+'</p>'
       +'<ul class="calc-notes">'+r.notes.map(function(n){return '<li>'+n+'</li>'}).join('')+'</ul>'
-      +'<p class="calc-actions"><a class="btn" href="'+cta+'">Get matched with designers</a></p>'
+      +'<p class="calc-actions"><a class="btn" href="'+cta+'">Send an enquiry</a></p>'
       +'<p class="muted small">Read more: '+LINKS[m].map(function(l){return '<a href="'+l[0]+'">'+l[1]+'</a>'}).join(' · ')+'</p>'
       +'<p class="muted small">An indicative estimate from published 2026 ranges, not a quote.</p>';
   }
@@ -260,7 +260,7 @@ export async function estimatorRoute(req, res, ctx) {
 
     <div class="cta-box">
       <h2>Turn your estimate into quotes</h2>
-      <p>Compare Singapore interior designers, check their HDB licence and CaseTrust credentials, then get matched for free.</p>
+      <p>Compare Singapore interior designers, check their HDB licence and CaseTrust credentials, then send an enquiry for free.</p>
       <p><a class="btn btn-sm" href="/designers">Browse designers</a> <a class="btn btn-sm btn-outline" href="/guides/renovation-checklist-singapore">Renovation checklist</a></p>
     </div>
   </section>
@@ -309,7 +309,7 @@ ${budgetBand.toString()}
       +'<ul class="est-summary">'+Object.keys(groups).map(function(g){return '<li><span>'+g+'</span><span>'+fmt(groups[g][0])+' – '+fmt(groups[g][1])+'</span></li>'}).join('')+'</ul>'
       +(r.skipped.length?'<p class="muted small">Not priced for this home type: '+r.skipped.join(', ')+'.</p>':'')
       +'<p class="muted small">Works only. Design, project management and supervision are usually extra.</p>'
-      +'<p class="calc-actions"><a class="btn" href="'+cta+'">Get matched with designers</a></p>';
+      +'<p class="calc-actions"><a class="btn" href="'+cta+'">Send an enquiry</a></p>';
     mini.hidden=false;mini.innerHTML='<span>Estimate'+(gst?' incl. GST':'')+'</span><strong>'+fmt(lo)+' – '+fmt(hi)+'</strong>';
     $('e-gst').addEventListener('change',function(e){gst=e.target.checked;render()});
   }

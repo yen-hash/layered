@@ -225,7 +225,7 @@ export async function budgetPlannerRoute(req, res, ctx) {
     ${faqHtml(BP_FAQS)}
     <div class="cta-box">
       <h2>Ready for quotes?</h2>
-      <p>Compare Singapore interior designers, check their HDB licence and CaseTrust credentials, then get matched for free.</p>
+      <p>Compare Singapore interior designers, check their HDB licence and CaseTrust credentials, then send an enquiry for free.</p>
       <p><a class="btn btn-sm" href="/designers">Browse designers</a> <a class="btn btn-sm btn-outline" href="/resources">More free resources</a></p>
     </div>
   </section>

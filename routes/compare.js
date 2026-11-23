@@ -19,7 +19,7 @@ function credCell(b, kind) {
 // Side-by-side view. The shortlist itself lives in the visitor's browser; the slugs arrive as ?d=a,b,c.
 export async function compareRoute(req, res, ctx, url) {
   const slugs = [...new Set((url.searchParams.get('d') || '').split(',').map((s) => s.trim()).filter((s) => /^[a-z0-9-]{1,80}$/.test(s)))].slice(0, MAX);
-  const rows = slugs.map((s) => db.prepare('SELECT * FROM businesses WHERE slug = ?').get(s)).filter(Boolean);
+  const rows = slugs.map((s) => db.prepare('SELECT * FROM businesses WHERE slug = ? AND approved = 1').get(s)).filter(Boolean);
   const projCount = db.prepare('SELECT COUNT(*) n FROM projects WHERE business_id = ?');
 
   let inner;

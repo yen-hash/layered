@@ -2,8 +2,7 @@ import { heroPlanSvg } from '../lib/planSvg.js';
 import { TRADE_BY_SLUG, LANDED_PROS, LANDED_COSTS, CATEGORY_BY_SLUG, DEFAULT_CATEGORY, validCategory } from '../content/trades.js';
 import { db, PROPERTY_TYPES, STYLES, BUDGET_RANGES } from '../db.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
-import { dispatchLeadNotifications } from '../lib/notify.js';
-import { hasAccountAccess, maskLead } from '../lib/leadAccess.js';
+import { deliverLead, routeDesignLead, sqlTime } from '../lib/leadRouting.js';
 import { credentialBadges, credentialsPanel } from '../lib/credentials.js';
 import { abs, breadcrumbSchema, organizationSchema, websiteSchema } from '../lib/seo.js';
 import { breadcrumbNav } from '../lib/components.js';
@@ -82,12 +81,18 @@ function chipGroup(name, options, checkedList = []) {
   `).join('')}</div>`;
 }
 
+// Shown wherever it matters, and kept in one place so the pages cannot drift apart.
+export const OWNER_NOTE = 'Layered and Carpenters 匠 have the same owner.';
+const ACCESS_NOTE = 'A firm on a plan or trial sees your phone number and email when it receives your enquiry. Other firms see them only once they unlock it.';
+const PRIVACY_LINK = 'See our <a href="/privacy">privacy policy</a>.';
+export const CONTACT_NOTE = `${ACCESS_NOTE} If no firm has had access, we delete your contact details after 90 days. ${PRIVACY_LINK}`;
+
 export function leadFormHtml(prefill = {}, toBusiness = null) {
   const sel = (v, want) => (v === want ? ' selected' : '');
   return `
   <div class="lead-form-section" id="get-recommendations">
-    <h2>${toBusiness ? `Send an enquiry to ${esc(toBusiness.company_name)}` : 'Get matched with the right interior designer'}</h2>
-    <p class="section-sub">${toBusiness ? 'Tell them about your project. Your enquiry goes to this firm only.' : "Tell us about your project. We'll send your brief to designers who fit."}</p>
+    <h2>${toBusiness ? `Send an enquiry to ${esc(toBusiness.company_name)}` : 'Tell us about your renovation'}</h2>
+    <p class="section-sub">${toBusiness ? 'Tell them about your project. Your enquiry goes to this firm only.' : 'Tell us about your project. Carpenters replies first, and you choose whether other firms may see it.'}</p>
     <form class="panel wide" method="post" action="/leads">
       <input type="hidden" name="category" value="interior-design">
       ${toBusiness ? `<input type="hidden" name="business" value="${esc(toBusiness.slug)}">` : ''}
@@ -126,8 +131,10 @@ export function leadFormHtml(prefill = {}, toBusiness = null) {
         <label for="lf-message">Tell us about your project</label>
         <textarea id="lf-message" name="message" placeholder="e.g. 4-room HDB resale, looking to renovate kitchen and living room, hoping to start in 2 months">${esc(prefill.message || '')}</textarea>
       </div>
-      <p class="muted small">Your phone number and email stay hidden from a firm until that firm unlocks your enquiry. If no firm unlocks it, we delete your contact details after 90 days. See our <a href="/privacy">privacy policy</a>.</p>
-      <button class="btn btn-block" type="submit">Get My Recommendations</button>
+      ${toBusiness ? `<p class="muted small">${toBusiness.house_firm ? `${OWNER_NOTE} ` : ''}${CONTACT_NOTE}</p>` : `<p class="small"><strong>${OWNER_NOTE}</strong> Your enquiry and contact details go to Carpenters first.</p>
+      <div class="field checkbox-row"><input type="checkbox" name="share_ok" id="lf-share" value="1"><label for="lf-share" style="margin:0;">If needed, also share my project and contact details with up to 2 other firms. This happens after 24 hours, or sooner if Carpenters cannot take it.</label></div>
+      <p class="muted small">Leave it unticked and only Carpenters receives your enquiry. If you tick it: ${ACCESS_NOTE} You can ask us to stop before it is shared. ${PRIVACY_LINK}</p>`}
+      <button class="btn btn-block" type="submit">Send my enquiry</button>
     </form>
   </div>`;
 }
@@ -151,15 +158,15 @@ export function quoteFormHtml(category, heading, intro = '', toBusiness = null) 
       </div>
       <div class="field"><label for="qf-type">Property type</label><select id="qf-type" name="property_type"><option value="">Select</option>${PROPERTY_TYPES.map((p) => `<option value="${esc(p)}">${esc(p)}</option>`).join('')}</select></div>
       <div class="field"><label for="qf-message">What do you need?</label><textarea id="qf-message" name="message" placeholder="Describe the job, sizes or quantities, and when you need it done"></textarea></div>
-      <p class="muted small">Your phone number and email stay hidden from a firm until that firm unlocks your enquiry. If no firm unlocks it, we delete your contact details after 90 days. See our <a href="/privacy">privacy policy</a>.</p>
+      <p class="muted small">${CONTACT_NOTE}</p>
       <button class="btn btn-block" type="submit">Request quotes</button>
     </form>
   </div>`;
 }
 
 export async function homeRoute(req, res, ctx) {
-  const featured = db.prepare("SELECT * FROM businesses WHERE category = 'interior-design' ORDER BY featured DESC, created_at DESC LIMIT 6").all();
-  const counts = db.prepare('SELECT (SELECT COUNT(*) FROM businesses WHERE category = \'interior-design\') AS businesses, (SELECT COUNT(*) FROM projects) AS projects, (SELECT COUNT(*) FROM leads) AS leads, (SELECT COUNT(*) FROM posts WHERE status = \'published\') AS posts').get();
+  const featured = db.prepare("SELECT * FROM businesses WHERE category = 'interior-design' AND approved = 1 ORDER BY featured DESC, created_at DESC LIMIT 6").all();
+  const counts = db.prepare('SELECT (SELECT COUNT(*) FROM businesses WHERE category = \'interior-design\' AND approved = 1) AS businesses, (SELECT COUNT(*) FROM projects p JOIN businesses b ON b.id = p.business_id WHERE b.approved = 1) AS projects, (SELECT COUNT(*) FROM leads) AS leads, (SELECT COUNT(*) FROM posts WHERE status = \'published\') AS posts').get();
   const site = ctx.site;
   // The cost tools link here with ?type=...&budget=... (and the room planner with &brief=...) so the brief form starts filled in.
   const q = new URL(req.url, 'http://x').searchParams;
@@ -176,7 +183,7 @@ export async function homeRoute(req, res, ctx) {
         <h1>Find an interior designer for your Singapore home</h1>
         <p class="lead">Compare firms by property type and style, check their HDB licence and CaseTrust credentials, and price your plan before you ask for a quote.</p>
         <div class="hero-cta">
-          <a class="btn" href="#get-recommendations">Get matched</a>
+          <a class="btn" href="#get-recommendations">Send an enquiry</a>
           <a class="btn btn-outline" href="/tools/room-planner">Draw your layout</a>
         </div>
         <p class="hero-note">Free for homeowners. Credentials are self-declared unless a profile shows our checked mark and date. <a href="/guides/renovation-for-beginners-singapore">First time renovating?</a></p>
@@ -201,7 +208,7 @@ export async function homeRoute(req, res, ctx) {
     <div class="steps">
       <div class="step"><b>1</b><h3>Draw your layout</h3><p>Place rooms, wardrobes and kitchen cabinets to scale. Layered works out the floor area and carpentry foot runs.</p><a href="/tools/room-planner">Open the room planner</a></div>
       <div class="step"><b>2</b><h3>Price the plan</h3><p>See an itemised range from 2026 unit rates, with a buffer, before any firm has quoted.</p><a href="/tools/renovation-cost-estimator">Open the cost estimator</a></div>
-      <div class="step"><b>3</b><h3>Compare and request quotes</h3><p>Shortlist designers who do your kind of home, check their credentials, and send one brief to several.</p><a href="/designers">Browse designers</a></div>
+      <div class="step"><b>3</b><h3>Compare and request quotes</h3><p>Shortlist designers who do your kind of home, check their credentials, and send an enquiry.</p><a href="/designers">Browse designers</a></div>
     </div>
   </section>
   <section class="wrap">
@@ -237,7 +244,7 @@ export async function homeRoute(req, res, ctx) {
   `;
   res.end(layout({
     fullTitle: 'Interior Designers & Renovation in Singapore | Layered',
-    description: 'Find and compare trusted interior designers and renovation firms in Singapore for HDB, condo, landed and commercial projects. Get matched free.',
+    description: 'Find and compare trusted interior designers and renovation firms in Singapore for HDB, condo, landed and commercial projects. Enquire free.',
     path: '/', site,
     body, business: ctx.business, flash: ctx.flash,
     jsonLd: [organizationSchema(site), websiteSchema(site)],
@@ -248,7 +255,7 @@ export async function directoryRoute(req, res, ctx, url) {
   const propertyType = url.searchParams.get('property_type') || '';
   const style = url.searchParams.get('style') || '';
   const credential = url.searchParams.get('credential') || '';
-  let sql = "SELECT * FROM businesses WHERE category = 'interior-design'";
+  let sql = "SELECT * FROM businesses WHERE category = 'interior-design' AND approved = 1";
   const params = [];
   if (propertyType) { sql += " AND (',' || property_types || ',') LIKE ?"; params.push(`%,${propertyType},%`); }
   if (style) { sql += " AND (',' || styles || ',') LIKE ?"; params.push(`%,${style},%`); }
@@ -319,7 +326,8 @@ export async function directoryRoute(req, res, ctx, url) {
 export async function designerProfileRoute(req, res, ctx, slug) {
   const site = ctx.site;
   const b = db.prepare('SELECT * FROM businesses WHERE slug = ?').get(slug);
-  if (!b) {
+  // A firm waiting for approval is visible only to itself and to admins.
+  if (!b || (!b.approved && !ctx.isAdmin && ctx.business?.id !== b.id)) {
     res.statusCode = 404;
     res.end(layout({ title: 'Designer not found', noindex: true, site, body: '<div class="wrap" style="padding:60px 0;"><h1>Designer not found</h1><p><a href="/designers">Browse all designers</a></p></div>', business: ctx.business }));
     return;
@@ -394,6 +402,7 @@ export async function designerProfileRoute(req, res, ctx, slug) {
     <div class="grid grid-2 profile-grid">
       <div>
         ${credentialsPanel(b)}
+        ${b.house_firm ? `<p class="muted small">${esc(OWNER_NOTE)}</p>` : ''}
         <h2>About ${esc(b.company_name)}</h2>
         <p>${esc(b.bio) || '<span class="muted">This business hasn\'t added a bio yet.</span>'}</p>
         <h2>Projects (${projects.length})</h2>
@@ -434,24 +443,17 @@ export async function designerProfileRoute(req, res, ctx, slug) {
   }));
 }
 
-// Where a submitted brief goes: interior design briefs match on property type, landed briefs go to up
-// to two each of architects, engineers and builders, and trade requests go to firms in that trade.
-export function matchLead(category, propertyType) {
+// Where a landed or trade request goes: up to two each of architects, engineers and builders, or up to three firms in
+// that trade. General interior design enquiries go through lib/leadRouting.js instead (Carpenters first).
+export const MAX_TRADE_FIRMS = 3;
+export function matchLead(category) {
   if (category === 'landed') {
-    return LANDED_PROS.flatMap((p) => db.prepare('SELECT * FROM businesses WHERE category = ? ORDER BY featured DESC, created_at DESC LIMIT 2').all(p.slug));
+    return LANDED_PROS.flatMap((p) => db.prepare('SELECT * FROM businesses WHERE category = ? AND approved = 1 ORDER BY featured DESC, created_at DESC LIMIT 2').all(p.slug));
   }
   if (category !== DEFAULT_CATEGORY) {
-    return db.prepare('SELECT * FROM businesses WHERE category = ? ORDER BY featured DESC, created_at DESC LIMIT 6').all(category);
+    return db.prepare('SELECT * FROM businesses WHERE category = ? AND approved = 1 ORDER BY featured DESC, created_at DESC LIMIT ?').all(category, MAX_TRADE_FIRMS);
   }
-  let matches = [];
-  if (propertyType) {
-    matches = db.prepare(`SELECT * FROM businesses WHERE category = ? AND (',' || property_types || ',') LIKE ? ORDER BY featured DESC, created_at DESC LIMIT 6`)
-      .all(DEFAULT_CATEGORY, `%,${propertyType},%`);
-  }
-  if (matches.length === 0) {
-    matches = db.prepare('SELECT * FROM businesses WHERE category = ? ORDER BY featured DESC, created_at DESC LIMIT 6').all(DEFAULT_CATEGORY);
-  }
-  return matches;
+  return [];
 }
 
 export async function submitLeadRoute(req, res, ctx, fields) {
@@ -474,30 +476,38 @@ export async function submitLeadRoute(req, res, ctx, fields) {
     propertyType = 'Landed';
   }
 
-  const insertLead = db.prepare(`INSERT INTO leads (name, email, phone, property_type, style, budget_range, location, message, category)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`);
-  const info = insertLead.run(name, email, fields.phone || '', propertyType, fields.style || '', fields.budget_range || '', fields.location || '', message.slice(0, 5000), category);
+  // An enquiry sent from one firm's profile goes to that firm only. If that firm is gone or waiting for approval, say so
+  // rather than passing the homeowner's details to firms they did not choose.
+  const direct = fields.business ? db.prepare('SELECT * FROM businesses WHERE slug = ? AND approved = 1').get(String(fields.business)) : null;
+  if (fields.business && !direct) {
+    res.writeHead(302, { Location: back + '?err=' + encodeURIComponent('That firm is no longer listed on Layered, so your enquiry was not sent.') });
+    res.end();
+    return;
+  }
+  const general = !direct && category === DEFAULT_CATEGORY;
+  const shareOk = general && fields.share_ok === '1';
+
+  const insertLead = db.prepare(`INSERT INTO leads (name, email, phone, property_type, style, budget_range, location, message, category, share_ok, share_ok_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+  const info = insertLead.run(name, email, fields.phone || '', propertyType, fields.style || '', fields.budget_range || '', fields.location || '', message.slice(0, 5000), category, shareOk ? 1 : 0, shareOk ? sqlTime(new Date()) : null);
   const lead = db.prepare('SELECT * FROM leads WHERE id = ?').get(info.lastInsertRowid);
 
-  // An enquiry sent from one firm's profile goes to that firm only; otherwise it goes to the matching firms.
-  const direct = fields.business ? db.prepare('SELECT * FROM businesses WHERE slug = ?').get(String(fields.business)) : null;
-  const matches = direct ? [direct] : matchLead(category, propertyType);
-  const insertMatch = db.prepare('INSERT INTO lead_matches (lead_id, business_id, unlocked_at) VALUES (?, ?, ?)');
-  for (const business of matches) {
-    // Firms with a paid plan or a running trial receive the full details; everyone else gets a masked copy.
-    const open = hasAccountAccess(business);
-    insertMatch.run(lead.id, business.id, open ? new Date().toISOString().replace('T', ' ').slice(0, 19) : '');
-    dispatchLeadNotifications(business, open ? lead : maskLead(lead), { locked: !open }).catch((err) => console.error('notify error', err));
-  }
+  const matches = direct ? [direct] : general ? [] : matchLead(category);
+  for (const business of matches) deliverLead(db, lead, business);
+  const sentToHouse = general && routeDesignLead(db, lead) === 'house';
 
-  const noun = category === DEFAULT_CATEGORY ? 'designer' : category === 'landed' ? 'professional' : 'firm';
-  const msg = matches.length
+  const noun = category === 'landed' ? 'professional' : 'firm';
+  const msg = general
+    ? (sentToHouse
+      ? `Thanks ${name}! Your enquiry has gone to Carpenters, who reply first. ${shareOk ? 'If needed, we may then share it with up to 2 other firms, as you agreed.' : 'It will not be shared with other firms.'}`
+      : `Thanks ${name}! We've received your request and will pass it on soon.`)
+    : matches.length
     ? (direct
-      ? `Thanks ${name}! Your enquiry has been sent to ${direct.company_name}. Your contact details are shared with them only once they unlock it.`
-      : `Thanks ${name}! We've sent your request to ${matches.length} matching ${noun}${matches.length === 1 ? '' : 's'}. Your contact details are shared with a firm only once it unlocks your enquiry.`)
+      ? `Thanks ${name}! Your enquiry has been sent to ${direct.company_name}. They see your contact details now if they are on a plan or trial, or once they unlock it.`
+      : `Thanks ${name}! We've sent your request to ${matches.length} matching ${noun}${matches.length === 1 ? '' : 's'}. A firm sees your contact details now if it is on a plan or trial, or once it unlocks your enquiry.`)
     : `Thanks ${name}! We've received your request. No firms in this category are listed yet, so we'll pass it on as soon as suitable firms join.`;
   // ga_* tell the next page to report one GA4 conversion event (no personal data); see gaSnippet in lib/render.js.
   const ga = `&ga_event=lead&ga_cat=${encodeURIComponent(category)}${direct ? '&ga_direct=1' : ''}`;
-  res.writeHead(302, { Location: back + '?ok=' + encodeURIComponent(msg) + (matches.length ? ga : '') });
+  res.writeHead(302, { Location: back + '?ok=' + encodeURIComponent(msg) + (matches.length || sentToHouse ? ga : '') });
   res.end();
 }

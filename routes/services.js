@@ -6,10 +6,10 @@ import { esc, layout } from '../lib/render.js';
 import { abs, breadcrumbSchema, faqSchema } from '../lib/seo.js';
 import { breadcrumbNav, faqHtml, formatDate } from '../lib/components.js';
 import { TRADES, TRADE_BY_SLUG, LANDED_PROS, LANDED_COSTS, LANDED_SOURCES, LANDED_REVIEWED, landedEstimate } from '../content/trades.js';
-import { designerCard, quoteFormHtml } from './public.js';
+import { CONTACT_NOTE, designerCard, quoteFormHtml } from './public.js';
 
-const firmsIn = (category) => db.prepare('SELECT * FROM businesses WHERE category = ? ORDER BY featured DESC, created_at DESC').all(category);
-const countIn = (category) => db.prepare('SELECT COUNT(*) AS n FROM businesses WHERE category = ?').get(category).n;
+const firmsIn = (category) => db.prepare('SELECT * FROM businesses WHERE category = ? AND approved = 1 ORDER BY featured DESC, created_at DESC').all(category);
+const countIn = (category) => db.prepare('SELECT COUNT(*) AS n FROM businesses WHERE category = ? AND approved = 1').get(category).n;
 const money = (n) => `S$${Math.round(n).toLocaleString('en-SG')}`;
 const pct = ([a, b]) => `${Math.round(a * 100)}% to ${Math.round(b * 100)}%`;
 
@@ -90,7 +90,7 @@ export async function tradeRoute(req, res, ctx, slug) {
         <ul class="check-list">${t.checks.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>
         ${faqHtml(faqs)}
       </div>
-      <div>${quoteFormHtml(t.slug, `Request quotes from ${t.plural.toLowerCase()}`, 'One request, sent to the firms listed here. Free for homeowners.')}</div>
+      <div>${quoteFormHtml(t.slug, `Request quotes from ${t.plural.toLowerCase()}`, 'One request, sent to up to 3 firms in this trade. Free for homeowners.')}</div>
     </div>
     <section class="related"><h2>Other renovation services</h2><ul>
       ${related.map((r) => `<li><a href="/services/${r.slug}">${esc(r.plural)}</a></li>`).join('')}
@@ -216,7 +216,7 @@ export async function landedRoute(req, res, ctx) {
           </div>
           <div class="field"><label for="lb-budget">Budget</label><select id="lb-budget" name="budget_range"><option value="">Not sure yet</option><option>Below $500k</option><option>$500k - $1M</option><option>$1M - $2M</option><option>Above $2M</option></select></div>
           <div class="field"><label for="lb-message">About your project</label><textarea id="lb-message" name="message" placeholder="Plot size, current house, what you want to change, target timeline"></textarea></div>
-          <p class="muted small">Your phone number and email stay hidden from a firm until that firm unlocks your enquiry. If no firm unlocks it, we delete your contact details after 90 days. See our <a href="/privacy">privacy policy</a>.</p>
+          <p class="muted small">${CONTACT_NOTE}</p>
           <button class="btn btn-block" type="submit">Send my brief</button>
         </form>
       </div>

@@ -6,6 +6,7 @@ import { db, PROPERTY_TYPES, STYLES } from '../db.js';
 import { uploadFileFor } from '../lib/paths.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
 import { isAdmin } from '../lib/admin.js';
+import { releaseLead, sharingState } from '../lib/leadRouting.js';
 import { visibleLead, trialEnd } from '../lib/leadAccess.js';
 import { normaliseGoogleReviewsUrl } from '../lib/googleLink.js';
 import { CASETRUST_OPTIONS, normaliseCaseTrust, normaliseHdbLicence } from '../lib/credentials.js';
@@ -17,7 +18,7 @@ export function dashLayout(active, inner, ctx) {
     ['/dashboard/projects', 'Projects'],
     ['/dashboard/articles', 'Articles'],
     ['/dashboard/profile', 'Business Profile'],
-    ...(isAdmin(ctx.business) ? [['/dashboard/blog', 'Blog (admin)'], ['/dashboard/verification', 'Verify credentials'], ['/dashboard/accounts', 'Accounts (admin)'], ['/dashboard/reviews', 'Reviews (admin)']] : []),
+    ...(isAdmin(ctx.business) ? [['/dashboard/blog', 'Blog (admin)'], ['/dashboard/verification', 'Verify credentials'], ['/dashboard/accounts', 'Accounts (admin)'], ['/dashboard/enquiries', 'Enquiries (admin)'], ['/dashboard/reviews', 'Reviews (admin)']] : []),
   ];
   const nav = links.map(([href, label]) => `<a href="${href}" class="${active === href ? 'active' : ''}">${esc(label)}</a>`).join('');
   const body = `
@@ -40,6 +41,7 @@ export async function dashboardHome(req, res, ctx) {
   const recentLeads = recentLeadsRaw.map((l) => visibleLead(l, b, l));
   const inner = `
     <h1>Welcome back, ${esc(b.company_name)}</h1>
+    ${b.approved ? '' : '<div class="dash-card" style="border-left:4px solid #c58a00;"><p style="margin:0;"><strong>Waiting for approval.</strong> We check every new firm before it is listed. Until then your profile is hidden and you receive no enquiries.</p></div>'}
     ${accessBanner(b)}
     <div class="kpi-row">
       <div class="kpi"><b>${leadCount}</b><span>Total leads received</span></div>
@@ -351,12 +353,15 @@ function reviewBlock(row, ctx) {
       <form method="post" action="/dashboard/leads/${row.match_id}/review-invite"><button class="btn btn-sm" type="submit">Invite homeowner to review</button></form>`;
 }
 
+// Only Carpenters, which gets design enquiries first, can pass one on.
+const statusesFor = (b) => ['new', 'contacted', 'won', 'lost', ...(b.house_firm ? ['declined'] : [])];
+
 export async function leadDetailPage(req, res, ctx, matchId) {
   const raw = db.prepare(`SELECT l.*, lm.status, lm.unlocked_at, lm.id as match_id, lm.lead_id AS lead_id FROM lead_matches lm JOIN leads l ON l.id = lm.lead_id WHERE lm.id = ? AND lm.business_id = ?`).get(matchId, ctx.business.id);
   const row = raw && visibleLead(raw, ctx.business, raw);
   if (!row) { res.statusCode = 404; res.end(dashLayout('/dashboard/leads', '<p>Lead not found.</p>', ctx)); return; }
 
-  const statuses = ['new', 'contacted', 'won', 'lost'];
+  const statuses = statusesFor(ctx.business);
   const inner = `
     <p><a href="/dashboard/leads">← Back to leads</a></p>
     ${row.masked ? lockedBox() : ''}
@@ -372,6 +377,7 @@ export async function leadDetailPage(req, res, ctx, matchId) {
           <tr><th>Budget</th><td>${esc(row.budget_range || '-')}</td></tr>
           <tr><th>Location</th><td>${esc(row.location || '-')}</td></tr>
           <tr><th>Submitted</th><td>${esc(row.created_at)}</td></tr>
+          ${ctx.business.house_firm ? `<tr><th>Sharing</th><td>${esc(sharingState(row))}</td></tr>` : ''}
         </tbody>
       </table>
       <h3>Message</h3>
@@ -381,7 +387,7 @@ export async function leadDetailPage(req, res, ctx, matchId) {
       <form method="post" action="/dashboard/leads/${row.match_id}/status">
         <div class="two-col">
           <div class="field">
-            <select name="status">${statuses.map((s) => `<option value="${s}" ${s === row.status ? 'selected' : ''}>${esc(s)}</option>`).join('')}</select>
+            <select name="status">${statuses.map((s) => `<option value="${s}" ${s === row.status ? 'selected' : ''}>${esc(s === 'declined' ? 'not for us (shares it now if the homeowner agreed)' : s)}</option>`).join('')}</select>
           </div>
           <div class="field"><button class="btn" type="submit">Update</button></div>
         </div>
@@ -392,8 +398,13 @@ export async function leadDetailPage(req, res, ctx, matchId) {
 }
 
 export async function leadStatusUpdate(req, res, ctx, matchId, fields) {
-  const status = ['new', 'contacted', 'won', 'lost'].includes(fields.status) ? fields.status : 'new';
-  db.prepare('UPDATE lead_matches SET status = ? WHERE id = ? AND business_id = ?').run(status, matchId, ctx.business.id);
+  const status = statusesFor(ctx.business).includes(fields.status) ? fields.status : 'new';
+  const done = db.prepare('UPDATE lead_matches SET status = ? WHERE id = ? AND business_id = ?').run(status, matchId, ctx.business.id).changes;
+  // Carpenters passing on an enquiry shares it at once, if the homeowner agreed to sharing.
+  if (done && status === 'declined') {
+    const row = db.prepare('SELECT lead_id FROM lead_matches WHERE id = ?').get(matchId);
+    releaseLead(db, row.lead_id, { early: true });
+  }
   res.writeHead(302, { Location: `/dashboard/leads/${matchId}?ok=` + encodeURIComponent('Status updated.') });
   res.end();
 }

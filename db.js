@@ -143,6 +143,22 @@ if (!matchCols.includes('unlocked_at')) {
 }
 if (!leadCols.includes('purged_at')) db.exec('ALTER TABLE leads ADD COLUMN purged_at TEXT');
 
+// Firm approval: a firm that signs up waits (approved = 0) until an admin checks it. Firms already listed stay approved,
+// except one junk sign-up that had gone live by itself. house_firm marks Carpenters, which gets design enquiries first
+// (see lib/leadRouting.js). Both run once, so later admin decisions are kept.
+if (!businessCols.includes('approved')) {
+  db.exec('ALTER TABLE businesses ADD COLUMN approved INTEGER NOT NULL DEFAULT 1');
+  db.exec("UPDATE businesses SET approved = 0 WHERE slug = 'pyeyripvsr'");
+}
+if (!businessCols.includes('house_firm')) {
+  db.exec('ALTER TABLE businesses ADD COLUMN house_firm INTEGER NOT NULL DEFAULT 0');
+  db.exec("UPDATE businesses SET house_firm = 1 WHERE slug = 'carpenters'");
+}
+// The homeowner's sharing choice and the 24-hour release. Old enquiries count as not ticked.
+for (const [col, ddl] of [['share_ok', 'INTEGER NOT NULL DEFAULT 0'], ['share_ok_at', 'TEXT'], ['release_at', 'TEXT'], ['released_at', 'TEXT'], ['held', 'INTEGER NOT NULL DEFAULT 0']]) {
+  if (!leadCols.includes(col)) db.exec(`ALTER TABLE leads ADD COLUMN ${col} ${ddl}`);
+}
+
 if (!businessCols.includes('google_reviews_url')) db.exec("ALTER TABLE businesses ADD COLUMN google_reviews_url TEXT DEFAULT ''");
 
 export const PROPERTY_TYPES = ['HDB', 'Condo', 'Landed', 'Commercial'];

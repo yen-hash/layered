@@ -84,15 +84,15 @@ export async function signupSubmit(req, res, fields) {
 
   const slug = slugify(companyName);
   const passwordHash = hashPassword(password);
-  const info = db.prepare(`INSERT INTO businesses (slug, company_name, email, password_hash, phone, contact_name, property_types, styles, service_areas, notify_phone, category)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(
+  const info = db.prepare(`INSERT INTO businesses (slug, company_name, email, password_hash, phone, contact_name, property_types, styles, service_areas, notify_phone, category, approved)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)`).run(
     slug, companyName, email, passwordHash, fields.phone || '', fields.contact_name || '',
     propertyTypes.join(','), styles.join(','), fields.service_areas || 'Islandwide', fields.phone || '', validCategory(fields.category)
   );
 
   const token = createSessionToken(info.lastInsertRowid);
   setCookie(res, 'session', token, { maxAge: 60 * 60 * 24 * 30 });
-  res.writeHead(302, { Location: '/dashboard?ok=' + encodeURIComponent('Welcome to Layered! Your profile is live — add your first project to start getting leads.') + '&ga_event=signup&ga_cat=' + encodeURIComponent(validCategory(fields.category)) });
+  res.writeHead(302, { Location: '/dashboard?ok=' + encodeURIComponent('Welcome to Layered! We check every new firm before it is listed. Add your profile and projects while you wait.') + '&ga_event=signup&ga_cat=' + encodeURIComponent(validCategory(fields.category)) });
   res.end();
 }
 
