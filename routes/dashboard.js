@@ -6,6 +6,7 @@ import { db, PROPERTY_TYPES, STYLES } from '../db.js';
 import { uploadFileFor } from '../lib/paths.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
 import { isAdmin } from '../lib/admin.js';
+import { leadEmailFor } from '../lib/notify.js';
 import { releaseLead, sharingState } from '../lib/leadRouting.js';
 import { visibleLead, trialEnd } from '../lib/leadAccess.js';
 import { normaliseGoogleReviewsUrl } from '../lib/googleLink.js';
@@ -114,7 +115,7 @@ export async function profilePage(req, res, ctx) {
       <div class="field"><label>Link to your Google reviews <span class="muted small">(optional)</span></label><input type="url" name="google_reviews_url" value="${esc(b.google_reviews_url || '')}" maxlength="500" placeholder="https://maps.app.goo.gl/...">
         <p class="muted small">Open your business on Google Maps, press Share, then Copy link. Your profile will show a "Read our reviews on Google" button that opens it. Layered does not copy or check Google reviews.</p></div>
       <h3>Lead notifications</h3>
-      <div class="field checkbox-row"><input type="checkbox" name="notify_email" id="notify_email" ${b.notify_email ? 'checked' : ''}><label for="notify_email" style="margin:0;">Email me new leads (to ${esc(b.email)})</label></div>
+      <div class="field checkbox-row"><input type="checkbox" name="notify_email" id="notify_email" ${b.notify_email ? 'checked' : ''}><label for="notify_email" style="margin:0;">Email me new leads (to ${esc(leadEmailFor(b))})</label></div>
       <div class="field checkbox-row"><input type="checkbox" name="notify_sms" id="notify_sms" ${b.notify_sms ? 'checked' : ''}><label for="notify_sms" style="margin:0;">WhatsApp/SMS me new leads</label></div>
       <div class="field"><label>WhatsApp/SMS number</label><input type="tel" name="notify_phone" value="${esc(b.notify_phone || '')}" placeholder="+65 9xxx xxxx"></div>
       <button class="btn" type="submit">Save changes</button>
