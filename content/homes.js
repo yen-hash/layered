@@ -15,7 +15,6 @@ export const HOMES = [
   {file: 'living-wembley', room: 'living', place: 'Wembley', w: 1400, h: 933},
   {file: 'living-tengah', room: 'living', place: 'Tengah', w: 1400, h: 1100},
   {file: 'living-ocean-drive', room: 'living', place: 'Ocean Drive', w: 1400, h: 933},
-  {file: 'living-riverfront', room: 'living', place: 'Riverfront', w: 1400, h: 933},
   {file: 'kitchen-bidadari', room: 'kitchen', place: 'Bidadari', w: 1400, h: 932},
   {file: 'kitchen-boon-lay', room: 'kitchen', place: 'Boon Lay', w: 1400, h: 933},
   {file: 'kitchen-bidadari-2', room: 'kitchen', place: 'Bidadari', w: 1400, h: 933},

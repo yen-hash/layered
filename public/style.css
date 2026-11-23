@@ -908,3 +908,6 @@ html:has(body.home) { scroll-behavior: auto; }
 @media (max-width: 720px) { .bp-table { display: block; overflow-x: auto; max-width: 100%; } .dash-layout { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 720px) { h1, h2, h3 { overflow-wrap: break-word; } body:not(.home) h1 { font-size: clamp(1.8rem, 8vw, 2.3rem); } .qc, .qc > *, .calc { min-width: 0; max-width: 100%; } .calc:has(table) { overflow-x: auto; } }
 @media (max-width: 720px) { .calc-section { overflow-x: clip; } }
+
+/* Hidden from people, left in for bots (see antiSpamFields) */
+.hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
