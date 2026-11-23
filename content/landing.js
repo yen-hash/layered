@@ -9,7 +9,7 @@ export const PROPERTY_PAGES = {
     h1: 'HDB interior designers in Singapore',
     description: 'Compare HDB interior designers and renovation firms in Singapore for BTO and resale flats. See portfolios, HDB licence and CaseTrust badges, and send an enquiry.',
     intro: `<p>An HDB flat is the most common home to renovate in Singapore, and the best HDB interior designers know how to make a compact space feel bigger: built-in storage that fits awkward corners, layouts that open up the living and dining areas, and finishes that suit a flat's natural light. They also know the HDB renovation process, including permits and approved working hours.</p>
-<p>Use this page to compare HDB interior design firms and renovation contractors on Layered, then tell us about your BTO or resale flat and we will match you with firms that take on projects like yours.</p>`,
+<p>Use this page to compare HDB interior design firms and renovation contractors on Layered, then send an enquiry about your BTO or resale flat. General enquiries go to Carpenters, who share an owner with Layered, first.</p>`,
     costTitle: 'What does an HDB renovation cost?',
     cost: `<p>In 2026, standard-specification renovations are typically quoted around <strong>$40,000–$55,000 for a 4-room BTO</strong> and <strong>$55,000–$75,000 for a 4-room resale</strong>, with 5-room flats higher. Resale flats cost more because of extra hacking, rewiring and fixture replacement. See the full breakdown in our <a href="/guides/hdb-renovation-cost-singapore">HDB renovation cost guide</a>.</p>`,
     lookFor: [
@@ -58,7 +58,7 @@ export const PROPERTY_PAGES = {
     h1: 'Landed home interior designers in Singapore',
     description: 'Compare interior designers and renovation firms for landed homes in Singapore: terrace, semi-detached and bungalow projects, from interiors to additions.',
     intro: `<p>Renovating a landed home in Singapore, whether a terrace, semi-detached house or bungalow, is closer to a small construction project than a flat refresh. Larger floor plans, multiple levels, outdoor spaces and sometimes structural changes mean you want a firm that can manage design, trades and approvals across a longer timeline.</p>
-<p>Browse landed home interior designers on Layered. Share your property details and we will match you with firms that handle landed projects, including those that coordinate with architects for larger works.</p>`,
+<p>Browse landed home interior designers on Layered. Send an enquiry with your property details, or write to a firm from its profile. Look for firms that handle landed projects, including those that coordinate with architects for larger works.</p>`,
     costTitle: 'Budgeting for a landed home renovation',
     cost: `<p>Landed renovations vary far more than flats because the scope can range from a repaint and new joinery to a full addition and alteration. Costs scale with floor area and with any structural work, so get itemised quotes against a clearly defined scope rather than comparing headline numbers.</p>`,
     lookFor: [

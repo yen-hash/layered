@@ -69,7 +69,7 @@ export async function propertyLandingRoute(req, res, ctx, key) {
     </div>
   </section>`;
 
-  res.end(layout({
+  res.end(layout({ theme: 'evening',
     title: page.title,
     description: page.description,
     path, site,
@@ -122,7 +122,7 @@ export async function styleLandingRoute(req, res, ctx, key) {
     </div>
   </section>`;
 
-  res.end(layout({ title, description, path, site, business: ctx.business, flash: ctx.flash, body, jsonLd: [breadcrumbSchema(site, trail), itemListSchema(site, firms), faqSchema(page.faq)] }));
+  res.end(layout({ theme: 'evening', title, description, path, site, business: ctx.business, flash: ctx.flash, body, jsonLd: [breadcrumbSchema(site, trail), itemListSchema(site, firms), faqSchema(page.faq)] }));
 }
 
 // ----- /guides -----
