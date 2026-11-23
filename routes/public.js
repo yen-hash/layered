@@ -1,4 +1,4 @@
-import { heroPlanSvg } from '../lib/planSvg.js';
+import { HOMES, ROOMS } from '../content/homes.js';
 import { TRADE_BY_SLUG, LANDED_PROS, LANDED_COSTS, CATEGORY_BY_SLUG, DEFAULT_CATEGORY, validCategory } from '../content/trades.js';
 import { db, PROPERTY_TYPES, STYLES, BUDGET_RANGES } from '../db.js';
 import { esc, layout, placeholderIllustration } from '../lib/render.js';
@@ -166,7 +166,6 @@ export function quoteFormHtml(category, heading, intro = '', toBusiness = null) 
 
 export async function homeRoute(req, res, ctx) {
   const featured = db.prepare("SELECT * FROM businesses WHERE category = 'interior-design' AND approved = 1 ORDER BY featured DESC, created_at DESC LIMIT 6").all();
-  const counts = db.prepare('SELECT (SELECT COUNT(*) FROM businesses WHERE category = \'interior-design\' AND approved = 1) AS businesses, (SELECT COUNT(*) FROM projects p JOIN businesses b ON b.id = p.business_id WHERE b.approved = 1) AS projects, (SELECT COUNT(*) FROM leads) AS leads, (SELECT COUNT(*) FROM posts WHERE status = \'published\') AS posts').get();
   const site = ctx.site;
   // The cost tools link here with ?type=...&budget=... (and the room planner with &brief=...) so the brief form starts filled in.
   const q = new URL(req.url, 'http://x').searchParams;
@@ -176,76 +175,71 @@ export async function homeRoute(req, res, ctx) {
     message: (q.get('brief') || '').slice(0, 1000) || undefined,
   };
 
+  const opt = (value, text, want) => `<option value="${esc(value)}"${value === want ? ' selected' : ''}>${esc(text)}</option>`;
+  const homeTypes = [['HDB', 'an HDB flat'], ['Condo', 'a condo'], ['Landed', 'a landed home'], ['Commercial', 'a commercial space']];
+  const roomName = Object.fromEntries(ROOMS);
+  const pic = (h, sizes, lazy = true) => `<img src="/images/homes/${h.file}-s.webp" srcset="/images/homes/${h.file}-s.webp 720w, /images/homes/${h.file}.webp ${h.w}w" sizes="${sizes}" width="${h.w}" height="${h.h}" alt="${esc(roomName[h.room])} in a ${esc(h.place)} home"${lazy ? ' loading="lazy" decoding="async"' : ''}>`;
+  const ask = (h) => `/?brief=${encodeURIComponent(`I like the ${h.room === 'living' ? 'living room' : h.room} in the ${h.place} home on your site.`)}#get-recommendations`;
+  const tile = (h, sizes) => `<a href="${ask(h)}" rel="nofollow" data-room="${h.room}">${pic(h, sizes)}<span>${esc(h.place)}</span></a>`;
+  const [cover, ...homes] = HOMES;
+  // A strip that mixes rooms, then the full wall in a mixed order too (round-robin by room).
+  const byRoom = ROOMS.map(([k]) => homes.filter((h) => h.room === k));
+  const mixed = [];
+  for (let i = 0; mixed.length < homes.length; i += 1) for (const list of byRoom) if (list[i]) mixed.push(list[i]);
   const body = `
-  <section class="hero">
-    <div class="wrap hero-inner">
-      <div class="hero-copy">
-        <h1>Find an interior designer for your Singapore home</h1>
-        <p class="lead">Compare firms by property type and style, check their HDB licence and CaseTrust credentials, and price your plan before you ask for a quote.</p>
-        <div class="hero-cta">
-          <a class="btn" href="#get-recommendations">Send an enquiry</a>
-          <a class="btn btn-outline" href="/tools/room-planner">Draw your layout</a>
-        </div>
-        <p class="hero-note">Free for homeowners. Credentials are self-declared unless a profile shows our checked mark and date. <a href="/guides/renovation-for-beginners-singapore">First time renovating?</a></p>
-      </div>
-      <div class="sheet">
-        ${heroPlanSvg('hdb4')}
-        <div class="sheet-bar">
-          <div class="layer-toggles" role="group" aria-label="Show or hide drawing layers">
-            <button type="button" data-layer="structure" aria-pressed="true" style="--key:#fbfdfb">Structure</button>
-            <button type="button" data-layer="built" aria-pressed="true">Built-ins</button>
-            <button type="button" data-layer="loose" aria-pressed="true" style="--key:#cfe0d8">Furniture</button>
-          </div>
-          <a class="sheet-link" href="/tools/room-planner">Plan your own flat</a>
-        </div>
-      </div>
-    </div>
-    <script>document.querySelectorAll('.layer-toggles button').forEach(function(b){b.addEventListener('click',function(){var on=b.getAttribute('aria-pressed')==='true';b.setAttribute('aria-pressed',String(!on));document.querySelectorAll('.plan-layer[data-layer="'+b.dataset.layer+'"]').forEach(function(l){l.toggleAttribute('hidden',on);});});});</script>
-  </section>
-  <section class="wrap">
-    <h2>From first sketch to a shortlist</h2>
-    <p class="section-sub">The tools are free and work together, so what you draw and price becomes a clear brief.</p>
-    <div class="steps">
-      <div class="step"><b>1</b><h3>Draw your layout</h3><p>Place rooms, wardrobes and kitchen cabinets to scale. Layered works out the floor area and carpentry foot runs.</p><a href="/tools/room-planner">Open the room planner</a></div>
-      <div class="step"><b>2</b><h3>Price the plan</h3><p>See an itemised range from 2026 unit rates, with a buffer, before any firm has quoted.</p><a href="/tools/renovation-cost-estimator">Open the cost estimator</a></div>
-      <div class="step"><b>3</b><h3>Compare and request quotes</h3><p>Shortlist designers who do your kind of home, check their credentials, and send an enquiry.</p><a href="/designers">Browse designers</a></div>
+  <section class="ev-hero">
+    ${pic(cover, '100vw', false).replace('<img ', '<img class="ev-cover" fetchpriority="high" ')}
+    <div class="ev-copy">
+      <h1>Find the home you want to come back to.</h1>
+      <form class="ev-start" action="/#get-recommendations" method="get">
+        <label>I have <select name="type" aria-label="Property type">${homeTypes.map(([v, t]) => opt(v, t, prefill.propertyType)).join('')}</select></label>
+        <label>and about <select name="budget" aria-label="Budget">${BUDGET_RANGES.map((r) => opt(r, r.replace('Below', 'below').replace('Above', 'above'), prefill.budget || '$50k - $100k')).join('')}</select></label>
+        <span>to spend.</span>
+        <button type="submit">Start</button>
+      </form>
     </div>
   </section>
-  <section class="wrap">
-    <h2>Interior designers in Singapore by property type</h2>
-    <p class="section-sub">Whether you are renovating a new BTO, a resale flat, a condo or a landed home, start with firms that do your kind of project.</p>
-    <div class="grid grid-4">
-      ${Object.entries(PROPERTY_PAGES).map(([k, p]) => `<a class="photo-tile" href="/interior-designers/${k}"><img src="/images/tile-${k}.jpg" alt="" width="720" height="540" loading="lazy"><span class="label"><h3>${esc(p.propertyType === 'Commercial' ? 'Commercial' : p.propertyType === 'HDB' ? 'HDB flats' : p.propertyType === 'Condo' ? 'Condos' : 'Landed homes')}</h3><span class="more">Compare designers</span></span></a>`).join('')}
-    </div>
+  <div class="ev-strip" tabindex="0" role="region" aria-label="Homes, scroll sideways">${mixed.slice(0, 12).map((h) => tile(h, '280px')).join('')}</div>
+  <section class="ev-homes" id="homes">
+    <div class="ev-bar"><h2>Homes you can ask about</h2>
+      <div class="ev-rooms" role="group" aria-label="Show rooms"><button type="button" data-show="" aria-pressed="true">All homes</button>${ROOMS.map(([k, t]) => `<button type="button" data-show="${k}" aria-pressed="false">${t}</button>`).join('')}</div></div>
+    <div class="ev-wall">${mixed.slice(0, 41).map((h) => tile(h, '(max-width: 720px) 50vw, 33vw')).join('')}</div>
+    <p class="ev-note">Homes by Carpenters. ${OWNER_NOTE} Tap a home to ask about it.</p>
   </section>
+  <script>(function(){var w=document.querySelector('.ev-wall'),bs=document.querySelectorAll('.ev-rooms button');bs.forEach(function(b){b.addEventListener('click',function(){var r=b.dataset.show;bs.forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});w.classList.toggle('filtered',!!r);w.querySelectorAll('a').forEach(function(a){a.hidden=!!r&&a.dataset.room!==r})})})})();</script>
+  <section class="wrap ev-form">${leadFormHtml(prefill)}</section>
   <section class="wrap">
-    <h2>Featured designers</h2>
-    <p class="section-sub">A snapshot of firms on Layered right now.</p>
+    <h2>Designers on Layered</h2>
+    <p class="section-sub">Compare their work, and check their HDB licence and CaseTrust details.</p>
     <div class="grid grid-3">${featured.map(designerCard).join('') || '<p class="muted">No designers listed yet.</p>'}</div>
-    <p style="margin-top:20px"><a href="/designers">Browse the full directory →</a></p>
+    <p style="margin-top:20px"><a href="/designers">Browse the full directory</a></p>
   </section>
   <section class="wrap">
-    <h2>Everything else your renovation needs</h2>
-    <div class="grid grid-2 home-beyond">
-      <a class="card landed-feature" href="/landed"><div class="body"><span class="eyebrow">Premium</span><h3>Landed A&amp;A and rebuild</h3><p>Architects, structural engineers and landed builders, with 2026 costs, approvals and timelines.</p><span class="more">Explore landed →</span></div></a>
-      <a class="card" href="/services"><div class="body"><h3>Renovation services</h3><p>Lighting, curtains and blinds, movers, aircon, flooring, electricians, plumbers and post-renovation cleaning.</p><span class="more">Find a trade →</span></div></a>
+    <h2>Plan it yourself first</h2>
+    <p class="section-sub">Free tools that work together, so what you draw and price becomes a clear brief.</p>
+    <div class="steps">
+      <div class="step"><h3>Draw your layout</h3><p>Place rooms, wardrobes and kitchen cabinets to scale. Layered works out the floor area and carpentry foot runs.</p><a href="/tools/room-planner">Open the room planner</a></div>
+      <div class="step"><h3>Price the plan</h3><p>See an itemised range from 2026 unit rates, with a buffer, before any firm has quoted.</p><a href="/tools/renovation-cost-estimator">Open the cost estimator</a></div>
+      <div class="step"><h3>Quick budget</h3><p>Estimate an HDB, condo, kitchen and bathroom or office budget from 2026 price ranges.</p><a href="/tools/renovation-cost-calculator">Open the cost calculator</a></div>
     </div>
   </section>
   <section class="wrap">
-    <h2>Renovation guides for Singapore homeowners</h2>
+    <h2>By type of home</h2>
+    <div class="ev-links">${Object.entries(PROPERTY_PAGES).map(([k, p]) => `<a href="/interior-designers/${k}">${esc(p.propertyType === 'HDB' ? 'HDB flats' : p.propertyType === 'Condo' ? 'Condos' : p.propertyType === 'Landed' ? 'Landed homes' : 'Commercial')}</a>`).join('')}<a href="/landed">Landed A&amp;A and rebuild</a><a href="/services">Lighting, aircon, movers and more</a></div>
+  </section>
+  <section class="wrap">
+    <h2>Renovation guides</h2>
     <p class="section-sub">Costs, permits and how to pick the right firm, explained in plain English.</p>
     <div class="grid grid-3">
-      ${GUIDES.slice(0, 3).map((g) => `<a class="card guide-card" href="/guides/${g.slug}"><div class="body"><h3>${esc(g.title)}</h3><p>${esc(g.summary)}</p><span class="more">Read the guide →</span></div></a>`).join('')}
+      ${GUIDES.slice(0, 3).map((g) => `<a class="card guide-card" href="/guides/${g.slug}"><div class="body"><h3>${esc(g.title)}</h3><p>${esc(g.summary)}</p></div></a>`).join('')}
     </div>
-    <p style="margin-top:20px"><a href="/guides">All renovation guides →</a></p>
-    <a class="card calc-banner" href="/tools/renovation-cost-calculator"><span><strong>Free renovation cost calculator</strong><br><span class="muted">Estimate an HDB, condo, kitchen and bathroom or office budget from 2026 price ranges.</span></span><span class="more">Try it →</span></a>
+    <p style="margin-top:20px"><a href="/guides">All renovation guides</a></p>
   </section>
-  <section class="wrap">${leadFormHtml(prefill)}</section>
   `;
   res.end(layout({
     fullTitle: 'Interior Designers & Renovation in Singapore | Layered',
     description: 'Find and compare trusted interior designers and renovation firms in Singapore for HDB, condo, landed and commercial projects. Enquire free.',
-    path: '/', site,
+    path: '/', site, theme: 'evening home',
     body, business: ctx.business, flash: ctx.flash,
     jsonLd: [organizationSchema(site), websiteSchema(site)],
   }));
@@ -316,6 +310,7 @@ export async function directoryRoute(req, res, ctx, url) {
     <div class="grid grid-3">${list.map(designerCard).join('') || '<p class="muted">No designers match those filters yet.</p>'}</div>
   </section>`;
   res.end(layout({
+    theme: 'evening',
     title: 'Interior Designers in Singapore: Compare Firms',
     description: 'Browse interior designers and renovation firms in Singapore. Filter by HDB, condo, landed or commercial, by style, and by HDB licence and CaseTrust credentials.',
     path, robots, site: ctx.site, body, business: ctx.business, flash: ctx.flash,
@@ -435,6 +430,7 @@ export async function designerProfileRoute(req, res, ctx, slug) {
   document.querySelectorAll('.lb-open').forEach(function(b){b.addEventListener('click',function(){img.src=b.dataset.src;img.alt=b.querySelector('img').alt;cap.textContent=b.dataset.caption;d.showModal()})});
   d.querySelector('.lb-close').addEventListener('click',function(){d.close()});d.addEventListener('click',function(e){if(e.target===d)d.close()});})();</script>`;
   res.end(layout({
+    theme: 'evening',
     fullTitle: (`${b.company_name} | Interior Designer in Singapore`.length <= 62 ? `${b.company_name} | Interior Designer in Singapore` : `${b.company_name} | Interior Designer`).slice(0, 62),
     description, path, site,
     image: projects.find((p) => p.cover_image)?.cover_image || logo || undefined,
