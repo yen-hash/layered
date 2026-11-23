@@ -24,7 +24,8 @@ import { calculatorRoute, estimatorRoute, plannerRoute } from './routes/tools.js
 import { forDesignersRoute, howItWorksRoute } from './routes/trust.js';
 import { resourcesRoute, quizRoute, budgetPlannerRoute, quoteCompareRoute } from './routes/resources.js';
 import { verificationList, verificationAction } from './routes/verification.js';
-import { accountsList, accountReset, accountAccess, accountLeads, accountLeadToggle, accountDeletePage, accountDelete } from './routes/accounts.js';
+import { accountsList, accountReset, accountAccess, accountLeads, accountLeadToggle, accountDeletePage, accountDelete, accountApprove } from './routes/accounts.js';
+import { enquiriesPage, enquiryStop } from './routes/enquiries.js';
 import { infoPageRoute } from './routes/pages.js';
 import { startPublisher } from './lib/schedule.js';
 import { servicesIndexRoute, tradeRoute, landedRoute } from './routes/services.js';
@@ -316,6 +317,11 @@ async function router(req, res) {
         const { fields } = await parseForm(req);
         return await accountDelete(req, res, ctx, Number(acctDel[1]), fields);
       }
+      const acctOk = url.pathname.match(/^\/dashboard\/accounts\/(\d+)\/(approve|hide)$/);
+      if (req.method === 'POST' && acctOk) return await accountApprove(req, res, ctx, Number(acctOk[1]), acctOk[2] === 'approve');
+      if (req.method === 'GET' && url.pathname === '/dashboard/enquiries') return await enquiriesPage(req, res, ctx);
+      const enqStop = url.pathname.match(/^\/dashboard\/enquiries\/(\d+)\/stop$/);
+      if (req.method === 'POST' && enqStop) return await enquiryStop(req, res, ctx, Number(enqStop[1]));
       const acctLeads = url.pathname.match(/^\/dashboard\/accounts\/(\d+)\/leads$/);
       if (req.method === 'GET' && acctLeads) return await accountLeads(req, res, ctx, Number(acctLeads[1]));
       const acctLeadTog = url.pathname.match(/^\/dashboard\/accounts\/(\d+)\/leads\/(\d+)\/(lock|unlock)$/);

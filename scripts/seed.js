@@ -82,8 +82,8 @@ const sample = [
   },
 ];
 
-const insertBusiness = db.prepare(`INSERT INTO businesses (slug, company_name, email, password_hash, phone, contact_name, property_types, styles, service_areas, bio, logo_url, featured, notify_phone)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+const insertBusiness = db.prepare(`INSERT INTO businesses (slug, company_name, email, password_hash, phone, contact_name, property_types, styles, service_areas, bio, logo_url, featured, notify_phone, house_firm)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
 const insertProject = db.prepare(`INSERT INTO projects (business_id, title, property_type, style, description, cover_image) VALUES (?, ?, ?, ?, ?, ?)`);
 
 function seedFirm(s) {
@@ -91,7 +91,7 @@ function seedFirm(s) {
   const passwordHash = s.passwordHash || hashPassword(DEMO_PASSWORD);
   const info = insertBusiness.run(
     slug, s.company_name, s.email, passwordHash, s.phone, s.contact_name,
-    s.property_types, s.styles, s.service_areas, s.bio, s.logoUrl || '', s.featured ? 1 : 0, s.phone
+    s.property_types, s.styles, s.service_areas, s.bio, s.logoUrl || '', s.featured ? 1 : 0, s.phone, s.real ? 1 : 0
   );
   for (const p of s.projects) {
     insertProject.run(info.lastInsertRowid, p.title, p.property_type, p.style, p.description, p.cover_image || null);

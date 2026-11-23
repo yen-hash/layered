@@ -7,7 +7,7 @@ export const PROPERTY_PAGES = {
     propertyType: 'HDB',
     title: 'HDB Interior Designers in Singapore',
     h1: 'HDB interior designers in Singapore',
-    description: 'Compare HDB interior designers and renovation firms in Singapore for BTO and resale flats. See portfolios, HDB licence and CaseTrust badges, and get matched.',
+    description: 'Compare HDB interior designers and renovation firms in Singapore for BTO and resale flats. See portfolios, HDB licence and CaseTrust badges, and send an enquiry.',
     intro: `<p>An HDB flat is the most common home to renovate in Singapore, and the best HDB interior designers know how to make a compact space feel bigger: built-in storage that fits awkward corners, layouts that open up the living and dining areas, and finishes that suit a flat's natural light. They also know the HDB renovation process, including permits and approved working hours.</p>
 <p>Use this page to compare HDB interior design firms and renovation contractors on Layered, then tell us about your BTO or resale flat and we will match you with firms that take on projects like yours.</p>`,
     costTitle: 'What does an HDB renovation cost?',
@@ -32,7 +32,7 @@ export const PROPERTY_PAGES = {
     propertyType: 'Condo',
     title: 'Condo Interior Designers in Singapore',
     h1: 'Condo interior designers in Singapore',
-    description: 'Find condo interior designers and renovation firms in Singapore. Compare portfolios for new launch and resale condos, and get matched with firms for your unit.',
+    description: 'Find condo interior designers and renovation firms in Singapore. Compare portfolios for new launch and resale condos, and send an enquiry for your unit.',
     intro: `<p>Condo renovations are shaped by the unit's size and finish level and by the development's own rules. A designer who has already worked in your condo or one like it will know the management corporation's approval process, the deposit, the work-hour limits and how to protect the common areas, which keeps the project on schedule.</p>
 <p>Browse condo interior designers on Layered, then share your unit details and we will connect you with firms that handle condo projects like yours, from a new launch fit-out to a full resale renovation.</p>`,
     costTitle: 'What does a condo renovation cost?',
@@ -80,9 +80,9 @@ export const PROPERTY_PAGES = {
     propertyType: 'Commercial',
     title: 'Commercial Interior Designers in Singapore',
     h1: 'Commercial interior designers in Singapore',
-    description: 'Find commercial interior designers and fit-out contractors in Singapore for offices, retail and F&B. Compare portfolios and get matched.',
+    description: 'Find commercial interior designers and fit-out contractors in Singapore for offices, retail and F&B. Compare portfolios and enquire free.',
     intro: `<p>A commercial fit-out has to look good and work hard: it needs to reflect your brand, support the way your team or customers use the space and open on time. Commercial interior designers in Singapore handle offices, retail shops and food and beverage outlets, working within landlord requirements and any regulatory approvals your space needs.</p>
-<p>Browse commercial interior design firms on Layered, then tell us about your space and timeline to get matched with firms that have delivered similar fit-outs.</p>`,
+<p>Browse commercial interior design firms on Layered, then tell us about your space and timeline, or send an enquiry from a firm\'s profile.</p>`,
     costTitle: 'Budgeting for a commercial fit-out',
     cost: `<p>Commercial costs depend on the type of space (office, retail, F&amp;B), its size, the level of mechanical and electrical work, and the finish level. Agree a clear scope and ask each firm to itemise design, build, furniture and approvals so quotes can be compared fairly.</p>`,
     lookFor: [

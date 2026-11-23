@@ -127,7 +127,7 @@ export async function blogPostRoute(req, res, ctx, slug) {
         ${tags.length ? `<p class="tag-row">${tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</p>` : ''}
         <div class="cta-box">
           <h2>Ready to find a designer?</h2>
-          <p>Compare Singapore interior designers and renovation firms, then get matched for free.</p>
+          <p>Compare Singapore interior designers and renovation firms, then send an enquiry for free.</p>
           <p><a class="btn btn-sm" href="/interior-designers/hdb">HDB designers</a> <a class="btn btn-sm" href="/interior-designers/condo">Condo designers</a> <a class="btn btn-sm btn-outline" href="/guides/renovation-checklist-singapore">Renovation checklist</a></p>
         </div>
       </div>

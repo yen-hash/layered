@@ -34,7 +34,7 @@ export async function propertyLandingRoute(req, res, ctx, key) {
   const site = ctx.site;
   if (!page) return notFound(res, ctx, site);
   const path = `/interior-designers/${key}`;
-  const firms = db.prepare("SELECT * FROM businesses WHERE category = 'interior-design' AND (',' || property_types || ',') LIKE ? ORDER BY featured DESC, created_at DESC").all(`%,${page.propertyType},%`);
+  const firms = db.prepare("SELECT * FROM businesses WHERE category = 'interior-design' AND approved = 1 AND (',' || property_types || ',') LIKE ? ORDER BY featured DESC, created_at DESC").all(`%,${page.propertyType},%`);
   const trail = [{ name: 'Home', path: '/' }, { name: 'Interior designers', path: '/designers' }, { name: page.title.replace(' in Singapore', ''), path }];
   const others = Object.entries(PROPERTY_PAGES).filter(([k]) => k !== key)
     .map(([k, p]) => `<li><a href="/interior-designers/${k}">${esc(p.title)}</a></li>`).join('');
@@ -87,7 +87,7 @@ export async function styleLandingRoute(req, res, ctx, key) {
   if (!page) return notFound(res, ctx, site);
   const path = `/interior-designers/style/${key}`;
   const title = `${page.style} Interior Designers in Singapore`;
-  const firms = db.prepare("SELECT * FROM businesses WHERE category = 'interior-design' AND (',' || styles || ',') LIKE ? ORDER BY featured DESC, created_at DESC").all(`%,${page.style},%`);
+  const firms = db.prepare("SELECT * FROM businesses WHERE category = 'interior-design' AND approved = 1 AND (',' || styles || ',') LIKE ? ORDER BY featured DESC, created_at DESC").all(`%,${page.style},%`);
   const trail = [{ name: 'Home', path: '/' }, { name: 'Interior designers', path: '/designers' }, { name: `${page.style} style`, path }];
   const otherStyles = Object.entries(STYLE_PAGES).filter(([k]) => k !== key).map(([k, s]) => `<li><a href="/interior-designers/style/${k}">${esc(s.style)} interior designers</a></li>`).join('');
   const types = Object.entries(PROPERTY_PAGES).map(([k, p]) => `<li><a href="/interior-designers/${k}">${esc(p.title)}</a></li>`).join('');
@@ -182,8 +182,8 @@ export async function guideRoute(req, res, ctx, slug) {
     ${faqHtml(g.faqs)}
     <div class="cta-box">
       <h2>Find a designer for your home</h2>
-      <p>Compare Singapore interior designers and renovation firms, then get matched for free.</p>
-      <p>${g.links.map(([h, l]) => `<a class="btn btn-sm" href="${h}">${esc(l)}</a>`).join(' ')} <a class="btn btn-sm btn-outline" href="/#get-recommendations">Get matched</a></p>
+      <p>Compare Singapore interior designers and renovation firms, then send an enquiry for free.</p>
+      <p>${g.links.map(([h, l]) => `<a class="btn btn-sm" href="${h}">${esc(l)}</a>`).join(' ')} <a class="btn btn-sm btn-outline" href="/#get-recommendations">Send an enquiry</a></p>
     </div>
     <section class="related"><h2>Related guides</h2><ul>${guideLinks(g.related)}</ul></section>
   </article>`;
@@ -247,8 +247,8 @@ export async function checklistRoute(req, res, ctx) {
     ${faqHtml(c.faqs)}
     <div class="cta-box">
       <h2>Find a designer you can check</h2>
-      <p>Compare Singapore interior designers and renovation firms, filter by HDB licence and CaseTrust credentials, then get matched for free.</p>
-      <p><a class="btn btn-sm" href="/designers">Browse designers</a> <a class="btn btn-sm btn-outline" href="/#get-recommendations">Get matched</a></p>
+      <p>Compare Singapore interior designers and renovation firms, filter by HDB licence and CaseTrust credentials, then send an enquiry for free.</p>
+      <p><a class="btn btn-sm" href="/designers">Browse designers</a> <a class="btn btn-sm btn-outline" href="/#get-recommendations">Send an enquiry</a></p>
     </div>
     <section class="related"><h2>Related reading</h2><ul>
       <li><a href="/guides/how-to-choose-an-interior-designer-singapore">How to choose an interior designer</a></li>

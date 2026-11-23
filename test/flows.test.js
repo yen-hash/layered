@@ -39,6 +39,10 @@ const lastInLog = (re, needle) => {
   return m && m[1];
 };
 
+const rowOf = async (name) => (await (await req('GET', '/dashboard/accounts', { cookie: admin })).text()).split('<tr>').find((r) => r.includes(`<strong>${name}</strong>`)) || '';
+const idOf = (row) => /\/dashboard\/accounts\/(\d+)\//.exec(row)[1];
+const approve = async (name, action = 'approve', cookie = admin) => post(`/dashboard/accounts/${idOf(await rowOf(name))}/${action}`, cookie, {});
+
 before(async () => {
   spawnSync(process.execPath, ['scripts/seed.js'], { env });
   server = spawn(process.execPath, ['server.js'], { env, stdio: 'ignore' });
@@ -48,8 +52,16 @@ before(async () => {
   const a = await post('/signup', '', { company_name: `Admin Studio ${tag}`, email: 'admin@flows.test', password: 'Passw0rd!admin' });
   admin = cookieOf(a);
   assert.ok(firm.includes('session=') && admin.includes('session='), 'signups should log in');
+  // New firms wait for approval, so nothing is public yet.
+  assert.equal((await req('GET', `/designers/flow-studio-${tag}`)).status, 404, 'a new firm is not listed');
+  assert.match(loc(await approve(`Flow Studio ${tag}`)), /now listed/);
+  assert.match(loc(await approve(`Admin Studio ${tag}`)), /now listed/);
 });
-after(() => { if (server) server.kill(); fs.rmSync(TMP, { recursive: true, force: true }); });
+after(async () => {
+  // Windows keeps the database file locked until the server has really exited.
+  if (server && server.exitCode === null) { const gone = new Promise((r) => server.once('exit', r)); server.kill(); await gone; }
+  fs.rmSync(TMP, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
+});
 
 test('profile saves with credentials', async () => {
   const fd = new FormData();
@@ -111,7 +123,7 @@ test('admin verifies a credential and it shows publicly', async () => {
 });
 
 test('reviews: enquiry, won, invite, one-time review, moderation, public', async () => {
-  const lead = await post('/leads', '', { name: 'Home Owner', email: homeEmail, property_type: 'HDB', message: 'Need help with a flat.' });
+  const lead = await post('/leads', '', { name: 'Home Owner', email: homeEmail, property_type: 'HDB', message: 'Need help with a flat.', business: `flow-studio-${tag}` });
   assert.equal(lead.status, 302);
   const leads = await (await req('GET', '/dashboard/leads', { cookie: firm })).text();
   const matchId = /\/dashboard\/leads\/(\d+)"/.exec(leads)[1];
@@ -198,6 +210,7 @@ test('admin can delete a duplicate firm; name must match; self-delete refused', 
   const dupEmail = `dup-${tag}@flows.test`;
   const dupName = `Dup Studio ${tag}`;
   await post('/signup', '', { company_name: dupName, email: dupEmail, password: 'Passw0rd!dup1' });
+  await approve(dupName);
   const accts = await (await req('GET', '/dashboard/accounts', { cookie: admin })).text();
   const row = accts.split('<tr>').find((r) => r.includes(`<strong>${dupName}</strong>`));
   const id = /\/dashboard\/accounts\/(\d+)\/delete/.exec(row)[1];
@@ -268,4 +281,48 @@ test('a firm\'s uploaded logo shows on the directory card (uploads live outside 
   assert.match(mine, /class="logo-badge"><img src="\/uploads\//, 'logo badge appears on the card');
   const src = /class="logo-badge"><img src="([^"]+)"/.exec(mine)[1];
   assert.equal((await req('GET', src)).status, 200, 'and the file is served');
+});
+
+test('a new firm is hidden until an admin approves it, and gets no enquiries meanwhile', async () => {
+  // Uses the firm signed up in the conversion-events test: sign-up is limited to 5 an hour per visitor.
+  const name = `Event Co ${tag}`;
+  const cookie = cookieOf(await post('/login', '', { email: `evco-${tag}@flows.test`, password: 'Passw0rd!evco' }));
+  assert.ok(cookie.includes('session='));
+  const slug = `event-co-${tag}`;
+  const html = async (p, c = '') => (await req('GET', p, { cookie: c })).text();
+  assert.equal((await req('GET', `/designers/${slug}`)).status, 404);
+  assert.equal((await req('GET', `/designers/${slug}`, { cookie })).status, 200, 'the firm can preview its own profile');
+  for (const p of ['/', '/designers', '/interior-designers/hdb', '/sitemap.xml', `/compare?d=${slug}`]) assert.ok(!(await html(p)).includes(name) && !(await html(p)).includes(`/designers/${slug}<`), `${p} must not list it`);
+  assert.match(await html('/dashboard', cookie), /Waiting for approval/);
+  const refused = await req('POST', '/leads', { body: form({ name: 'H', email: `nb-${tag}@flows.test`, business: slug }), headers: { 'content-type': 'application/x-www-form-urlencoded', 'x-forwarded-for': '203.0.113.8' } });
+  assert.match(loc(refused), /no longer listed/);
+  assert.equal((await approve(name, 'approve', cookie)).status, 403, 'a firm cannot approve itself');
+  assert.match(loc(await approve(name)), /now listed/);
+  assert.equal((await req('GET', `/designers/${slug}`)).status, 200);
+  assert.match(loc(await approve(name, 'hide')), /now hidden/);
+  assert.equal((await req('GET', `/designers/${slug}`)).status, 404);
+  assert.match(loc(await approve('Carpenters 匠', 'hide')), /cannot be hidden/);
+  assert.match(loc(await approve(`Admin Studio ${tag}`, 'hide')), /cannot hide/);
+});
+
+test('general enquiry: Carpenters first, admin sees the state and can stop sharing', async () => {
+  const home = await (await req('GET', '/')).text();
+  assert.match(home, /Layered and Carpenters 匠 have the same owner/);
+  assert.match(home, /<input type="checkbox" name="share_ok" id="lf-share" value="1">/, 'the box is there and not ticked');
+  const profile = await (await req('GET', `/designers/flow-studio-${tag}`)).text();
+  assert.ok(!profile.includes('name="share_ok"'), 'no sharing box on one firm\'s own form');
+  // Another visitor: enquiries are limited to 5 an hour per address.
+  const sent = await req('POST', '/leads', { body: form({ name: 'Zelda Homeowner', email: `zh-${tag}@flows.test`, phone: '91112222', property_type: 'HDB', share_ok: '1' }), headers: { 'content-type': 'application/x-www-form-urlencoded', 'x-forwarded-for': '203.0.113.9' } });
+  assert.match(loc(sent), /gone to Carpenters/);
+  assert.ok(!(await (await req('GET', '/dashboard/leads', { cookie: firm })).text()).includes('Zelda'), 'other firms do not have it yet');
+  assert.equal((await req('GET', '/dashboard/enquiries', { cookie: firm })).status, 403);
+  const page = await (await req('GET', '/dashboard/enquiries', { cookie: admin })).text();
+  const row = page.split('<tr>').find((r) => r.includes('Zelda H.'));
+  assert.match(row, /Carpenters/);
+  assert.match(row, /May be shared from/);
+  assert.ok(!page.includes(`zh-${tag}`) && !page.includes('91112222'), 'no contact details on the admin list');
+  const id = /enquiries\/(\d+)\/stop/.exec(row)[1];
+  assert.equal((await post(`/dashboard/enquiries/${id}/stop`, firm, {})).status, 403);
+  assert.match(loc(await post(`/dashboard/enquiries/${id}/stop`, admin, {})), /will not be shared/);
+  assert.match((await (await req('GET', '/dashboard/enquiries', { cookie: admin })).text()).split('<tr>').find((r) => r.includes('Zelda H.')), /Not shared with other firms/);
 });

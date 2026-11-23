@@ -31,10 +31,14 @@ before(async () => {
   const res = await fetch(BASE + '/login', { method: 'POST', redirect: 'manual', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: 'email=contact%40warmhaus.example&password=password123' });
   cookie = (res.headers.getSetCookie?.() || []).map((c) => c.split(';')[0]).join('; ');
   assert.ok(cookie.includes('session='), 'login should set a session cookie');
-  await fetch(BASE + '/leads', { method: 'POST', redirect: 'manual', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: 'name=Smoke+Tester&email=smoke%40home.test&property_type=HDB&message=Hello' });
+  await fetch(BASE + '/leads', { method: 'POST', redirect: 'manual', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: 'name=Smoke+Tester&email=smoke%40home.test&property_type=HDB&message=Hello&business=warmhaus-living' });
 });
 
-after(() => { if (server) server.kill(); fs.rmSync(TMP, { recursive: true, force: true }); });
+after(async () => {
+  // Windows keeps the database file locked until the server has really exited.
+  if (server && server.exitCode === null) { const gone = new Promise((r) => server.once('exit', r)); server.kill(); await gone; }
+  fs.rmSync(TMP, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
+});
 
 test('public pages return 200', async () => {
   for (const p of ['/', '/designers', '/designers/warmhaus-living', '/blog', '/blog/qanvast-alternative-singapore', '/guides', '/guides/renovation-checklist-singapore', '/tools/renovation-cost-calculator', '/tools/renovation-cost-estimator', '/tools/room-planner', '/tools/renovation-budget-planner', '/tools/renovation-quote-comparison', '/resources', '/for-designers', '/how-layered-works', '/tools/design-style-quiz', '/downloads/layered-renovation-budget-planner.xlsx', '/downloads/layered-renovation-checklist.pdf', '/downloads/layered-renovation-contract-checklist.pdf', '/favicon.ico', '/site.webmanifest', '/services', '/services/lighting', '/services/electrician', '/landed', '/planner.js', '/fonts/familjen-grotesk-normal.woff2', '/fonts/literata-normal.woff2', '/about', '/privacy', '/terms', '/compare?d=warmhaus-living,northgate-design-studio', '/login', '/signup', '/forgot', '/sitemap.xml', '/robots.txt']) {
@@ -74,6 +78,12 @@ test('trust pages state the real terms', async () => {
   const how = await (await fetch(`${BASE}/how-layered-works`)).text();
   assert.match(how, /after 90 days/);
   assert.match(how, /Featured/);
+  assert.match(how, /have the same owner/);
+  assert.ok(!/recommend one firm over another/.test(how));
+  const privacy = await (await fetch(`${BASE}/privacy`)).text();
+  assert.match(privacy, /up to 2 other firms/);
+  assert.ok(!/<p>We do not sell your personal data\.<\/p>/.test(privacy), 'firms may pay to unlock, so say so');
+  for (const p of ['/', '/services/lighting', '/landed']) assert.ok(!/stay hidden from a firm until that firm unlocks/.test(await (await fetch(BASE + p)).text()), p);
   const terms = await (await fetch(`${BASE}/terms`)).text();
   assert.match(terms, /Plans, trials and enquiries/);
 });
